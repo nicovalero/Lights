@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualBasic;
 using Newtonsoft.Json;
+using PhilipsHueAPI.Models.Enums;
 using PhilipsHueAPI.Models.Interfaces;
 using System.Text;
 
@@ -30,17 +31,22 @@ namespace PhilipsHueAPI.Models.Classes
             _username = username;
         }
 
-        public string GetName()
+        public string GetDeviceType()
         {
             return this.devicetype;
         }
 
-        public async Task<bool> SetNewDeveloperAsync(HueEndpoint endpoint)
+        public string GetUsername()
+        {
+            return _username;
+        }
+
+        public async Task<bool> SetNewDeveloperAsync(Uri URL, HueEndpoint endpoint)
         {
             var json = JsonConvert.SerializeObject(this);
             var data = new StringContent(json, Encoding.UTF8, "application/json");
 
-            var contents = await HTTPMessenger.SendRequestAsync(endpoint, data);
+            var contents = await HueEndpointMessenger.SendRequest(URL, endpoint, content: data);
             if (contents != null)
             {
                 ParseResponseContent(contents);
@@ -50,11 +56,6 @@ namespace PhilipsHueAPI.Models.Classes
             }
 
             return false;
-        }
-
-        public string GetUsername()
-        {
-            return _username;
         }
 
         private void ParseResponseContent(string content)

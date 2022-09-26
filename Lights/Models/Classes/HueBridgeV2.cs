@@ -5,6 +5,7 @@ using System.Reflection.Metadata.Ecma335;
 using System.Net;
 using System.Text;
 using Newtonsoft.Json;
+using PhilipsHueAPI.Models.Enums;
 
 namespace PhilipsHueAPI.Models.Classes
 {
@@ -15,6 +16,8 @@ namespace PhilipsHueAPI.Models.Classes
         private Dictionary<string, HueColorLight> _lights;
         private Dictionary<int, Group> _groups;
         private HueDeveloper _developer;
+
+        public Uri URL { get { return _URL; } set { _URL = value; } }
         public HueDeveloper developer { get { return _developer; } set { _developer = value; } }
         public Dictionary<string, HueColorLight> lights { get { return _lights; } set { _lights = value; } }
 
@@ -34,7 +37,7 @@ namespace PhilipsHueAPI.Models.Classes
 
         public void AddLight(string key, HueLight light)
         {
-            _lights.Add(key, light);
+            _lights.Add(key, (HueColorLight)light);
         }
 
         public void AddScene(int key, Scene scene)
@@ -65,8 +68,7 @@ namespace PhilipsHueAPI.Models.Classes
 
         public bool SetNewDeveloper()
         {
-            HuePublicEndpoint endpoint = new HuePublicEndpoint(_URL + "api", HttpMethod.Post);
-            developer.SetNewDeveloperAsync(endpoint).Wait();
+            developer.SetNewDeveloperAsync(URL, HueEndpoint.NEWDEVELOPER).Wait();
 
             if (!string.IsNullOrEmpty(developer.GetUsername()))
                 return true;
@@ -76,12 +78,7 @@ namespace PhilipsHueAPI.Models.Classes
 
         public async Task DownloadLights()
         {
-            HueAuthorisedEndpoint endpoint = new HueAuthorisedEndpoint(_URL + "api", "lights", HttpMethod.Get, developer.GetUsername());
-
-            var json = JsonConvert.SerializeObject(this);
-            var data = new StringContent(json, Encoding.UTF8, "application/json");
-
-            var contents = await HTTPMessenger.SendRequestAsync(endpoint);
+            var contents = await HueEndpointMessenger.SendRequest(URL, HueEndpoint.LIGHTS, developer);
 
             ParseLights(contents);
         }

@@ -1,8 +1,11 @@
-﻿namespace PhilipsHueAPI.Models.Interfaces
+﻿using PhilipsHueAPI.Models.Enums;
+
+namespace PhilipsHueAPI.Models.Interfaces
 {
     public interface Developer
     {
-        public string GetName();
-        public Task<bool> SetNewDeveloperAsync(HueEndpoint URL);
+        public string GetUsername();
+        public string GetDeviceType();
+        public Task<bool> SetNewDeveloperAsync(Uri URL, HueEndpoint endpoint);
     }
 }
