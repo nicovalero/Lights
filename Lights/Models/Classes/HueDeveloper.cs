@@ -18,12 +18,14 @@ namespace PhilipsHueAPI.Models.Classes
             _username = "";
         }
 
-        public HueDeveloper(string username)        {
+        public HueDeveloper(string username)
+        {
             _devicetype = "";
             _username = username;
         }
 
-        public HueDeveloper(string devicetype, string username)        {
+        public HueDeveloper(string devicetype, string username)
+        {
             _devicetype = devicetype;
             _username = username;
         }

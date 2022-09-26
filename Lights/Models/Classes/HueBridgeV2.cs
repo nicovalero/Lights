@@ -12,16 +12,17 @@ namespace PhilipsHueAPI.Models.Classes
     {
         private Uri _URL;
         private Dictionary<int, Scene> _scenes;
-        private Dictionary<int, Light> _lights;
+        private Dictionary<string, HueColorLight> _lights;
         private Dictionary<int, Group> _groups;
         private HueDeveloper _developer;
         public HueDeveloper developer { get { return _developer; } set { _developer = value; } }
+        public Dictionary<string, HueColorLight> lights { get { return _lights; } set { _lights = value; } }
 
         public HueBridgeV2(Uri uri)
         {
             _URL = uri;
             _scenes = new Dictionary<int, Scene>();
-            _lights = new Dictionary<int, Light>();
+            _lights = new Dictionary<string, HueColorLight>();
             _groups = new Dictionary<int, Group>();
             _developer = new HueDeveloper("qFtbsJJ6H2SvZthKQWqECEctGQozVGQZRepoCnZw");
         }
@@ -31,7 +32,7 @@ namespace PhilipsHueAPI.Models.Classes
             _groups.Add(key, group);
         }
 
-        public void AddLight(int key, Light light)
+        public void AddLight(string key, HueLight light)
         {
             _lights.Add(key, light);
         }
@@ -54,7 +55,7 @@ namespace PhilipsHueAPI.Models.Classes
 
             if (connected)
             {
-                DownloadLights();
+                DownloadLights().Wait();
                 //DownloadGroups();
                 //DownloadScenes();
             }
@@ -81,6 +82,25 @@ namespace PhilipsHueAPI.Models.Classes
             var data = new StringContent(json, Encoding.UTF8, "application/json");
 
             var contents = await HTTPMessenger.SendRequestAsync(endpoint);
+
+            ParseLights(contents);
+        }
+
+        public void ParseLights(string content)
+        {
+            try
+            {
+                
+                Dictionary<string, HueColorLight> hueDevResponse = JsonConvert.DeserializeObject<Dictionary<string, HueColorLight>>(content);
+                if(hueDevResponse != null)
+                {
+                    lights = hueDevResponse;
+                }
+            }
+            catch(Exception e)
+            {
+
+            }
         }
     }
 }

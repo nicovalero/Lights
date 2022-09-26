@@ -4,7 +4,7 @@
     {
         public bool Connect();
         public void AddScene(int key, Scene scene);
-        public void AddLight(int key, Light light);
+        public void AddLight(string key, HueLight light);
         public void AddGroup(int key, Group Group);
     }
 }
