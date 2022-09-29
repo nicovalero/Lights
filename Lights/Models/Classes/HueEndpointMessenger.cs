@@ -7,31 +7,23 @@ namespace PhilipsHueAPI.Models.Classes
 {
     internal static class HueEndpointMessenger
     {
-        private static Dictionary<HueEndpoint, Tuple<HueEndpointType, string>> _paths;
-
-        static HueEndpointMessenger()
-        {
-            _paths = new Dictionary<HueEndpoint, Tuple<HueEndpointType, string>>();
-
-            _paths.Add(HueEndpoint.API, new Tuple<HueEndpointType, string>(HueEndpointType.OPEN, "api"));
-            _paths.Add(HueEndpoint.LIGHTS, new Tuple<HueEndpointType, string>(HueEndpointType.RESTRICTED, "lights"));
-            _paths.Add(HueEndpoint.NEWDEVELOPER, new Tuple<HueEndpointType, string>(HueEndpointType.OPEN, "newdeveloper"));
-        }
-
-        internal static async Task<string> SendRequest(Uri URL, HueEndpoint endpoint, Developer developer = null, StringContent content = null)
+        internal static async Task<string> SendRequest(HTTPMethods method, Uri URL, List<HueEndpointKey> endpoints, Developer developer = null, StringContent content = null, string itemId = null)
         {
             HttpResponseMessage response = null;
-            string path = GetPath(URL, endpoint, developer);
+            string path = GetPath(URL, endpoints, developer, itemId);
 
             if (!string.IsNullOrEmpty(path))
             {
-                switch (GetRelatedHttpMethod(endpoint))
+                switch (method)
                 {
                     case HTTPMethods.POST:
                         response = await HTTPMessenger.SendPostRequestAsync(path, content);
                         break;
                     case HTTPMethods.GET:
                         response = await HTTPMessenger.SendGetRequestAsync(path);
+                        break;
+                    case HTTPMethods.PUT:
+                        response = await HTTPMessenger.SendPutRequestAsync(path, content);
                         break;
                     default:
                         break;
@@ -40,47 +32,70 @@ namespace PhilipsHueAPI.Models.Classes
 
             string responseContent = "";
 
-            if(response != null)
+            if (response != null)
                 responseContent = await response.Content.ReadAsStringAsync();
 
             return responseContent;
         }
 
-        private static HTTPMethods GetRelatedHttpMethod(HueEndpoint endpoint)
-        {
-            switch (endpoint)
-            {
-                case HueEndpoint.API:
-                    return HTTPMethods.POST;
-                case HueEndpoint.NEWDEVELOPER:
-                    return HTTPMethods.GET;
-                case HueEndpoint.LIGHTS:
-                    return HTTPMethods.GET;
-                default:
-                    return HTTPMethods.GET;
-            }
-        }
-
-        private static string GetPath(Uri URL, HueEndpoint endpoint, Developer developer)
+        private static string GetPath(Uri URL, List<HueEndpointKey> endpoints, Developer developer, string itemId = null)
         {
             string path = null;
             string developerID = developer.GetUsername();
 
-            if (_paths.ContainsKey(endpoint))
+            if(AnyRestricted(endpoints))
+                path = BuildPath(URL, endpoints, itemId, developerID);
+            else
+                path = BuildPath(URL, endpoints, itemId);
+
+            return path;
+        }
+
+        private static string BuildPath(Uri URL, List<HueEndpointKey> endpointKeys, string itemId = null, string developerID = null)
+        {
+            string path = URL.ToString() + HueEndpointCollection.GetRelatedEndpoint(HueEndpointKey.API).GetPath();
+            
+            if(developerID != null)
+                path += "/" + developerID;
+
+            if(endpointKeys.Count > 0)
             {
-                switch(_paths[endpoint].Item1)
+                HueEndpoint endpoint;
+
+                if (HueEndpointCollection.Contains(endpointKeys[0]))
                 {
-                    case HueEndpointType.RESTRICTED:
-                        path = URL + "api/" + developerID + "/" + _paths[endpoint].Item2;
-                        break;
-                    case HueEndpointType.OPEN:
-                    default:
-                        path = URL + _paths[endpoint].Item2;
-                        break;
+                    endpoint = HueEndpointCollection.GetRelatedEndpoint(endpointKeys[0]);
+                    path += "/" + endpoint.GetPath().ToLower();
+                }
+
+                if (itemId != null)
+                    path += "/" + itemId;
+
+                for (int i = 1; i < endpointKeys.Count; i++)
+                {
+                    endpoint = HueEndpointCollection.GetRelatedEndpoint(endpointKeys[i]);
+                    if (endpoint != null)
+                        path += "/" + endpoint.GetPath().ToLower();
                 }
             }
 
             return path;
+        }
+
+        private static bool AnyRestricted(List<HueEndpointKey> list)
+        {
+            HueEndpoint endpoint;
+            foreach(HueEndpointKey endpointKey in list)
+            {
+                endpoint = HueEndpointCollection.GetRelatedEndpoint(endpointKey);
+                if (endpoint != null)
+                {
+                    if (endpoint.GetEndpointType() == HueEndpointType.RESTRICTED)
+                        return true;
+                }
+            }
+
+            return false;
         }
     }
 }

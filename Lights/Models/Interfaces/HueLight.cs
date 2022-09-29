@@ -19,7 +19,10 @@ namespace PhilipsHueAPI.Models.Interfaces
         public string productId{ get; set; }
 
         public HueState GetState();
+        public void SetState(HueState state);
         public bool IsReachable();
         public bool IsOn();
+        public void Switch(bool on);
+
     }
 }

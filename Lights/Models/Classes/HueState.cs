@@ -43,5 +43,10 @@
             this.mode = mode;
             this.reachable = reachable;
         }
+
+        public void SetOn(bool on)
+        {
+            this.on = on;
+        }
     }
 }

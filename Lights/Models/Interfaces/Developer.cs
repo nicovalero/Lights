@@ -6,6 +6,6 @@ namespace PhilipsHueAPI.Models.Interfaces
     {
         public string GetUsername();
         public string GetDeviceType();
-        public Task<bool> SetNewDeveloperAsync(Uri URL, HueEndpoint endpoint);
+        public Task<bool> SetNewDeveloperAsync(Uri URL, HueEndpointKey endpoint);
     }
 }

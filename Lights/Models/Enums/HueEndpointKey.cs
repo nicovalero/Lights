@@ -5,10 +5,11 @@
         OPEN,
         RESTRICTED
     }
-    public enum HueEndpoint
+    public enum HueEndpointKey
     {
         API,
         NEWDEVELOPER,
-        LIGHTS
+        LIGHTS,
+        LIGHTSSTATE
     }
 }

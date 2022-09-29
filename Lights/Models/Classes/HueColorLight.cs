@@ -1,4 +1,7 @@
-﻿using PhilipsHueAPI.Models.Interfaces;
+﻿using Newtonsoft.Json;
+using PhilipsHueAPI.Models.Enums;
+using PhilipsHueAPI.Models.Interfaces;
+using System.Text;
 
 namespace PhilipsHueAPI.Models.Classes
 {
@@ -68,7 +71,12 @@ namespace PhilipsHueAPI.Models.Classes
 
         public HueState GetState()
         {
-            throw new NotImplementedException();
+            return state;
+        }
+
+        public void SetState(HueState state)
+        {
+            this.state = state;
         }
 
         public bool IsOn()
@@ -79,6 +87,11 @@ namespace PhilipsHueAPI.Models.Classes
         public bool IsReachable()
         {
             throw new NotImplementedException();
+        }
+
+        public void Switch(bool on)
+        {
+            this.state.SetOn(on);
         }
     }
 }

@@ -41,12 +41,15 @@ namespace PhilipsHueAPI.Models.Classes
             return _username;
         }
 
-        public async Task<bool> SetNewDeveloperAsync(Uri URL, HueEndpoint endpoint)
+        public async Task<bool> SetNewDeveloperAsync(Uri URL, HueEndpointKey endpoint)
         {
+            List<HueEndpointKey> endpoints = new List<HueEndpointKey>();
+            endpoints.Add(HueEndpointKey.NEWDEVELOPER);
+
             var json = JsonConvert.SerializeObject(this);
             var data = new StringContent(json, Encoding.UTF8, "application/json");
 
-            var contents = await HueEndpointMessenger.SendRequest(URL, endpoint, content: data);
+            var contents = await HueEndpointMessenger.SendRequest(HTTPMethods.GET, URL, endpoints, content: data);
             if (contents != null)
             {
                 ParseResponseContent(contents);

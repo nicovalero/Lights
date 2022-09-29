@@ -68,7 +68,7 @@ namespace PhilipsHueAPI.Models.Classes
 
         public bool SetNewDeveloper()
         {
-            developer.SetNewDeveloperAsync(URL, HueEndpoint.NEWDEVELOPER).Wait();
+            developer.SetNewDeveloperAsync(URL, HueEndpointKey.NEWDEVELOPER).Wait();
 
             if (!string.IsNullOrEmpty(developer.GetUsername()))
                 return true;
@@ -78,16 +78,26 @@ namespace PhilipsHueAPI.Models.Classes
 
         public async Task DownloadLights()
         {
-            var contents = await HueEndpointMessenger.SendRequest(URL, HueEndpoint.LIGHTS, developer);
+            List<HueEndpointKey> endpoints = new List<HueEndpointKey>();
+            endpoints.Add(HueEndpointKey.LIGHTS);
+
+            var contents = await HueEndpointMessenger.SendRequest(HTTPMethods.GET, URL, endpoints, developer);
 
             ParseLights(contents);
+        }
+
+        public HueLight GetLight(string id)
+        {
+            if (lights.ContainsKey(id))
+                return lights[id];
+            else
+                return null;
         }
 
         public void ParseLights(string content)
         {
             try
             {
-                
                 Dictionary<string, HueColorLight> hueDevResponse = JsonConvert.DeserializeObject<Dictionary<string, HueColorLight>>(content);
                 if(hueDevResponse != null)
                 {
@@ -98,6 +108,26 @@ namespace PhilipsHueAPI.Models.Classes
             {
 
             }
+        }
+
+        public void ChangeLightOnStatus(string id, bool on)
+        {
+            HueLight light = GetLight(id);
+            light.Switch(on);
+
+            HueState state = light.GetState();
+
+            Dictionary<string, bool> dict = new Dictionary<string, bool>();
+            dict.Add("on", state.on);
+
+            var json = JsonConvert.SerializeObject(dict);
+            var data = new StringContent(json, Encoding.UTF8, "application/json");
+
+            List<HueEndpointKey> endpoints = new List<HueEndpointKey>();
+            endpoints.Add(HueEndpointKey.LIGHTS);
+            endpoints.Add(HueEndpointKey.LIGHTSSTATE);
+
+            HueEndpointMessenger.SendRequest(HTTPMethods.PUT, URL, endpoints, developer, data, id).Wait();
         }
     }
 }

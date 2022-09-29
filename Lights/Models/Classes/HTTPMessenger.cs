@@ -16,5 +16,10 @@ namespace PhilipsHueAPI.Models.Classes
         {
             return await _client.PostAsync(path, data);
         }
+
+        internal static async Task<HttpResponseMessage> SendPutRequestAsync(string path, StringContent data = null)
+        {
+            return await _client.PutAsync(path, data);
+        }
     }
 }
