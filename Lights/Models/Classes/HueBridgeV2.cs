@@ -117,11 +117,10 @@ namespace PhilipsHueAPI.Models.Classes
 
             HueState state = light.GetState();
 
-            Dictionary<string, bool> dict = new Dictionary<string, bool>();
-            dict.Add("on", state.on);
+            List<HueJSONBodyStateProperty> properties = new List<HueJSONBodyStateProperty>();
+            properties.Add(HueJSONBodyStateProperty.ON);
 
-            var json = JsonConvert.SerializeObject(dict);
-            var data = new StringContent(json, Encoding.UTF8, "application/json");
+            var data = state.GenerateJSONBody(properties);
 
             List<HueEndpointKey> endpoints = new List<HueEndpointKey>();
             endpoints.Add(HueEndpointKey.LIGHTS);

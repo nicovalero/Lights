@@ -1,4 +1,8 @@
-﻿namespace PhilipsHueAPI.Models.Classes
+﻿using Newtonsoft.Json;
+using PhilipsHueAPI.Models.Enums;
+using System.Text;
+
+namespace PhilipsHueAPI.Models.Classes
 {
     public class HueState
     {
@@ -13,6 +17,7 @@
         public string colorMode;
         public string mode;
         public bool reachable;
+        public readonly Dictionary<HueJSONBodyStateProperty, string> jsonProperties;
 
         public HueState()
         {
@@ -27,6 +32,7 @@
             this.colorMode = "";
             this.mode = "";
             this.reachable = false;
+            this.jsonProperties = FillJSONProperties();
         }
 
         public HueState(bool on, int bri, int hue, int sat, string effect, List<float> xy, int ct, string alert, string colorMode, string mode, bool reachable)
@@ -42,11 +48,89 @@
             this.colorMode = colorMode;
             this.mode = mode;
             this.reachable = reachable;
+            this.jsonProperties = FillJSONProperties();
+        }
+
+        private Dictionary<HueJSONBodyStateProperty, string> FillJSONProperties()
+        {
+            Dictionary<HueJSONBodyStateProperty, string> properties = new Dictionary<HueJSONBodyStateProperty, string>();
+
+            properties.Add(HueJSONBodyStateProperty.ON, "on");
+            properties.Add(HueJSONBodyStateProperty.BRI, "bri");
+            properties.Add(HueJSONBodyStateProperty.HUE, "hue");
+            properties.Add(HueJSONBodyStateProperty.SAT, "sat");
+            properties.Add(HueJSONBodyStateProperty.EFFECT, "effect");
+            properties.Add(HueJSONBodyStateProperty.XY, "xy");
+            properties.Add(HueJSONBodyStateProperty.CT, "ct");
+            properties.Add(HueJSONBodyStateProperty.ALERT, "alert");
+            properties.Add(HueJSONBodyStateProperty.COLORMODE, "colormode");
+            properties.Add(HueJSONBodyStateProperty.MODE, "mode");
+            properties.Add(HueJSONBodyStateProperty.REACHABLE, "reachable");
+
+            return properties;
         }
 
         public void SetOn(bool on)
         {
             this.on = on;
+        }
+
+        public StringContent GenerateJSONBody(List<HueJSONBodyStateProperty> properties)
+        {
+            Dictionary<string, object> list = new Dictionary<string, object>();
+
+            foreach(HueJSONBodyStateProperty property in properties)
+            {
+                if (this.jsonProperties.ContainsKey(property))
+                {
+                    object value;
+                    switch (property)
+                    {
+                        case HueJSONBodyStateProperty.ON:
+                            value = this.on;
+                            break;
+                        case HueJSONBodyStateProperty.BRI:
+                            value = this.bri;
+                            break;
+                        case HueJSONBodyStateProperty.HUE:
+                            value = this.hue;
+                            break;
+                        case HueJSONBodyStateProperty.SAT:
+                            value = this.sat;
+                            break;
+                        case HueJSONBodyStateProperty.EFFECT:
+                            value = this.effect;
+                            break;
+                        case HueJSONBodyStateProperty.XY:
+                            value = this.xy;
+                            break;
+                        case HueJSONBodyStateProperty.CT:
+                            value = this.ct;
+                            break;
+                        case HueJSONBodyStateProperty.ALERT:
+                            value = this.alert;
+                            break;
+                        case HueJSONBodyStateProperty.COLORMODE:
+                            value = this.colorMode;
+                            break;
+                        case HueJSONBodyStateProperty.MODE:
+                            value = this.mode;
+                            break;
+                        case HueJSONBodyStateProperty.REACHABLE:
+                            value = this.reachable;
+                            break;
+                    default:
+                            value = "";
+                            break;
+                    }
+                    list.Add(this.jsonProperties[property], value);
+                }
+            }
+
+            var result = JsonConvert.SerializeObject(list);
+            var data = new StringContent(result, Encoding.UTF8, "application/json");
+
+            return data;
         }
     }
 }
