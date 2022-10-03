@@ -1,4 +1,5 @@
 ﻿using PhilipsHueAPI.Models.Classes;
+using PhilipsHueAPI.Models.Enums;
 
 namespace PhilipsHueAPI.Models.Interfaces
 {
@@ -23,6 +24,7 @@ namespace PhilipsHueAPI.Models.Interfaces
         public bool IsReachable();
         public bool IsOn();
         public void Switch(bool on);
+        public void ChangeStateProperties(HueState state, List<HueJSONBodyStateProperty> properties);
 
     }
 }

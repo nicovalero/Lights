@@ -1,6 +1,8 @@
-﻿using Newtonsoft.Json;
+﻿using Microsoft.AspNetCore.SignalR;
+using Newtonsoft.Json;
 using PhilipsHueAPI.Models.Enums;
 using PhilipsHueAPI.Models.Interfaces;
+using System;
 using System.Text;
 
 namespace PhilipsHueAPI.Models.Classes
@@ -91,7 +93,52 @@ namespace PhilipsHueAPI.Models.Classes
 
         public void Switch(bool on)
         {
-            this.state.SetOn(on);
+            throw new NotImplementedException();
+        }
+
+        public void ChangeStateProperties(HueState state, List<HueJSONBodyStateProperty> properties)
+        {
+            foreach(HueJSONBodyStateProperty property in properties)
+            {
+                switch (property)
+                {
+                    case HueJSONBodyStateProperty.ON:
+                        this.state.on = state.on;
+                        break;
+                    case HueJSONBodyStateProperty.BRI:
+                        this.state.bri = state.bri;
+                        break;
+                    case HueJSONBodyStateProperty.HUE:
+                        this.state.hue = state.hue;
+                        break;
+                    case HueJSONBodyStateProperty.SAT:
+                        this.state.sat = state.sat;
+                        break;
+                    case HueJSONBodyStateProperty.EFFECT:
+                        this.state.effect = state.effect;
+                        break;
+                    case HueJSONBodyStateProperty.XY:
+                        this.state.xy = state.xy;
+                        break;
+                    case HueJSONBodyStateProperty.CT:
+                        this.state.ct = state.ct;
+                        break;
+                    case HueJSONBodyStateProperty.ALERT:
+                        this.state.alert = state.alert;
+                        break;
+                    case HueJSONBodyStateProperty.COLORMODE:
+                        this.state.colorMode = state.colorMode;
+                        break;
+                    case HueJSONBodyStateProperty.MODE:
+                        this.state.mode = state.mode;
+                        break;
+                    case HueJSONBodyStateProperty.REACHABLE:
+                        this.state.reachable = state.reachable;
+                        break;
+                    default:
+                        break;
+                }
+            }
         }
     }
 }

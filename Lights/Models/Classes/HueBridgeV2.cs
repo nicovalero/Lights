@@ -110,15 +110,10 @@ namespace PhilipsHueAPI.Models.Classes
             }
         }
 
-        public void ChangeLightOnStatus(string id, bool on)
+        public void ChangeLightState(string id, HueState state, List<HueJSONBodyStateProperty> properties)
         {
             HueLight light = GetLight(id);
-            light.Switch(on);
-
-            HueState state = light.GetState();
-
-            List<HueJSONBodyStateProperty> properties = new List<HueJSONBodyStateProperty>();
-            properties.Add(HueJSONBodyStateProperty.ON);
+            light.ChangeStateProperties(state, properties);
 
             var data = state.GenerateJSONBody(properties);
 
