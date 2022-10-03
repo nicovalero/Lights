@@ -5,17 +5,28 @@ namespace PhilipsHueAPI.Controllers
 {
     public class HueLightController
     {
-        private readonly HueBridgeV2 bridge;
+        private static readonly HueLightController _controller = new HueLightController();
+        private HueBridgeV2 _bridge;
 
-        public HueLightController(HueBridgeV2 bridge)
+        private HueLightController()
         {
-            this.bridge = bridge;
-            bridge.Connect();
+
+        }
+
+        public static HueLightController GetSingleton()
+        {
+            return _controller;
+        }
+
+        public void SetBridge(HueBridgeV2 newBridge)
+        {
+            this._bridge = newBridge;
+            this._bridge.Connect();
         }
 
         public void ChangeLightState(string id, HueState state, List<HueJSONBodyStateProperty> properties)
         {
-            bridge.ChangeLightState(id, state, properties);
+            _bridge.ChangeLightState(id, state, properties);
         }
     }
 }

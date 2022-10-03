@@ -16,7 +16,7 @@ namespace PhilipsHueAPI
             };
 
             HueBridgeV2 bridge = new HueBridgeV2(new Uri("http://192.168.1.213"));
-            HueLightController hueLightController = new HueLightController(bridge);
+            HueLightController hueLightController = HueLightController.GetSingleton();
 
             HueState state = new HueState();
             state.on = false;
