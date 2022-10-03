@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using PhilipsHueAPI.Controllers;
+using PhilipsHueAPI.Effects.Classes;
 using PhilipsHueAPI.Models.Classes;
 using PhilipsHueAPI.Models.Enums;
 
@@ -16,15 +17,19 @@ namespace PhilipsHueAPI
             };
 
             HueBridgeV2 bridge = new HueBridgeV2(new Uri("http://192.168.1.213"));
-            HueLightController hueLightController = HueLightController.GetSingleton();
+            HueLightController hueLightController = HueLightController.Singleton();
+            hueLightController.SetBridge(bridge);
 
-            HueState state = new HueState();
-            state.on = false;
+            FadeIn fadeIn = FadeIn.Singleton();
+            FadeOut fadeOut = FadeOut.Singleton();
+            ColorChange colorChange = ColorChange.Singleton();
+            Flash flash = Flash.Singleton();
 
-            List<HueJSONBodyStateProperty> list = new List<HueJSONBodyStateProperty>();
-            list.Add(HueJSONBodyStateProperty.ON);
-
-            hueLightController.ChangeLightState("3", state, list);
+            for (int i = 0; i < 50; i++)
+            {
+                flash.Perform("3");
+                Thread.Sleep(200);
+            }
 
             _quitEvent.WaitOne();
         }

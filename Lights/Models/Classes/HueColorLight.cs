@@ -71,6 +71,11 @@ namespace PhilipsHueAPI.Models.Classes
             this._productId = productId;
         }
 
+        public string GetUniqueId()
+        {
+            return uniqueId;
+        }
+
         public HueState GetState()
         {
             return state;

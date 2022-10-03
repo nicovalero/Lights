@@ -13,7 +13,7 @@ namespace PhilipsHueAPI.Controllers
 
         }
 
-        public static HueLightController GetSingleton()
+        public static HueLightController Singleton()
         {
             return _controller;
         }

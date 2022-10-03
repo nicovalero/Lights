@@ -8,7 +8,7 @@ namespace PhilipsHueAPI.Models.Classes
     {
         public bool on;
         public int bri;
-        public int hue;
+        public ushort hue;
         public int sat;
         public string effect;
         public List<float> xy;
@@ -35,7 +35,7 @@ namespace PhilipsHueAPI.Models.Classes
             this.jsonProperties = FillJSONProperties();
         }
 
-        public HueState(bool on, int bri, int hue, int sat, string effect, List<float> xy, int ct, string alert, string colorMode, string mode, bool reachable)
+        public HueState(bool on, int bri, ushort hue, int sat, string effect, List<float> xy, int ct, string alert, string colorMode, string mode, bool reachable)
         {
             this.on = on;
             this.bri = bri;
