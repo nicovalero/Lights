@@ -1,15 +1,19 @@
-﻿using Microsoft.AspNetCore.Builder;
-using PhilipsHueAPI.Controllers;
-using PhilipsHueAPI.Effects.Classes;
-using PhilipsHueAPI.Models.Classes;
-using PhilipsHueAPI.Models.Enums;
+﻿using PhilipsHue.Controllers;
+using PhilipsHue.Effects.Classes;
+using PhilipsHue.Models.Classes;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 
-namespace PhilipsHueAPI
+namespace PhilipsHue
 {
-    public static class Startup
+    internal class Program
     {
         static ManualResetEvent _quitEvent = new ManualResetEvent(false);
-        public static void Main()
+        static void Main(string[] args)
         {
             Console.CancelKeyPress += (sender, eArgs) => {
                 _quitEvent.Set();
@@ -31,7 +35,7 @@ namespace PhilipsHueAPI
             for (int i = 0; i < 50; i++)
             {
                 flash.Perform(ids);
-                Thread.Sleep(200);
+                Thread.Sleep(50);
             }
 
             _quitEvent.WaitOne();

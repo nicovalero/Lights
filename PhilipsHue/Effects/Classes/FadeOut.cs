@@ -1,20 +1,21 @@
-﻿using PhilipsHueAPI.Controllers;
-using PhilipsHueAPI.Effects.Interfaces;
-using PhilipsHueAPI.Models.Classes;
-using PhilipsHueAPI.Models.Enums;
+﻿using PhilipsHue.Controllers;
+using PhilipsHue.Effects.Interfaces;
+using PhilipsHue.Models.Classes;
+using PhilipsHue.Models.Enums;
+using System.Collections.Generic;
 
-namespace PhilipsHueAPI.Effects.Classes
+namespace PhilipsHue.Effects.Classes
 {
-    public class FadeIn : LightEffect
+    public class FadeOut : LightEffect
     {
-        private static readonly FadeIn _fadeIn = new FadeIn();
+        private static readonly FadeOut _fadeOut = new FadeOut();
         private static readonly HueLightController _controller = HueLightController.Singleton();
 
-        private FadeIn() { }
+        private FadeOut() { }
 
-        public static FadeIn Singleton()
+        public static FadeOut Singleton()
         {
-            return _fadeIn;
+            return _fadeOut;
         }
 
         public void Perform(List<string> lightIds, object value = null)
@@ -22,12 +23,12 @@ namespace PhilipsHueAPI.Effects.Classes
             List<HueJSONBodyStateProperty> list = new List<HueJSONBodyStateProperty>();
             list.Add(HueJSONBodyStateProperty.BRI);
 
-            for (ushort brightness = 0; brightness < 256; brightness += 5)
+            for (ushort brightness = 255; brightness >= 0; brightness -= 5)
             {
                 HueState state = new HueState();
                 state.bri = brightness;
 
-                foreach(string lightId in lightIds)
+                foreach (string lightId in lightIds)
                     _controller.ChangeLightState(lightId, state, list);
             }
         }

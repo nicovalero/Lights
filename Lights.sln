@@ -5,7 +5,9 @@ VisualStudioVersion = 17.3.32901.215
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PhilipsHueAPI", "Lights\PhilipsHueAPI.csproj", "{E5214C1C-64C3-45DB-8C1B-16561250C773}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MIDI", "MIDI\MIDI.csproj", "{701BB231-FE80-44C2-929E-5C3D5AD0DF0B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MIDI", "MIDI\MIDI.csproj", "{4F049F33-9525-48EF-8098-92D6B7182435}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhilipsHue", "PhilipsHue\PhilipsHue.csproj", "{26B8DE4E-4D40-4999-B8D4-0F8420009240}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +19,14 @@ Global
 		{E5214C1C-64C3-45DB-8C1B-16561250C773}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E5214C1C-64C3-45DB-8C1B-16561250C773}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E5214C1C-64C3-45DB-8C1B-16561250C773}.Release|Any CPU.Build.0 = Release|Any CPU
-		{701BB231-FE80-44C2-929E-5C3D5AD0DF0B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{701BB231-FE80-44C2-929E-5C3D5AD0DF0B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{701BB231-FE80-44C2-929E-5C3D5AD0DF0B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{701BB231-FE80-44C2-929E-5C3D5AD0DF0B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4F049F33-9525-48EF-8098-92D6B7182435}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4F049F33-9525-48EF-8098-92D6B7182435}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4F049F33-9525-48EF-8098-92D6B7182435}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4F049F33-9525-48EF-8098-92D6B7182435}.Release|Any CPU.Build.0 = Release|Any CPU
+		{26B8DE4E-4D40-4999-B8D4-0F8420009240}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{26B8DE4E-4D40-4999-B8D4-0F8420009240}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{26B8DE4E-4D40-4999-B8D4-0F8420009240}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{26B8DE4E-4D40-4999-B8D4-0F8420009240}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

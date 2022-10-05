@@ -5,7 +5,7 @@ using PhilipsHueAPI.Models.Enums;
 
 namespace PhilipsHueAPI.Effects.Classes
 {
-    public class FadeOut : AutomaticEffectSingleLight
+    public class FadeOut : LightEffect
     {
         private static readonly FadeOut _fadeOut = new FadeOut();
         private static readonly HueLightController _controller = HueLightController.Singleton();
@@ -17,7 +17,7 @@ namespace PhilipsHueAPI.Effects.Classes
             return _fadeOut;
         }
 
-        public void Perform(string LightId)
+        public void Perform(List<string> lightIds, object value = null)
         {
             List<HueJSONBodyStateProperty> list = new List<HueJSONBodyStateProperty>();
             list.Add(HueJSONBodyStateProperty.BRI);
@@ -27,7 +27,8 @@ namespace PhilipsHueAPI.Effects.Classes
                 HueState state = new HueState();
                 state.bri = brightness;
 
-                _controller.ChangeLightState(LightId, state, list);
+                foreach (string lightId in lightIds)
+                    _controller.ChangeLightState(lightId, state, list);
             }
         }
     }

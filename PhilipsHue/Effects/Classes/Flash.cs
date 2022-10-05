@@ -1,10 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using PhilipsHueAPI.Controllers;
-using PhilipsHueAPI.Effects.Interfaces;
-using PhilipsHueAPI.Models.Classes;
-using PhilipsHueAPI.Models.Enums;
+﻿using PhilipsHue.Controllers;
+using PhilipsHue.Effects.Interfaces;
+using PhilipsHue.Models.Classes;
+using PhilipsHue.Models.Enums;
+using System.Collections.Generic;
+using System.Threading;
 
-namespace PhilipsHueAPI.Effects.Classes
+namespace PhilipsHue.Effects.Classes
 {
     public class Flash : LightEffect
     {

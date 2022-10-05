@@ -1,9 +1,10 @@
-﻿using PhilipsHueAPI.Controllers;
-using PhilipsHueAPI.Effects.Interfaces;
-using PhilipsHueAPI.Models.Classes;
-using PhilipsHueAPI.Models.Enums;
+﻿using PhilipsHue.Controllers;
+using PhilipsHue.Effects.Interfaces;
+using PhilipsHue.Models.Classes;
+using PhilipsHue.Models.Enums;
+using System.Collections.Generic;
 
-namespace PhilipsHueAPI.Effects.Classes
+namespace PhilipsHue.Effects.Classes
 {
     public class ColorChange: LightEffect
     {
