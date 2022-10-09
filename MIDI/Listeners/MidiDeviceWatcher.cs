@@ -188,7 +188,7 @@ namespace MIDI
                     var noteOnMessage = (MidiNoteOnMessage)receivedMidiMessage;
                     outputMessage.Append(", Channel: ").Append(noteOnMessage.Channel).Append(", Note: ").Append(noteOnMessage.Note).Append(", Velocity: ").Append(noteOnMessage.Velocity);
                     
-                    MidiMessageKeys keys = new MidiMessageKeys(channel: noteOnMessage.Channel, velocity: noteOnMessage.Velocity, note: noteOnMessage.Note, port: sender.DeviceId);
+                    MidiMessageKeys keys = new MidiMessageKeys(channel: noteOnMessage.Channel, velocity: noteOnMessage.Velocity, note: noteOnMessage.Note, port: null);
                     MidiController controller = MidiController.Singleton();
                     controller.MessageReceived(keys);
                     break;

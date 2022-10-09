@@ -19,23 +19,30 @@ namespace Control
         {
             MidiLightsController midiLightsController = MidiLightsController.Singleton();
 
-            MidiMessageKeys keys = new MidiMessageKeys();
-            keys.Channel = 1;
-            keys.Velocity = 127;
-            keys.Note = 78;
-
-            MidiMessageKeys keys2 = new MidiMessageKeys();
-            keys2.Channel = 1;
-            keys2.Velocity = 127;
-            keys2.Note = 78;
-
             List<string> lights = new List<string>();
+            lights.Add("1");
+            lights.Add("2");
             lights.Add("3");
+            lights.Add("4");
+            lights.Add("6");
+            lights.Add("8");
 
-            SingleLightEffectAction action = new SingleLightEffectAction(lights, ColorChange.Singleton(), (ushort)30000);
+            SingleLightEffectAction action;
 
-            midiLightsController.LinkMessageWithAction(keys, action);
-            //midiLightsController.PerformLinkedAction(keys2);
+            MidiMessageKeys keys;
+
+            for (int i = 0; i < 128; i++)
+            {
+                action = new SingleLightEffectAction(lights, Flash.Singleton(), (ushort)30000);
+
+                keys = new MidiMessageKeys();
+                keys.Channel = 0;
+                keys.Velocity = 127;
+                keys.Note = (byte)i;
+                keys.Port = null;
+
+                midiLightsController.LinkMessageWithAction(keys, action);
+            }
 
             midiLightsController.StartMidiController();
 
