@@ -1,5 +1,6 @@
 ﻿using PhilipsHue.Models.Classes;
 using PhilipsHue.Models.Enums;
+using System;
 using System.Collections.Generic;
 
 namespace PhilipsHue.Controllers
@@ -11,7 +12,9 @@ namespace PhilipsHue.Controllers
 
         private HueLightController()
         {
-
+            HueBridgeV2 bridge = new HueBridgeV2(new Uri("http://192.168.1.213"));
+            HueLightController hueLightController = HueLightController.Singleton();
+            hueLightController.SetBridge(bridge);
         }
 
         public static HueLightController Singleton()

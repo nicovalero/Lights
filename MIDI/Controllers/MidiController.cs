@@ -5,57 +5,38 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.Devices.Midi;
 using PhilipsHue.Actions.Interfaces;
+using MIDI.Models.Structs;
+using System.Runtime.InteropServices;
+using Windows.Foundation;
 
 namespace MIDI.Controllers
 {
-    internal class MidiController
+    public class MidiController
     {
         private static readonly MidiController _controller = new MidiController();
-        private static Dictionary<IMidiMessage, LightEffectAction> _messageActionLinks;
+        private static readonly MidiDeviceWatcher _deviceWatcher = new MidiDeviceWatcher(MidiInPort.GetDeviceSelector());
 
-        private MidiController() {
-            _messageActionLinks = new Dictionary<IMidiMessage, LightEffectAction>();
-        }
+        private MidiController() { }
 
         public static MidiController Singleton()
         {
             return _controller;
         }
 
-        public bool LinkMessageWithAction(IMidiMessage message, LightEffectAction action)
-        {
-            if (_messageActionLinks.ContainsKey(message))
-                return false;
-            else
-                _messageActionLinks.Add(message, action);
+        public event TypedEventHandler<MidiController, MidiMessageKeys> MessageEventHandler;
 
-            return true;
+        public void MessageReceived(MidiMessageKeys keys)
+        {
+            MessageEventHandler(this, keys);
         }
 
-        public bool RemoveLink(IMidiMessage message)
+        public void Start()
         {
-            if (!_messageActionLinks.ContainsKey(message))
-                return false;
-            else
-                _messageActionLinks.Remove(message);
-
-            return true;
+            _deviceWatcher.Start();
         }
-
-        public bool PerformLinkedAction(IMidiMessage message)
+        public void Stop()
         {
-            //Need to review this
-            //Dictionary will never contain key unless I override it and analize the specific properties I need.
-            //It is never the same object unfortunately
-            if (!_messageActionLinks.ContainsKey(message))
-                return false;
-            else
-            {
-                LightEffectAction action = _messageActionLinks[message];
-                action.Perform();
-            }
-
-            return true;
+            _deviceWatcher.Stop();
         }
     }
 }

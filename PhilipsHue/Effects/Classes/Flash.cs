@@ -21,7 +21,7 @@ namespace PhilipsHue.Effects.Classes
             return _flash;
         }
 
-        public void Perform(List<string> lightIds, object value = null)
+        public void Perform(List<string> lightIds, object value)
         {
             List<HueJSONBodyStateProperty> list = new List<HueJSONBodyStateProperty>();
             list.Add(HueJSONBodyStateProperty.BRI);

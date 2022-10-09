@@ -1,4 +1,6 @@
-﻿using System;
+﻿using MIDI.Controllers;
+using MIDI.Models.Structs;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -185,6 +187,10 @@ namespace MIDI
                 case MidiMessageType.NoteOn:
                     var noteOnMessage = (MidiNoteOnMessage)receivedMidiMessage;
                     outputMessage.Append(", Channel: ").Append(noteOnMessage.Channel).Append(", Note: ").Append(noteOnMessage.Note).Append(", Velocity: ").Append(noteOnMessage.Velocity);
+                    
+                    MidiMessageKeys keys = new MidiMessageKeys(channel: noteOnMessage.Channel, velocity: noteOnMessage.Velocity, note: noteOnMessage.Note, port: sender.DeviceId);
+                    MidiController controller = MidiController.Singleton();
+                    controller.MessageReceived(keys);
                     break;
                 case MidiMessageType.PolyphonicKeyPressure:
                     var polyphonicKeyPressureMessage = (MidiPolyphonicKeyPressureMessage)receivedMidiMessage;

@@ -1,4 +1,10 @@
-﻿using System;
+﻿using MIDI.Controllers;
+using MIDI.Models.Structs;
+using PhilipsHue.Actions.Classes;
+using PhilipsHue.Actions.Interfaces;
+using PhilipsHue.Effects.Classes;
+using PhilipsHue.Models.Classes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
