@@ -37,6 +37,8 @@ namespace Control
             midiLightsController.LinkMessageWithAction(keys, action);
             //midiLightsController.PerformLinkedAction(keys2);
 
+            midiLightsController.StartMidiController();
+
             Console.CancelKeyPress += (sender, eArgs) => {
                 _quitEvent.Set();
                 eArgs.Cancel = true;

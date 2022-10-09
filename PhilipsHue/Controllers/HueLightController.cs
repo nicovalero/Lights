@@ -13,8 +13,7 @@ namespace PhilipsHue.Controllers
         private HueLightController()
         {
             HueBridgeV2 bridge = new HueBridgeV2(new Uri("http://192.168.1.213"));
-            HueLightController hueLightController = HueLightController.Singleton();
-            hueLightController.SetBridge(bridge);
+            SetBridge(bridge);
         }
 
         public static HueLightController Singleton()
