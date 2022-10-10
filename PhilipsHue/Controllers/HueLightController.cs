@@ -2,6 +2,8 @@
 using PhilipsHue.Models.Enums;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Threading.Tasks;
 
 namespace PhilipsHue.Controllers
 {
@@ -27,9 +29,9 @@ namespace PhilipsHue.Controllers
             this._bridge.Connect();
         }
 
-        public void ChangeLightState(string id, HueState state, List<HueJSONBodyStateProperty> properties)
+        public async Task ChangeLightState(string id, HueState state, List<HueJSONBodyStateProperty> properties)
         {
-            _bridge.ChangeLightState(id, state, properties);
+            await _bridge.ChangeLightState(id, state, properties);
         }
     }
 }

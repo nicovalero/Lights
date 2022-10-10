@@ -2,8 +2,11 @@
 using PhilipsHue.Effects.Interfaces;
 using PhilipsHue.Models.Classes;
 using PhilipsHue.Models.Enums;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace PhilipsHue.Effects.Classes
 {
@@ -21,23 +24,61 @@ namespace PhilipsHue.Effects.Classes
             return _flash;
         }
 
-        public void Perform(List<string> lightIds, object value)
+        public async void Perform(List<string> lightIds, object value)
         {
             List<HueJSONBodyStateProperty> list = new List<HueJSONBodyStateProperty>();
             list.Add(HueJSONBodyStateProperty.BRI);
 
             HueState state = new HueState();
 
-            foreach (string lightId in lightIds)
+            //var timer = new Stopwatch();
+
+            //timer.Start();
+            //Parallel.ForEach<string>(lightIds, id =>
+            //{
+            //    MaxBrightnessEffect(id, list, state);
+            //    MinBrightnessEffect(id, list, state);
+            //});
+
+            //var signal = new ManualResetEventSlim();
+
+            //foreach (string id in lightIds)
+            //{
+            //    var thread = new Thread(async () =>
+            //    {
+            //        signal.Wait();
+            //        await MaxBrightnessEffect(id, list, state);
+            //        await MinBrightnessEffect(id, list, state);
+            //    });
+            //    thread.Start();
+            //}
+            //Console.WriteLine("GO!");
+            //signal.Set();
+
+            foreach (string id in lightIds)
             {
-                state.bri = _maxBrightness;
-                _controller.ChangeLightState(lightId, state, list);
-
-                Thread.Sleep(50);
-
-                state.bri = _minBrightness;
-                _controller.ChangeLightState(lightId, state, list);
+                await MaxBrightnessEffect(id, list, state);
             }
+
+            foreach (string id in lightIds)
+            {
+                await MinBrightnessEffect(id, list, state);
+            }
+
+            //timer.Stop();
+            //Console.WriteLine("Time 1: " + timer.Elapsed.ToString());
+        }
+
+        private async Task MaxBrightnessEffect(string lightId, List<HueJSONBodyStateProperty> list, HueState state)
+        {
+            state.bri = _maxBrightness;
+            await _controller.ChangeLightState(lightId, state, list);
+        }
+
+        private async Task MinBrightnessEffect(string lightId, List<HueJSONBodyStateProperty> list, HueState state)
+        {
+            state.bri = _minBrightness;
+            await _controller.ChangeLightState(lightId, state, list);
         }
     }
 }

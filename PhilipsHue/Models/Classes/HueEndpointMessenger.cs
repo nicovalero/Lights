@@ -31,11 +31,12 @@ namespace PhilipsHue.Models.Classes
                         break;
                 }
             }
-
             string responseContent = "";
 
             if (response != null)
+            {
                 responseContent = await response.Content.ReadAsStringAsync();
+            }
 
             return responseContent;
         }

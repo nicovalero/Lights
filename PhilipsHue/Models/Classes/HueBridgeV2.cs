@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 using PhilipsHue.Models.Enums;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Net;
 
 namespace PhilipsHue.Models.Classes
 {
@@ -26,6 +27,8 @@ namespace PhilipsHue.Models.Classes
             _lights = new Dictionary<string, HueColorLight>();
             _groups = new Dictionary<int, Group>();
             _developer = new HueDeveloper("qFtbsJJ6H2SvZthKQWqECEctGQozVGQZRepoCnZw");
+
+            ServicePointManager.FindServicePoint(uri).ConnectionLimit = 20;
         }
 
         public void AddGroup(int key, Group group)
@@ -108,18 +111,18 @@ namespace PhilipsHue.Models.Classes
             }
         }
 
-        public void ChangeLightState(string id, HueState state, List<HueJSONBodyStateProperty> properties)
+        public async Task ChangeLightState(string id, HueState state, List<HueJSONBodyStateProperty> properties)
         {
             HueLight light = GetLight(id);
             light.ChangeStateProperties(state, properties);
 
             var data = state.GenerateJSONBody(properties);
-
+            string d = data.ToString();
             List<HueEndpointKey> endpoints = new List<HueEndpointKey>();
             endpoints.Add(HueEndpointKey.LIGHTS);
             endpoints.Add(HueEndpointKey.LIGHTSSTATE);
 
-            HueEndpointMessenger.SendRequest(HTTPMethods.PUT, URL, endpoints, developer, data, id).Wait();
+            await HueEndpointMessenger.SendRequest(HTTPMethods.PUT, URL, endpoints, developer, data, id);
         }
     }
 }

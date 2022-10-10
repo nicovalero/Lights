@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using MIDI.Models.Structs;
 using PhilipsHue.Actions.Interfaces;
 using Windows.Devices.Midi;
+using System.Threading;
 
 namespace Control.Controllers
 {
