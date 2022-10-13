@@ -33,7 +33,7 @@ namespace Control
 
             for (int i = 0; i < 128; i++)
             {
-                action = new SingleLightEffectAction(lights, Flash.Singleton(), (ushort)30000);
+                action = new SingleLightEffectAction(lights, ColorChange.Singleton(), (i % 2 == 0 ? (ushort)30000 : (ushort) 60000));
 
                 keys = new MidiMessageKeys();
                 keys.Channel = 0;

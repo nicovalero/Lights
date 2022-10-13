@@ -57,8 +57,10 @@
     <Compile Include="Effects\Classes\FadeOut.cs" />
     <Compile Include="Effects\Classes\Flash.cs" />
     <Compile Include="Effects\Interfaces\LightEffect.cs" />
+    <Compile Include="Models\Classes\BridgeV2Finder.cs" />
     <Compile Include="Models\Classes\HTTPMessenger.cs" />
     <Compile Include="Models\Classes\HueBridgeV2.cs" />
+    <Compile Include="Models\Classes\HueBridgeV2Response.cs" />
     <Compile Include="Models\Classes\HueCapabilities.cs" />
     <Compile Include="Models\Classes\HueCapabilitiesControl.cs" />
     <Compile Include="Models\Classes\HueCapabilitiesStreaming.cs" />
@@ -76,6 +78,7 @@
     <Compile Include="Models\Enums\HueEndpointKey.cs" />
     <Compile Include="Models\Enums\HueJSONBodyProperties.cs" />
     <Compile Include="Models\Interfaces\Bridge.cs" />
+    <Compile Include="Models\Interfaces\BridgeFinder.cs" />
     <Compile Include="Models\Interfaces\Developer.cs" />
     <Compile Include="Models\Interfaces\Group.cs" />
     <Compile Include="Models\Interfaces\HueLight.cs" />

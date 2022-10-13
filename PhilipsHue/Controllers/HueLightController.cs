@@ -1,5 +1,6 @@
 ﻿using PhilipsHue.Models.Classes;
 using PhilipsHue.Models.Enums;
+using PhilipsHue.Models.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -10,12 +11,16 @@ namespace PhilipsHue.Controllers
     public class HueLightController
     {
         private static readonly HueLightController _controller = new HueLightController();
-        private HueBridgeV2 _bridge;
+        private BridgeV2Finder _bridgeV2Finder;
+        private Bridge _bridge;
 
         private HueLightController()
         {
-            HueBridgeV2 bridge = new HueBridgeV2(new Uri("http://192.168.1.213"));
-            SetBridge(bridge);
+            _bridgeV2Finder = new BridgeV2Finder();
+            List<Bridge> bridges = _bridgeV2Finder.FindAll().Result;
+
+            if(bridges.Count > 0)
+                SetBridge(bridges[0]);
         }
 
         public static HueLightController Singleton()
@@ -23,7 +28,7 @@ namespace PhilipsHue.Controllers
             return _controller;
         }
 
-        public void SetBridge(HueBridgeV2 newBridge)
+        public void SetBridge(Bridge newBridge)
         {
             this._bridge = newBridge;
             this._bridge.Connect();

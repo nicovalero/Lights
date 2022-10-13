@@ -1,4 +1,9 @@
-﻿namespace PhilipsHue.Models.Interfaces
+﻿using PhilipsHue.Models.Classes;
+using PhilipsHue.Models.Enums;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+
+namespace PhilipsHue.Models.Interfaces
 {
     public interface Bridge
     {
@@ -7,5 +12,6 @@
         void AddLight(string key, HueLight light);
         void AddGroup(int key, Group Group);
         HueLight GetLight(string id);
+        Task ChangeLightState(string id, HueState state, List<HueJSONBodyStateProperty> properties);
     }
 }
