@@ -5,6 +5,7 @@ using PhilipsHue.Models.Enums;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Net;
+using System.Linq;
 
 namespace PhilipsHue.Models.Classes
 {
@@ -12,20 +13,23 @@ namespace PhilipsHue.Models.Classes
     {
         private Uri _URL;
         private Dictionary<int, Scene> _scenes;
-        private Dictionary<string, HueColorLight> _lights;
+        private Dictionary<string, HueLight> _lights;
         private Dictionary<int, Group> _groups;
         private HueDeveloper _developer;
+        public Dictionary<string, string> _uniqueIdJsonPairs;
 
         public Uri URL { get { return _URL; } set { _URL = value; } }
         public HueDeveloper developer { get { return _developer; } set { _developer = value; } }
-        public Dictionary<string, HueColorLight> lights { get { return _lights; } set { _lights = value; } }
+        public Dictionary<string, HueLight> lights { get { return _lights; } set { _lights = value; } }
+        public Dictionary<string, string> uniqueIdJsonPairs { get { return _uniqueIdJsonPairs; } set { _uniqueIdJsonPairs = value; } }
 
         public HueBridgeV2(Uri uri)
         {
             _URL = uri;
             _scenes = new Dictionary<int, Scene>();
-            _lights = new Dictionary<string, HueColorLight>();
+            _lights = new Dictionary<string, HueLight>();
             _groups = new Dictionary<int, Group>();
+            _uniqueIdJsonPairs = new Dictionary<string, string>();
             _developer = new HueDeveloper("qFtbsJJ6H2SvZthKQWqECEctGQozVGQZRepoCnZw");
 
             ServicePointManager.FindServicePoint(uri).ConnectionLimit = 20;
@@ -38,7 +42,7 @@ namespace PhilipsHue.Models.Classes
 
         public void AddLight(string key, HueLight light)
         {
-            _lights.Add(key, (HueColorLight)light);
+            _lights.Add(key, light);
         }
 
         public void AddScene(int key, Scene scene)
@@ -87,12 +91,17 @@ namespace PhilipsHue.Models.Classes
             ParseLights(contents);
         }
 
-        public HueLight GetLight(string id)
+        public HueLight GetLight(string uniqueid)
         {
-            if (lights.ContainsKey(id))
-                return lights[id];
+            if (lights.ContainsKey(uniqueid))
+                return lights[uniqueid];
             else
                 return null;
+        }
+
+        public List<HueLight> GetAllLights()
+        {
+            return lights.Values.ToList();
         }
 
         public void ParseLights(string content)
@@ -102,7 +111,11 @@ namespace PhilipsHue.Models.Classes
                 Dictionary<string, HueColorLight> hueDevResponse = JsonConvert.DeserializeObject<Dictionary<string, HueColorLight>>(content);
                 if(hueDevResponse != null)
                 {
-                    lights = hueDevResponse;
+                    foreach(KeyValuePair<string, HueColorLight> kvp in hueDevResponse)
+                    {
+                        lights.Add(kvp.Value.GetUniqueId(), kvp.Value);
+                        uniqueIdJsonPairs.Add(kvp.Value.GetUniqueId(), kvp.Key);
+                    }
                 }
             }
             catch(Exception e)
@@ -111,18 +124,21 @@ namespace PhilipsHue.Models.Classes
             }
         }
 
-        public async Task ChangeLightState(string id, HueState state, List<HueJSONBodyStateProperty> properties)
+        public async Task ChangeLightState(string uniqueid, HueState state, List<HueJSONBodyStateProperty> properties)
         {
-            HueLight light = GetLight(id);
-            light.ChangeStateProperties(state, properties);
+            if (lights.ContainsKey(uniqueid) && uniqueIdJsonPairs.ContainsKey(uniqueid))
+            {
+                HueLight light = GetLight(uniqueid);
+                light.ChangeStateProperties(state, properties);
 
-            var data = state.GenerateJSONBody(properties);
-            string d = data.ToString();
-            List<HueEndpointKey> endpoints = new List<HueEndpointKey>();
-            endpoints.Add(HueEndpointKey.LIGHTS);
-            endpoints.Add(HueEndpointKey.LIGHTSSTATE);
+                var data = state.GenerateJSONBody(properties);
+                string d = data.ToString();
+                List<HueEndpointKey> endpoints = new List<HueEndpointKey>();
+                endpoints.Add(HueEndpointKey.LIGHTS);
+                endpoints.Add(HueEndpointKey.LIGHTSSTATE);
 
-            await HueEndpointMessenger.SendRequest(HTTPMethods.PUT, URL, endpoints, developer, data, id);
+                await HueEndpointMessenger.SendRequest(HTTPMethods.PUT, URL, endpoints, developer, data, uniqueIdJsonPairs[uniqueid]);
+            }
         }
     }
 }

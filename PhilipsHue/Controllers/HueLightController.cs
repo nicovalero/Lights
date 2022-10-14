@@ -12,15 +12,29 @@ namespace PhilipsHue.Controllers
     {
         private static readonly HueLightController _controller = new HueLightController();
         private BridgeV2Finder _bridgeV2Finder;
-        private Bridge _bridge;
+        private Dictionary<string, Bridge> _lightBridgeDictionary;
 
         private HueLightController()
         {
             _bridgeV2Finder = new BridgeV2Finder();
-            List<Bridge> bridges = _bridgeV2Finder.FindAll().Result;
+            _lightBridgeDictionary = new Dictionary<string, Bridge>();
 
-            if(bridges.Count > 0)
-                SetBridge(bridges[0]);
+            InitializeBridges();
+        }
+
+        private async void InitializeBridges()
+        {
+            List<Bridge> bridges = await _bridgeV2Finder.FindAll();
+            _lightBridgeDictionary = new Dictionary<string, Bridge>();
+
+            foreach (Bridge bridge in bridges)
+            {
+                ConnectBridge(bridge);
+                foreach (HueLight light in bridge.GetAllLights())
+                {
+                    _lightBridgeDictionary.Add(light.uniqueId, bridge);
+                }
+            }
         }
 
         public static HueLightController Singleton()
@@ -28,15 +42,15 @@ namespace PhilipsHue.Controllers
             return _controller;
         }
 
-        public void SetBridge(Bridge newBridge)
+        private void ConnectBridge(Bridge bridge)
         {
-            this._bridge = newBridge;
-            this._bridge.Connect();
+            bridge.Connect();
         }
 
-        public async Task ChangeLightState(string id, HueState state, List<HueJSONBodyStateProperty> properties)
+        public async Task ChangeLightState(string uniqueid, HueState state, List<HueJSONBodyStateProperty> properties)
         {
-            await _bridge.ChangeLightState(id, state, properties);
+            if(_lightBridgeDictionary.ContainsKey(uniqueid))
+                await _lightBridgeDictionary[uniqueid].ChangeLightState(uniqueid, state, properties);
         }
     }
 }

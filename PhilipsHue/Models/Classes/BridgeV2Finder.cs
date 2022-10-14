@@ -28,7 +28,7 @@ namespace PhilipsHue.Models.Classes
             {
                 responseContent = await response.Content.ReadAsStringAsync();
                 List<HueBridgeV2Response> list = ParseResponseContent(responseContent);
-                ConvertToBridgeV2(list);
+                bridges = ConvertToBridgeV2(list);
             }
 
             return bridges;
@@ -39,10 +39,10 @@ namespace PhilipsHue.Models.Classes
             return JsonConvert.DeserializeObject<List<HueBridgeV2Response>>(content);
         }
 
-        private List<HueBridgeV2> ConvertToBridgeV2(List<HueBridgeV2Response> content)
+        private List<Bridge> ConvertToBridgeV2(List<HueBridgeV2Response> content)
         {
-            List<HueBridgeV2> bridges = new List<HueBridgeV2>();
-            HueBridgeV2 bridge;
+            List<Bridge> bridges = new List<Bridge>();
+            Bridge bridge;
             Uri uri;
 
             foreach (HueBridgeV2Response response in content)

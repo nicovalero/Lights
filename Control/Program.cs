@@ -20,12 +20,12 @@ namespace Control
             MidiLightsController midiLightsController = MidiLightsController.Singleton();
 
             List<string> lights = new List<string>();
-            lights.Add("1");
-            lights.Add("2");
-            lights.Add("3");
-            lights.Add("4");
-            lights.Add("6");
-            lights.Add("8");
+            lights.Add("00:17:88:01:04:53:45:40-0b");
+            lights.Add("00:17:88:01:04:3e:0c:1c-0b");
+            lights.Add("00:17:88:01:04:17:3b:a0-0b");
+            lights.Add("00:17:88:01:04:87:fe:56-0b");
+            lights.Add("00:17:88:01:03:8d:35:a1-0b");
+            lights.Add("00:17:88:01:06:ee:4f:74-0b");
 
             SingleLightEffectAction action;
 

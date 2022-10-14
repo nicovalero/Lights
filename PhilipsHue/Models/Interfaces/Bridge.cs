@@ -12,6 +12,7 @@ namespace PhilipsHue.Models.Interfaces
         void AddLight(string key, HueLight light);
         void AddGroup(int key, Group Group);
         HueLight GetLight(string id);
+        List<HueLight> GetAllLights();
         Task ChangeLightState(string id, HueState state, List<HueJSONBodyStateProperty> properties);
     }
 }
