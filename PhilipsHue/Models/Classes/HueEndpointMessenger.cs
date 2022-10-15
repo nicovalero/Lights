@@ -22,7 +22,7 @@ namespace PhilipsHue.Models.Classes
                         response = await HTTPMessenger.SendPostRequestAsync(path, content);
                         break;
                     case HTTPMethods.GET:
-                        response = await HTTPMessenger.SendGetRequestAsync(path);
+                        response = HTTPMessenger.SendGetRequestAsync(path);
                         break;
                     case HTTPMethods.PUT:
                         response = await HTTPMessenger.SendPutRequestAsync(path, content);

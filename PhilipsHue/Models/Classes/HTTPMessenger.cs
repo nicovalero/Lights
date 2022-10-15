@@ -10,9 +10,9 @@ namespace PhilipsHue.Models.Classes
     {
         private static HttpClient _client = new HttpClient();
 
-        internal static async Task<HttpResponseMessage> SendGetRequestAsync(string path)
+        internal static HttpResponseMessage SendGetRequestAsync(string path)
         {
-            return await _client.GetAsync(path);
+            return _client.GetAsync(path).Result;
         }
 
         internal static async Task<HttpResponseMessage> SendPostRequestAsync(string path, StringContent data = null)

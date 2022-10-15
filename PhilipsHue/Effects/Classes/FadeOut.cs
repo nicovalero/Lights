@@ -10,6 +10,7 @@ namespace PhilipsHue.Effects.Classes
     {
         private static readonly FadeOut _fadeOut = new FadeOut();
         private static readonly HueLightController _controller = HueLightController.Singleton();
+        private const string _name = "Fade out";
 
         private FadeOut() { }
 
@@ -18,7 +19,7 @@ namespace PhilipsHue.Effects.Classes
             return _fadeOut;
         }
 
-        public void Perform(List<string> lightIds, object value = null)
+        public async void Perform(List<string> lightIds, object value = null)
         {
             List<HueJSONBodyStateProperty> list = new List<HueJSONBodyStateProperty>();
             list.Add(HueJSONBodyStateProperty.BRI);
@@ -29,8 +30,13 @@ namespace PhilipsHue.Effects.Classes
                 state.bri = brightness;
 
                 foreach (string lightId in lightIds)
-                    _controller.ChangeLightState(lightId, state, list);
+                    await _controller.ChangeLightState(lightId, state, list);
             }
+        }
+
+        public string GetName()
+        {
+            return _name;
         }
     }
 }

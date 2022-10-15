@@ -18,13 +18,15 @@ namespace PhilipsHue.Controllers
         {
             _bridgeV2Finder = new BridgeV2Finder();
             _lightBridgeDictionary = new Dictionary<string, Bridge>();
-
-            InitializeBridges();
         }
 
-        private async void InitializeBridges()
+        public void InitializeBridges()
         {
-            List<Bridge> bridges = await _bridgeV2Finder.FindAll();
+            //Exchange FindAllManual with FindAll when the issues
+            //of discovering the bridges dynamically are over.
+
+            //List<Bridge> bridges = await _bridgeV2Finder.FindAll();
+            List<Bridge> bridges = _bridgeV2Finder.FindAllManual();
             _lightBridgeDictionary = new Dictionary<string, Bridge>();
 
             foreach (Bridge bridge in bridges)

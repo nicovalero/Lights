@@ -1,6 +1,5 @@
 ﻿using PhilipsHue.Actions.Interfaces;
 using PhilipsHue.Effects.Interfaces;
-using PhilipsHue.Models.Interfaces;
 using System.Collections.Generic;
 
 namespace PhilipsHue.Actions.Classes
@@ -21,6 +20,11 @@ namespace PhilipsHue.Actions.Classes
         public void Perform()
         {
             _effect.Perform(_externalLightId, _value);
+        }
+
+        public string GetEffectName()
+        {
+            return _effect.GetName();
         }
     }
 }

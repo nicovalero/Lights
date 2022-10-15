@@ -1,0 +1,39 @@
+﻿<Window x:Class="UI.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:UI"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="600" Width="1050">
+    <Canvas>
+        <ListView Height="580" Width="500" ItemsSource="{DynamicResource MidiEffectLinks}" HorizontalAlignment="Center" VerticalAlignment="Top">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Channel" DisplayMemberBinding="{Binding Channel}"/>
+                    <GridViewColumn Header="Note" DisplayMemberBinding="{Binding Note}"/>
+                    <GridViewColumn Header="Velocity" DisplayMemberBinding="{Binding Velocity}"/>
+                    <GridViewColumn Header="Effect" DisplayMemberBinding="{Binding Effect}"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+
+        <Label Canvas.Left="573" Canvas.Top="50" Width="120" Content="Channel" HorizontalContentAlignment="Center"/>
+        <ComboBox Canvas.Left="573" Canvas.Top="78" Width="120"/>
+
+        <Label Canvas.Left="719" Canvas.Top="50" Width="120" Content="Note" HorizontalContentAlignment="Center"/>
+        <ComboBox Canvas.Left="719" Canvas.Top="78" Width="120"/>
+
+        <Label Canvas.Left="865" Canvas.Top="50" Width="120" Content="Velocity" HorizontalContentAlignment="Center"/>
+        <ComboBox Canvas.Left="865" Canvas.Top="78" Width="120"/>
+
+        <Label Canvas.Left="573" Canvas.Top="120" Width="120" Content="Effect" HorizontalContentAlignment="Center"/>
+        <ComboBox Canvas.Left="573" Canvas.Top="150" Width="120"/>
+
+        <Label Canvas.Left="719" Canvas.Top="120" Width="120" Content="Color" HorizontalContentAlignment="Center"/>
+        <ComboBox Canvas.Left="719" Canvas.Top="150" Width="120"/>
+
+        <Button Content="Link" Canvas.Left="719" Canvas.Top="200" Width="120" Height="70"/>
+        <Button Content="Connect Bridges" Canvas.Left="662" Canvas.Top="396" Height="85" Width="234" HorizontalAlignment="Left" VerticalAlignment="Top" Click="ConnectBridgesButton_Click"/>
+    </Canvas>
+</Window>

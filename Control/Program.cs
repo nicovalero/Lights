@@ -18,6 +18,7 @@ namespace Control
         static void Main(string[] args)
         {
             MidiLightsController midiLightsController = MidiLightsController.Singleton();
+            midiLightsController.ConnectBridges();
 
             List<string> lights = new List<string>();
             lights.Add("00:17:88:01:04:53:45:40-0b");

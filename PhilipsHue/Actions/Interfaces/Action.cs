@@ -3,5 +3,6 @@
     public interface LightEffectAction
     {
         void Perform();
+        string GetEffectName();
     }
 }

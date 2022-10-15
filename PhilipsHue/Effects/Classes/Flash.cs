@@ -16,6 +16,7 @@ namespace PhilipsHue.Effects.Classes
         private static readonly HueLightController _controller = HueLightController.Singleton();
         private const ushort _maxBrightness = 255;
         private const ushort _minBrightness = 0;
+        private const string _name = "Flash";
 
         private Flash() { }
 
@@ -79,6 +80,11 @@ namespace PhilipsHue.Effects.Classes
         {
             state.bri = _minBrightness;
             await _controller.ChangeLightState(lightId, state, list);
+        }
+
+        public string GetName()
+        {
+            return _name;
         }
     }
 }

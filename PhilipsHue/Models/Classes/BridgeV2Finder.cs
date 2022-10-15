@@ -16,20 +16,32 @@ namespace PhilipsHue.Models.Classes
             throw new NotImplementedException();
         }
 
-        public async Task<List<Bridge>> FindAll()
+        public List<Bridge> FindAll()
         {
             List<Bridge> bridges = new List<Bridge>();
             string path = "https://discovery.meethue.com";
-            HttpResponseMessage response = await HTTPMessenger.SendGetRequestAsync(path);
+            HttpResponseMessage response = HTTPMessenger.SendGetRequestAsync(path);
 
             string responseContent = "";
 
             if (response != null)
             {
-                responseContent = await response.Content.ReadAsStringAsync();
+                responseContent = response.Content.ReadAsStringAsync().Result;
                 List<HueBridgeV2Response> list = ParseResponseContent(responseContent);
                 bridges = ConvertToBridgeV2(list);
             }
+
+            return bridges;
+        }
+
+        //Need to create this function since calling to discovery.meethue.com
+        //ended up in a 429 Too Many Requests ban XD.
+        //Need to sort out that by not calling this bloody URL.
+        public List<Bridge> FindAllManual()
+        {
+            List<Bridge> bridges = new List<Bridge>();
+            HueBridgeV2 bridgeV2 = new HueBridgeV2(new Uri("http://192.168.1.213"));
+            bridges.Add(bridgeV2);
 
             return bridges;
         }

@@ -63,7 +63,7 @@ namespace PhilipsHue.Models.Classes
 
             if (connected)
             {
-                DownloadLights().Wait();
+                DownloadLights();
                 //DownloadGroups();
                 //DownloadScenes();
             }
@@ -81,12 +81,12 @@ namespace PhilipsHue.Models.Classes
                 return false;
         }
 
-        public async Task DownloadLights()
+        public void DownloadLights()
         {
             List<HueEndpointKey> endpoints = new List<HueEndpointKey>();
             endpoints.Add(HueEndpointKey.LIGHTS);
 
-            var contents = await HueEndpointMessenger.SendRequest(HTTPMethods.GET, URL, endpoints, developer);
+            var contents = HueEndpointMessenger.SendRequest(HTTPMethods.GET, URL, endpoints, developer).Result;
 
             ParseLights(contents);
         }
