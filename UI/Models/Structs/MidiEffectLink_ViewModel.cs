@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace UI.Models.Structs
 {
-    internal struct MidiEffectLink
+    internal struct MidiEffectLink_ViewModel
     {
         private MidiChannel _channel;
         private byte _velocity;
@@ -22,7 +22,7 @@ namespace UI.Models.Structs
         public LightEffect Effect { get { return _effect; } set { _effect = value; } }
         public string EffectName { get { return _effect.Name; } }
 
-        public MidiEffectLink(MidiChannel channel, byte velocity, MidiNote note, LightEffect effect)
+        public MidiEffectLink_ViewModel(MidiChannel channel, byte velocity, MidiNote note, LightEffect effect)
         {
             _channel = channel;
             _velocity = velocity;

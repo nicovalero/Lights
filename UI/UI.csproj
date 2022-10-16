@@ -70,7 +70,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MainWindow_ViewController.cs" />
-    <Compile Include="Models\Structs\MidiEffectLink.cs" />
+    <Compile Include="Models\Structs\MidiEffectLink_ViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

@@ -25,20 +25,20 @@ namespace UI
             return _controller;
         }
 
-        public List<MidiEffectLink> GetLinks()
+        public List<MidiEffectLink_ViewModel> GetLinks()
         {
             Dictionary<MidiMessageKeys, LightEffectAction> result = _midiLightsController.GetMessageActionLinks();
 
-            return ConvertMidiActionDictionary_ToMidiEffectLink(result);
+            return ConvertMidiActionDictionary_ToMidiEffectLinkVM(result);
         }
 
-        private List<MidiEffectLink> ConvertMidiActionDictionary_ToMidiEffectLink(Dictionary<MidiMessageKeys, LightEffectAction> dictionary)
+        private List<MidiEffectLink_ViewModel> ConvertMidiActionDictionary_ToMidiEffectLinkVM(Dictionary<MidiMessageKeys, LightEffectAction> dictionary)
         {
-            List<MidiEffectLink> list = new List<MidiEffectLink>();
+            List<MidiEffectLink_ViewModel> list = new List<MidiEffectLink_ViewModel>();
 
             foreach (KeyValuePair<MidiMessageKeys, LightEffectAction> pair in dictionary)
             {
-                list.Add(new MidiEffectLink(
+                list.Add(new MidiEffectLink_ViewModel(
                     pair.Key.Channel,
                     pair.Key.Velocity,
                     pair.Key.Note,
