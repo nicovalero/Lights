@@ -53,7 +53,13 @@
   <ItemGroup>
     <Compile Include="Controllers\MidiController.cs" />
     <Compile Include="Listeners\MidiDeviceWatcher.cs" />
+    <Compile Include="Collections\MidiChannelCollection.cs" />
+    <Compile Include="Collections\MidiVelocityCollection.cs" />
+    <Compile Include="Models\Structs\MidiChannel.cs" />
     <Compile Include="Models\Structs\MidiMessageKeys.cs" />
+    <Compile Include="Models\Structs\MidiNote.cs" />
+    <Compile Include="Collections\MidiNoteCollection.cs" />
+    <Compile Include="Models\Structs\MidiVelocity.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

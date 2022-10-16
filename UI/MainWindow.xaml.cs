@@ -27,26 +27,46 @@ namespace UI
         public MainWindow()
         {
             _mainWindow_Controller = MainWindow_ViewController.Singleton();
-            //RefreshLinkList();
+            InitializeLists();
             InitializeComponent();
-        }
-
-        private void RefreshLinkList()
-        {
-            Resources["MidiEffectLinks"] = _mainWindow_Controller.GetLinks();
-            //List<MidiEffectLink> list = new List<MidiEffectLink>();
-
-            //for (int i = 0; i <= 128; i++)
-            //{
-            //    list.Add(new MidiEffectLink((byte)0, (byte)127, (byte)i, (i%3 == 0 ? "Color change" : (i%3 == 1 ? "Flash" : "Fade"))));
-            //}
-
-            //Resources["MidiEffectLinks"] = list;
         }
 
         private void ConnectBridges()
         {
             _mainWindow_Controller.ConnectBridges();
+        }
+
+        private void InitializeLists()
+        {
+            RefreshEffectList();
+            RefreshAvailableMidiChannelList();
+            RefreshAvailableMidiNoteList();
+            RefreshAvailableMidiVelocityList();
+        }
+
+        private void RefreshLinkList()
+        {
+            Resources["MidiEffectLinks"] = _mainWindow_Controller.GetLinks();
+        }
+
+        private void RefreshEffectList()
+        {
+            Resources["HueEffectList"] = _mainWindow_Controller.GetHueEffectList();
+        }
+
+        private void RefreshAvailableMidiChannelList()
+        {
+            Resources["AvailableMidiChannelList"] = _mainWindow_Controller.GetAvailableChannelList();
+        }
+
+        private void RefreshAvailableMidiNoteList()
+        {
+            Resources["AvailableMidiNoteList"] = _mainWindow_Controller.GetAvailableMidiNoteList();
+        }
+
+        private void RefreshAvailableMidiVelocityList()
+        {
+            Resources["AvailableMidiVelocityList"] = _mainWindow_Controller.GetAvailableMidiVelocityList();
         }
 
         private void ConnectBridgesButton_Click(object sender, RoutedEventArgs e)

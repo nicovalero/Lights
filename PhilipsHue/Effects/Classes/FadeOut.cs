@@ -11,6 +11,7 @@ namespace PhilipsHue.Effects.Classes
         private static readonly FadeOut _fadeOut = new FadeOut();
         private static readonly HueLightController _controller = HueLightController.Singleton();
         private const string _name = "Fade out";
+        public string Name { get { return _name; } }
 
         private FadeOut() { }
 

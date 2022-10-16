@@ -12,6 +12,9 @@ using Windows.Devices.Midi;
 using System.Threading;
 using PhilipsHue.Actions.Classes;
 using PhilipsHue.Effects.Classes;
+using MIDI.Models.Class;
+using PhilipsHue.Collections;
+using PhilipsHue.Effects.Interfaces;
 
 namespace Control.Controllers
 {
@@ -42,9 +45,9 @@ namespace Control.Controllers
                 action = new SingleLightEffectAction(lights, ColorChange.Singleton(), (i % 2 == 0 ? (ushort)30000 : (ushort)60000));
 
                 keys = new MidiMessageKeys();
-                keys.Channel = 0;
+                keys.Channel = new MidiChannel(0);
                 keys.Velocity = 127;
-                keys.Note = (byte)i;
+                keys.Note = MidiNoteCollection.GetNote((byte)i).Value;
                 keys.Port = null;
 
                 LinkMessageWithAction(keys, action);
@@ -123,6 +126,25 @@ namespace Control.Controllers
         public Dictionary<MidiMessageKeys, LightEffectAction> GetMessageActionLinks()
         {
             return _messageActionLinks;
+        }
+
+        public List<MidiNote> GetAllMidiNotes()
+        {
+            return MidiNoteCollection.GetAllNotesList();
+        }
+
+        public List<MidiChannel> GetAvailableChannels()
+        {
+            return MidiChannelCollection.GetAllChannelList();
+        }
+
+        public List<MidiVelocity> GetAvailableVelocities()
+        {
+            return MidiVelocityCollection.GetAllVelocityList();
+        }
+        public List<LightEffect> GetAllHueEffects()
+        {
+            return HueLightEffectCollection.GetAllEffectList();
         }
     }
 }

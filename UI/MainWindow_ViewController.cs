@@ -42,15 +42,35 @@ namespace UI
                     pair.Key.Channel,
                     pair.Key.Velocity,
                     pair.Key.Note,
-                    pair.Value.GetEffectName()));
+                    pair.Value.GetEffect()));
             }
 
             return list;
         }
 
-        public void ConnectBridges()
+        internal void ConnectBridges()
         {
             _midiLightsController.ConnectBridges();
+        }
+
+        internal List<MidiChannel> GetAvailableChannelList()
+        {
+            return _midiLightsController.GetAvailableChannels();
+        }
+
+        internal object GetHueEffectList()
+        {
+            return _midiLightsController.GetAllHueEffects();
+        }
+
+        internal List<MidiNote> GetAvailableMidiNoteList()
+        {
+            return _midiLightsController.GetAllMidiNotes();
+        }
+
+        internal List<MidiVelocity> GetAvailableMidiVelocityList()
+        {
+            return _midiLightsController.GetAvailableVelocities();
         }
     }
 }

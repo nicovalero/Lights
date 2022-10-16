@@ -11,6 +11,7 @@ namespace PhilipsHue.Effects.Classes
         private static readonly ColorChange _colorChange = new ColorChange();
         private static readonly HueLightController _controller = HueLightController.Singleton();
         private const string _name = "Color change";
+        public string Name { get { return _name; } }
 
         private ColorChange() { }
 

@@ -1,8 +1,10 @@
-﻿namespace PhilipsHue.Actions.Interfaces
+﻿using PhilipsHue.Effects.Interfaces;
+
+namespace PhilipsHue.Actions.Interfaces
 {
     public interface LightEffectAction
     {
         void Perform();
-        string GetEffectName();
+        LightEffect GetEffect();
     }
 }

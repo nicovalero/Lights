@@ -22,9 +22,9 @@ namespace PhilipsHue.Actions.Classes
             _effect.Perform(_externalLightId, _value);
         }
 
-        public string GetEffectName()
+        public LightEffect GetEffect()
         {
-            return _effect.GetName();
+            return _effect;
         }
     }
 }

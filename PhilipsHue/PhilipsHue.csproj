@@ -50,6 +50,7 @@
   <ItemGroup>
     <Compile Include="Actions\Classes\SingleLightEffectAction.cs" />
     <Compile Include="Actions\Interfaces\Action.cs" />
+    <Compile Include="Collections\HueLightEffectCollection.cs" />
     <Compile Include="Controllers\ActionController.cs" />
     <Compile Include="Controllers\HueLightController.cs" />
     <Compile Include="Effects\Classes\ColorChange.cs" />

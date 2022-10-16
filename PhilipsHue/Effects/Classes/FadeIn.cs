@@ -11,6 +11,7 @@ namespace PhilipsHue.Effects.Classes
         private static readonly FadeIn _fadeIn = new FadeIn();
         private static readonly HueLightController _controller = HueLightController.Singleton();
         private const string _name = "Fade in";
+        public string Name { get { return _name; } }
 
         private FadeIn() { }
 

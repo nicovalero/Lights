@@ -22,9 +22,9 @@ namespace Control
 
             List<string> lights = new List<string>();
             lights.Add("00:17:88:01:04:53:45:40-0b");
-            lights.Add("00:17:88:01:04:3e:0c:1c-0b");
             lights.Add("00:17:88:01:04:17:3b:a0-0b");
             lights.Add("00:17:88:01:04:87:fe:56-0b");
+            lights.Add("00:17:88:01:04:3e:0c:1c-0b");
             lights.Add("00:17:88:01:03:8d:35:a1-0b");
             lights.Add("00:17:88:01:06:ee:4f:74-0b");
 
@@ -37,9 +37,9 @@ namespace Control
                 action = new SingleLightEffectAction(lights, ColorChange.Singleton(), (i % 2 == 0 ? (ushort)30000 : (ushort) 60000));
 
                 keys = new MidiMessageKeys();
-                keys.Channel = 0;
+                keys.Channel = new MidiChannel(0);
                 keys.Velocity = 127;
-                keys.Note = (byte)i;
+                keys.Note = MidiNoteCollection.GetNote((byte)i).Value;
                 keys.Port = null;
 
                 midiLightsController.LinkMessageWithAction(keys, action);
