@@ -19,7 +19,7 @@ namespace MIDI.Models.Class
 
         private static void FillDictionary()
         {
-            for (byte i = 0; i <= 16; i++)
+            for (byte i = 0; i <= 127; i++)
             {
                 Velocities.Add(i, new MidiVelocity(i));
             }

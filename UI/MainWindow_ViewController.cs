@@ -43,8 +43,8 @@ namespace UI
                     pair.Key.Channel,
                     pair.Key.Velocity,
                     pair.Key.Note,
-                    pair.Value.GetEffect()),
-                    pair.Value.GetLight());
+                    pair.Value.GetEffect(),
+                    pair.Value.GetLights()));
             }
 
             return list;

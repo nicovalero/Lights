@@ -27,5 +27,10 @@ namespace PhilipsHue.Actions.Classes
         {
             return _effect;
         }
+
+        public List<HueLight> GetLights()
+        {
+            return _lights;
+        }
     }
 }

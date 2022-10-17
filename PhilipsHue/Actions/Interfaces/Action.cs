@@ -1,4 +1,6 @@
 ﻿using PhilipsHue.Effects.Interfaces;
+using PhilipsHue.Models.Interfaces;
+using System.Collections.Generic;
 
 namespace PhilipsHue.Actions.Interfaces
 {
@@ -6,5 +8,6 @@ namespace PhilipsHue.Actions.Interfaces
     {
         void Perform();
         LightEffect GetEffect();
+        List<HueLight> GetLights();
     }
 }
