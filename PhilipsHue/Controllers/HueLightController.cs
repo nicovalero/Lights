@@ -4,6 +4,7 @@ using PhilipsHue.Models.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace PhilipsHue.Controllers
@@ -13,11 +14,13 @@ namespace PhilipsHue.Controllers
         private static readonly HueLightController _controller = new HueLightController();
         private BridgeV2Finder _bridgeV2Finder;
         private Dictionary<string, Bridge> _lightBridgeDictionary;
+        private List<Bridge> _bridgeList;
 
         private HueLightController()
         {
             _bridgeV2Finder = new BridgeV2Finder();
             _lightBridgeDictionary = new Dictionary<string, Bridge>();
+            _bridgeList = new List<Bridge>();
         }
 
         public void InitializeBridges()
@@ -31,6 +34,7 @@ namespace PhilipsHue.Controllers
 
             foreach (Bridge bridge in bridges)
             {
+                _bridgeList.Add(bridge);
                 ConnectBridge(bridge);
                 foreach (HueLight light in bridge.GetAllLights())
                 {
@@ -53,6 +57,18 @@ namespace PhilipsHue.Controllers
         {
             if(_lightBridgeDictionary.ContainsKey(uniqueid))
                 await _lightBridgeDictionary[uniqueid].ChangeLightState(uniqueid, state, properties);
+        }
+
+        public List<HueLight> GetAllLightsList()
+        {
+            List<HueLight> list = new List<HueLight>();
+
+            foreach(Bridge bridge in _bridgeList)
+            {
+                list.AddRange(bridge.GetAllLights());
+            }
+
+            return list;
         }
     }
 }

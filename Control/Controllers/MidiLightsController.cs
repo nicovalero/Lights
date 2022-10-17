@@ -15,6 +15,7 @@ using PhilipsHue.Effects.Classes;
 using MIDI.Models.Class;
 using PhilipsHue.Collections;
 using PhilipsHue.Effects.Interfaces;
+using PhilipsHue.Models.Interfaces;
 
 namespace Control.Controllers
 {
@@ -145,6 +146,11 @@ namespace Control.Controllers
         public List<LightEffect> GetAllHueEffects()
         {
             return HueLightEffectCollection.GetAllEffectList();
+        }
+
+        public List<HueLight> GetAllAvailableHueLights()
+        {
+            return _hueLightController.GetAllLightsList();
         }
     }
 }

@@ -2,6 +2,7 @@
 using PhilipsHue.Effects.Interfaces;
 using PhilipsHue.Models.Classes;
 using PhilipsHue.Models.Enums;
+using PhilipsHue.Models.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -26,7 +27,7 @@ namespace PhilipsHue.Effects.Classes
             return _flash;
         }
 
-        public async void Perform(List<string> lightIds, object value)
+        public async void Perform(List<HueLight> lights, object value)
         {
             List<HueJSONBodyStateProperty> list = new List<HueJSONBodyStateProperty>();
             list.Add(HueJSONBodyStateProperty.BRI);
@@ -57,14 +58,14 @@ namespace PhilipsHue.Effects.Classes
             //Console.WriteLine("GO!");
             //signal.Set();
 
-            foreach (string id in lightIds)
+            foreach (HueLight light in lights)
             {
-                await MaxBrightnessEffect(id, list, state);
+                await MaxBrightnessEffect(light.uniqueId, list, state);
             }
 
-            foreach (string id in lightIds)
+            foreach (HueLight light in lights)
             {
-                await MinBrightnessEffect(id, list, state);
+                await MinBrightnessEffect(light.uniqueId, list, state);
             }
 
             //timer.Stop();

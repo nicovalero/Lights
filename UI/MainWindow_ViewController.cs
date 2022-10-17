@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Control.Controllers;
 using UI.Models.Structs;
+using PhilipsHue.Models.Interfaces;
 
 namespace UI
 {
@@ -42,7 +43,8 @@ namespace UI
                     pair.Key.Channel,
                     pair.Key.Velocity,
                     pair.Key.Note,
-                    pair.Value.GetEffect()));
+                    pair.Value.GetEffect()),
+                    pair.Value.GetLight());
             }
 
             return list;
@@ -71,6 +73,11 @@ namespace UI
         internal List<MidiVelocity> GetAvailableMidiVelocityList()
         {
             return _midiLightsController.GetAvailableVelocities();
+        }
+
+        internal List<HueLight> GetAvailableHueLightsList()
+        {
+            return _midiLightsController.GetAllAvailableHueLights();
         }
     }
 }

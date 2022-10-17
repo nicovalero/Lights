@@ -42,6 +42,7 @@ namespace UI
             RefreshAvailableMidiChannelList();
             RefreshAvailableMidiNoteList();
             RefreshAvailableMidiVelocityList();
+            RefreshAvailableHueLights();
         }
 
         private void RefreshLinkList()
@@ -69,10 +70,16 @@ namespace UI
             Resources["AvailableMidiVelocityList"] = _mainWindow_Controller.GetAvailableMidiVelocityList();
         }
 
+        private void RefreshAvailableHueLights()
+        {
+            Resources["AvailableHueLights"] = _mainWindow_Controller.GetAvailableHueLightsList();
+        }
+
         private void ConnectBridgesButton_Click(object sender, RoutedEventArgs e)
         {
             ConnectBridges();
             RefreshLinkList();
+            RefreshAvailableHueLights();
         }
     }
 }

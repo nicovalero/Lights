@@ -18,8 +18,8 @@
             </ListView.View>
         </ListView>
 
-        <Label Canvas.Left="573" Canvas.Top="50" Width="120" Content="Channel" HorizontalContentAlignment="Center"/>
-        <ListBox Canvas.Left="573" Canvas.Top="78" Width="120" HorizontalAlignment="Center" Height="90" VerticalAlignment="Top" ItemsSource="{DynamicResource AvailableMidiChannelList}">
+        <Label Canvas.Left="574" Canvas.Top="26" Width="120" Content="Channel" HorizontalContentAlignment="Center"/>
+        <ListBox Canvas.Left="574" Canvas.Top="54" Width="120" HorizontalAlignment="Left" Height="90" VerticalAlignment="Top" ItemsSource="{DynamicResource AvailableMidiChannelList}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal" Height="30">
@@ -29,8 +29,8 @@
             </ListBox.ItemTemplate>
         </ListBox>
 
-        <Label Canvas.Left="719" Canvas.Top="50" Width="120" Content="Note" HorizontalContentAlignment="Center"/>
-        <ListBox Canvas.Left="719" Canvas.Top="78" Width="120" ItemsSource="{DynamicResource AvailableMidiNoteList}" HorizontalAlignment="Center" Height="90" VerticalAlignment="Top">
+        <Label Canvas.Left="720" Canvas.Top="26" Width="120" Content="Note" HorizontalContentAlignment="Center"/>
+        <ListBox Canvas.Left="720" Canvas.Top="54" Width="120" ItemsSource="{DynamicResource AvailableMidiNoteList}" HorizontalAlignment="Left" Height="90" VerticalAlignment="Top">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal" Height="30">
@@ -40,9 +40,9 @@
             </ListBox.ItemTemplate>
         </ListBox>
 
-        <Label Canvas.Left="865" Canvas.Top="50" Width="120" Content="Velocity" HorizontalContentAlignment="Center"/>
+        <Label Canvas.Left="866" Canvas.Top="26" Width="120" Content="Velocity" HorizontalContentAlignment="Center"/>
 
-        <ListBox Canvas.Left="865" Canvas.Top="78" Width="120" ItemsSource="{DynamicResource AvailableMidiVelocityList}" HorizontalAlignment="Center" Height="90" VerticalAlignment="Top">
+        <ListBox Canvas.Left="866" Canvas.Top="54" Width="120" ItemsSource="{DynamicResource AvailableMidiVelocityList}" HorizontalAlignment="Left" Height="90" VerticalAlignment="Top">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal" Height="30">
@@ -52,8 +52,8 @@
             </ListBox.ItemTemplate>
         </ListBox>
 
-        <Label Canvas.Left="573" Canvas.Top="204" Width="120" Content="Effect" HorizontalContentAlignment="Center"/>
-        <ListBox Canvas.Left="573" Canvas.Top="234" Width="120" ItemsSource="{DynamicResource HueEffectList}">
+        <Label Canvas.Left="574" Canvas.Top="165" Width="120" Content="Effect" HorizontalContentAlignment="Center"/>
+        <ListBox Canvas.Left="574" Canvas.Top="195" Width="120" ItemsSource="{DynamicResource HueEffectList}" HorizontalAlignment="Left" Height="93" VerticalAlignment="Top">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal" Height="30">
@@ -63,10 +63,21 @@
             </ListBox.ItemTemplate>
         </ListBox>
 
-        <Label Canvas.Left="719" Canvas.Top="204" Width="120" Content="Color" HorizontalContentAlignment="Center"/>
-        <ComboBox Canvas.Left="719" Canvas.Top="234" Width="120"/>
+        <Label Canvas.Left="720" Canvas.Top="165" Width="120" Content="Color" HorizontalContentAlignment="Center"/>
+        <ComboBox Canvas.Left="720" Canvas.Top="195" Width="120"/>
 
-        <Button Content="Link" Canvas.Left="719" Canvas.Top="306" Width="120" Height="70" HorizontalAlignment="Center" VerticalAlignment="Top"/>
-        <Button Content="Connect Bridges" Canvas.Left="662" Canvas.Top="396" Height="85" Width="234" HorizontalAlignment="Left" VerticalAlignment="Top" Click="ConnectBridgesButton_Click"/>
+        <Label Canvas.Left="574" Canvas.Top="300" Width="120" Content="Lights" HorizontalContentAlignment="Center"/>
+        <ListBox Canvas.Left="574" Canvas.Top="330" Width="120" ItemsSource="{DynamicResource AvailableHueLights}" HorizontalAlignment="Left" Height="93" VerticalAlignment="Top">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal" Height="30">
+                        <TextBlock Text="{Binding name}" HorizontalAlignment="Center"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+        <Button Content="Link" Canvas.Left="699" Canvas.Top="497" Width="120" Height="34" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+        <Button Content="Connect Bridges" Canvas.Left="506" Canvas.Top="497" Height="34" Width="128" HorizontalAlignment="Center" VerticalAlignment="Top" Click="ConnectBridgesButton_Click"/>
     </Canvas>
 </Window>

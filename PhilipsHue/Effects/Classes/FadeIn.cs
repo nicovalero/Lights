@@ -2,6 +2,7 @@
 using PhilipsHue.Effects.Interfaces;
 using PhilipsHue.Models.Classes;
 using PhilipsHue.Models.Enums;
+using PhilipsHue.Models.Interfaces;
 using System.Collections.Generic;
 
 namespace PhilipsHue.Effects.Classes
@@ -20,7 +21,7 @@ namespace PhilipsHue.Effects.Classes
             return _fadeIn;
         }
 
-        public async void Perform(List<string> lightIds, object value = null)
+        public async void Perform(List<HueLight> lights, object value = null)
         {
             List<HueJSONBodyStateProperty> list = new List<HueJSONBodyStateProperty>();
             list.Add(HueJSONBodyStateProperty.BRI);
@@ -30,8 +31,8 @@ namespace PhilipsHue.Effects.Classes
                 HueState state = new HueState();
                 state.bri = brightness;
 
-                foreach(string lightId in lightIds)
-                    await _controller.ChangeLightState(lightId, state, list);
+                foreach(HueLight light in lights)
+                    await _controller.ChangeLightState(light.uniqueId, state, list);
             }
         }
 
