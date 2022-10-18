@@ -8,6 +8,8 @@ using System.Threading.Tasks;
 using Control.Controllers;
 using UI.Models.Structs;
 using PhilipsHue.Models.Interfaces;
+using System.Collections;
+using PhilipsHue.Effects.Interfaces;
 
 namespace UI
 {
@@ -24,6 +26,19 @@ namespace UI
         public static MainWindow_ViewController Singleton()
         {
             return _controller;
+        }
+
+        internal bool CreateLink(IList selectedLights, object selectedEffect, object selectedChannel, object selectedNote, object selectedVelocity)
+        {
+            List<HueLight> lights = ConvertIList_ToHueLightList(selectedLights);
+            LightEffect effect = (LightEffect)selectedEffect;
+            MidiChannel channel = (MidiChannel)selectedChannel;
+            MidiNote note = (MidiNote)selectedNote;
+            MidiVelocity velocity = (MidiVelocity)selectedVelocity;
+
+            _midiLightsController.CreateLink(channel, note, velocity, lights, effect);
+
+            return true;
         }
 
         public List<MidiEffectLink_ViewModel> GetLinks()
@@ -48,6 +63,18 @@ namespace UI
             }
 
             return list;
+        }
+
+        private List<HueLight> ConvertIList_ToHueLightList(IList selectedLights)
+        {
+            List<HueLight> lights = new List<HueLight>();
+
+            foreach (var light in selectedLights)
+            {
+                lights.Add((HueLight)light);
+            }
+
+            return lights;
         }
 
         internal void ConnectBridges()

@@ -11,7 +11,7 @@ namespace PhilipsHue.Actions.Classes
         private LightEffect _effect;
         private object _value;
 
-        public SingleLightEffectAction(List<HueLight> lights, LightEffect effect, object value)
+        public SingleLightEffectAction(List<HueLight> lights, LightEffect effect, object value = null)
         {
             this._lights = lights;
             this._effect = effect;

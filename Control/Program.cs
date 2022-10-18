@@ -18,33 +18,33 @@ namespace Control
         static ManualResetEvent _quitEvent = new ManualResetEvent(false);
         static void Main(string[] args)
         {
-            MidiLightsController midiLightsController = MidiLightsController.Singleton();
-            midiLightsController.ConnectBridges();
+            //MidiLightsController midiLightsController = MidiLightsController.Singleton();
+            //midiLightsController.ConnectBridges();
 
-            List<HueLight> lights = midiLightsController.GetAllAvailableHueLights();
-            HueLight light = lights.FirstOrDefault(x => x.name == "lightstrip");
+            //List<HueLight> lights = midiLightsController.GetAllAvailableHueLights();
+            //HueLight light = lights.FirstOrDefault(x => x.name == "lightstrip");
 
-            if(light != null)
-                lights.Remove(light);
+            //if(light != null)
+            //    lights.Remove(light);
 
-            SingleLightEffectAction action;
+            //SingleLightEffectAction action;
 
-            MidiMessageKeys keys;
+            //MidiMessageKeys keys;
 
-            for (int i = 0; i < 128; i++)
-            {
-                action = new SingleLightEffectAction(lights, ColorChange.Singleton(), (i % 2 == 0 ? (ushort)30000 : (ushort) 60000));
+            //for (int i = 0; i < 128; i++)
+            //{
+            //    action = new SingleLightEffectAction(lights, ColorChange.Singleton(), (i % 2 == 0 ? (ushort)30000 : (ushort) 60000));
 
-                keys = new MidiMessageKeys();
-                keys.Channel = new MidiChannel(0);
-                keys.Velocity = 127;
-                keys.Note = MidiNoteCollection.GetNote((byte)i).Value;
-                keys.Port = null;
+            //    keys = new MidiMessageKeys();
+            //    keys.Channel = new MidiChannel(0);
+            //    keys.Velocity = 127;
+            //    keys.Note = MidiNoteCollection.GetNote((byte)i).Value;
+            //    keys.Port = null;
 
-                midiLightsController.LinkMessageWithAction(keys, action);
-            }
+            //    midiLightsController.LinkMessageWithAction(keys, action);
+            //}
 
-            midiLightsController.StartMidiController();
+            //midiLightsController.StartMidiController();
 
             Console.CancelKeyPress += (sender, eArgs) => {
                 _quitEvent.Set();

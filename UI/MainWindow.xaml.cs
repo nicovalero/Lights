@@ -1,6 +1,8 @@
 ﻿using MIDI.Models.Structs;
 using PhilipsHue.Actions.Interfaces;
+using PhilipsHue.Models.Interfaces;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -80,6 +82,19 @@ namespace UI
             ConnectBridges();
             RefreshLinkList();
             RefreshAvailableHueLights();
+        }
+
+        private void LinkButton_Click(object sender, RoutedEventArgs e)
+        {
+            IList selectedLights = HueLightsList.SelectedItems;
+            object selectedEffect = HueEffectList.SelectedItem;
+            object selectedChannel = HueChannelList.SelectedItem;
+            object selectedNote = HueMidiNoteList.SelectedItem;
+            object selectedVelocity = HueMidiVelocityList.SelectedItem;
+
+            _mainWindow_Controller.CreateLink(selectedLights, selectedEffect, selectedChannel, selectedNote, selectedVelocity);
+
+            RefreshLinkList();
         }
     }
 }

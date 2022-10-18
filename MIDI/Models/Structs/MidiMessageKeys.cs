@@ -3,16 +3,16 @@
     public struct MidiMessageKeys
     {
         public MidiChannel Channel;
-        public byte Velocity;
+        public MidiVelocity Velocity;
         public MidiNote Note;
-        public string Port;
+        //public string Port;
 
-        public MidiMessageKeys(byte channel, byte velocity, byte note, string port)
+        public MidiMessageKeys(MidiChannel channel, MidiVelocity velocity, MidiNote note/*, string port*/)
         {
-            Channel = new MidiChannel(channel);
+            Channel = channel;
             Velocity = velocity;
-            Note = MidiNoteCollection.GetNote(note).Value;
-            Port = port;
+            Note = note;
+            //Port = port;
         }
         public static bool operator ==(MidiMessageKeys key1, MidiMessageKeys key2)
         {

@@ -46,12 +46,27 @@ namespace Control.Controllers
             PerformLinkedAction(args);
         }
 
-        public bool LinkMessageWithAction(MidiMessageKeys keys, LightEffectAction action)
+        //public bool LinkMessageWithAction(MidiMessageKeys keys, LightEffectAction action)
+        //{
+        //    if (_messageActionLinks.ContainsKey(keys))
+        //        return false;
+        //    else
+        //        _messageActionLinks.Add(keys, action);
+
+        //    return true;
+        //}
+
+        public bool CreateLink(MidiChannel channel, MidiNote note, MidiVelocity velocity, List<HueLight> lights, LightEffect effect)
         {
+            MidiMessageKeys keys = new MidiMessageKeys(channel, velocity, note);
+
             if (_messageActionLinks.ContainsKey(keys))
                 return false;
             else
-                _messageActionLinks.Add(keys, action);
+            {
+                SingleLightEffectAction action = new SingleLightEffectAction(lights, effect);
+                _messageActionLinks.Add(keys,action);
+            }
 
             return true;
         }
