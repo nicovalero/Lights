@@ -23,12 +23,14 @@ namespace Control.Controllers
     {
         private readonly ActionController _actionController;
         private readonly MidiController _midiController;
+        private readonly StorageController _storageController;
         private static readonly MidiLightsController _midiLightsController = new MidiLightsController();
         private readonly HueLightController _hueLightController;
         private static Dictionary<MidiMessageKeys, LightEffectAction> _messageActionLinks;
 
         private MidiLightsController()
         {
+            _storageController = StorageController.Singleton();
             _actionController = ActionController.Singleton();
             _midiController = MidiController.Singleton();
             _messageActionLinks = new Dictionary<MidiMessageKeys, LightEffectAction>();
@@ -45,16 +47,6 @@ namespace Control.Controllers
         {
             PerformLinkedAction(args);
         }
-
-        //public bool LinkMessageWithAction(MidiMessageKeys keys, LightEffectAction action)
-        //{
-        //    if (_messageActionLinks.ContainsKey(keys))
-        //        return false;
-        //    else
-        //        _messageActionLinks.Add(keys, action);
-
-        //    return true;
-        //}
 
         public bool CreateLink(MidiChannel channel, MidiNote note, MidiVelocity velocity, List<HueLight> lights, LightEffect effect)
         {
@@ -79,6 +71,11 @@ namespace Control.Controllers
                 _messageActionLinks.Remove(keys);
 
             return true;
+        }
+
+        public bool SaveLinksToFile()
+        {
+            return _storageController.SaveLinks(_messageActionLinks);
         }
 
         public bool PerformLinkedAction(MidiMessageKeys keys)

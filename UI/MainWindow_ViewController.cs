@@ -48,6 +48,11 @@ namespace UI
             return ConvertMidiActionDictionary_ToMidiEffectLinkVM(result);
         }
 
+        public bool SaveLinksToFile()
+        {
+            return _midiLightsController.SaveLinksToFile();
+        }
+
         private List<MidiEffectLink_ViewModel> ConvertMidiActionDictionary_ToMidiEffectLinkVM(Dictionary<MidiMessageKeys, LightEffectAction> dictionary)
         {
             List<MidiEffectLink_ViewModel> list = new List<MidiEffectLink_ViewModel>();

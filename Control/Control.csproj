@@ -52,6 +52,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\MidiLightsController.cs" />
+    <Compile Include="Controllers\StorageController.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -60,6 +61,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DataStorage\DataStorage.csproj">
+      <Project>{e96518ab-76c5-4355-80c9-93363ca4f57c}</Project>
+      <Name>DataStorage</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MIDI\MIDI.csproj">
       <Project>{4f049f33-9525-48ef-8098-92d6b7182435}</Project>
       <Name>MIDI</Name>

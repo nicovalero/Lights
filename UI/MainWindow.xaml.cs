@@ -102,5 +102,10 @@ namespace UI
         {
             _mainWindow_Controller.StartListening();
         }
+
+        private void SaveButton_Click(object sender, RoutedEventArgs e)
+        {
+            _mainWindow_Controller.SaveLinksToFile();
+        }
     }
 }

@@ -80,5 +80,6 @@
         <Button Content="Connect Bridges" Canvas.Left="506" Canvas.Top="497" Height="34" Width="128" HorizontalAlignment="Center" VerticalAlignment="Top" Click="ConnectBridgesButton_Click"/>
         <Button Content="Link" Canvas.Left="699" Canvas.Top="497" Width="120" Height="34" HorizontalAlignment="Center" VerticalAlignment="Top" Click="LinkButton_Click"/>
         <Button Content="Start listening" Canvas.Left="892" Canvas.Top="497" Width="120" Height="34" HorizontalAlignment="Center" VerticalAlignment="Top" Click="StartListeningButton_Click"/>
+        <Button Content="Save" Canvas.Left="892" Canvas.Top="350" Width="120" Height="34" HorizontalAlignment="Center" VerticalAlignment="Top" Click="SaveButton_Click"/>
     </Canvas>
 </Window>

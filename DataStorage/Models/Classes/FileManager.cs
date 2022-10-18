@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DataStorage.Models.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -11,15 +12,16 @@ namespace DataStorage.Models
     public static class FileManager
     {
 
-        public static bool Save(string content)
+        public static bool Save(LinkSaveObject saveObject)
         {
             SaveFileDialog dialog = new SaveFileDialog();
-            dialog.Filter = "mlef files (*.mlef)|*.mlef|All files (*.*)|*.*";
+            dialog.Filter = "mle files (*.mle)|*.mle|All files (*.*)|*.*";
             dialog.FilterIndex = 1;
             dialog.RestoreDirectory = true;
 
             if(dialog.ShowDialog() == DialogResult.OK)
             {
+                string content = saveObject.GenerateContentToSave();
                 string fileName = dialog.FileName;
                 File.WriteAllText(fileName, content);
             }
