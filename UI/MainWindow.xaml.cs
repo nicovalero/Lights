@@ -1,4 +1,5 @@
-﻿using MIDI.Models.Structs;
+﻿using DataStorage.Models;
+using MIDI.Models.Structs;
 using PhilipsHue.Actions.Interfaces;
 using PhilipsHue.Models.Interfaces;
 using System;
