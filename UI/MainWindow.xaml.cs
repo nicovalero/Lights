@@ -25,7 +25,7 @@ namespace UI
     /// </summary>
     public partial class MainWindow : Window
     {
-        MainWindow_ViewController _mainWindow_Controller;
+        private readonly MainWindow_ViewController _mainWindow_Controller;
         public MainWindow()
         {
             _mainWindow_Controller = MainWindow_ViewController.Singleton();
@@ -95,6 +95,11 @@ namespace UI
             _mainWindow_Controller.CreateLink(selectedLights, selectedEffect, selectedChannel, selectedNote, selectedVelocity);
 
             RefreshLinkList();
+        }
+
+        private void StartListeningButton_Click(object sender, RoutedEventArgs e)
+        {
+            _mainWindow_Controller.StartListening();
         }
     }
 }

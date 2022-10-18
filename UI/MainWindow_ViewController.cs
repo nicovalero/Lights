@@ -82,6 +82,11 @@ namespace UI
             _midiLightsController.ConnectBridges();
         }
 
+        internal void StartListening()
+        {
+            _midiLightsController.StartMidiController();
+        }
+
         internal List<MidiChannel> GetAvailableChannelList()
         {
             return _midiLightsController.GetAvailableChannels();
