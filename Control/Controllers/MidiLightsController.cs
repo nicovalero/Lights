@@ -16,6 +16,9 @@ using MIDI.Models.Class;
 using PhilipsHue.Collections;
 using PhilipsHue.Effects.Interfaces;
 using PhilipsHue.Models.Interfaces;
+using Newtonsoft.Json;
+using DataStorage.Models;
+using System.Collections;
 
 namespace Control.Controllers
 {
@@ -76,6 +79,23 @@ namespace Control.Controllers
         public bool SaveLinksToFile()
         {
             return _storageController.SaveLinks(_messageActionLinks);
+        }
+
+        public bool ReadLinksFromFile()
+        {
+            string content = _storageController.ReadLinks();
+
+            HueLinkSaveObject links = JsonConvert.DeserializeObject<HueLinkSaveObject>(content, new JsonSerializerSettings
+            {
+                TypeNameHandling = TypeNameHandling.Objects
+            });
+
+            foreach (KeyValuePair<MidiMessageKeys, LightEffectAction> link in links.Links)
+            {
+                _messageActionLinks.Add(link.Key, link.Value);
+            }
+
+            return true;
         }
 
         public bool PerformLinkedAction(MidiMessageKeys keys)

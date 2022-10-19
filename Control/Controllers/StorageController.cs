@@ -24,5 +24,10 @@ namespace Control.Controllers
             HueLinkSaveObject saveObject = new HueLinkSaveObject(links);
             return FileManager.Save(saveObject);
         }
+
+        public string ReadLinks()
+        {
+            return FileManager.Read();
+        }
     }
 }

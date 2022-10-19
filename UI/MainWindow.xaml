@@ -81,5 +81,6 @@
         <Button Content="Link" Canvas.Left="699" Canvas.Top="497" Width="120" Height="34" HorizontalAlignment="Center" VerticalAlignment="Top" Click="LinkButton_Click"/>
         <Button Content="Start listening" Canvas.Left="892" Canvas.Top="497" Width="120" Height="34" HorizontalAlignment="Center" VerticalAlignment="Top" Click="StartListeningButton_Click"/>
         <Button Content="Save" Canvas.Left="892" Canvas.Top="350" Width="120" Height="34" HorizontalAlignment="Center" VerticalAlignment="Top" Click="SaveButton_Click"/>
+        <Button Content="Load" Canvas.Left="892" Canvas.Top="400" Width="120" Height="34" HorizontalAlignment="Center" VerticalAlignment="Top" Click="LoadButton_Click"/>
     </Canvas>
 </Window>

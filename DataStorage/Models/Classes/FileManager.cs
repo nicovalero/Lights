@@ -28,5 +28,24 @@ namespace DataStorage.Models
 
             return true;
         }
+
+        public static string Read()
+        {
+            string content = "";
+            OpenFileDialog dialog = new OpenFileDialog();
+            dialog.Filter = "mle files (*.mle)|*.mle|All files (*.*)|*.*";
+            dialog.FilterIndex = 1;
+            dialog.RestoreDirectory = true;
+
+            if (dialog.ShowDialog() == DialogResult.OK)
+            {
+                using(StreamReader sr = new StreamReader(dialog.OpenFile()))
+                {
+                    content = sr.ReadToEnd();
+                }
+            }
+
+            return content;
+        }
     }
 }

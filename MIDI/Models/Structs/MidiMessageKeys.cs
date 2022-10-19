@@ -1,10 +1,12 @@
-﻿namespace MIDI.Models.Structs
+﻿using Newtonsoft.Json;
+
+namespace MIDI.Models.Structs
 {
     public struct MidiMessageKeys
     {
-        public MidiChannel Channel;
-        public MidiVelocity Velocity;
-        public MidiNote Note;
+        public MidiChannel Channel { get; set; }
+        public MidiVelocity Velocity { get; set; }
+        public MidiNote Note { get; set; }
         //public string Port;
 
         public MidiMessageKeys(MidiChannel channel, MidiVelocity velocity, MidiNote note/*, string port*/)

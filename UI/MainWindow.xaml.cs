@@ -107,5 +107,11 @@ namespace UI
         {
             _mainWindow_Controller.SaveLinksToFile();
         }
+
+        private void LoadButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (_mainWindow_Controller.LoadLinksFromFile())
+                RefreshLinkList();
+        }
     }
 }
