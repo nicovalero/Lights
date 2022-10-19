@@ -85,15 +85,20 @@ namespace Control.Controllers
         {
             string content = _storageController.ReadLinks();
 
-            HueLinkSaveObject links = JsonConvert.DeserializeObject<HueLinkSaveObject>(content, new JsonSerializerSettings
+            if (!string.IsNullOrEmpty(content))
             {
-                TypeNameHandling = TypeNameHandling.Objects
-            });
+                HueLinkSaveObject links = JsonConvert.DeserializeObject<HueLinkSaveObject>(content, new JsonSerializerSettings
+                {
+                    TypeNameHandling = TypeNameHandling.Objects
+                });
 
-            foreach (KeyValuePair<MidiMessageKeys, LightEffectAction> link in links.Links)
-            {
-                _messageActionLinks.Add(link.Key, link.Value);
+                foreach (KeyValuePair<MidiMessageKeys, LightEffectAction> link in links.Links)
+                {
+                    _messageActionLinks.Add(link.Key, link.Value);
+                }
             }
+            else
+                return false;
 
             return true;
         }
