@@ -19,6 +19,7 @@ using PhilipsHue.Models.Interfaces;
 using Newtonsoft.Json;
 using DataStorage.Models;
 using System.Collections;
+using Windows.UI.Xaml.Shapes;
 
 namespace Control.Controllers
 {
@@ -78,20 +79,16 @@ namespace Control.Controllers
 
         public bool SaveLinksToFile()
         {
-            return _storageController.SaveLinks(_messageActionLinks);
+            HueLinkSaveObject saveObject = new HueLinkSaveObject(_messageActionLinks);
+            return _storageController.SaveLinks(saveObject);
         }
 
         public bool ReadLinksFromFile()
         {
-            string content = _storageController.ReadLinks();
+            HueLinkSaveObject links = _storageController.ReadLinks();
 
-            if (!string.IsNullOrEmpty(content))
+            if (links != null)
             {
-                HueLinkSaveObject links = JsonConvert.DeserializeObject<HueLinkSaveObject>(content, new JsonSerializerSettings
-                {
-                    TypeNameHandling = TypeNameHandling.Objects
-                });
-
                 foreach (KeyValuePair<MidiMessageKeys, LightEffectAction> link in links.Links)
                 {
                     _messageActionLinks.Add(link.Key, link.Value);

@@ -21,7 +21,7 @@ namespace DataStorage.Models
 
             if(dialog.ShowDialog() == DialogResult.OK)
             {
-                string content = saveObject.GenerateContentToSave();
+                string content = saveObject.SerializeToJSON();
                 string fileName = dialog.FileName;
                 File.WriteAllText(fileName, content);
             }

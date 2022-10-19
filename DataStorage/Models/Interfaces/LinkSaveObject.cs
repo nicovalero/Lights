@@ -8,6 +8,6 @@ namespace DataStorage.Models.Interfaces
 {
     public interface LinkSaveObject
     {
-        string GenerateContentToSave();
+        string SerializeToJSON();
     }
 }

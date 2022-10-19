@@ -33,7 +33,7 @@ namespace DataStorage.Models
             _links = list;
         }
 
-        public string GenerateContentToSave()
+        public string SerializeToJSON()
         {
             return JsonConvert.SerializeObject(this, Formatting.Indented, new JsonSerializerSettings
             {
