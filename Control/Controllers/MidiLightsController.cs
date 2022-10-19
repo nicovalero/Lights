@@ -16,6 +16,10 @@ using MIDI.Models.Class;
 using PhilipsHue.Collections;
 using PhilipsHue.Effects.Interfaces;
 using PhilipsHue.Models.Interfaces;
+using Newtonsoft.Json;
+using DataStorage.Models;
+using System.Collections;
+using Windows.UI.Xaml.Shapes;
 
 namespace Control.Controllers
 {
@@ -23,12 +27,14 @@ namespace Control.Controllers
     {
         private readonly ActionController _actionController;
         private readonly MidiController _midiController;
+        private readonly StorageController _storageController;
         private static readonly MidiLightsController _midiLightsController = new MidiLightsController();
         private readonly HueLightController _hueLightController;
         private static Dictionary<MidiMessageKeys, LightEffectAction> _messageActionLinks;
 
         private MidiLightsController()
         {
+            _storageController = StorageController.Singleton();
             _actionController = ActionController.Singleton();
             _midiController = MidiController.Singleton();
             _messageActionLinks = new Dictionary<MidiMessageKeys, LightEffectAction>();
@@ -45,16 +51,6 @@ namespace Control.Controllers
         {
             PerformLinkedAction(args);
         }
-
-        //public bool LinkMessageWithAction(MidiMessageKeys keys, LightEffectAction action)
-        //{
-        //    if (_messageActionLinks.ContainsKey(keys))
-        //        return false;
-        //    else
-        //        _messageActionLinks.Add(keys, action);
-
-        //    return true;
-        //}
 
         public bool CreateLink(MidiChannel channel, MidiNote note, MidiVelocity velocity, List<HueLight> lights, LightEffect effect)
         {
@@ -77,6 +73,29 @@ namespace Control.Controllers
                 return false;
             else
                 _messageActionLinks.Remove(keys);
+
+            return true;
+        }
+
+        public bool SaveLinksToFile()
+        {
+            HueLinkSaveObject saveObject = new HueLinkSaveObject(_messageActionLinks);
+            return _storageController.SaveLinks(saveObject);
+        }
+
+        public bool ReadLinksFromFile()
+        {
+            HueLinkSaveObject links = _storageController.ReadLinks();
+
+            if (links != null)
+            {
+                foreach (KeyValuePair<MidiMessageKeys, LightEffectAction> link in links.Links)
+                {
+                    _messageActionLinks.Add(link.Key, link.Value);
+                }
+            }
+            else
+                return false;
 
             return true;
         }

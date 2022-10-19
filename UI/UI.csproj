@@ -105,6 +105,10 @@
       <Project>{98b0dd8b-4e0b-4e7c-bfa6-6f89e13b1559}</Project>
       <Name>Control</Name>
     </ProjectReference>
+    <ProjectReference Include="..\DataStorage\DataStorage.csproj">
+      <Project>{e96518ab-76c5-4355-80c9-93363ca4f57c}</Project>
+      <Name>DataStorage</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MIDI\MIDI.csproj">
       <Project>{4f049f33-9525-48ef-8098-92d6b7182435}</Project>
       <Name>MIDI</Name>

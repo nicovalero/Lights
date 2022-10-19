@@ -1,4 +1,5 @@
-﻿using MIDI.Models.Structs;
+﻿using DataStorage.Models;
+using MIDI.Models.Structs;
 using PhilipsHue.Actions.Interfaces;
 using PhilipsHue.Models.Interfaces;
 using System;
@@ -100,6 +101,17 @@ namespace UI
         private void StartListeningButton_Click(object sender, RoutedEventArgs e)
         {
             _mainWindow_Controller.StartListening();
+        }
+
+        private void SaveButton_Click(object sender, RoutedEventArgs e)
+        {
+            _mainWindow_Controller.SaveLinksToFile();
+        }
+
+        private void LoadButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (_mainWindow_Controller.LoadLinksFromFile())
+                RefreshLinkList();
         }
     }
 }
