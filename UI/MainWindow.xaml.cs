@@ -1,23 +1,10 @@
-﻿using DataStorage.Models;
-using MIDI.Models.Structs;
-using PhilipsHue.Actions.Interfaces;
-using PhilipsHue.Models.Interfaces;
-using System;
+﻿using PhilipsHue.Models.Interfaces;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using UI.Models.Structs;
+using UI.User_Controls;
 
 namespace UI
 {
@@ -32,6 +19,14 @@ namespace UI
             _mainWindow_Controller = MainWindow_ViewController.Singleton();
             InitializeLists();
             InitializeComponent();
+        }
+
+        private void Border_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if(e.ChangedButton == MouseButton.Left)
+            {
+                this.DragMove();
+            }
         }
 
         private void ConnectBridges()
@@ -75,7 +70,9 @@ namespace UI
 
         private void RefreshAvailableHueLights()
         {
+            var list = _mainWindow_Controller.GetAvailableHueLightsList();
             Resources["AvailableHueLights"] = _mainWindow_Controller.GetAvailableHueLightsList();
+            Resources["NumberOfAvailableHueLights"] = list.Count;
         }
 
         private void ConnectBridgesButton_Click(object sender, RoutedEventArgs e)
@@ -88,14 +85,14 @@ namespace UI
         private void LinkButton_Click(object sender, RoutedEventArgs e)
         {
             IList selectedLights = HueLightsList.SelectedItems;
-            object selectedEffect = HueEffectList.SelectedItem;
-            object selectedChannel = HueChannelList.SelectedItem;
-            object selectedNote = HueMidiNoteList.SelectedItem;
-            object selectedVelocity = HueMidiVelocityList.SelectedItem;
+            //object selectedEffect = HueEffectList.SelectedItem;
+            //object selectedChannel = HueChannelList.SelectedItem;
+            //object selectedNote = HueMidiNoteList.SelectedItem;
+            //object selectedVelocity = HueMidiVelocityList.SelectedItem;
 
-            _mainWindow_Controller.CreateLink(selectedLights, selectedEffect, selectedChannel, selectedNote, selectedVelocity);
+            //_mainWindow_Controller.CreateLink(selectedLights, selectedEffect, selectedChannel, selectedNote, selectedVelocity);
 
-            RefreshLinkList();
+            //RefreshLinkList();
         }
 
         private void StartListeningButton_Click(object sender, RoutedEventArgs e)
