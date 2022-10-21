@@ -68,7 +68,7 @@
         </Border>
 
         <!-- Main Section-->
-        <Border x:Name="ControlSection" Grid.Column="1" CornerRadius="0 10 10 0" MouseDown="Border_MouseDown">
+        <Border x:Name="ControlSection" Grid.Column="1" CornerRadius="0 10 10 0" MouseDown="Border_MouseDown" Visibility="Hidden">
             <Border.Background>
                 <LinearGradientBrush StartPoint="1,0" EndPoint="0,1">
                     <GradientStop Color="#41518f" Offset="0"/>
@@ -115,7 +115,7 @@
                         <ColumnDefinition Width="300"/>
                     </Grid.ColumnDefinitions>
 
-                    <uc:LinkInfo Padding="0 0 10 0" Icon="Lightbulb" Source="{DynamicResource MidiEffectLinks}"/>
+                    <uc:LinkInfo Padding="0 0 10 0" Icon="Link" Source="{DynamicResource MidiEffectLinks}"/>
 
                     <Border Grid.Column="1" CornerRadius="20" Padding="0 25" Background="#243771" Margin="15 0 10 40">
                         <Grid>
@@ -149,7 +149,7 @@
         </Border>
         
         <!-- Link Management-->
-        <Border x:Name="LinkManagementSection" Grid.Column="1" CornerRadius="0 10 10 0" MouseDown="Border_MouseDown" Visibility="Collapsed">
+        <Border x:Name="LinkManagementSection" Grid.Column="1" CornerRadius="0 10 10 0" MouseDown="Border_MouseDown" Visibility="Visible" Padding="10 10 10 10">
             <Border.Background>
                 <LinearGradientBrush StartPoint="1,0" EndPoint="0,1">
                     <GradientStop Color="#41518f" Offset="0"/>
@@ -158,20 +158,13 @@
             </Border.Background>
 
             <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="300"/>
-                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="220"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
 
-                <Grid Grid.Row="0">
-                    
-                </Grid>
-                <Grid Grid.Row="1">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="730"/>
-                    </Grid.ColumnDefinitions>
-
-                    <uc:LinkInfo Padding="0 0 10 0" Icon="Lightbulb" Source="{DynamicResource MidiEffectLinks}"/>
+                <Grid Grid.Column="0">
+                    <uc:LinkInfoShort Padding="0 0 0 0" Icon="Link" Source="{DynamicResource MidiEffectLinks}" HorizontalAlignment="Stretch"/>
                 </Grid>
             </Grid>
         </Border>

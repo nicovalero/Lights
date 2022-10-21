@@ -14,7 +14,7 @@
 
         <StackPanel Orientation="Horizontal">
             <Grid Width="45" Height="45" Margin="25 0 0 0">
-                <Border CornerRadius="10" Background="#152457"/>
+                <Border CornerRadius="10" Background="#152457" Padding="0 3 0 0"/>
                 <fa:IconImage Icon="{Binding Path=Icon, ElementName=lightStatus}" Foreground="#bcc6e6" Width="25"/>
             </Grid>
 

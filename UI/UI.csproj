@@ -78,6 +78,9 @@
     <Compile Include="User Controls\LightStatus.xaml.cs">
       <DependentUpon>LightStatus.xaml</DependentUpon>
     </Compile>
+    <Compile Include="User Controls\LinkInfoShort.xaml.cs">
+      <DependentUpon>LinkInfoShort.xaml</DependentUpon>
+    </Compile>
     <Compile Include="User Controls\LinkInfo.xaml.cs">
       <DependentUpon>LinkInfo.xaml</DependentUpon>
     </Compile>
@@ -100,6 +103,10 @@
     <Page Include="User Controls\LightStatus.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="User Controls\LinkInfoShort.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="User Controls\LinkInfo.xaml">
       <SubType>Designer</SubType>
