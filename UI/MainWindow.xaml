@@ -46,13 +46,13 @@
                 <Separator Height="0.8" Margin="20 30" Background="#46558a"/>
 
                 <!-- Menu Buttons-->
-                <Button Style="{StaticResource menuButtonActive}">
+                <Button x:Name="ControlMenuButton" Style="{StaticResource menuButtonActive}" Click="ControlMenuButton_Click">
                     <StackPanel Orientation="Horizontal">
                         <fa:IconImage Icon="Home" Style="{StaticResource menuButtonIcon}"/>
                         <TextBlock Text="Control" Style="{StaticResource menuButtonText}"/>
                     </StackPanel>
                 </Button>
-                <Button Style="{StaticResource menuButton}">
+                <Button x:Name="LinkManagementMenuButton" Style="{StaticResource menuButton}" Click="LinkManagementMenuButton_Click">
                     <StackPanel Orientation="Horizontal">
                         <fa:IconImage Icon="Link" Style="{StaticResource menuButtonIcon}"/>
                         <TextBlock Text="Link Management" Style="{StaticResource menuButtonText}"/>
@@ -68,7 +68,7 @@
         </Border>
 
         <!-- Main Section-->
-        <Border Grid.Column="1" CornerRadius="0 10 10 0" MouseDown="Border_MouseDown">
+        <Border x:Name="ControlSection" Grid.Column="1" CornerRadius="0 10 10 0" MouseDown="Border_MouseDown">
             <Border.Background>
                 <LinearGradientBrush StartPoint="1,0" EndPoint="0,1">
                     <GradientStop Color="#41518f" Offset="0"/>
@@ -99,12 +99,14 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
 
-                    <uc:InfoCard x:Name="LightsConnectedInfoCard" Grid.Column="0" Title="Philips Hue" InfoName="Lights Connected:" Value="{DynamicResource NumberOfAvailableHueLights}"  Icon="Lightbulb" Background1="#005555" Background2="#d9b5ff"
-                                     EllipseBackground1="#b298fd" EllipseBackground2="#e4bbff"/>
-                    <uc:InfoCard Grid.Column="1" Title="Nanoleaf" InfoName="Canvas Panels:" Icon="Square" Background1="#004400" Background2="#ffffff"
-                                     EllipseBackground1="#00bbbb" EllipseBackground2="#00aa11"/>
-                    <uc:InfoCard Grid.Column="2" Title="MIDI" InfoName="Ports:" Icon="NetworkWired" Background1="#000000" Background2="#ffffff"
-                                     EllipseBackground1="Gray" EllipseBackground2="DarkTurquoise"/>
+                    <uc:InfoCard x:Name="LightsConnectedInfoCard" Grid.Column="0" Title="Philips Hue" InfoName="Lights Connected:" 
+                                 Value="{DynamicResource NumberOfAvailableHueLights}" Icon="Lightbulb" CardBackground="#005555"/>
+                    <StackPanel Grid.Column="1">
+                        <Button Content="Connect Bridges" Height="34" Width="128" HorizontalAlignment="Center" VerticalAlignment="Center" Click="ConnectBridgesButton_Click"/>
+                        <Button Content="Load" Canvas.Left="892" Canvas.Top="400" Width="120" Height="34" HorizontalAlignment="Center" VerticalAlignment="Top" Click="LoadButton_Click"/>
+                    </StackPanel>
+                    <!--<uc:InfoCard Grid.Column="1" Title="Nanoleaf" InfoName="Canvas Panels:" Icon="Square" CardBackground="#004400"/>-->
+                    <uc:InfoCard Grid.Column="2" Title="MIDI" InfoName="Ports:" Icon="NetworkWired" CardBackground="#333333"/>
                 </Grid>
 
                 <Grid Grid.Row="2">
@@ -113,9 +115,7 @@
                         <ColumnDefinition Width="300"/>
                     </Grid.ColumnDefinitions>
 
-                    <Border CornerRadius="20" Padding="35 25" Background="#243771" Margin="50 0 10 40">
-                        <Button Content="Connect Bridges" Canvas.Left="506" Canvas.Top="497" Height="34" Width="128" HorizontalAlignment="Center" VerticalAlignment="Top" Click="ConnectBridgesButton_Click"/>
-                    </Border>
+                    <uc:LinkInfo Padding="0 0 10 0" Icon="Lightbulb" Source="{DynamicResource MidiEffectLinks}"/>
 
                     <Border Grid.Column="1" CornerRadius="20" Padding="0 25" Background="#243771" Margin="15 0 10 40">
                         <Grid>
@@ -130,9 +130,6 @@
                             </StackPanel>
 
                             <StackPanel Grid.Row="1" x:Name="LightStatusGrid">
-                                <!--<uc:LightStatus Title="Front left" Subtitle="Hue Color Light" Icon="Lightbulb"/>
-                                <uc:LightStatus Title="Bed light" Subtitle="Hue Color Light" Icon="Lightbulb"/>
-                                <uc:LightStatus Title="Lightstrip 1" Subtitle="Lightstrip" Icon="Lightbulb"/>-->
                                 <ListBox x:Name="HueLightsList" Width="{Binding ElementName=LightStatusGrid, Path=ActualWidth}" 
                                          Height="{Binding ElementName=LightStatusGrid, Path=ActualHeight}" 
                                          BorderThickness="0" Background="Transparent" ScrollViewer.VerticalScrollBarVisibility="Hidden"
@@ -147,6 +144,34 @@
                             </StackPanel>
                         </Grid>
                     </Border>
+                </Grid>
+            </Grid>
+        </Border>
+        
+        <!-- Link Management-->
+        <Border x:Name="LinkManagementSection" Grid.Column="1" CornerRadius="0 10 10 0" MouseDown="Border_MouseDown" Visibility="Collapsed">
+            <Border.Background>
+                <LinearGradientBrush StartPoint="1,0" EndPoint="0,1">
+                    <GradientStop Color="#41518f" Offset="0"/>
+                    <GradientStop Color="#2c386c" Offset="1"/>
+                </LinearGradientBrush>
+            </Border.Background>
+
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="300"/>
+                </Grid.RowDefinitions>
+
+                <Grid Grid.Row="0">
+                    
+                </Grid>
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="730"/>
+                    </Grid.ColumnDefinitions>
+
+                    <uc:LinkInfo Padding="0 0 10 0" Icon="Lightbulb" Source="{DynamicResource MidiEffectLinks}"/>
                 </Grid>
             </Grid>
         </Border>
@@ -224,7 +249,6 @@
         
         <Button Content="Link" Canvas.Left="699" Canvas.Top="497" Width="120" Height="34" HorizontalAlignment="Center" VerticalAlignment="Top" Click="LinkButton_Click"/>
         <Button Content="Start listening" Canvas.Left="892" Canvas.Top="497" Width="120" Height="34" HorizontalAlignment="Center" VerticalAlignment="Top" Click="StartListeningButton_Click"/>
-        <Button Content="Save" Canvas.Left="892" Canvas.Top="350" Width="120" Height="34" HorizontalAlignment="Center" VerticalAlignment="Top" Click="SaveButton_Click"/>
-        <Button Content="Load" Canvas.Left="892" Canvas.Top="400" Width="120" Height="34" HorizontalAlignment="Center" VerticalAlignment="Top" Click="LoadButton_Click"/>-->
+        <Button Content="Save" Canvas.Left="892" Canvas.Top="350" Width="120" Height="34" HorizontalAlignment="Center" VerticalAlignment="Top" Click="SaveButton_Click"/>-->
     </Grid>
 </Window>

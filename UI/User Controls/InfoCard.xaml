@@ -7,10 +7,7 @@
              mc:Ignorable="d" Name="infoCardf" Width="316" Height="140">
     <Border Margin="0 0 25 0">
         <Border.Background>
-            <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
-                <GradientStop Color="{Binding Path=Background1, ElementName=infoCardf}" Offset="0"/>
-                <GradientStop Color="{Binding Path=Background2, ElementName=infoCardf}" Offset="1"/>
-            </LinearGradientBrush>
+            <SolidColorBrush Color="{Binding Path=CardBackground, ElementName=infoCardf}"/>
         </Border.Background>
 
         <Border.Clip>
@@ -18,15 +15,6 @@
         </Border.Clip>
 
         <Grid>
-            <Ellipse Width="230" Height="230" Margin="0 -130 -90 0" HorizontalAlignment="Right" >
-                <Ellipse.Fill>
-                    <LinearGradientBrush StartPoint="1,0" EndPoint="0,1">
-                        <GradientStop Color="{Binding Path=EllipseBackground1, ElementName=infoCardf}" Offset="0"/>
-                        <GradientStop Color="{Binding Path=EllipseBackground2, ElementName=infoCardf}" Offset="1"/>
-                    </LinearGradientBrush>
-                </Ellipse.Fill>
-            </Ellipse>
-
             <fa:IconImage Icon="{Binding Path=Icon, ElementName=infoCardf}" Margin="0 0 25 25" Width="60" Height="60" Foreground="#ffffff" HorizontalAlignment="Right" VerticalAlignment="Center"/>
 
             <StackPanel Margin="25 0 0 20" VerticalAlignment="Bottom">

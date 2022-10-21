@@ -110,5 +110,23 @@ namespace UI
             if (_mainWindow_Controller.LoadLinksFromFile())
                 RefreshLinkList();
         }
+
+        private void ControlMenuButton_Click(object sender, RoutedEventArgs e)
+        {
+            LinkManagementSection.Visibility = Visibility.Hidden;
+            LinkManagementMenuButton.Style = (Style)Application.Current.Resources["menuButton"];
+
+            ControlSection.Visibility = Visibility.Visible;
+            ControlMenuButton.Style = (Style)Application.Current.Resources["menuButtonActive"];
+        }
+
+        private void LinkManagementMenuButton_Click(object sender, RoutedEventArgs e)
+        {
+            LinkManagementSection.Visibility = Visibility.Visible;
+            LinkManagementMenuButton.Style = (Style)Application.Current.Resources["menuButtonActive"];
+
+            ControlSection.Visibility = Visibility.Hidden;
+            ControlMenuButton.Style = (Style) Application.Current.Resources["menuButton"];
+        }
     }
 }

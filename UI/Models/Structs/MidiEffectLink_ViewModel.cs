@@ -19,6 +19,7 @@ namespace UI.Models.Structs
         public MidiChannel Channel { get { return _channel; } set { _channel = value; } }
         public string ChannelName { get { return _channel.Name; } }
         public MidiVelocity Velocity { get { return _velocity; } set { _velocity = value; } }
+        public string VelocityName { get { return _velocity.Name; } }
         public MidiNote Note { get { return _note; } set { _note = value; } }
         public string NoteName { get { return _note.Name; } }
         public LightEffect Effect { get { return _effect; } set { _effect = value; } }
