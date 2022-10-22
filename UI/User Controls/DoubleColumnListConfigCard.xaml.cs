@@ -35,20 +35,12 @@ namespace UI.User_Controls
 
         public static readonly DependencyProperty TitleProperty = DependencyProperty.Register("Title", typeof(string), typeof(DoubleColumnListConfigCard));
 
-        public Color CardBackground
+        internal List<CardConfigList_ViewModel> Source
         {
-            get { return (Color)GetValue(CardBackgroundProperty); }
-            set { SetValue(CardBackgroundProperty, value); }
-        }
-
-        public static readonly DependencyProperty CardBackgroundProperty = DependencyProperty.Register("CardBackground", typeof(Color), typeof(DoubleColumnListConfigCard));
-
-        internal List<SimpleConfigList_ViewModel> Source
-        {
-            get { return (List<SimpleConfigList_ViewModel>)GetValue(SourceProperty); }
+            get { return (List<CardConfigList_ViewModel>)GetValue(SourceProperty); }
             set { SetValue(SourceProperty, value); }
         }
 
-        internal static readonly DependencyProperty SourceProperty = DependencyProperty.Register("Source", typeof(List<SimpleConfigList_ViewModel>), typeof(DoubleColumnListConfigCard));
+        internal static readonly DependencyProperty SourceProperty = DependencyProperty.Register("Source", typeof(List<CardConfigList_ViewModel>), typeof(DoubleColumnListConfigCard));
     }
 }

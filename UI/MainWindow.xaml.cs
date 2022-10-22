@@ -50,7 +50,7 @@ namespace UI
 
         private void RefreshEffectList()
         {
-            Resources["HueEffectList"] = _mainWindow_Controller.GetHueEffectList();
+            Resources["HueEffectList"] = _mainWindow_Controller.GetHueEffectCardConfigList();
         }
 
         private void RefreshAvailableMidiChannelList()

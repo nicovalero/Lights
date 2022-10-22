@@ -72,9 +72,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="HueEffect_ToCardConfigConverter.cs" />
     <Compile Include="Models\Structs\SimpleConfigList_ViewModel.cs" />
+    <Compile Include="Models\Structs\CardConfigList_ViewModel.cs" />
     <Compile Include="User Controls\DoubleColumnListConfigCard.xaml.cs">
       <DependentUpon>DoubleColumnListConfigCard.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="User Controls\ConfigElementCard.xaml.cs">
+      <DependentUpon>ConfigElementCard.xaml</DependentUpon>
     </Compile>
     <Compile Include="User Controls\LinkListConfigCard.xaml.cs">
       <DependentUpon>LinkListConfigCard.xaml</DependentUpon>
@@ -104,6 +109,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="User Controls\DoubleColumnListConfigCard.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="User Controls\ConfigElementCard.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
+             xmlns:uc="clr-namespace:UI.User_Controls"
              mc:Ignorable="d" Name="doubleColumnListConfigCard" Width="380" Height="430">
 
     <Border CornerRadius="20" Padding="5 10 10 25" Background="#243771" Margin="0 0 0 0">
@@ -26,23 +27,15 @@
                                          HorizontalAlignment="Center" VerticalAlignment="Top">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
-                            <Border Grid.Column="0" Padding="5" Margin="0 5" HorizontalAlignment="Stretch" Background="#152457" CornerRadius="10" Width="170" Height="80">
+                            <Border Grid.Column="0" Padding="5" Margin="0 5" HorizontalAlignment="Stretch" CornerRadius="10" Width="170" Height="80">
                                 <Border.Style>
                                     <Style TargetType="Border">
                                         <Setter Property="Background" Value="Transparent"/>
                                     </Style>
                                 </Border.Style>
                                 <StackPanel Orientation="Horizontal">
-                                    <Grid Height="25" Margin="0 0 2 0">
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="40"/>
-                                            <ColumnDefinition Width="*"/>
-                                        </Grid.ColumnDefinitions>
-                                        <fa:IconImage Icon="Explosion" Foreground="#bcc6e6" Width="20" Margin="0 0 0 0"/>
-                                        <StackPanel Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Orientation="Horizontal" Margin="0 0 0 0">
-                                            <TextBlock Text="{Binding ItemName}" FontSize="16" Foreground="#7c8dc3" FontWeight="Bold"/>
-                                        </StackPanel>
-                                    </Grid>
+                                    <uc:ConfigElementCard Icon="{Binding Icon}" CardBackground="{Binding BackgroundColor}" 
+                                                          Title="{Binding ItemName}" Width="200" Height="60"/>
                                 </StackPanel>
                             </Border>
                         </DataTemplate>

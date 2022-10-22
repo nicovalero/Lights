@@ -145,9 +145,9 @@ namespace UI
             _midiLightsController.StartMidiController();
         }
 
-        internal object GetHueEffectList()
+        internal List<CardConfigList_ViewModel> GetHueEffectCardConfigList()
         {
-            return _midiLightsController.GetAllHueEffects();
+            return HueEffect_ToCardConfigConverter.Convert(_midiLightsController.GetAllHueEffects());
         }
 
         public List<SimpleConfigList_ViewModel> GetAvailableMidiNoteList()
