@@ -7,7 +7,10 @@
              mc:Ignorable="d" Name="configElementCard">
     <Border Margin="0 0 25 0">
         <Border.Background>
-            <SolidColorBrush Color="{Binding Path=CardBackground, ElementName=configElementCard}"/>
+            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1.6">
+                <GradientStop Color="{Binding Path=CardBackground1, ElementName=configElementCard}" Offset="0"/>
+                <GradientStop Color="{Binding Path=CardBackground2, ElementName=configElementCard}" Offset="1"/>
+            </LinearGradientBrush>
         </Border.Background>
 
         <Border.Clip>

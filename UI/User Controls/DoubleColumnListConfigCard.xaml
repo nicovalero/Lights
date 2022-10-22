@@ -34,7 +34,7 @@
                                     </Style>
                                 </Border.Style>
                                 <StackPanel Orientation="Horizontal">
-                                    <uc:ConfigElementCard Icon="{Binding Icon}" CardBackground="{Binding BackgroundColor}" 
+                                    <uc:ConfigElementCard Icon="{Binding Icon}" CardBackground1="{Binding BackgroundColor1}" CardBackground2="{Binding BackgroundColor2}" 
                                                           Title="{Binding ItemName}" Width="200" Height="60"/>
                                 </StackPanel>
                             </Border>

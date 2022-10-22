@@ -41,13 +41,21 @@ namespace UI.User_Controls
 
         public static readonly DependencyProperty IconProperty = DependencyProperty.Register("Icon", typeof(FontAwesome.Sharp.IconChar), typeof(ConfigElementCard));
 
-        public Color CardBackground
+        public Color CardBackground1
         {
-            get { return (Color)GetValue(CardBackgroundProperty); }
-            set { SetValue(CardBackgroundProperty, value); }
+            get { return (Color)GetValue(CardBackground1Property); }
+            set { SetValue(CardBackground1Property, value); }
         }
 
-        public static readonly DependencyProperty CardBackgroundProperty = DependencyProperty.Register("CardBackground", typeof(Color), typeof(ConfigElementCard));
+        public static readonly DependencyProperty CardBackground1Property = DependencyProperty.Register("CardBackground1", typeof(Color), typeof(ConfigElementCard));
+
+        public Color CardBackground2
+        {
+            get { return (Color)GetValue(CardBackground2Property); }
+            set { SetValue(CardBackground2Property, value); }
+        }
+
+        public static readonly DependencyProperty CardBackground2Property = DependencyProperty.Register("CardBackground2", typeof(Color), typeof(ConfigElementCard));
 
     }
 }

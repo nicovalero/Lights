@@ -15,12 +15,12 @@ namespace UI
 {
     internal static class HueEffect_ToCardConfigConverter
     {
-        private static readonly Dictionary<LightEffect, Color> _colorDictionary;
+        private static readonly Dictionary<LightEffect, List<Color>> _colorDictionary;
         private static readonly Dictionary<LightEffect, FontAwesome.Sharp.IconChar> _iconDictionary;
 
         static HueEffect_ToCardConfigConverter()
         {
-            _colorDictionary = new Dictionary<LightEffect, Color>();
+            _colorDictionary = new Dictionary<LightEffect, List<Color>>();
             _iconDictionary = new Dictionary<LightEffect, IconChar>();
 
             PopulateColorDictionary();
@@ -29,40 +29,64 @@ namespace UI
 
         private static void PopulateColorDictionary()
         {
-            byte red;
-            byte green;
-            byte blue;
+            List<Color> colorList;
+            byte red, red2;
+            byte green, green2;
+            byte blue, blue2;
             foreach (LightEffect effect in HueLightEffectCollection.GetAllEffectList())
             {
+                colorList = new List<Color>();
                 switch (effect)
                 {
                     default:
                         red = 50;
                         green = 0;
                         blue = 255;
+
+                        red2 = 50;
+                        green2 = 0;
+                        blue2 = 255;
                         break;
                     case Flash f:
-                        red = 210;
-                        green = 180;
+                        red = 180;
+                        green = 150;
                         blue = 0;
+
+                        red2 = 210;
+                        green2 = 210;
+                        blue2 = 210;
                         break;
                     case FadeIn f:
-                        red = 255;
-                        green = 165;
+                        red = 0;
+                        green = 0;
                         blue = 0;
+
+                        red2 = 255;
+                        green2 = 165;
+                        blue2 = 0;
                         break;
                     case FadeOut f:
                         red = 170;
                         green = 180;
                         blue = 183;
+
+                        red2 = 0;
+                        green2 = 0;
+                        blue2 = 0;
                         break;
                     case ColorChange f:
                         red = 59;
                         green = 173;
                         blue = 202;
+
+                        red2 = 204;
+                        green2 = 0;
+                        blue2 = 255;
                         break;
                 }
-                _colorDictionary.Add(effect, Color.FromRgb(red, green, blue));
+                colorList.Add(Color.FromRgb(red, green, blue));
+                colorList.Add(Color.FromRgb(red2, green2, blue2));
+                _colorDictionary.Add(effect, colorList);
             }            
         }
 
@@ -83,7 +107,7 @@ namespace UI
                         icon = IconChar.MountainSun;
                         break;
                     case FadeOut f:
-                        icon = IconChar.CloudSun;
+                        icon = IconChar.Moon;
                         break;
                     case ColorChange f:
                         icon = IconChar.YinYang;
@@ -100,7 +124,7 @@ namespace UI
             foreach(LightEffect effect in effects)
             {
                 if(_colorDictionary.ContainsKey(effect) && _iconDictionary.ContainsKey(effect))
-                    list.Add(new CardConfigList_ViewModel(effect, effect.Name, _colorDictionary[effect], _iconDictionary[effect]));
+                    list.Add(new CardConfigList_ViewModel(effect, effect.Name, _colorDictionary[effect][0], _colorDictionary[effect][1], _iconDictionary[effect]));
             }
 
             return list;
