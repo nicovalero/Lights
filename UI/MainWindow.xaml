@@ -39,20 +39,20 @@
                     </Border>
                     <StackPanel Margin="10 0 0 0" VerticalAlignment="Center">
                         <TextBlock Text="Emily MLE" FontSize="15" Margin="0 0 0 5" Foreground="#c2cfff"/>
-                        <TextBlock Text="Beta 1.0" FontSize="11" Foreground="#7788bf"/>
+                        <TextBlock Text="Alpha 1.0" FontSize="11" Foreground="#7788bf"/>
                     </StackPanel>
                 </StackPanel>
 
                 <Separator Height="0.8" Margin="20 30" Background="#46558a"/>
 
                 <!-- Menu Buttons-->
-                <Button x:Name="ControlMenuButton" Style="{StaticResource menuButtonActive}" Click="ControlMenuButton_Click">
+                <Button x:Name="ControlMenuButton" Style="{StaticResource menuButton}" Click="ControlMenuButton_Click">
                     <StackPanel Orientation="Horizontal">
                         <fa:IconImage Icon="Home" Style="{StaticResource menuButtonIcon}"/>
                         <TextBlock Text="Control" Style="{StaticResource menuButtonText}"/>
                     </StackPanel>
                 </Button>
-                <Button x:Name="LinkManagementMenuButton" Style="{StaticResource menuButton}" Click="LinkManagementMenuButton_Click">
+                <Button x:Name="LinkManagementMenuButton" Style="{StaticResource menuButtonActive}" Click="LinkManagementMenuButton_Click">
                     <StackPanel Orientation="Horizontal">
                         <fa:IconImage Icon="Link" Style="{StaticResource menuButtonIcon}"/>
                         <TextBlock Text="Link Management" Style="{StaticResource menuButtonText}"/>
@@ -90,7 +90,7 @@
                 </StackPanel>
 
                 <TextBlock Text="Control" FontSize="26" Foreground="#ccd7ff" HorizontalAlignment="Left" Margin="50 35 0 20"/>
-                
+
                 <!-- Info Card -->
                 <Grid Grid.Row="1" Margin="50 20 15 40">
                     <Grid.ColumnDefinitions>
@@ -147,9 +147,9 @@
                 </Grid>
             </Grid>
         </Border>
-        
+
         <!-- Link Management-->
-        <Border x:Name="LinkManagementSection" Grid.Column="1" CornerRadius="0 10 10 0" MouseDown="Border_MouseDown" Visibility="Visible" Padding="10 10 10 10">
+        <Border x:Name="LinkManagementSection" Grid.Column="1" MouseDown="Border_MouseDown" Visibility="Visible" Padding="10 10 10 10">
             <Border.Background>
                 <LinearGradientBrush StartPoint="1,0" EndPoint="0,1">
                     <GradientStop Color="#41518f" Offset="0"/>
@@ -165,6 +165,54 @@
 
                 <Grid Grid.Column="0">
                     <uc:LinkInfoShort Padding="0 0 0 0" Icon="Link" Source="{DynamicResource MidiEffectLinks}" HorizontalAlignment="Stretch"/>
+                </Grid>
+
+                <Grid Grid.Column="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="300"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <Grid Grid.Row="0"  Margin="10 10 5 10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Grid Grid.Column="0" Margin="0 0 0 0">
+                            <uc:LinkListConfigCard x:Name="C1" Title="Note"
+                                VerticalAlignment="Center" HorizontalAlignment="Center" ElementIcon="Music"
+                                Source="{DynamicResource AvailableMidiNoteList}" CardBackground="#aa00a1"/>
+                        </Grid>
+
+                        <Grid Grid.Column="1" Margin="0 0 0 0">
+                            <uc:LinkListConfigCard x:Name="C2" Title="Channel"
+                                VerticalAlignment="Center" HorizontalAlignment="Center" ElementIcon="SatelliteDish"
+                                Source="{DynamicResource AvailableMidiChannelList}" CardBackground="#aa00a1"/>
+                        </Grid>
+
+                        <Grid Grid.Column="2" Margin="0 0 0 0">
+                            <uc:LinkListConfigCard x:Name="C3" Title="Velocity"
+                                VerticalAlignment="Center" HorizontalAlignment="Center" ElementIcon="WaveSquare"
+                                Source="{DynamicResource AvailableMidiVelocityList}" CardBackground="#005500"/>
+                        </Grid>
+                    </Grid>
+
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="300"/>
+                            <ColumnDefinition Width="300"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Grid Grid.Column="0">
+
+                        </Grid>
+
+                        <Grid Grid.Column="1">
+
+                        </Grid>
+                    </Grid>
                 </Grid>
             </Grid>
         </Border>

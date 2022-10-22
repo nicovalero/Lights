@@ -10,6 +10,7 @@ using UI.Models.Structs;
 using PhilipsHue.Models.Interfaces;
 using System.Collections;
 using PhilipsHue.Effects.Interfaces;
+using ControlzEx.Standard;
 
 namespace UI
 {
@@ -80,6 +81,48 @@ namespace UI
             return list;
         }
 
+        private List<SimpleConfigList_ViewModel> ConvertMidiNoteList_ToSimpleConfigListVM(List<MidiNote> notes)
+        {
+            List<SimpleConfigList_ViewModel> list = new List<SimpleConfigList_ViewModel>();
+
+            foreach (MidiNote note in notes)
+            {
+                list.Add(new SimpleConfigList_ViewModel(
+                    note,
+                    note.Name));
+            }
+
+            return list;
+        }
+
+        private List<SimpleConfigList_ViewModel> ConvertMidiChannelList_ToSimpleConfigListVM(List<MidiChannel> channels)
+        {
+            List<SimpleConfigList_ViewModel> list = new List<SimpleConfigList_ViewModel>();
+
+            foreach (MidiChannel channel in channels)
+            {
+                list.Add(new SimpleConfigList_ViewModel(
+                    channel,
+                    channel.Name));
+            }
+
+            return list;
+        }
+
+        private List<SimpleConfigList_ViewModel> ConvertMidiVelocityList_ToSimpleConfigListVM(List<MidiVelocity> velocities)
+        {
+            List<SimpleConfigList_ViewModel> list = new List<SimpleConfigList_ViewModel>();
+
+            foreach (MidiVelocity velocity in velocities)
+            {
+                list.Add(new SimpleConfigList_ViewModel(
+                    velocity,
+                    velocity.Name));
+            }
+
+            return list;
+        }
+
         private List<HueLight> ConvertIList_ToHueLightList(IList selectedLights)
         {
             List<HueLight> lights = new List<HueLight>();
@@ -102,24 +145,30 @@ namespace UI
             _midiLightsController.StartMidiController();
         }
 
-        internal List<MidiChannel> GetAvailableChannelList()
-        {
-            return _midiLightsController.GetAvailableChannels();
-        }
-
         internal object GetHueEffectList()
         {
             return _midiLightsController.GetAllHueEffects();
         }
 
-        internal List<MidiNote> GetAvailableMidiNoteList()
+        public List<SimpleConfigList_ViewModel> GetAvailableMidiNoteList()
         {
-            return _midiLightsController.GetAllMidiNotes();
+            List<MidiNote> result = _midiLightsController.GetAllMidiNotes();
+
+            return ConvertMidiNoteList_ToSimpleConfigListVM(result);
         }
 
-        internal List<MidiVelocity> GetAvailableMidiVelocityList()
+        internal List<SimpleConfigList_ViewModel> GetAvailableMidiVelocityList()
         {
-            return _midiLightsController.GetAvailableVelocities();
+            List<MidiVelocity> result = _midiLightsController.GetAvailableVelocities();
+
+            return ConvertMidiVelocityList_ToSimpleConfigListVM(result);
+        }
+
+        internal List<SimpleConfigList_ViewModel> GetAvailableChannelList()
+        {
+            List<MidiChannel> result = _midiLightsController.GetAvailableChannels();
+
+            return ConvertMidiChannelList_ToSimpleConfigListVM(result);
         }
 
         internal List<HueLight> GetAvailableHueLightsList()
