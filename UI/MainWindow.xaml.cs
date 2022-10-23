@@ -1,4 +1,5 @@
-﻿using PhilipsHue.Models.Interfaces;
+﻿using Control.Controllers;
+using PhilipsHue.Models.Interfaces;
 using System.Collections;
 using System.Collections.Generic;
 using System.Windows;
@@ -71,8 +72,15 @@ namespace UI
         private void RefreshAvailableHueLights()
         {
             var list = _mainWindow_Controller.GetAvailableHueLightsList();
-            Resources["AvailableHueLights"] = _mainWindow_Controller.GetAvailableHueLightsList();
-            Resources["NumberOfAvailableHueLights"] = list.Count;
+            if (list != null)
+            {
+                Resources["NumberOfAvailableHueLights"] = list.Count;
+                if (list.Count > 0)
+                {
+                    Resources["AvailableHueLights"] = list;
+                    Resources["AvailableHueLightsConfigCard"] = _mainWindow_Controller.GetAvailableHueLights_CardConfigList();
+                }
+            }
         }
 
         private void ConnectBridgesButton_Click(object sender, RoutedEventArgs e)

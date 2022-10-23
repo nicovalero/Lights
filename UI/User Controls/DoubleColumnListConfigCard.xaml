@@ -27,7 +27,7 @@
                                          HorizontalAlignment="Center" VerticalAlignment="Top">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
-                            <Border Grid.Column="0" Padding="5" Margin="0 5" HorizontalAlignment="Stretch" CornerRadius="10" Width="170" Height="80">
+                            <Border Grid.Column="0" Padding="5" Margin="0 2" HorizontalAlignment="Stretch" CornerRadius="10" Width="170" Height="80">
                                 <Border.Style>
                                     <Style TargetType="Border">
                                         <Setter Property="Background" Value="Transparent"/>
@@ -35,7 +35,7 @@
                                 </Border.Style>
                                 <StackPanel Orientation="Horizontal">
                                     <uc:ConfigElementCard Icon="{Binding Icon}" CardBackground1="{Binding BackgroundColor1}" CardBackground2="{Binding BackgroundColor2}" 
-                                                          Title="{Binding ItemName}" Width="200" Height="60"/>
+                                                          Title="{Binding ItemName}" Subtitle="{Binding Subtitle}" Width="200" Height="60"/>
                                 </StackPanel>
                             </Border>
                         </DataTemplate>

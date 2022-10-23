@@ -147,6 +147,7 @@ namespace Control.Controllers
         {
             return MidiVelocityCollection.GetAllVelocityList();
         }
+
         public List<LightEffect> GetAllHueEffects()
         {
             return HueLightEffectCollection.GetAllEffectList();

@@ -33,6 +33,14 @@ namespace UI.User_Controls
 
         public static readonly DependencyProperty TitleProperty = DependencyProperty.Register("Title", typeof(string), typeof(ConfigElementCard));
 
+        public string Subtitle
+        {
+            get { return (string)GetValue(SubtitleProperty); }
+            set { SetValue(SubtitleProperty, value); }
+        }
+
+        public static readonly DependencyProperty SubtitleProperty = DependencyProperty.Register("Subtitle", typeof(string), typeof(ConfigElementCard));
+
         public FontAwesome.Sharp.IconChar Icon
         {
             get { return (FontAwesome.Sharp.IconChar)GetValue(IconProperty); }

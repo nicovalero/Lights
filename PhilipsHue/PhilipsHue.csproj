@@ -51,6 +51,7 @@
     <Compile Include="Actions\Classes\SingleLightEffectAction.cs" />
     <Compile Include="Actions\Interfaces\Action.cs" />
     <Compile Include="Collections\HueLightEffectCollection.cs" />
+    <Compile Include="Collections\HueLightEffectKindCollection.cs" />
     <Compile Include="Controllers\ActionController.cs" />
     <Compile Include="Controllers\HueLightController.cs" />
     <Compile Include="Effects\Classes\ColorChange.cs" />
@@ -78,6 +79,7 @@
     <Compile Include="Models\Enums\HTTPMethods.cs" />
     <Compile Include="Models\Enums\HueEndpointKey.cs" />
     <Compile Include="Models\Enums\HueJSONBodyProperties.cs" />
+    <Compile Include="Models\Enums\HueLightEffectKindEnum.cs" />
     <Compile Include="Models\Interfaces\Bridge.cs" />
     <Compile Include="Models\Interfaces\BridgeFinder.cs" />
     <Compile Include="Models\Interfaces\Developer.cs" />

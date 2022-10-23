@@ -117,14 +117,14 @@ namespace UI
             }
         }
 
-        public static List<CardConfigList_ViewModel> Convert(List<LightEffect> effects)
+        public static List<CardConfigList_ViewModel> ConvertLightEffect_ToCardConfig(List<LightEffect> effects)
         {
             List<CardConfigList_ViewModel> list = new List<CardConfigList_ViewModel>();
 
             foreach(LightEffect effect in effects)
             {
                 if(_colorDictionary.ContainsKey(effect) && _iconDictionary.ContainsKey(effect))
-                    list.Add(new CardConfigList_ViewModel(effect, effect.Name, _colorDictionary[effect][0], _colorDictionary[effect][1], _iconDictionary[effect]));
+                    list.Add(new CardConfigList_ViewModel(effect, effect.Name, _colorDictionary[effect][0], _colorDictionary[effect][1], _iconDictionary[effect], effect.EffectTypeName));
             }
 
             return list;

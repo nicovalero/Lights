@@ -72,6 +72,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Converters\HueLight_ToCardConfigConverter.cs" />
     <Compile Include="Converters\HueEffect_ToCardConfigConverter.cs" />
     <Compile Include="Models\Structs\SimpleConfigList_ViewModel.cs" />
     <Compile Include="Models\Structs\CardConfigList_ViewModel.cs" />

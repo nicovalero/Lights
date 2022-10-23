@@ -1,4 +1,5 @@
-﻿using PhilipsHue.Controllers;
+﻿using PhilipsHue.Collections;
+using PhilipsHue.Controllers;
 using PhilipsHue.Effects.Interfaces;
 using PhilipsHue.Models.Classes;
 using PhilipsHue.Models.Enums;
@@ -12,7 +13,9 @@ namespace PhilipsHue.Effects.Classes
         private static readonly FadeOut _fadeOut = new FadeOut();
         private static readonly HueLightController _controller = HueLightController.Singleton();
         private const string _name = "Fade out";
+        private const HueLightEffectKindEnum _effectType = HueLightEffectKindEnum.MULTI;
         public string Name { get { return _name; } }
+        public string EffectTypeName { get { return HueLightEffectKindCollection.GetKindName(_effectType); } }
 
         private FadeOut() { }
 

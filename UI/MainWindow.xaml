@@ -212,9 +212,9 @@
                         </Grid>
 
                         <Grid Grid.Column="1" Margin="10 0 0 0">
-                            <uc:DoubleColumnListConfigCard x:Name="C5" Title="Velocity"
+                            <uc:DoubleColumnListConfigCard x:Name="C5" Title="Available Lights"
                                 VerticalAlignment="Center" HorizontalAlignment="Center"
-                                Source="{DynamicResource HueEffectList}"/>
+                                Source="{DynamicResource AvailableHueLightsConfigCard}"/>
                         </Grid>
                     </Grid>
                 </Grid>
