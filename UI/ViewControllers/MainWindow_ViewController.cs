@@ -11,6 +11,7 @@ using PhilipsHue.Models.Interfaces;
 using System.Collections;
 using PhilipsHue.Effects.Interfaces;
 using ControlzEx.Standard;
+using UI.Models.Interfaces;
 
 namespace UI
 {
@@ -29,13 +30,13 @@ namespace UI
             return _controller;
         }
 
-        internal bool CreateLink(IList selectedLights, object selectedEffect, object selectedChannel, object selectedNote, object selectedVelocity)
+        internal bool CreateLink(IList selectedLights, IConfigListViewModel selectedEffect, IConfigListViewModel selectedChannel, IConfigListViewModel selectedNote, IConfigListViewModel selectedVelocity)
         {
             List<HueLight> lights = ConvertIList_ToHueLightList(selectedLights);
-            LightEffect effect = (LightEffect)selectedEffect;
-            MidiChannel channel = (MidiChannel)selectedChannel;
-            MidiNote note = (MidiNote)selectedNote;
-            MidiVelocity velocity = (MidiVelocity)selectedVelocity;
+            LightEffect effect = (LightEffect)selectedEffect.Item;
+            MidiChannel channel = (MidiChannel)selectedChannel.Item;
+            MidiNote note = (MidiNote)selectedNote.Item;
+            MidiVelocity velocity = (MidiVelocity)selectedVelocity.Item;
 
             _midiLightsController.CreateLink(channel, note, velocity, lights, effect);
 
@@ -123,13 +124,13 @@ namespace UI
             return list;
         }
 
-        private List<HueLight> ConvertIList_ToHueLightList(IList selectedLights)
+        private List<HueLight> ConvertIList_ToHueLightList(IList selectedLightItems)
         {
             List<HueLight> lights = new List<HueLight>();
 
-            foreach (var light in selectedLights)
+            foreach (IConfigListViewModel light in selectedLightItems)
             {
-                lights.Add((HueLight)light);
+                lights.Add((HueLight)light.Item);
             }
 
             return lights;

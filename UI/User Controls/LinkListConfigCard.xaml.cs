@@ -59,5 +59,10 @@ namespace UI.User_Controls
 
         public static readonly DependencyProperty ElementIconProperty = DependencyProperty.Register("ElementIcon", typeof(FontAwesome.Sharp.IconChar), typeof(LinkListConfigCard));
 
+        public object SelectedItem
+        {
+            get { return ItemList.SelectedItem; }
+        }
+
     }
 }

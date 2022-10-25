@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Documents;
 using System.Windows.Input;
+using UI.Models.Interfaces;
+using UI.Models.Structs;
 using UI.User_Controls;
 
 namespace UI
@@ -92,15 +94,17 @@ namespace UI
 
         private void LinkButton_Click(object sender, RoutedEventArgs e)
         {
-            IList selectedLights = HueLightsList.SelectedItems;
-            //object selectedEffect = HueEffectList.SelectedItem;
-            //object selectedChannel = HueChannelList.SelectedItem;
-            //object selectedNote = HueMidiNoteList.SelectedItem;
-            //object selectedVelocity = HueMidiVelocityList.SelectedItem;
+            IList selectedLights = new List<IConfigListViewModel>();
+            selectedLights.Add(LinkLightList.SelectedItem);
 
-            //_mainWindow_Controller.CreateLink(selectedLights, selectedEffect, selectedChannel, selectedNote, selectedVelocity);
+            IConfigListViewModel selectedEffect = (CardConfigList_ViewModel)LinkEffectList.SelectedItem;
+            IConfigListViewModel selectedChannel = (SimpleConfigList_ViewModel)LinkChannelList.SelectedItem;
+            IConfigListViewModel selectedNote = (SimpleConfigList_ViewModel)LinkNoteList.SelectedItem;
+            IConfigListViewModel selectedVelocity = (SimpleConfigList_ViewModel)LinkVelocityList.SelectedItem;
 
-            //RefreshLinkList();
+            _mainWindow_Controller.CreateLink(selectedLights, selectedEffect, selectedChannel, selectedNote, selectedVelocity);
+
+            RefreshLinkList();
         }
 
         private void StartListeningButton_Click(object sender, RoutedEventArgs e)

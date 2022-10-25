@@ -60,7 +60,7 @@
                                         </StackPanel>
                                         
                                         <StackPanel Grid.Column="5" VerticalAlignment="Center" Orientation="Horizontal" Margin="10 0 0 0">
-                                            <TextBlock Text="3 lights linked" FontSize="14" Foreground="#7c8dc3"/>
+                                            <TextBlock Text="{Binding LightsCountText}" FontSize="14" Foreground="#7c8dc3"/>
                                         </StackPanel>
                                     </Grid>
                                 </StackPanel>

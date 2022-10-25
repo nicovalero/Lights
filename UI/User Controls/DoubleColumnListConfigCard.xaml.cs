@@ -42,5 +42,10 @@ namespace UI.User_Controls
         }
 
         internal static readonly DependencyProperty SourceProperty = DependencyProperty.Register("Source", typeof(List<CardConfigList_ViewModel>), typeof(DoubleColumnListConfigCard));
+
+        public object SelectedItem
+        {
+            get { return ItemList.SelectedItem; }
+        }
     }
 }

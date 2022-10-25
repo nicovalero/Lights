@@ -8,10 +8,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media;
+using UI.Models.Interfaces;
 
 namespace UI.Models.Structs
 {
-    internal struct CardConfigList_ViewModel
+    internal struct CardConfigList_ViewModel: IConfigListViewModel
     {
         private object _item;
         private string _itemName;
