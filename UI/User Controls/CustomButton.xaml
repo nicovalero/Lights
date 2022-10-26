@@ -6,14 +6,11 @@
              xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
              mc:Ignorable="d" Name="customButton">
 
-    <Button x:Name="button" HorizontalAlignment="Stretch" BorderThickness="0" Click="button_Click" VerticalAlignment="Center" Cursor="Hand">
-        <Button.Clip>
-            <RectangleGeometry RadiusX="15" RadiusY="15" Rect="0,0,230,75"/>
-        </Button.Clip>
+    <Button x:Name="button" HorizontalAlignment="Stretch" BorderThickness="0" Click="button_Click" VerticalAlignment="Center" Cursor="Hand">        
         <Button.Template>
             <ControlTemplate>
                 <StackPanel x:Name="stackPanel1" Orientation="Horizontal" Background="{Binding Path=CardBackgroundBrush, ElementName=customButton}">
-                    <Grid Height="75" Margin="0 0 0 0" Width="210">
+                    <Grid Height="{Binding Path=ActualHeight, ElementName=customButton}" Margin="0 0 0 0" Width="{Binding Path=ActualWidth, ElementName=customButton}">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="40"/>
                             <ColumnDefinition Width="*"/>

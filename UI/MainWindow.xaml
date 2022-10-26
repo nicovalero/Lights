@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:UI"
         xmlns:uc="clr-namespace:UI.User_Controls"
         xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
-        mc:Ignorable="d" Title="Emily" Height="800" Width="1280" WindowStartupLocation="CenterScreen"
+        mc:Ignorable="d" Title="Emily" Height="900" Width="1280" WindowStartupLocation="CenterScreen"
         WindowStyle="None" AllowsTransparency="True" Background="Transparent">
     <Grid>
         <Grid.ColumnDefinitions>
@@ -26,7 +26,7 @@
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
-                    <RowDefinition Height="200"/>
+                    <RowDefinition Height="160"/>
                 </Grid.RowDefinitions>
                 <StackPanel Grid.Row="0">
                     <!--UserName-->
@@ -75,13 +75,13 @@
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
-                    <uc:CustomButton Grid.Row="0" Title="Save links as..." CardBackground="#152457" Width="230" Height="75" Icon="Download" Click="SaveButton_Click"/>
-                    <uc:CustomButton Grid.Row="1" Title="Load links" CardBackground="#152457" Width="230" Height="75" Icon="FileUpload" Click="LoadButton_Click"/>
+                    <uc:CustomButton Grid.Row="0" Title="Save links as..." CardBackground="#152457" Width="230" Height="55" Icon="Download" Click="SaveButton_Click"/>
+                    <uc:CustomButton Grid.Row="1" Title="Load links" CardBackground="#152457" Width="230" Height="55" Icon="FileUpload" Click="LoadButton_Click"/>
                 </Grid>
             </Grid>            
         </Border>
 
-        <!-- Main Section-->
+        <!-- Control Section-->
         <Border x:Name="ControlSection" Grid.Column="1" CornerRadius="0 10 10 0" MouseDown="Border_MouseDown" Visibility="Visible">
             <Border.Background>
                 <LinearGradientBrush StartPoint="1,0" EndPoint="0,1">
@@ -97,12 +97,6 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
 
-                <!-- Top Menu -->
-                <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0 0 30 20">
-                    <Button Content="Links" Style="{StaticResource topMenuButton}"/>
-                    <Button Content="Devices" Style="{StaticResource topMenuButton}"/>
-                </StackPanel>
-
                 <TextBlock Text="Control" FontSize="26" Foreground="#ccd7ff" HorizontalAlignment="Left" Margin="50 35 0 20"/>
 
                 <!-- Info Card -->
@@ -112,10 +106,21 @@
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
-                    
-                    <StackPanel Grid.Column="1">
-                        <Button Content="Connect Bridges" Height="34" Width="128" HorizontalAlignment="Center" VerticalAlignment="Center" Click="ConnectBridgesButton_Click"/>
-                    </StackPanel>                    
+                    <StackPanel Grid.Row="0">
+                        <uc:InfoCard Grid.Row="0" Title="MIDI" InfoName="Listening:" Icon="NetworkWired" CardBackground="#333333"/>
+                    </StackPanel>
+                    <Grid Grid.Column="2">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <StackPanel Grid.Row="0" VerticalAlignment="Bottom" HorizontalAlignment="Right">
+                            <uc:CustomButton Title="Connect Hue Bridges" CardBackground="#152457" Width="230" Height="55" Icon="Connectdevelop" Click="ConnectBridgesButton_Click"/>    
+                        </StackPanel>
+                        <StackPanel Grid.Row="1" VerticalAlignment="Bottom" HorizontalAlignment="Right">
+                            <uc:CustomButton Title="Start listening" CardBackground="#152457" Width="230" Height="55" Icon="Play" Click="StartListeningButton_Click"/>
+                        </StackPanel>
+                    </Grid>                    
                 </Grid>
 
                 <Grid Grid.Row="2">
@@ -166,82 +171,83 @@
                 </LinearGradientBrush>
             </Border.Background>
 
-            <Grid Margin="0 0 0 0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="220"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <TextBlock Text="Link Management" FontSize="26" Foreground="#ccd7ff" HorizontalAlignment="Left" Margin="35 35 0 20"/>
+                <Grid Grid.Row="1" Margin="0 0 0 0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="220"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
 
-                <Grid Grid.Column="0">
-                    <uc:LinkInfoShort Padding="0 0 0 0" Icon="Link" Source="{DynamicResource MidiEffectLinks}" HorizontalAlignment="Stretch"/>
-                </Grid>
-
-                <Grid Grid.Column="1">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="300"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="50"/>
-                    </Grid.RowDefinitions>
-
-                    <Grid Grid.Row="0"  Margin="10 10 5 10">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-
-                        <Grid Grid.Column="0" Margin="0 0 0 0">
-                            <uc:LinkListConfigCard x:Name="LinkNoteList" Title="Note"
-                                VerticalAlignment="Center" HorizontalAlignment="Center" ElementIcon="Music"
-                                Source="{DynamicResource AvailableMidiNoteList}" CardBackground="#aa00a1"/>
-                        </Grid>
-
-                        <Grid Grid.Column="1" Margin="0 0 0 0">
-                            <uc:LinkListConfigCard x:Name="LinkChannelList" Title="Channel"
-                                VerticalAlignment="Center" HorizontalAlignment="Center" ElementIcon="SatelliteDish"
-                                Source="{DynamicResource AvailableMidiChannelList}" CardBackground="#aa00a1"/>
-                        </Grid>
-
-                        <Grid Grid.Column="2" Margin="0 0 0 0">
-                            <uc:LinkListConfigCard x:Name="LinkVelocityList" Title="Velocity"
-                                VerticalAlignment="Center" HorizontalAlignment="Center" ElementIcon="WaveSquare"
-                                Source="{DynamicResource AvailableMidiVelocityList}" CardBackground="#005500"/>
-                        </Grid>
+                    <Grid Grid.Column="0">
+                        <uc:LinkInfoShort Padding="0 0 0 0" Icon="Link" Source="{DynamicResource MidiEffectLinks}" HorizontalAlignment="Stretch"/>
                     </Grid>
 
-                    <Grid Grid.Row="1" Margin="10 0 0 0">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="300"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="50"/>
+                        </Grid.RowDefinitions>
 
-                        <Grid Grid.Column="0">
-                            <uc:DoubleColumnListConfigCard x:Name="LinkEffectList" Title="Effects"
+                        <Grid Grid.Row="0"  Margin="10 10 5 10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Grid Grid.Column="0" Margin="0 0 0 0">
+                                <uc:LinkListConfigCard x:Name="LinkNoteList" Title="Note"
+                                VerticalAlignment="Center" HorizontalAlignment="Center" ElementIcon="Music"
+                                Source="{DynamicResource AvailableMidiNoteList}"/>
+                            </Grid>
+
+                            <Grid Grid.Column="1" Margin="0 0 0 0">
+                                <uc:LinkListConfigCard x:Name="LinkChannelList" Title="Channel"
+                                VerticalAlignment="Center" HorizontalAlignment="Center" ElementIcon="SatelliteDish"
+                                Source="{DynamicResource AvailableMidiChannelList}"/>
+                            </Grid>
+
+                            <Grid Grid.Column="2" Margin="0 0 0 0">
+                                <uc:LinkListConfigCard x:Name="LinkVelocityList" Title="Velocity"
+                                VerticalAlignment="Center" HorizontalAlignment="Center" ElementIcon="WaveSquare"
+                                Source="{DynamicResource AvailableMidiVelocityList}"/>
+                            </Grid>
+                        </Grid>
+
+                        <Grid Grid.Row="1" Margin="10 0 0 0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Grid Grid.Column="0">
+                                <uc:DoubleColumnListConfigCard x:Name="LinkEffectList" Title="Effects"
                                 VerticalAlignment="Center" HorizontalAlignment="Center"
                                 Source="{DynamicResource HueEffectList}"/>
-                        </Grid>
+                            </Grid>
 
-                        <Grid Grid.Column="1" Margin="10 0 0 0">
-                            <uc:DoubleColumnListConfigCard x:Name="LinkLightList" Title="Available Lights"
+                            <Grid Grid.Column="1" Margin="10 0 0 0">
+                                <uc:DoubleColumnListConfigCard x:Name="LinkLightList" Title="Available Lights"
                                 VerticalAlignment="Center" HorizontalAlignment="Center"
                                 Source="{DynamicResource AvailableHueLightsConfigCard}"/>
+                            </Grid>
                         </Grid>
-                    </Grid>
-                    <Grid Grid.Row="2" Margin="10 10 0 10">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-                        <StackPanel Grid.Column="0">
-                            <Button Content="Start listening" Width="200" Height="34" HorizontalAlignment="Right" VerticalAlignment="Center" Click="StartListeningButton_Click"/>
-                        </StackPanel>
-                        <StackPanel Grid.Column="1">
-                            
-                        </StackPanel>
-                        <StackPanel Grid.Column="2">
-                            <Button HorizontalAlignment="Center" Content="Link" Width="200" Height="34" VerticalAlignment="Center" Click="LinkButton_Click"/>
-                        </StackPanel>
+                        <Grid Grid.Row="2" Margin="10 5 0 0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Grid.Column="2">
+                                <uc:CustomButton Title="Link" CardBackground="#152457" Width="200" Height="45" HorizontalAlignment="Right" Icon="Link" Click="LinkButton_Click"/>
+                            </StackPanel>
+                        </Grid>
                     </Grid>
                 </Grid>
             </Grid>
@@ -256,32 +262,39 @@
                 </LinearGradientBrush>
             </Border.Background>
 
-            <Grid Margin="0 0 0 0">
+            <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="200"/>
-                    <RowDefinition Height="200"/>
+                    <RowDefinition Height="auto"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                <Grid Grid.Row="0">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
+                <TextBlock Text="Device Status" FontSize="26" Foreground="#ccd7ff" HorizontalAlignment="Left" Margin="35 35 0 20"/>
+                <Grid Grid.Row="1" Margin="0 0 0 0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="200"/>
+                        <RowDefinition Height="200"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
 
-                    <uc:InfoCard Grid.Column="0" Title="MIDI" InfoName="Ports Available:" Icon="NetworkWired" CardBackground="#333333"/>
-                    <uc:InfoCard Grid.Column="1" Title="MIDI" InfoName="Listening:" Icon="NetworkWired" CardBackground="#333333"/>
-                </Grid>
-                <Grid Grid.Row="1">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <uc:InfoCard x:Name="PhilipsHueAvailableBridges" Grid.Column="0" Title="Philips Hue" InfoName="Bridges Connected:" 
+                        <uc:InfoCard Grid.Column="0" Title="MIDI" InfoName="Ports Available:" Icon="NetworkWired" CardBackground="#333333"/>
+                        <uc:InfoCard Grid.Column="1" Title="MIDI" InfoName="Listening:" Icon="NetworkWired" CardBackground="#333333"/>
+                    </Grid>
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <uc:InfoCard x:Name="PhilipsHueAvailableBridges" Grid.Column="0" Title="Philips Hue" InfoName="Bridges Connected:" 
                                  Value="{DynamicResource NumberOfAvailableHueLights}" Icon="Square" CardBackground="#005555"/>
-                    <uc:InfoCard x:Name="LightsConnectedInfoCard" Grid.Column="1" Title="Philips Hue" InfoName="Lights Connected:" 
+                        <uc:InfoCard x:Name="LightsConnectedInfoCard" Grid.Column="1" Title="Philips Hue" InfoName="Lights Connected:" 
                                  Value="{DynamicResource NumberOfAvailableHueLights}" Icon="Lightbulb" CardBackground="#005555"/>
+                    </Grid>
                 </Grid>
             </Grid>
         </Border>

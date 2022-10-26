@@ -15,7 +15,7 @@
 
             <StackPanel Orientation="Horizontal" Margin="20 0 0 15">
                 <fa:IconImage Icon="{Binding Path=Icon, ElementName=linkInfo}" Style="{StaticResource titleIcon}"/>
-                <TextBlock Text="Link Status" Style="{StaticResource titleText}"/>
+                <TextBlock Text="Links" Style="{StaticResource titleText}"/>
             </StackPanel>
 
             <StackPanel Grid.Row="1" x:Name="LinkStatusGrid">
