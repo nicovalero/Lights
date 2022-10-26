@@ -53,7 +53,7 @@ namespace Control.Controllers
             PerformLinkedAction(args);
         }
 
-        public bool CreateLink(MidiChannel channel, MidiNote note, MidiVelocity velocity, List<HueLight> lights, LightEffect effect)
+        public bool CreateLink(MidiChannel channel, MidiNote note, MidiVelocity velocity, List<HueLight> lights, LightEffect effect, object config = null)
         {
             MidiMessageKeys keys = new MidiMessageKeys(channel, velocity, note);
 
@@ -61,7 +61,7 @@ namespace Control.Controllers
                 return false;
             else
             {
-                SingleLightEffectAction action = new SingleLightEffectAction(lights, effect);
+                SingleLightEffectAction action = new SingleLightEffectAction(lights, effect, config);
                 _messageActionLinks.Add(keys,action);
             }
 

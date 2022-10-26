@@ -30,7 +30,7 @@ namespace UI
             return _controller;
         }
 
-        internal bool CreateLink(IList selectedLights, IConfigListViewModel selectedEffect, IConfigListViewModel selectedChannel, IConfigListViewModel selectedNote, IConfigListViewModel selectedVelocity)
+        internal bool CreateLink(IList selectedLights, IConfigListViewModel selectedEffect, IConfigListViewModel selectedChannel, IConfigListViewModel selectedNote, IConfigListViewModel selectedVelocity, object config = null)
         {
             List<HueLight> lights = ConvertIList_ToHueLightList(selectedLights);
             LightEffect effect = (LightEffect)selectedEffect.Item;
@@ -38,7 +38,7 @@ namespace UI
             MidiNote note = (MidiNote)selectedNote.Item;
             MidiVelocity velocity = (MidiVelocity)selectedVelocity.Item;
 
-            _midiLightsController.CreateLink(channel, note, velocity, lights, effect);
+            _midiLightsController.CreateLink(channel, note, velocity, lights, effect, config);
 
             return true;
         }
