@@ -37,6 +37,11 @@ namespace UI
             _mainWindow_Controller.ConnectBridges();
         }
 
+        private void RefreshHueBridgeCount()
+        {
+            Resources["HueBridgeCount"] = _mainWindow_Controller.GetHueBridgeCount();
+        }
+
         private void InitializeLists()
         {
             RefreshEffectList();
@@ -44,6 +49,7 @@ namespace UI
             RefreshAvailableMidiNoteList();
             RefreshAvailableMidiVelocityList();
             RefreshAvailableHueLights();
+            RefreshMIDIListeningStatus();
         }
 
         private void RefreshLinkList()
@@ -71,6 +77,11 @@ namespace UI
             Resources["AvailableMidiVelocityList"] = _mainWindow_Controller.GetAvailableMidiVelocityList();
         }
 
+        private void RefreshMIDIListeningStatus()
+        {
+            Resources["MIDIListening"] = _mainWindow_Controller.GetMidiListeningStatusString();
+        }
+
         private void RefreshAvailableHueLights()
         {
             var list = _mainWindow_Controller.GetAvailableHueLightsList();
@@ -90,6 +101,7 @@ namespace UI
             ConnectBridges();
             RefreshLinkList();
             RefreshAvailableHueLights();
+            RefreshHueBridgeCount();
         }
 
         private void LinkButton_Click(object sender, RoutedEventArgs e)
@@ -110,6 +122,7 @@ namespace UI
         private void StartListeningButton_Click(object sender, RoutedEventArgs e)
         {
             _mainWindow_Controller.StartListening();
+            RefreshMIDIListeningStatus();
         }
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)

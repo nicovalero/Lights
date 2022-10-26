@@ -107,7 +107,7 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     <StackPanel Grid.Row="0">
-                        <uc:InfoCard Grid.Row="0" Title="MIDI" InfoName="Listening:" Icon="NetworkWired" CardBackground="#333333"/>
+                        <uc:InfoCard Grid.Row="0" Title="MIDI" InfoName="Listening:" Value="{DynamicResource MIDIListening}" Icon="NetworkWired" CardBackground="#333333"/>
                     </StackPanel>
                     <Grid Grid.Column="2">
                         <Grid.RowDefinitions>
@@ -282,7 +282,7 @@
                         </Grid.ColumnDefinitions>
 
                         <uc:InfoCard Grid.Column="0" Title="MIDI" InfoName="Ports Available:" Icon="NetworkWired" CardBackground="#333333"/>
-                        <uc:InfoCard Grid.Column="1" Title="MIDI" InfoName="Listening:" Icon="NetworkWired" CardBackground="#333333"/>
+                        <uc:InfoCard Grid.Column="1" Title="MIDI" InfoName="Listening:" Value="{DynamicResource MIDIListening}" Icon="NetworkWired" CardBackground="#333333"/>
                     </Grid>
                     <Grid Grid.Row="1">
                         <Grid.ColumnDefinitions>
@@ -291,7 +291,7 @@
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                         <uc:InfoCard x:Name="PhilipsHueAvailableBridges" Grid.Column="0" Title="Philips Hue" InfoName="Bridges Connected:" 
-                                 Value="{DynamicResource NumberOfAvailableHueLights}" Icon="Square" CardBackground="#005555"/>
+                                 Value="{DynamicResource HueBridgeCount}" Icon="Square" CardBackground="#005555"/>
                         <uc:InfoCard x:Name="LightsConnectedInfoCard" Grid.Column="1" Title="Philips Hue" InfoName="Lights Connected:" 
                                  Value="{DynamicResource NumberOfAvailableHueLights}" Icon="Lightbulb" CardBackground="#005555"/>
                     </Grid>

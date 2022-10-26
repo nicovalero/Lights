@@ -31,6 +31,7 @@ namespace PhilipsHue.Controllers
             //List<Bridge> bridges = await _bridgeV2Finder.FindAll();
             List<Bridge> bridges = _bridgeV2Finder.FindAllManual();
             _lightBridgeDictionary = new Dictionary<string, Bridge>();
+            ResetProperties();
 
             foreach (Bridge bridge in bridges)
             {
@@ -41,6 +42,12 @@ namespace PhilipsHue.Controllers
                     _lightBridgeDictionary.Add(light.uniqueId, bridge);
                 }
             }
+        }
+
+        private void ResetProperties()
+        {
+            _lightBridgeDictionary.Clear();
+            _bridgeList.Clear();
         }
 
         public static HueLightController Singleton()
@@ -69,6 +76,11 @@ namespace PhilipsHue.Controllers
             }
 
             return list;
+        }
+
+        public int GetBridgeCount()
+        {
+            return _bridgeList.Count;
         }
     }
 }

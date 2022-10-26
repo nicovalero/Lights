@@ -20,6 +20,7 @@ using Newtonsoft.Json;
 using DataStorage.Models;
 using System.Collections;
 using Windows.UI.Xaml.Shapes;
+using Windows.Devices.Enumeration;
 
 namespace Control.Controllers
 {
@@ -124,9 +125,43 @@ namespace Control.Controllers
             _midiController.Stop();
         }
 
+        public string MidiListeningString()
+        {
+            DeviceWatcherStatus status = _midiController.ListeningStatus();
+            string statusString = "";
+            switch (status)
+            {
+                case DeviceWatcherStatus.Started:
+                    statusString = "Started";
+                    break;
+                case DeviceWatcherStatus.Stopped:
+                    statusString = "Stopped";
+                    break;
+                case DeviceWatcherStatus.Stopping:
+                    statusString = "Stopping";
+                    break;
+                case DeviceWatcherStatus.EnumerationCompleted:
+                    statusString = "Enumeration Completed";
+                    break;
+                case DeviceWatcherStatus.Aborted:
+                    statusString = "Aborted";
+                    break;
+                default:
+                    statusString = "Unknown";
+                    break;
+            }
+
+            return statusString;
+        }
+
         public void ConnectBridges()
         {
             _hueLightController.InitializeBridges();
+        }
+
+        public int GetHueBridgeCount()
+        {
+            return _hueLightController.GetBridgeCount();
         }
 
         public Dictionary<MidiMessageKeys, LightEffectAction> GetMessageActionLinks()
