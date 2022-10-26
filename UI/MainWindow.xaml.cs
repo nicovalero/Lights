@@ -49,6 +49,7 @@ namespace UI
             RefreshAvailableMidiNoteList();
             RefreshAvailableMidiVelocityList();
             RefreshAvailableHueLights();
+            RefreshMIDIListeningStatus();
         }
 
         private void RefreshLinkList()
@@ -74,6 +75,11 @@ namespace UI
         private void RefreshAvailableMidiVelocityList()
         {
             Resources["AvailableMidiVelocityList"] = _mainWindow_Controller.GetAvailableMidiVelocityList();
+        }
+
+        private void RefreshMIDIListeningStatus()
+        {
+            Resources["MIDIListening"] = _mainWindow_Controller.GetMidiListeningStatusString();
         }
 
         private void RefreshAvailableHueLights()
@@ -116,6 +122,7 @@ namespace UI
         private void StartListeningButton_Click(object sender, RoutedEventArgs e)
         {
             _mainWindow_Controller.StartListening();
+            RefreshMIDIListeningStatus();
         }
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)

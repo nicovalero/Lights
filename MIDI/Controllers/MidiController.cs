@@ -8,6 +8,7 @@ using PhilipsHue.Actions.Interfaces;
 using MIDI.Models.Structs;
 using System.Runtime.InteropServices;
 using Windows.Foundation;
+using Windows.Devices.Enumeration;
 
 namespace MIDI.Controllers
 {
@@ -37,6 +38,11 @@ namespace MIDI.Controllers
         public void Stop()
         {
             _deviceWatcher.Stop();
+        }
+
+        public DeviceWatcherStatus ListeningStatus()
+        {
+            return _deviceWatcher.GetStatus();
         }
     }
 }

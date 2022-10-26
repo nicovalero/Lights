@@ -41,13 +41,13 @@ namespace UI.User_Controls
 
         public static readonly DependencyProperty InfoNameProperty = DependencyProperty.Register("InfoName", typeof(string), typeof(InfoCard));
 
-        public int Value
+        public string Value
         {
-            get { return (int)GetValue(ValueProperty); }
+            get { return (string)GetValue(ValueProperty); }
             set { SetValue(ValueProperty, value); }
         }
 
-        public static readonly DependencyProperty ValueProperty = DependencyProperty.Register("Value", typeof(int), typeof(InfoCard));
+        public static readonly DependencyProperty ValueProperty = DependencyProperty.Register("Value", typeof(object), typeof(InfoCard));
 
         public FontAwesome.Sharp.IconChar Icon
         {

@@ -58,9 +58,17 @@ namespace MIDI
         /// </summary>
         internal void Start()
         {
-            if (this.deviceWatcher.Status != DeviceWatcherStatus.Started)
+            //It can only start if its status is Stopped, Aborted or Created.
+            //Otherwise an exception is thrown.
+            switch (deviceWatcher.Status)
             {
-                this.deviceWatcher.Start();
+                case DeviceWatcherStatus.Stopped:
+                case DeviceWatcherStatus.Aborted:
+                case DeviceWatcherStatus.Created:
+                    deviceWatcher.Start();
+                    break;
+                default:
+                    break;
             }
         }
 
@@ -73,6 +81,14 @@ namespace MIDI
             {
                 this.deviceWatcher.Stop();
             }
+        }
+
+        ///<summary>
+        /// Return the status of Device Watcher
+        /// </summary>
+        internal DeviceWatcherStatus GetStatus()
+        {
+            return this.deviceWatcher.Status;
         }
 
         /// <summary>

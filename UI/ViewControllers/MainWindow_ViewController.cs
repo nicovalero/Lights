@@ -151,6 +151,11 @@ namespace UI
             _midiLightsController.StartMidiController();
         }
 
+        internal string GetMidiListeningStatusString()
+        {
+            return _midiLightsController.MidiListeningString();
+        }
+
         internal List<CardConfigList_ViewModel> GetHueEffectCardConfigList()
         {
             return HueEffect_ToCardConfigConverter.ConvertLightEffect_ToCardConfig(_midiLightsController.GetAllHueEffects());
