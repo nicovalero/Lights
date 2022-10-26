@@ -291,7 +291,7 @@
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                         <uc:InfoCard x:Name="PhilipsHueAvailableBridges" Grid.Column="0" Title="Philips Hue" InfoName="Bridges Connected:" 
-                                 Value="{DynamicResource NumberOfAvailableHueLights}" Icon="Square" CardBackground="#005555"/>
+                                 Value="{DynamicResource HueBridgeCount}" Icon="Square" CardBackground="#005555"/>
                         <uc:InfoCard x:Name="LightsConnectedInfoCard" Grid.Column="1" Title="Philips Hue" InfoName="Lights Connected:" 
                                  Value="{DynamicResource NumberOfAvailableHueLights}" Icon="Lightbulb" CardBackground="#005555"/>
                     </Grid>

@@ -37,6 +37,11 @@ namespace UI
             _mainWindow_Controller.ConnectBridges();
         }
 
+        private void RefreshHueBridgeCount()
+        {
+            Resources["HueBridgeCount"] = _mainWindow_Controller.GetHueBridgeCount();
+        }
+
         private void InitializeLists()
         {
             RefreshEffectList();
@@ -90,6 +95,7 @@ namespace UI
             ConnectBridges();
             RefreshLinkList();
             RefreshAvailableHueLights();
+            RefreshHueBridgeCount();
         }
 
         private void LinkButton_Click(object sender, RoutedEventArgs e)

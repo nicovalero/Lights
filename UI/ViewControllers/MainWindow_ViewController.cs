@@ -141,6 +141,11 @@ namespace UI
             _midiLightsController.ConnectBridges();
         }
 
+        internal int GetHueBridgeCount()
+        {
+            return _midiLightsController.GetHueBridgeCount();
+        }
+
         internal void StartListening()
         {
             _midiLightsController.StartMidiController();

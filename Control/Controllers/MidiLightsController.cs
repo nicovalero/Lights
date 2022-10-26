@@ -129,6 +129,11 @@ namespace Control.Controllers
             _hueLightController.InitializeBridges();
         }
 
+        public int GetHueBridgeCount()
+        {
+            return _hueLightController.GetBridgeCount();
+        }
+
         public Dictionary<MidiMessageKeys, LightEffectAction> GetMessageActionLinks()
         {
             return _messageActionLinks;
