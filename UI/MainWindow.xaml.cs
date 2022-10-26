@@ -130,6 +130,9 @@ namespace UI
 
             ControlSection.Visibility = Visibility.Visible;
             ControlMenuButton.Style = (Style)Application.Current.Resources["menuButtonActive"];
+
+            DeviceStatusSection.Visibility = Visibility.Hidden;
+            DeviceStatusMenuButton.Style = (Style)Application.Current.Resources["menuButton"];
         }
 
         private void LinkManagementMenuButton_Click(object sender, RoutedEventArgs e)
@@ -139,6 +142,21 @@ namespace UI
 
             ControlSection.Visibility = Visibility.Hidden;
             ControlMenuButton.Style = (Style) Application.Current.Resources["menuButton"];
+
+            DeviceStatusSection.Visibility = Visibility.Hidden;
+            DeviceStatusMenuButton.Style = (Style)Application.Current.Resources["menuButton"];
+        }
+
+        private void DeviceStatusMenuButton_Click(object sender, RoutedEventArgs e)
+        {
+            LinkManagementSection.Visibility = Visibility.Hidden;
+            LinkManagementMenuButton.Style = (Style)Application.Current.Resources["menuButton"];
+
+            ControlSection.Visibility = Visibility.Hidden;
+            ControlMenuButton.Style = (Style)Application.Current.Resources["menuButton"];
+
+            DeviceStatusSection.Visibility = Visibility.Visible;
+            DeviceStatusMenuButton.Style = (Style)Application.Current.Resources["menuButtonActive"];
         }
     }
 }

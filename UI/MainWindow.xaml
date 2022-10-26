@@ -23,52 +23,66 @@
                 </LinearGradientBrush>
             </Border.Background>
 
-            <StackPanel>
-                <!--UserName-->
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 35 0 0">
-                    <Border CornerRadius="10" Width="40" Height="40">
-                        <Border.Background>
-                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
-                                <GradientStop Color="#7f7cf1" Offset="0"/>
-                                <GradientStop Color="#d3b7ff" Offset="1"/>
-                            </LinearGradientBrush>
-                        </Border.Background>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="200"/>
+                </Grid.RowDefinitions>
+                <StackPanel Grid.Row="0">
+                    <!--UserName-->
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 35 0 0">
+                        <Border CornerRadius="10" Width="40" Height="40">
+                            <Border.Background>
+                                <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
+                                    <GradientStop Color="#7f7cf1" Offset="0"/>
+                                    <GradientStop Color="#d3b7ff" Offset="1"/>
+                                </LinearGradientBrush>
+                            </Border.Background>
 
-                        <TextBlock Text="EM" Foreground="#ffffff" FontSize="22" FontWeight="SemiBold"
+                            <TextBlock Text="EM" Foreground="#ffffff" FontSize="22" FontWeight="SemiBold"
                                    TextAlignment="Center" VerticalAlignment="Center" Margin="3 0 0 2"/>
-                    </Border>
-                    <StackPanel Margin="10 0 0 0" VerticalAlignment="Center">
-                        <TextBlock Text="Emily MLE" FontSize="15" Margin="0 0 0 5" Foreground="#c2cfff"/>
-                        <TextBlock Text="Alpha 1.0" FontSize="11" Foreground="#7788bf"/>
+                        </Border>
+                        <StackPanel Margin="10 0 0 0" VerticalAlignment="Center">
+                            <TextBlock Text="Emily MLE" FontSize="15" Margin="0 0 0 5" Foreground="#c2cfff"/>
+                            <TextBlock Text="Alpha 1.0" FontSize="11" Foreground="#7788bf"/>
+                        </StackPanel>
                     </StackPanel>
+
+                    <Separator Height="0.8" Margin="20 30" Background="#46558a"/>
+
+                    <!-- Menu Buttons-->
+                    <Button x:Name="ControlMenuButton" Style="{StaticResource menuButtonActive}" Click="ControlMenuButton_Click">
+                        <StackPanel Orientation="Horizontal">
+                            <fa:IconImage Icon="Home" Style="{StaticResource menuButtonIcon}"/>
+                            <TextBlock Text="Control" Style="{StaticResource menuButtonText}"/>
+                        </StackPanel>
+                    </Button>
+                    <Button x:Name="LinkManagementMenuButton" Style="{StaticResource menuButton}" Click="LinkManagementMenuButton_Click">
+                        <StackPanel Orientation="Horizontal">
+                            <fa:IconImage Icon="Link" Style="{StaticResource menuButtonIcon}"/>
+                            <TextBlock Text="Link Management" Style="{StaticResource menuButtonText}"/>
+                        </StackPanel>
+                    </Button>
+                    <Button x:Name="DeviceStatusMenuButton" Style="{StaticResource menuButton}" Click="DeviceStatusMenuButton_Click">
+                        <StackPanel Orientation="Horizontal">
+                            <fa:IconImage Icon="BarChart" Style="{StaticResource menuButtonIcon}"/>
+                            <TextBlock Text="Device Status" Style="{StaticResource menuButtonText}"/>
+                        </StackPanel>
+                    </Button>
                 </StackPanel>
-
-                <Separator Height="0.8" Margin="20 30" Background="#46558a"/>
-
-                <!-- Menu Buttons-->
-                <Button x:Name="ControlMenuButton" Style="{StaticResource menuButton}" Click="ControlMenuButton_Click">
-                    <StackPanel Orientation="Horizontal">
-                        <fa:IconImage Icon="Home" Style="{StaticResource menuButtonIcon}"/>
-                        <TextBlock Text="Control" Style="{StaticResource menuButtonText}"/>
-                    </StackPanel>
-                </Button>
-                <Button x:Name="LinkManagementMenuButton" Style="{StaticResource menuButtonActive}" Click="LinkManagementMenuButton_Click">
-                    <StackPanel Orientation="Horizontal">
-                        <fa:IconImage Icon="Link" Style="{StaticResource menuButtonIcon}"/>
-                        <TextBlock Text="Link Management" Style="{StaticResource menuButtonText}"/>
-                    </StackPanel>
-                </Button>
-                <Button Style="{StaticResource menuButton}">
-                    <StackPanel Orientation="Horizontal">
-                        <fa:IconImage Icon="BarChart" Style="{StaticResource menuButtonIcon}"/>
-                        <TextBlock Text="Device Status" Style="{StaticResource menuButtonText}"/>
-                    </StackPanel>
-                </Button>
-            </StackPanel>
+                <Grid Grid.Row="1" Margin="10 10 10 20">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <uc:CustomButton Grid.Row="0" Title="Save links as..." CardBackground="#152457" Width="230" Height="75" Icon="Download" Click="SaveButton_Click"/>
+                    <uc:CustomButton Grid.Row="1" Title="Load links" CardBackground="#152457" Width="230" Height="75" Icon="FileUpload" Click="LoadButton_Click"/>
+                </Grid>
+            </Grid>            
         </Border>
 
         <!-- Main Section-->
-        <Border x:Name="ControlSection" Grid.Column="1" CornerRadius="0 10 10 0" MouseDown="Border_MouseDown" Visibility="Hidden">
+        <Border x:Name="ControlSection" Grid.Column="1" CornerRadius="0 10 10 0" MouseDown="Border_MouseDown" Visibility="Visible">
             <Border.Background>
                 <LinearGradientBrush StartPoint="1,0" EndPoint="0,1">
                     <GradientStop Color="#41518f" Offset="0"/>
@@ -98,15 +112,10 @@
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
-
-                    <uc:InfoCard x:Name="LightsConnectedInfoCard" Grid.Column="0" Title="Philips Hue" InfoName="Lights Connected:" 
-                                 Value="{DynamicResource NumberOfAvailableHueLights}" Icon="Lightbulb" CardBackground="#005555"/>
+                    
                     <StackPanel Grid.Column="1">
                         <Button Content="Connect Bridges" Height="34" Width="128" HorizontalAlignment="Center" VerticalAlignment="Center" Click="ConnectBridgesButton_Click"/>
-                        <Button Content="Load" Canvas.Left="892" Canvas.Top="400" Width="120" Height="34" HorizontalAlignment="Center" VerticalAlignment="Top" Click="LoadButton_Click"/>
-                    </StackPanel>
-                    <!--<uc:InfoCard Grid.Column="1" Title="Nanoleaf" InfoName="Canvas Panels:" Icon="Square" CardBackground="#004400"/>-->
-                    <uc:InfoCard Grid.Column="2" Title="MIDI" InfoName="Ports:" Icon="NetworkWired" CardBackground="#333333"/>
+                    </StackPanel>                    
                 </Grid>
 
                 <Grid Grid.Row="2">
@@ -149,7 +158,7 @@
         </Border>
 
         <!-- Link Management-->
-        <Border x:Name="LinkManagementSection" Grid.Column="1" MouseDown="Border_MouseDown" Visibility="Visible" Padding="10 10 10 10">
+        <Border x:Name="LinkManagementSection" Grid.Column="1" MouseDown="Border_MouseDown" Visibility="Hidden" Padding="10 10 10 10">
             <Border.Background>
                 <LinearGradientBrush StartPoint="1,0" EndPoint="0,1">
                     <GradientStop Color="#41518f" Offset="0"/>
@@ -228,7 +237,7 @@
                             <Button Content="Start listening" Width="200" Height="34" HorizontalAlignment="Right" VerticalAlignment="Center" Click="StartListeningButton_Click"/>
                         </StackPanel>
                         <StackPanel Grid.Column="1">
-                            <Button Content="Save" Width="200" Height="34" HorizontalAlignment="Center" VerticalAlignment="Center" Click="SaveButton_Click"/>
+                            
                         </StackPanel>
                         <StackPanel Grid.Column="2">
                             <Button HorizontalAlignment="Center" Content="Link" Width="200" Height="34" VerticalAlignment="Center" Click="LinkButton_Click"/>
@@ -238,74 +247,43 @@
             </Grid>
         </Border>
 
-        <!--<ListView Height="580" Width="500" ItemsSource="{DynamicResource MidiEffectLinks}" HorizontalAlignment="Center" VerticalAlignment="Top">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn Header="Channel" DisplayMemberBinding="{Binding ChannelName}"/>
-                    <GridViewColumn Header="Note" DisplayMemberBinding="{Binding NoteName}"/>
-                    <GridViewColumn Header="Velocity" DisplayMemberBinding="{Binding Velocity}"/>
-                    <GridViewColumn Header="Effect" DisplayMemberBinding="{Binding EffectName}"/>
-                </GridView>
-            </ListView.View>
-        </ListView>
+        <!-- Device Status-->
+        <Border x:Name="DeviceStatusSection" Grid.Column="1" MouseDown="Border_MouseDown" Visibility="Hidden" Padding="10 10 10 10">
+            <Border.Background>
+                <LinearGradientBrush StartPoint="1,0" EndPoint="0,1">
+                    <GradientStop Color="#41518f" Offset="0"/>
+                    <GradientStop Color="#2c386c" Offset="1"/>
+                </LinearGradientBrush>
+            </Border.Background>
 
-        <Label Canvas.Left="574" Canvas.Top="26" Width="120" Content="Channel" HorizontalContentAlignment="Center"/>
-        <ListBox x:Name="HueChannelList" Canvas.Left="574" Canvas.Top="54" Width="120" HorizontalAlignment="Left" Height="90" VerticalAlignment="Top" ItemsSource="{DynamicResource AvailableMidiChannelList}">
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel Orientation="Horizontal" Height="30">
-                        <TextBlock Text="{Binding Name}" HorizontalAlignment="Center"/>
-                    </StackPanel>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
+            <Grid Margin="0 0 0 0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="200"/>
+                    <RowDefinition Height="200"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
 
-        <Label Canvas.Left="720" Canvas.Top="26" Width="120" Content="Note" HorizontalContentAlignment="Center"/>
-        <ListBox x:Name="HueMidiNoteList" Canvas.Left="720" Canvas.Top="54" Width="120" ItemsSource="{DynamicResource AvailableMidiNoteList}" HorizontalAlignment="Left" Height="90" VerticalAlignment="Top">
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel Orientation="Horizontal" Height="30">
-                        <TextBlock Text="{Binding Name}" HorizontalAlignment="Center"/>
-                    </StackPanel>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
-
-        <Label Canvas.Left="866" Canvas.Top="26" Width="120" Content="Velocity" HorizontalContentAlignment="Center"/>
-
-        <ListBox x:Name="HueMidiVelocityList" Canvas.Left="866" Canvas.Top="54" Width="120" ItemsSource="{DynamicResource AvailableMidiVelocityList}" HorizontalAlignment="Left" Height="90" VerticalAlignment="Top">
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel Orientation="Horizontal" Height="30">
-                        <TextBlock Text="{Binding Name}" HorizontalAlignment="Center"/>
-                    </StackPanel>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
-
-        <Label Canvas.Left="574" Canvas.Top="165" Width="120" Content="Effect" HorizontalContentAlignment="Center"/>
-        <ListBox x:Name="HueEffectList" Canvas.Left="574" Canvas.Top="195" Width="120" ItemsSource="{DynamicResource HueEffectList}" HorizontalAlignment="Left" Height="93" VerticalAlignment="Top">
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel Orientation="Horizontal" Height="30">
-                        <TextBlock Text="{Binding Name}" HorizontalAlignment="Center"/>
-                    </StackPanel>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
-
-        <Label Canvas.Left="720" Canvas.Top="165" Width="120" Content="Color" HorizontalContentAlignment="Center"/>
-        <ComboBox Canvas.Left="720" Canvas.Top="195" Width="120"/>
-
-        <Label Canvas.Left="574" Canvas.Top="300" Width="120" Content="Lights" HorizontalContentAlignment="Center"/>
-        <ListBox x:Name="HueLightsList" Canvas.Left="574" Canvas.Top="330" Width="120" ItemsSource="{DynamicResource AvailableHueLights}" HorizontalAlignment="Left" Height="93" VerticalAlignment="Top">
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel Orientation="Horizontal" Height="30">
-                        <TextBlock Text="{Binding name}" HorizontalAlignment="Center"/>
-                    </StackPanel>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>-->
+                    <uc:InfoCard Grid.Column="0" Title="MIDI" InfoName="Ports Available:" Icon="NetworkWired" CardBackground="#333333"/>
+                    <uc:InfoCard Grid.Column="1" Title="MIDI" InfoName="Listening:" Icon="NetworkWired" CardBackground="#333333"/>
+                </Grid>
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <uc:InfoCard x:Name="PhilipsHueAvailableBridges" Grid.Column="0" Title="Philips Hue" InfoName="Bridges Connected:" 
+                                 Value="{DynamicResource NumberOfAvailableHueLights}" Icon="Square" CardBackground="#005555"/>
+                    <uc:InfoCard x:Name="LightsConnectedInfoCard" Grid.Column="1" Title="Philips Hue" InfoName="Lights Connected:" 
+                                 Value="{DynamicResource NumberOfAvailableHueLights}" Icon="Lightbulb" CardBackground="#005555"/>
+                </Grid>
+            </Grid>
+        </Border>
     </Grid>
 </Window>

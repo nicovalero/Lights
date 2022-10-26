@@ -83,6 +83,9 @@
     <Compile Include="User Controls\ConfigElementCard.xaml.cs">
       <DependentUpon>ConfigElementCard.xaml</DependentUpon>
     </Compile>
+    <Compile Include="User Controls\CustomButton.xaml.cs">
+      <DependentUpon>CustomButton.xaml</DependentUpon>
+    </Compile>
     <Compile Include="User Controls\LinkListConfigCard.xaml.cs">
       <DependentUpon>LinkListConfigCard.xaml</DependentUpon>
     </Compile>
@@ -116,6 +119,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="User Controls\ConfigElementCard.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="User Controls\CustomButton.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
