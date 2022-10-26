@@ -55,6 +55,14 @@ namespace PhilipsHue.Effects.Classes
 
         public async void Perform(List<HueLight> lights, object config = null)
         {
+            //This is in place temporarily until I develop the config panel
+            //in the UI.
+            if(config == null)
+            {
+                FadeInConfiguration configuration = new FadeInConfiguration((byte)0, (byte)255, (ushort) 400, (ushort) 0);
+                config = configuration;
+            }
+
             if (config is FadeInConfiguration)
             {
                 FadeInConfiguration fadeInConfiguration = (FadeInConfiguration)config;
