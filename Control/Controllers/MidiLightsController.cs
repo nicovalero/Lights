@@ -89,6 +89,7 @@ namespace Control.Controllers
 
             if (links != null)
             {
+                _messageActionLinks.Clear();
                 foreach (KeyValuePair<MidiMessageKeys, LightEffectAction> link in links.Links)
                 {
                     _messageActionLinks.Add(link.Key, link.Value);
@@ -147,6 +148,7 @@ namespace Control.Controllers
         {
             return MidiVelocityCollection.GetAllVelocityList();
         }
+
         public List<LightEffect> GetAllHueEffects()
         {
             return HueLightEffectCollection.GetAllEffectList();

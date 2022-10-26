@@ -1,0 +1,27 @@
+﻿<UserControl x:Class="UI.User_Controls.LightStatus"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
+             mc:Ignorable="d" Name="lightStatus">
+    <Border Padding="5" Margin="0 5" HorizontalAlignment="Stretch">
+        <Border.Style>
+            <Style TargetType="Border">
+                <Setter Property="Background" Value="Transparent"/>
+            </Style>
+        </Border.Style>
+
+        <StackPanel Orientation="Horizontal">
+            <Grid Width="45" Height="45" Margin="25 0 0 0">
+                <Border CornerRadius="10" Background="#152457" Padding="0 3 0 0"/>
+                <fa:IconImage Icon="{Binding Path=Icon, ElementName=lightStatus}" Foreground="#bcc6e6" Width="25"/>
+            </Grid>
+
+            <StackPanel Margin="10 0 0 0" VerticalAlignment="Center">
+                <TextBlock Text="{Binding Path=Title, ElementName=lightStatus}" FontSize="14" Foreground="#7c8dc3"/>
+                <TextBlock Text="{Binding Path=Subtitle, ElementName=lightStatus}" FontSize="11" Foreground="#7c8dc3" Margin="0 3 0 0"/>
+            </StackPanel>
+        </StackPanel>
+    </Border>
+</UserControl>

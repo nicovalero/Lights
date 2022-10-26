@@ -1,4 +1,5 @@
-﻿using PhilipsHue.Controllers;
+﻿using PhilipsHue.Collections;
+using PhilipsHue.Controllers;
 using PhilipsHue.Effects.Interfaces;
 using PhilipsHue.Models.Classes;
 using PhilipsHue.Models.Enums;
@@ -18,7 +19,9 @@ namespace PhilipsHue.Effects.Classes
         private const ushort _maxBrightness = 255;
         private const ushort _minBrightness = 0;
         private const string _name = "Flash";
+        private const HueLightEffectKindEnum _effectType = HueLightEffectKindEnum.MULTI;
         public string Name { get { return _name; } }
+        public string EffectTypeName { get { return HueLightEffectKindCollection.GetKindName(_effectType); } }
 
         private Flash() { }
 

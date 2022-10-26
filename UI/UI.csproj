@@ -37,9 +37,23 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ControlzEx, Version=4.0.0.0, Culture=neutral, PublicKeyToken=69f1c32f803d307e, processorArchitecture=MSIL">
+      <HintPath>..\packages\ControlzEx.4.4.0\lib\net462\ControlzEx.dll</HintPath>
+    </Reference>
+    <Reference Include="FontAwesome.Sharp, Version=6.1.1.0, Culture=neutral, PublicKeyToken=d16d1e4e568ec10f, processorArchitecture=MSIL">
+      <HintPath>..\packages\FontAwesome.Sharp.6.1.1\lib\net48\FontAwesome.Sharp.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Xaml.Behaviors, Version=1.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Xaml.Behaviors.Wpf.1.1.19\lib\net45\Microsoft.Xaml.Behaviors.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -58,6 +72,36 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Converters\HueLight_ToCardConfigConverter.cs" />
+    <Compile Include="Converters\HueEffect_ToCardConfigConverter.cs" />
+    <Compile Include="Models\Interfaces\IConfigListViewModel.cs" />
+    <Compile Include="Models\Structs\SimpleConfigList_ViewModel.cs" />
+    <Compile Include="Models\Structs\CardConfigList_ViewModel.cs" />
+    <Compile Include="User Controls\DoubleColumnListConfigCard.xaml.cs">
+      <DependentUpon>DoubleColumnListConfigCard.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="User Controls\ConfigElementCard.xaml.cs">
+      <DependentUpon>ConfigElementCard.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="User Controls\CustomButton.xaml.cs">
+      <DependentUpon>CustomButton.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="User Controls\LinkListConfigCard.xaml.cs">
+      <DependentUpon>LinkListConfigCard.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="User Controls\InfoCard.xaml.cs">
+      <DependentUpon>InfoCard.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="User Controls\LightStatus.xaml.cs">
+      <DependentUpon>LightStatus.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="User Controls\LinkInfoShort.xaml.cs">
+      <DependentUpon>LinkInfoShort.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="User Controls\LinkInfo.xaml.cs">
+      <DependentUpon>LinkInfo.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewControllers\MainWindow_ViewController.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -70,9 +114,40 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="User Controls\DoubleColumnListConfigCard.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="User Controls\ConfigElementCard.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="User Controls\CustomButton.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="User Controls\LinkListConfigCard.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="User Controls\InfoCard.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="User Controls\LightStatus.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="User Controls\LinkInfoShort.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="User Controls\LinkInfo.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MainWindow_ViewController.cs" />
     <Compile Include="Models\Structs\MidiEffectLink_ViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
