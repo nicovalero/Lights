@@ -171,5 +171,15 @@ namespace UI
             DeviceStatusSection.Visibility = Visibility.Visible;
             DeviceStatusMenuButton.Style = (Style)Application.Current.Resources["menuButtonActive"];
         }
+
+        private void CloseAppButton_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
+
+        private void MinimizeAppButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.WindowState = WindowState.Minimized;
+        }
     }
 }

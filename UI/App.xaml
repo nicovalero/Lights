@@ -128,17 +128,21 @@
             <Setter Property="Foreground" Value="#ffff00"/>
         </Style>
 
-        <!--<Style x:Key="customButtonStyle1" TargetType="uc:CustomButton">
-            <Setter Property="CardBackground" Value="#152450"/>
-            <Setter Property="Height" Value="75"/>
-            <Setter Property="Width" Value="230"/>
-
-            <Style.Triggers>
-                <Trigger Property="uc:CustomButton." Value="True">
-                    <Setter Property="CardBackground" Value="#5b60c4"/>
-                </Trigger>
-            </Style.Triggers>
-        </Style>-->
+        <Style x:Key="windowUtilButton" TargetType="Button">
+            <Setter Property="Foreground" Value="#000000"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Height" Value="20"/>
+            <Setter Property="Width" Value="20"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="5 5 2 2"/>
+            <Setter Property="Clip">
+                <Setter.Value>
+                    <RectangleGeometry RadiusX="15" RadiusY="15" Rect="0,0,20,20"/>
+                </Setter.Value>
+            </Setter>
+        </Style>
 
     </Application.Resources>
 </Application>
