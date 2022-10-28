@@ -181,5 +181,11 @@ namespace UI
         {
             this.WindowState = WindowState.Minimized;
         }
+
+        private void CustomButton_Click(object sender, RoutedEventArgs e)
+        {
+            ColorConfigWindow window = new ColorConfigWindow();
+            window.Show();
+        }
     }
 }
