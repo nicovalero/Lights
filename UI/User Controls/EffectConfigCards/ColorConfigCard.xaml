@@ -7,14 +7,8 @@
              xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Border x:Name="Border1" CornerRadius="10 0 0 10">
-        <Border.Background>
-            <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
-                <GradientStop Color="#223266" Offset="0"/>
-                <GradientStop Color="#27396b" Offset="1"/>
-            </LinearGradientBrush>
-        </Border.Background>
-        <xced:ColorCanvas Width="{Binding Path=Border1, ElementName=ActualWidth}" Background="Transparent">
+    <Border x:Name="Border1" CornerRadius="0 0 0 0" Background="Transparent">
+        <xced:ColorCanvas Background="Transparent" BorderThickness="0">
             
         </xced:ColorCanvas>
     </Border>

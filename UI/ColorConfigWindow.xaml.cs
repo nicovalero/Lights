@@ -23,5 +23,18 @@ namespace UI
         {
             InitializeComponent();
         }
+
+        private void WindowUtils_CloseClick(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
+
+        private void Border_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ChangedButton == MouseButton.Left)
+            {
+                this.DragMove();
+            }
+        }
     }
 }

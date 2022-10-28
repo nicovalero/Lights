@@ -38,5 +38,13 @@ namespace UI.User_Controls
             if (CloseClick != null)
                 CloseClick(this, args);
         }
+
+        public Visibility ShowMinimizeButton
+        {
+            get { return (Visibility)GetValue(ShowMinimizeButtonProperty); }
+            set { SetValue(ShowMinimizeButtonProperty, value); }
+        }
+
+        public static readonly DependencyProperty ShowMinimizeButtonProperty = DependencyProperty.Register("ShowMinimizeButton", typeof(Visibility), typeof(WindowUtils));
     }
 }
