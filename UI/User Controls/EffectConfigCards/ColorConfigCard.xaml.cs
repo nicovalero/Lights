@@ -20,9 +20,22 @@ namespace UI.User_Controls.EffectConfigCards
     /// </summary>
     public partial class ColorConfigCard : UserControl
     {
+        private Color? _color;
+        public Color? SelectedColor { get { return _color; } set { _color = value; colorCanvas.SelectedColor = _color; } } 
         public ColorConfigCard()
         {
+            _color = null;
             InitializeComponent();
         }
+
+        private void ColorCanvas_SelectedColorChanged(object sender, RoutedPropertyChangedEventArgs<Color?> e)
+        {
+            _color = e.NewValue;
+
+            if(SelectedColorChanged != null)
+                SelectedColorChanged(this, e);
+        }
+
+        public event RoutedEventHandler SelectedColorChanged;
     }
 }

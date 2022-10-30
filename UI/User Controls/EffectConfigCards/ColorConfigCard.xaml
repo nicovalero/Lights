@@ -8,8 +8,6 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Border x:Name="Border1" CornerRadius="0 0 0 0" Background="Transparent">
-        <xced:ColorCanvas Background="Transparent" BorderThickness="0">
-            
-        </xced:ColorCanvas>
+        <xced:ColorCanvas x:Name="colorCanvas" Background="Transparent" BorderThickness="0" SelectedColorChanged="ColorCanvas_SelectedColorChanged"/>
     </Border>
 </UserControl>

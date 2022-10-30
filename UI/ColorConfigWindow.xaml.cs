@@ -11,6 +11,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using UI.Models.Structs;
+using UI.User_Controls.EffectConfigCards;
 
 namespace UI
 {
@@ -19,9 +21,19 @@ namespace UI
     /// </summary>
     public partial class ColorConfigWindow : Window
     {
-        public ColorConfigWindow()
+        private ColorConfig_ViewModel _colorConfig;
+        internal ColorConfig_ViewModel ColorConfig { get { return _colorConfig; } set { _colorConfig = value; } }
+        internal ColorConfigWindow()
         {
+            _colorConfig = new ColorConfig_ViewModel();
             InitializeComponent();
+        }
+
+        internal ColorConfigWindow(ColorConfig_ViewModel colorConfig)
+        {
+            _colorConfig = colorConfig;
+            InitializeComponent();
+            RefreshColorInCard();
         }
 
         private void WindowUtils_CloseClick(object sender, RoutedEventArgs e)
@@ -35,6 +47,16 @@ namespace UI
             {
                 this.DragMove();
             }
+        }
+
+        private void RefreshColorInCard()
+        {
+            ColorCard.SelectedColor = ColorConfig.SelectedColor;
+        }
+
+        private void ColorCard_SelectedColorChanged(object sender, RoutedEventArgs e)
+        {
+            _colorConfig.SelectedColor = ((ColorConfigCard)sender).SelectedColor;
         }
     }
 }

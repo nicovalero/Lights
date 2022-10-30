@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Documents;
 using System.Windows.Input;
+using System.Windows.Media;
 using UI.Models.Interfaces;
 using UI.Models.Structs;
 using UI.User_Controls;
@@ -17,6 +18,8 @@ namespace UI
     public partial class MainWindow : Window
     {
         private readonly MainWindow_ViewController _mainWindow_Controller;
+        private object _currentEffectConfiguration;
+        internal object CurrentEffectConfiguration => _currentEffectConfiguration;
         public MainWindow()
         {
             _mainWindow_Controller = MainWindow_ViewController.Singleton();
@@ -26,7 +29,7 @@ namespace UI
 
         private void Border_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            if(e.ChangedButton == MouseButton.Left)
+            if (e.ChangedButton == MouseButton.Left)
             {
                 this.DragMove();
             }
@@ -114,7 +117,7 @@ namespace UI
             IConfigListViewModel selectedNote = (SimpleConfigList_ViewModel)LinkNoteList.SelectedItem;
             IConfigListViewModel selectedVelocity = (SimpleConfigList_ViewModel)LinkVelocityList.SelectedItem;
 
-            _mainWindow_Controller.CreateLink(selectedLights, selectedEffect, selectedChannel, selectedNote, selectedVelocity);
+            _mainWindow_Controller.CreateLink(selectedLights, selectedEffect, selectedChannel, selectedNote, selectedVelocity, CurrentEffectConfiguration);
 
             RefreshLinkList();
         }
@@ -154,7 +157,7 @@ namespace UI
             LinkManagementMenuButton.Style = (Style)Application.Current.Resources["menuButtonActive"];
 
             ControlSection.Visibility = Visibility.Hidden;
-            ControlMenuButton.Style = (Style) Application.Current.Resources["menuButton"];
+            ControlMenuButton.Style = (Style)Application.Current.Resources["menuButton"];
 
             DeviceStatusSection.Visibility = Visibility.Hidden;
             DeviceStatusMenuButton.Style = (Style)Application.Current.Resources["menuButton"];
@@ -182,12 +185,32 @@ namespace UI
             this.WindowState = WindowState.Minimized;
         }
 
-        private void CustomButton_Click(object sender, RoutedEventArgs e)
+        private void EffectConfiguration_Click(object sender, RoutedEventArgs e)
         {
-            ColorConfigWindow window = new ColorConfigWindow();
+            //I should create a EffectConfigWindowController that implements
+            //a method calling an EffectConfigWindowFactory, in order to
+            //send the selected effect as parameter, and it will return the window
+            //corresponding to that effect.
+            ColorConfigWindow window;
+            if (CurrentEffectConfiguration is ColorConfig_ViewModel)
+                window = new ColorConfigWindow((ColorConfig_ViewModel)CurrentEffectConfiguration);
+            else
+                window = new ColorConfigWindow();
+
             window.Width = 300;
             window.Height = 400;
+            window.Closed += ConfigWindow_Closed;
+
             window.ShowDialog();
+        }
+
+        private void ConfigWindow_Closed(object sender, System.EventArgs e)
+        {
+            if (sender is ColorConfigWindow)
+            {
+                ColorConfig_ViewModel newColorConfig = ((ColorConfigWindow)sender).ColorConfig;
+                _currentEffectConfiguration = newColorConfig;
+            }
         }
     }
 }

@@ -80,7 +80,7 @@
                     </Grid.RowDefinitions>
                     <uc:CustomButton Grid.Row="0" Title="Save links as..." CardBackground="#152457" Width="230" Height="55" Icon="Download" Click="SaveButton_Click"/>
                     <uc:CustomButton Grid.Row="1" Title="Load links" CardBackground="#152457" Width="230" Height="55" Icon="FileUpload" Click="LoadButton_Click"/>
-                    <uc:CustomButton Grid.Row="2" Title="Open Color canvas" CardBackground="#152457" Width="230" Height="55" Icon="EnvelopeOpen" Click="CustomButton_Click"/>
+                    <uc:CustomButton Grid.Row="2" Title="Open Color canvas" CardBackground="#152457" Width="230" Height="55" Icon="EnvelopeOpen" Click="EffectConfiguration_Click"/>
                 </Grid>
             </Grid>            
         </Border>
