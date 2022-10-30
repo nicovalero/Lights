@@ -185,9 +185,9 @@ namespace UI
         private void CustomButton_Click(object sender, RoutedEventArgs e)
         {
             ColorConfigWindow window = new ColorConfigWindow();
-            window.Width = 250;
-            window.Height = 340;
-            window.Show();
+            window.Width = 300;
+            window.Height = 400;
+            window.ShowDialog();
         }
     }
 }
