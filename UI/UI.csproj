@@ -93,6 +93,7 @@
     </Compile>
     <Compile Include="Converters\HueLight_ToCardConfigConverter.cs" />
     <Compile Include="Converters\HueEffect_ToCardConfigConverter.cs" />
+    <Compile Include="EffectConfigSetCreator.cs" />
     <Compile Include="Models\Interfaces\IConfigListViewModel.cs" />
     <Compile Include="Models\Structs\ColorConfig_ViewModel.cs" />
     <Compile Include="Models\Structs\SimpleConfigList_ViewModel.cs" />

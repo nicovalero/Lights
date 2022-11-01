@@ -1,6 +1,8 @@
 ﻿using PhilipsHue.Collections;
 using PhilipsHue.Controllers;
+using PhilipsHue.EffectConfig.Creators.Interfaces;
 using PhilipsHue.Effects.Interfaces;
+using PhilipsHue.Models;
 using PhilipsHue.Models.Classes;
 using PhilipsHue.Models.Enums;
 using PhilipsHue.Models.Interfaces;
@@ -24,16 +26,13 @@ namespace PhilipsHue.Effects.Classes
             return _colorChange;
         }
 
-        public async void Perform(List<HueLight> lights, object value)
+        public async void Perform(List<HueLight> lights, IEffectConfigSet config)
         {
-            List<HueJSONBodyStateProperty> list = new List<HueJSONBodyStateProperty>();
-            list.Add(HueJSONBodyStateProperty.HUE);
-
-            HueState state = new HueState();
-            state.hue = (ushort) value;
-
-            foreach(HueLight light in lights)
-                await _controller.ChangeLightState(light.uniqueId, state, list);
+            foreach (HueStateJSONProperty combo in config.GetHueStateQueue())
+            {
+                foreach (HueLight light in lights)
+                    await _controller.ChangeLightState(light.uniqueId, combo);
+            }
         }
 
         public string GetName()

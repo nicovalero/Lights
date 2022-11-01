@@ -40,6 +40,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -52,8 +53,17 @@
     <Compile Include="Actions\Interfaces\Action.cs" />
     <Compile Include="Collections\HueLightEffectCollection.cs" />
     <Compile Include="Collections\HueLightEffectKindCollection.cs" />
+    <Compile Include="ColorConverters\HueColorConverter.cs" />
     <Compile Include="Controllers\ActionController.cs" />
     <Compile Include="Controllers\HueLightController.cs" />
+    <Compile Include="EffectConfig\Creators\Classes\ColorChangeConfigSet.cs" />
+    <Compile Include="EffectConfig\Creators\Classes\FadeInConfigSet.cs" />
+    <Compile Include="EffectConfig\Creators\Classes\FadeOutConfigSet.cs" />
+    <Compile Include="EffectConfig\Creators\Classes\FlashConfigSet.cs" />
+    <Compile Include="EffectConfig\Creators\Interfaces\IEffectConfigSet.cs" />
+    <Compile Include="EffectConfig\Parts\Classes\BrightnessConfig.cs" />
+    <Compile Include="EffectConfig\Parts\Classes\ColorConfig.cs" />
+    <Compile Include="EffectConfig\Parts\Interfaces\IEffectPropertyConfig.cs" />
     <Compile Include="Effects\Classes\ColorChange.cs" />
     <Compile Include="Effects\Classes\FadeIn.cs" />
     <Compile Include="Effects\Classes\FadeOut.cs" />
@@ -80,6 +90,7 @@
     <Compile Include="Models\Enums\HueEndpointKey.cs" />
     <Compile Include="Models\Enums\HueJSONBodyProperties.cs" />
     <Compile Include="Models\Enums\HueLightEffectKindEnum.cs" />
+    <Compile Include="Models\Structs\HueStateJSONProperty.cs" />
     <Compile Include="Models\Interfaces\Bridge.cs" />
     <Compile Include="Models\Interfaces\BridgeFinder.cs" />
     <Compile Include="Models\Interfaces\Developer.cs" />
@@ -93,6 +104,7 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\System.Runtime.WindowsRuntime.4.7.0\build\net461\System.Runtime.WindowsRuntime.targets" Condition="Exists('..\packages\System.Runtime.WindowsRuntime.4.7.0\build\net461\System.Runtime.WindowsRuntime.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

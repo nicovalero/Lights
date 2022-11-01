@@ -1,4 +1,5 @@
-﻿using PhilipsHue.Models.Enums;
+﻿using PhilipsHue.EffectConfig.Creators.Interfaces;
+using PhilipsHue.Models.Enums;
 using PhilipsHue.Models.Interfaces;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -10,6 +11,6 @@ namespace PhilipsHue.Effects.Interfaces
     {
         string Name { get; }
         string EffectTypeName { get; }
-        void Perform(List<HueLight> lightIds, object value);
+        void Perform(List<HueLight> lightIds, IEffectConfigSet value);
     }
 }

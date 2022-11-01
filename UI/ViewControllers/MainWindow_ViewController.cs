@@ -37,8 +37,9 @@ namespace UI
             MidiChannel channel = (MidiChannel)selectedChannel.Item;
             MidiNote note = (MidiNote)selectedNote.Item;
             MidiVelocity velocity = (MidiVelocity)selectedVelocity.Item;
+            var configuration = GetConfigFromViewModel(config);
 
-            _midiLightsController.CreateLink(channel, note, velocity, lights, effect, config);
+            _midiLightsController.CreateLink(channel, note, velocity, lights, effect, configuration);
 
             return true;
         }
@@ -190,6 +191,11 @@ namespace UI
         internal List<CardConfigList_ViewModel> GetAvailableHueLights_CardConfigList()
         {
             return HueLight_ToCardConfigConverter.ConvertHueLight_ToCardConfig(_midiLightsController.GetAllAvailableHueLights());
+        }
+
+        internal object GetConfigFromViewModel(object viewModel)
+        {
+            return EffectConfigSetCreator.CreateConfigSet(viewModel);
         }
     }
 }
