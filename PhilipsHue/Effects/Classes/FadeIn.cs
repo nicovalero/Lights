@@ -1,6 +1,9 @@
 ﻿using PhilipsHue.Collections;
 using PhilipsHue.Controllers;
+using PhilipsHue.EffectConfig.Creators.Classes;
+using PhilipsHue.EffectConfig.Creators.Interfaces;
 using PhilipsHue.Effects.Interfaces;
+using PhilipsHue.Models;
 using PhilipsHue.Models.Classes;
 using PhilipsHue.Models.Enums;
 using PhilipsHue.Models.Interfaces;
@@ -10,32 +13,6 @@ using System.Threading.Tasks;
 
 namespace PhilipsHue.Effects.Classes
 {
-    public struct FadeInConfiguration
-    {
-        public byte InitialBrightness { get; set; }
-        public byte FinalBrightness { get; set; }
-        public ushort InitialSpeed { get; set; }
-        public ushort IntervalSpeed { get; set; }
-
-        public FadeInConfiguration(byte initialBrightness, byte finalBrightness, ushort initialSpeed, ushort intervalSpeed)
-        {
-            InitialBrightness = initialBrightness;
-            FinalBrightness = finalBrightness;
-            InitialSpeed = initialSpeed;
-            IntervalSpeed = intervalSpeed;
-        }
-        public static bool operator ==(FadeInConfiguration key1, FadeInConfiguration key2)
-        {
-            return (key1.InitialBrightness == key2.InitialBrightness && key1.FinalBrightness == key2.FinalBrightness
-                && key1.InitialSpeed == key2.InitialSpeed && key1.IntervalSpeed == key2.IntervalSpeed);
-        }
-
-        public static bool operator !=(FadeInConfiguration key1, FadeInConfiguration key2)
-        {
-            return !(key1.InitialBrightness == key2.InitialBrightness && key1.FinalBrightness == key2.FinalBrightness
-                && key1.InitialSpeed == key2.InitialSpeed && key1.IntervalSpeed == key2.IntervalSpeed);
-        }
-    }
 
     public class FadeIn : LightEffect
     {
@@ -53,46 +30,38 @@ namespace PhilipsHue.Effects.Classes
             return _fadeIn;
         }
 
-        public async void Perform(List<HueLight> lights, object config = null)
+        public async void Perform(List<HueLight> lights, IEffectConfigSet config = null)
         {
-            //This is in place temporarily until I develop the config panel
+            //Values are in place temporarily until I develop the config panel
             //in the UI.
-            if(config == null)
+            if (config == null)
             {
-                FadeInConfiguration configuration = new FadeInConfiguration((byte)0, (byte)255, (ushort) 400, (ushort) 0);
+                FadeInConfigSet configuration = new FadeInConfigSet((byte)255, (byte)0);
                 config = configuration;
             }
 
-            if (config is FadeInConfiguration)
+            if (config is FadeOutConfigSet)
             {
-                FadeInConfiguration fadeInConfiguration = (FadeInConfiguration)config;
-                List<HueJSONBodyStateProperty> list = new List<HueJSONBodyStateProperty>();
-                list.Add(HueJSONBodyStateProperty.BRI);
-
-                HueState state = new HueState();
-                state.bri = fadeInConfiguration.InitialBrightness;
+                //Maybe the queue logic should be done in this class instead of the config class
+                Queue<HueStateJSONProperty> queue = config.GetHueStateQueue();
+                HueStateJSONProperty combo = queue.Dequeue();
 
                 foreach (HueLight light in lights)
-                    ChangeLightState(light, state, list).Wait();
-                Thread.Sleep(fadeInConfiguration.InitialSpeed);
+                    ChangeLightState(light, combo).Wait();
+                Thread.Sleep(400);
 
-                ushort brightness = (ushort)(fadeInConfiguration.InitialBrightness + 10);
-
-                for (; brightness <= fadeInConfiguration.FinalBrightness; brightness += 10)
+                foreach (HueStateJSONProperty c in queue)
                 {
-                    state.bri = brightness;
-
                     foreach (HueLight light in lights)
-                        await ChangeLightState(light, state, list);
-
-                    Thread.Sleep(fadeInConfiguration.IntervalSpeed);
+                        await ChangeLightState(light, c);
+                    Thread.Sleep(0);
                 }
             }
         }
 
-        private async Task ChangeLightState(HueLight light, HueState state, List<HueJSONBodyStateProperty> list)
+        private async Task ChangeLightState(HueLight light, HueStateJSONProperty combo)
         {
-            await _controller.ChangeLightState(light.uniqueId, state, list);
+            await _controller.ChangeLightState(light.uniqueId, combo);
         }
 
         public string GetName()

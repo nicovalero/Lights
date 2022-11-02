@@ -12,6 +12,10 @@ using System.Collections;
 using PhilipsHue.Effects.Interfaces;
 using ControlzEx.Standard;
 using UI.Models.Interfaces;
+using PhilipsHue.EffectConfig.Creators.Interfaces;
+using UI.Models.Classes;
+using System.CodeDom;
+using UI.Models.ViewModel_Config_Sets.Interfaces;
 
 namespace UI
 {
@@ -30,15 +34,17 @@ namespace UI
             return _controller;
         }
 
-        internal bool CreateLink(IList selectedLights, IConfigListViewModel selectedEffect, IConfigListViewModel selectedChannel, IConfigListViewModel selectedNote, IConfigListViewModel selectedVelocity, object config = null)
+        internal bool CreateLink(IList selectedLights, IConfigListViewModel selectedEffect, IConfigListViewModel selectedChannel, 
+            IConfigListViewModel selectedNote, IConfigListViewModel selectedVelocity, IConfigVMSet config)
         {
             List<HueLight> lights = ConvertIList_ToHueLightList(selectedLights);
             LightEffect effect = (LightEffect)selectedEffect.Item;
             MidiChannel channel = (MidiChannel)selectedChannel.Item;
             MidiNote note = (MidiNote)selectedNote.Item;
             MidiVelocity velocity = (MidiVelocity)selectedVelocity.Item;
+            var configuration = GetConfigFromViewModel(config);
 
-            _midiLightsController.CreateLink(channel, note, velocity, lights, effect, config);
+            _midiLightsController.CreateLink(channel, note, velocity, lights, effect, configuration);
 
             return true;
         }
@@ -190,6 +196,11 @@ namespace UI
         internal List<CardConfigList_ViewModel> GetAvailableHueLights_CardConfigList()
         {
             return HueLight_ToCardConfigConverter.ConvertHueLight_ToCardConfig(_midiLightsController.GetAllAvailableHueLights());
+        }
+
+        internal IEffectConfigSet GetConfigFromViewModel(IConfigVMSet set)
+        {
+            return EffectConfigSetCreator.CreateConfigSet(set);
         }
     }
 }

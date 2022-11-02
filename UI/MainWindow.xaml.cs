@@ -1,12 +1,17 @@
 ﻿using Control.Controllers;
+using PhilipsHue.EffectConfig.Creators.Interfaces;
 using PhilipsHue.Models.Interfaces;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Documents;
 using System.Windows.Input;
+using System.Windows.Media;
 using UI.Models.Interfaces;
 using UI.Models.Structs;
+using UI.Models.ViewModel_Config_Sets;
+using UI.Models.ViewModel_Config_Sets.Interfaces;
 using UI.User_Controls;
 
 namespace UI
@@ -17,6 +22,8 @@ namespace UI
     public partial class MainWindow : Window
     {
         private readonly MainWindow_ViewController _mainWindow_Controller;
+        private IConfigVMSet _currentEffectConfiguration;
+        internal IConfigVMSet CurrentEffectConfiguration => _currentEffectConfiguration;
         public MainWindow()
         {
             _mainWindow_Controller = MainWindow_ViewController.Singleton();
@@ -26,7 +33,7 @@ namespace UI
 
         private void Border_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            if(e.ChangedButton == MouseButton.Left)
+            if (e.ChangedButton == MouseButton.Left)
             {
                 this.DragMove();
             }
@@ -114,7 +121,7 @@ namespace UI
             IConfigListViewModel selectedNote = (SimpleConfigList_ViewModel)LinkNoteList.SelectedItem;
             IConfigListViewModel selectedVelocity = (SimpleConfigList_ViewModel)LinkVelocityList.SelectedItem;
 
-            _mainWindow_Controller.CreateLink(selectedLights, selectedEffect, selectedChannel, selectedNote, selectedVelocity);
+            _mainWindow_Controller.CreateLink(selectedLights, selectedEffect, selectedChannel, selectedNote, selectedVelocity, CurrentEffectConfiguration);
 
             RefreshLinkList();
         }
@@ -154,7 +161,7 @@ namespace UI
             LinkManagementMenuButton.Style = (Style)Application.Current.Resources["menuButtonActive"];
 
             ControlSection.Visibility = Visibility.Hidden;
-            ControlMenuButton.Style = (Style) Application.Current.Resources["menuButton"];
+            ControlMenuButton.Style = (Style)Application.Current.Resources["menuButton"];
 
             DeviceStatusSection.Visibility = Visibility.Hidden;
             DeviceStatusMenuButton.Style = (Style)Application.Current.Resources["menuButton"];
@@ -180,6 +187,46 @@ namespace UI
         private void MinimizeAppButton_Click(object sender, RoutedEventArgs e)
         {
             this.WindowState = WindowState.Minimized;
+        }
+
+        private void EffectConfiguration_Click(object sender, RoutedEventArgs e)
+        {
+            //I should create a EffectConfigWindowController that implements
+            //a method calling an EffectConfigWindowFactory, in order to
+            //send the selected effect as parameter, and it will return the window
+            //corresponding to that effect.
+            ColorChangeConfigWindow window = null;
+            try
+            {
+                if(CurrentEffectConfiguration != null)
+                {
+                    if(CurrentEffectConfiguration is ColorChangeConfig_VMSet)
+                        window = new ColorChangeConfigWindow((ColorChangeConfig_VMSet)CurrentEffectConfiguration);
+                }
+                else
+                    window = new ColorChangeConfigWindow();
+            }
+            catch(Exception ex)
+            {
+                window = new ColorChangeConfigWindow();
+            }
+            finally
+            {
+                window.Width = 300;
+                window.Height = 400;
+                window.Closed += ConfigWindow_Closed;
+
+                window.ShowDialog();
+            }            
+        }
+
+        private void ConfigWindow_Closed(object sender, System.EventArgs e)
+        {
+            if (sender is ColorChangeConfigWindow)
+            {
+                IConfigVMSet newColorConfig = ((ColorChangeConfigWindow)sender).ColorChangeConfigSet;
+                _currentEffectConfiguration = newColorConfig;
+            }
         }
     }
 }

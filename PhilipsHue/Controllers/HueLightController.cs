@@ -1,4 +1,5 @@
-﻿using PhilipsHue.Models.Classes;
+﻿using PhilipsHue.Models;
+using PhilipsHue.Models.Classes;
 using PhilipsHue.Models.Enums;
 using PhilipsHue.Models.Interfaces;
 using System;
@@ -60,9 +61,11 @@ namespace PhilipsHue.Controllers
             bridge.Connect();
         }
 
-        public async Task ChangeLightState(string uniqueid, HueState state, List<HueJSONBodyStateProperty> properties)
+        public async Task ChangeLightState(string uniqueid, HueStateJSONProperty combo)
         {
-            if(_lightBridgeDictionary.ContainsKey(uniqueid))
+            HueState state = combo.State;
+            List<HueJSONBodyStateProperty> properties = combo.JsonProperties.ToList();
+            if (_lightBridgeDictionary.ContainsKey(uniqueid))
                 await _lightBridgeDictionary[uniqueid].ChangeLightState(uniqueid, state, properties);
         }
 

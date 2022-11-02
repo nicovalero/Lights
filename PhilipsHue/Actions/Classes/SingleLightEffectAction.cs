@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using PhilipsHue.Actions.Interfaces;
+using PhilipsHue.EffectConfig.Creators.Interfaces;
 using PhilipsHue.Effects.Interfaces;
 using PhilipsHue.Models.Interfaces;
 using System.Collections.Generic;
@@ -10,13 +11,13 @@ namespace PhilipsHue.Actions.Classes
     {
         private List<HueLight> _lights;
         private LightEffect _effect;
-        private object _configuration;
+        private IEffectConfigSet _configuration;
 
         public List<HueLight> Lights {  get { return _lights; } set { _lights = value; } }
         public LightEffect Effect{ get { return _effect; } set { _effect = value; } }
-        public object Configuration { get { return _configuration; } set { _configuration = value; } }
+        public IEffectConfigSet Configuration { get { return _configuration; } set { _configuration = value; } }
 
-        public SingleLightEffectAction(List<HueLight> lights, LightEffect effect, object configuration = null)
+        public SingleLightEffectAction(List<HueLight> lights, LightEffect effect, IEffectConfigSet configuration = null)
         {
             this._lights = lights;
             this._effect = effect;
@@ -25,7 +26,7 @@ namespace PhilipsHue.Actions.Classes
 
         public void Perform()
         {
-            _effect.Perform(_lights, _configuration);
+            _effect.Perform(_lights, Configuration);
         }
 
         public LightEffect GetEffect()

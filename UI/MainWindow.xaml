@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:UI"
         xmlns:uc="clr-namespace:UI.User_Controls"
+        xmlns:xced="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
         mc:Ignorable="d" Title="Emily" Height="900" Width="1280" WindowStartupLocation="CenterScreen"
         WindowStyle="None" AllowsTransparency="True" Background="Transparent" ShowInTaskbar="True">
@@ -28,14 +29,7 @@
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="160"/>
                 </Grid.RowDefinitions>
-                <Grid Grid.Row="0">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="31"/>
-                        <ColumnDefinition Width="31"/>
-                    </Grid.ColumnDefinitions>
-                    <Button x:Name="CloseAppButton" Content="X" Grid.Column="0" Style="{StaticResource windowUtilButton}" Background="#bb0000" Click="CloseAppButton_Click"/>
-                    <Button x:Name="MinimizeAppButton" Content="-" Grid.Column="1" Style="{StaticResource windowUtilButton}" Background="#eebb00" Click="MinimizeAppButton_Click"/>
-                </Grid>
+                <uc:WindowUtils Grid.Row="0" CloseClick="CloseAppButton_Click" MinimizeClick="MinimizeAppButton_Click" ShowMinimizeButton="Visible"/>
                 <StackPanel Grid.Row="1">
                     <!--UserName-->
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 35 0 0">
@@ -82,9 +76,11 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
                     <uc:CustomButton Grid.Row="0" Title="Save links as..." CardBackground="#152457" Width="230" Height="55" Icon="Download" Click="SaveButton_Click"/>
                     <uc:CustomButton Grid.Row="1" Title="Load links" CardBackground="#152457" Width="230" Height="55" Icon="FileUpload" Click="LoadButton_Click"/>
+                    <uc:CustomButton Grid.Row="2" Title="Open Color canvas" CardBackground="#152457" Width="230" Height="55" Icon="EnvelopeOpen" Click="EffectConfiguration_Click"/>
                 </Grid>
             </Grid>            
         </Border>
