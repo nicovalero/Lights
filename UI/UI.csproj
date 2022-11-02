@@ -88,16 +88,22 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="ColorConfigWindow.xaml.cs">
-      <DependentUpon>ColorConfigWindow.xaml</DependentUpon>
+    <Compile Include="ColorChangeConfigWindow.xaml.cs">
+      <DependentUpon>ColorChangeConfigWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Converters\HueLight_ToCardConfigConverter.cs" />
     <Compile Include="Converters\HueEffect_ToCardConfigConverter.cs" />
-    <Compile Include="EffectConfigSetCreator.cs" />
+    <Compile Include="Models\Classes\EffectConfigSetCreator.cs" />
     <Compile Include="Models\Interfaces\IConfigListViewModel.cs" />
+    <Compile Include="Models\Structs\BrightnessConfig_ViewModel.cs" />
     <Compile Include="Models\Structs\ColorConfig_ViewModel.cs" />
     <Compile Include="Models\Structs\SimpleConfigList_ViewModel.cs" />
     <Compile Include="Models\Structs\CardConfigList_ViewModel.cs" />
+    <Compile Include="Models\ViewModel Config Sets\Classes\ColorChangeConfig_VMSet.cs" />
+    <Compile Include="Models\ViewModel Config Sets\Classes\FadeOutConfig_VMSet.cs" />
+    <Compile Include="Models\ViewModel Config Sets\Classes\FadeInConfig_VMSet.cs" />
+    <Compile Include="Models\ViewModel Config Sets\Classes\FlashConfig_VMSet.cs" />
+    <Compile Include="Models\ViewModel Config Sets\Interfaces\IConfigVMSet.cs" />
     <Compile Include="User Controls\DoubleColumnListConfigCard.xaml.cs">
       <DependentUpon>DoubleColumnListConfigCard.xaml</DependentUpon>
     </Compile>
@@ -129,7 +135,7 @@
       <DependentUpon>WindowUtils.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewControllers\MainWindow_ViewController.cs" />
-    <Page Include="ColorConfigWindow.xaml">
+    <Page Include="ColorChangeConfigWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

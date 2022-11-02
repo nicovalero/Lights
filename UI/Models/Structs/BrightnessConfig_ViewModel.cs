@@ -12,17 +12,15 @@ using UI.Models.Interfaces;
 
 namespace UI.Models.Structs
 {
-    public struct ColorConfig_ViewModel
+    public struct BrightnessConfig_ViewModel
     {
-        private Color? _selectedColor;
+        private byte _brightnessLevel;
 
-        public Color? SelectedColor { get { return _selectedColor; }}
+        public byte BrightnessLevel{ get { return _brightnessLevel; } set { _brightnessLevel = value; } }
 
-        public ColorConfig_ViewModel(Color? selectedColor)
+        public BrightnessConfig_ViewModel(byte selectedBrightnessLevel)
         {
-            _selectedColor = selectedColor;
+            _brightnessLevel = selectedBrightnessLevel;
         }
-
-        public void SetColor(Color? newColor) => _selectedColor = newColor;
     }
 }

@@ -12,6 +12,10 @@ using System.Collections;
 using PhilipsHue.Effects.Interfaces;
 using ControlzEx.Standard;
 using UI.Models.Interfaces;
+using PhilipsHue.EffectConfig.Creators.Interfaces;
+using UI.Models.Classes;
+using System.CodeDom;
+using UI.Models.ViewModel_Config_Sets.Interfaces;
 
 namespace UI
 {
@@ -30,7 +34,8 @@ namespace UI
             return _controller;
         }
 
-        internal bool CreateLink(IList selectedLights, IConfigListViewModel selectedEffect, IConfigListViewModel selectedChannel, IConfigListViewModel selectedNote, IConfigListViewModel selectedVelocity, object config = null)
+        internal bool CreateLink(IList selectedLights, IConfigListViewModel selectedEffect, IConfigListViewModel selectedChannel, 
+            IConfigListViewModel selectedNote, IConfigListViewModel selectedVelocity, IConfigVMSet config)
         {
             List<HueLight> lights = ConvertIList_ToHueLightList(selectedLights);
             LightEffect effect = (LightEffect)selectedEffect.Item;
@@ -193,9 +198,9 @@ namespace UI
             return HueLight_ToCardConfigConverter.ConvertHueLight_ToCardConfig(_midiLightsController.GetAllAvailableHueLights());
         }
 
-        internal object GetConfigFromViewModel(object viewModel)
+        internal IEffectConfigSet GetConfigFromViewModel(IConfigVMSet set)
         {
-            return EffectConfigSetCreator.CreateConfigSet(viewModel);
+            return EffectConfigSetCreator.CreateConfigSet(set);
         }
     }
 }

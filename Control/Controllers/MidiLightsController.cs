@@ -21,6 +21,7 @@ using DataStorage.Models;
 using System.Collections;
 using Windows.UI.Xaml.Shapes;
 using Windows.Devices.Enumeration;
+using PhilipsHue.EffectConfig.Creators.Interfaces;
 
 namespace Control.Controllers
 {
@@ -53,7 +54,7 @@ namespace Control.Controllers
             PerformLinkedAction(args);
         }
 
-        public bool CreateLink(MidiChannel channel, MidiNote note, MidiVelocity velocity, List<HueLight> lights, LightEffect effect, object config = null)
+        public bool CreateLink(MidiChannel channel, MidiNote note, MidiVelocity velocity, List<HueLight> lights, LightEffect effect, IEffectConfigSet config = null)
         {
             MidiMessageKeys keys = new MidiMessageKeys(channel, velocity, note);
 

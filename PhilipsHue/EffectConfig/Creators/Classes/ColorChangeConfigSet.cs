@@ -49,18 +49,31 @@ namespace PhilipsHue.EffectConfig.Creators.Classes
         private HueStateJSONProperty GetHueStateJSONProperty(List<IEffectPropertyConfig> properties)
         {
             HueState state = new HueState();
-            HueStateJSONProperty hueStateJSONProperty = new HueStateJSONProperty();
+            HashSet<HueJSONBodyStateProperty> jsonProperties = new HashSet<HueJSONBodyStateProperty>();
 
             foreach (IEffectPropertyConfig property in properties)
             {
                 switch (property.JsonProperty)
                 {
                     case HueJSONBodyStateProperty.XY:
-                        if (property.Value is List<float>)
+                        if (property.Value is List<double> || property.Value is List<float>)
                         {
-                            if(!hueStateJSONProperty.JsonProperties.Contains(property.JsonProperty))
-                                hueStateJSONProperty.JsonProperties.Add(property.JsonProperty);
-                            state.xy = (List<float>)property.Value;
+                            //Adds the JsonProperty if it doesn't exist yet
+                            if(!jsonProperties.Contains(property.JsonProperty))
+                                jsonProperties.Add(property.JsonProperty);
+
+                            if(property.Value is List<double>)
+                            {
+                                List<float> list = new List<float>();
+                                double x = ((List<double>)property.Value)[0];
+                                double y = ((List<double>)property.Value)[1];
+
+                                list.Add((float)x);
+                                list.Add((float)y);
+                                state.xy = list;
+                            }
+                            else
+                                state.xy = (List<float>)property.Value;
                         }
                         break;
                     default:
@@ -68,7 +81,7 @@ namespace PhilipsHue.EffectConfig.Creators.Classes
                 }
             }
 
-            hueStateJSONProperty.State = state;
+            HueStateJSONProperty hueStateJSONProperty = new HueStateJSONProperty(jsonProperties, state);
 
             return hueStateJSONProperty;
         }

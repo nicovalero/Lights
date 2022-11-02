@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using UI.Models.Structs;
+using UI.Models.ViewModel_Config_Sets;
 using UI.User_Controls.EffectConfigCards;
 
 namespace UI
@@ -19,19 +20,23 @@ namespace UI
     /// <summary>
     /// Interaction logic for ColorConfigWindow.xaml
     /// </summary>
-    public partial class ColorConfigWindow : Window
+    public partial class ColorChangeConfigWindow : Window
     {
-        private ColorConfig_ViewModel _colorConfig;
-        internal ColorConfig_ViewModel ColorConfig { get { return _colorConfig; } set { _colorConfig = value; } }
-        internal ColorConfigWindow()
+        private ColorChangeConfig_VMSet _colorChangeConfigSet;
+        internal ColorChangeConfig_VMSet ColorChangeConfigSet { get { return _colorChangeConfigSet; } set { _colorChangeConfigSet = value; } }
+
+        internal ColorChangeConfigWindow()
         {
-            _colorConfig = new ColorConfig_ViewModel();
+            _colorChangeConfigSet = new ColorChangeConfig_VMSet(new ColorConfig_ViewModel());
             InitializeComponent();
         }
 
-        internal ColorConfigWindow(ColorConfig_ViewModel colorConfig)
+        internal ColorChangeConfigWindow(ColorChangeConfig_VMSet configSet)
         {
-            _colorConfig = colorConfig;
+            if(configSet != null)
+                _colorChangeConfigSet = configSet;
+            else
+                _colorChangeConfigSet = new ColorChangeConfig_VMSet();
             InitializeComponent();
             RefreshColorInCard();
         }
@@ -51,12 +56,13 @@ namespace UI
 
         private void RefreshColorInCard()
         {
-            ColorCard.SelectedColor = ColorConfig.SelectedColor;
+            ColorCard.SelectedColor = ColorChangeConfigSet.FinalColor.SelectedColor;
         }
 
         private void ColorCard_SelectedColorChanged(object sender, RoutedEventArgs e)
         {
-            _colorConfig.SelectedColor = ((ColorConfigCard)sender).SelectedColor;
+            Color? newColor = ((ColorConfigCard)sender).SelectedColor;
+            ColorChangeConfigSet.FinalColor = new ColorConfig_ViewModel(newColor);
         }
     }
 }

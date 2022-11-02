@@ -1,5 +1,7 @@
 ﻿using Control.Controllers;
+using PhilipsHue.EffectConfig.Creators.Interfaces;
 using PhilipsHue.Models.Interfaces;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Windows;
@@ -8,6 +10,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using UI.Models.Interfaces;
 using UI.Models.Structs;
+using UI.Models.ViewModel_Config_Sets;
+using UI.Models.ViewModel_Config_Sets.Interfaces;
 using UI.User_Controls;
 
 namespace UI
@@ -18,8 +22,8 @@ namespace UI
     public partial class MainWindow : Window
     {
         private readonly MainWindow_ViewController _mainWindow_Controller;
-        private object _currentEffectConfiguration;
-        internal object CurrentEffectConfiguration => _currentEffectConfiguration;
+        private IConfigVMSet _currentEffectConfiguration;
+        internal IConfigVMSet CurrentEffectConfiguration => _currentEffectConfiguration;
         public MainWindow()
         {
             _mainWindow_Controller = MainWindow_ViewController.Singleton();
@@ -191,24 +195,36 @@ namespace UI
             //a method calling an EffectConfigWindowFactory, in order to
             //send the selected effect as parameter, and it will return the window
             //corresponding to that effect.
-            ColorConfigWindow window;
-            if (CurrentEffectConfiguration is ColorConfig_ViewModel)
-                window = new ColorConfigWindow((ColorConfig_ViewModel)CurrentEffectConfiguration);
-            else
-                window = new ColorConfigWindow();
+            ColorChangeConfigWindow window = null;
+            try
+            {
+                if(CurrentEffectConfiguration != null)
+                {
+                    if(CurrentEffectConfiguration is ColorChangeConfig_VMSet)
+                        window = new ColorChangeConfigWindow((ColorChangeConfig_VMSet)CurrentEffectConfiguration);
+                }
+                else
+                    window = new ColorChangeConfigWindow();
+            }
+            catch(Exception ex)
+            {
+                window = new ColorChangeConfigWindow();
+            }
+            finally
+            {
+                window.Width = 300;
+                window.Height = 400;
+                window.Closed += ConfigWindow_Closed;
 
-            window.Width = 300;
-            window.Height = 400;
-            window.Closed += ConfigWindow_Closed;
-
-            window.ShowDialog();
+                window.ShowDialog();
+            }            
         }
 
         private void ConfigWindow_Closed(object sender, System.EventArgs e)
         {
-            if (sender is ColorConfigWindow)
+            if (sender is ColorChangeConfigWindow)
             {
-                ColorConfig_ViewModel newColorConfig = ((ColorConfigWindow)sender).ColorConfig;
+                IConfigVMSet newColorConfig = ((ColorChangeConfigWindow)sender).ColorChangeConfigSet;
                 _currentEffectConfiguration = newColorConfig;
             }
         }
