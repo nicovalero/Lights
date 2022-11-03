@@ -88,6 +88,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="FlashConfigWindow.xaml.cs">
+      <DependentUpon>FlashConfigWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ColorChangeConfigWindow.xaml.cs">
       <DependentUpon>ColorChangeConfigWindow.xaml</DependentUpon>
     </Compile>
@@ -113,6 +116,9 @@
     <Compile Include="User Controls\CustomButton.xaml.cs">
       <DependentUpon>CustomButton.xaml</DependentUpon>
     </Compile>
+    <Compile Include="User Controls\EffectConfigCards\BrightnessConfigCard.xaml.cs">
+      <DependentUpon>BrightnessConfigCard.xaml</DependentUpon>
+    </Compile>
     <Compile Include="User Controls\EffectConfigCards\ColorConfigCard.xaml.cs">
       <DependentUpon>ColorConfigCard.xaml</DependentUpon>
     </Compile>
@@ -135,6 +141,10 @@
       <DependentUpon>WindowUtils.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewControllers\MainWindow_ViewController.cs" />
+    <Page Include="FlashConfigWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="ColorChangeConfigWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -160,6 +170,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="User Controls\CustomButton.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="User Controls\EffectConfigCards\BrightnessConfigCard.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

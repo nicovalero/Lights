@@ -7,7 +7,7 @@ using System.Windows.Navigation;
 using UI.Models.Structs;
 using UI.Models.ViewModel_Config_Sets.Interfaces;
 
-namespace UI.Models.ViewModel_Config_Sets
+namespace UI.Models.ViewModel_Config_Sets.Classes
 {
     internal class ColorChangeConfig_VMSet : IConfigVMSet
     {

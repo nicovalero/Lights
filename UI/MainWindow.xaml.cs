@@ -11,6 +11,7 @@ using System.Windows.Media;
 using UI.Models.Interfaces;
 using UI.Models.Structs;
 using UI.Models.ViewModel_Config_Sets;
+using UI.Models.ViewModel_Config_Sets.Classes;
 using UI.Models.ViewModel_Config_Sets.Interfaces;
 using UI.User_Controls;
 
@@ -191,25 +192,27 @@ namespace UI
 
         private void EffectConfiguration_Click(object sender, RoutedEventArgs e)
         {
-            //I should create a EffectConfigWindowController that implements
-            //a method calling an EffectConfigWindowFactory, in order to
-            //send the selected effect as parameter, and it will return the window
-            //corresponding to that effect.
-            ColorChangeConfigWindow window = null;
+            FlashConfigWindow window = new FlashConfigWindow();
             try
             {
-                if(CurrentEffectConfiguration != null)
-                {
-                    if(CurrentEffectConfiguration is ColorChangeConfig_VMSet)
-                        window = new ColorChangeConfigWindow((ColorChangeConfig_VMSet)CurrentEffectConfiguration);
-                }
-                else
-                    window = new ColorChangeConfigWindow();
+                
             }
-            catch(Exception ex)
-            {
-                window = new ColorChangeConfigWindow();
-            }
+            //ColorChangeConfigWindow window = null;
+            //try
+            //{
+            //    if(CurrentEffectConfiguration != null)
+            //    {
+            //        if(CurrentEffectConfiguration is ColorChangeConfig_VMSet)
+            //            window = new ColorChangeConfigWindow((ColorChangeConfig_VMSet)CurrentEffectConfiguration);
+            //    }
+            //    else
+            //        window = new ColorChangeConfigWindow();
+            //}
+            //catch(Exception ex)
+            //{
+            //    window = new ColorChangeConfigWindow();
+            //}
+
             finally
             {
                 window.Width = 300;
