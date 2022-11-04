@@ -34,9 +34,6 @@ namespace PhilipsHue.Effects.Classes
         {
             //Maybe the queue logic should be done in this class instead of the config class
             Queue<HueStateJSONProperty> queue = config.GetHueStateQueue();
-            HueStateJSONProperty combo = queue.Dequeue();
-
-            //Configure state here according to the effect configuration
 
             //var timer = new Stopwatch();
 

@@ -57,33 +57,29 @@ namespace UI.Models.Classes
             {
                 FlashConfig_VMSet flashConfig = (FlashConfig_VMSet)vmSet;
 
-                BrightnessConfig_ViewModel b1 = flashConfig.FirstBrightnessLevel;
-                BrightnessConfig_ViewModel b2 = flashConfig.SecondBrightnessLevel;
-                return new FlashConfigSet(b1.BrightnessLevel, b2.BrightnessLevel);
+                return new FlashConfigSet(flashConfig.FirstBrightnessLevel.BrightnessLevel, flashConfig.SecondBrightnessLevel.BrightnessLevel);
             }
             return null;
         }
         private static IEffectConfigSet CreateFadeInConfigSet(IConfigVMSet vmSet)
         {
+            //To be implemented
             if (vmSet is FlashConfig_VMSet)
             {
                 FlashConfig_VMSet flashConfig = (FlashConfig_VMSet)vmSet;
 
-                BrightnessConfig_ViewModel b1 = flashConfig.FirstBrightnessLevel;
-                BrightnessConfig_ViewModel b2 = flashConfig.SecondBrightnessLevel;
-                return new FadeInConfigSet(b1.BrightnessLevel, b2.BrightnessLevel);
+                return new FadeInConfigSet(flashConfig.FirstBrightnessLevel.BrightnessLevel, flashConfig.SecondBrightnessLevel.BrightnessLevel);
             }
             return null;
         }
         private static IEffectConfigSet CreateFadeOutConfigSet(IConfigVMSet vmSet)
         {
+            //To be implemented
             if (vmSet is FlashConfig_VMSet)
             {
                 FlashConfig_VMSet flashConfig = (FlashConfig_VMSet)vmSet;
 
-                BrightnessConfig_ViewModel b1 = flashConfig.FirstBrightnessLevel;
-                BrightnessConfig_ViewModel b2 = flashConfig.SecondBrightnessLevel;
-                return new FadeOutConfigSet(b1.BrightnessLevel, b2.BrightnessLevel);
+                return new FadeOutConfigSet(flashConfig.FirstBrightnessLevel.BrightnessLevel, flashConfig.SecondBrightnessLevel.BrightnessLevel);
             }
             return null;
         }

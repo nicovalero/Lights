@@ -12,7 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using UI.Models.Structs;
-using UI.Models.ViewModel_Config_Sets;
+using UI.Models.ViewModel_Config_Sets.Classes;
 using UI.User_Controls.EffectConfigCards;
 
 namespace UI
