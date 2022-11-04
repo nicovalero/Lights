@@ -195,7 +195,7 @@ namespace UI
             FlashConfigWindow window = new FlashConfigWindow();
             try
             {
-                
+
             }
             //ColorChangeConfigWindow window = null;
             //try
@@ -220,16 +220,26 @@ namespace UI
                 window.Closed += ConfigWindow_Closed;
 
                 window.ShowDialog();
-            }            
+            }
         }
 
         private void ConfigWindow_Closed(object sender, System.EventArgs e)
         {
-            if (sender is ColorChangeConfigWindow)
+            IConfigVMSet newConfig;
+            switch (sender)
             {
-                IConfigVMSet newColorConfig = ((ColorChangeConfigWindow)sender).ColorChangeConfigSet;
-                _currentEffectConfiguration = newColorConfig;
+                case ColorChangeConfigWindow w:
+                    newConfig = ((ColorChangeConfigWindow)sender).ColorChangeConfigSet;
+                    break;
+                case FlashConfigWindow w:
+                    newConfig = ((FlashConfigWindow)sender).FlashConfigSet;
+                    break;
+                default:
+                    newConfig = null;
+                    break;
             }
+
+            _currentEffectConfiguration = newConfig;
         }
     }
 }

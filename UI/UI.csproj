@@ -116,8 +116,8 @@
     <Compile Include="User Controls\CustomButton.xaml.cs">
       <DependentUpon>CustomButton.xaml</DependentUpon>
     </Compile>
-    <Compile Include="User Controls\EffectConfigCards\BrightnessConfigCard.xaml.cs">
-      <DependentUpon>BrightnessConfigCard.xaml</DependentUpon>
+    <Compile Include="User Controls\EffectConfigCards\BrightnessRangeConfigCard.xaml.cs">
+      <DependentUpon>BrightnessRangeConfigCard.xaml</DependentUpon>
     </Compile>
     <Compile Include="User Controls\EffectConfigCards\ColorConfigCard.xaml.cs">
       <DependentUpon>ColorConfigCard.xaml</DependentUpon>
@@ -173,7 +173,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="User Controls\EffectConfigCards\BrightnessConfigCard.xaml">
+    <Page Include="User Controls\EffectConfigCards\BrightnessRangeConfigCard.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

@@ -14,16 +14,16 @@ namespace PhilipsHue.EffectConfig.Creators.Classes
 {
     public class FlashConfigSet: IEffectConfigSet
     {
-        private BrightnessConfig _firstBrightnessConfig;
-        private BrightnessConfig _secondBrightnessConfig;
+        private BrightnessConfig _finalBrightnessConfig;
+        private BrightnessConfig _initialBrightnessConfig;
         private Queue<HueStateJSONProperty> _hueStateQueue;
-        public BrightnessConfig FirstBrightnessConfig { get => _firstBrightnessConfig; set => _firstBrightnessConfig = value; }
-        public BrightnessConfig SecondBrightnessConfig { get => _secondBrightnessConfig; set => _secondBrightnessConfig = value; }
+        public BrightnessConfig FinalBrightnessConfig { get => _finalBrightnessConfig; set => _finalBrightnessConfig = value; }
+        public BrightnessConfig InitialBrightnessConfig { get => _initialBrightnessConfig; set => _initialBrightnessConfig = value; }
 
-        public FlashConfigSet(byte firstBrightnessValue, byte secondBrightnessValue)
+        public FlashConfigSet(byte finalBrightnessValue, byte initialBrightnessValue)
         {
-            _firstBrightnessConfig = new BrightnessConfig(firstBrightnessValue);
-            _secondBrightnessConfig = new BrightnessConfig(secondBrightnessValue);
+            _finalBrightnessConfig = new BrightnessConfig(finalBrightnessValue);
+            _initialBrightnessConfig = new BrightnessConfig(initialBrightnessValue);
             _hueStateQueue = new Queue<HueStateJSONProperty>();
         }
 
@@ -32,12 +32,12 @@ namespace PhilipsHue.EffectConfig.Creators.Classes
             _hueStateQueue.Clear();
             List<IEffectPropertyConfig> list = new List<IEffectPropertyConfig>();
 
-            list.Add(FirstBrightnessConfig);
+            list.Add(InitialBrightnessConfig);
             HueStateJSONProperty state = GetHueStateJSONProperty(list);
             _hueStateQueue.Enqueue(state);
 
             list.Clear();
-            list.Add(SecondBrightnessConfig);
+            list.Add(FinalBrightnessConfig);
             state = GetHueStateJSONProperty(list);
             _hueStateQueue.Enqueue(state);
         }
@@ -45,7 +45,7 @@ namespace PhilipsHue.EffectConfig.Creators.Classes
         private HueStateJSONProperty GetHueStateJSONProperty(List<IEffectPropertyConfig> properties)
         {
             HueState state = new HueState();
-            HueStateJSONProperty hueStateJSONProperty = new HueStateJSONProperty();
+            HashSet<HueJSONBodyStateProperty> set = new HashSet<HueJSONBodyStateProperty>();
 
             foreach (IEffectPropertyConfig property in properties)
             {
@@ -54,8 +54,8 @@ namespace PhilipsHue.EffectConfig.Creators.Classes
                     case HueJSONBodyStateProperty.BRI:
                         if (property.Value is byte)
                         {
-                            if (!hueStateJSONProperty.JsonProperties.Contains(property.JsonProperty))
-                                hueStateJSONProperty.JsonProperties.Add(property.JsonProperty);
+                            if (!set.Contains(property.JsonProperty))
+                                set.Add(property.JsonProperty);
                             state.bri = (byte)property.Value;
                         }
                         break;
@@ -64,7 +64,7 @@ namespace PhilipsHue.EffectConfig.Creators.Classes
                 }
             }
 
-            hueStateJSONProperty.State = state;
+            HueStateJSONProperty hueStateJSONProperty = new HueStateJSONProperty(set, state);
 
             return hueStateJSONProperty;
         }

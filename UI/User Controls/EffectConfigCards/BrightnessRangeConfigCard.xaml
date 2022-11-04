@@ -22,7 +22,7 @@
                 <TextBlock Grid.Column="1" FontSize="20" Foreground="#ccd7ff" Text="{Binding HigherValue, ElementName=slider, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Right"/>
             </Grid>
             <xced:RangeSlider Grid.Row="1" x:Name="slider" Background="Transparent" Width="200" Height="50" Minimum="0" Maximum="255" LowerValue="0" HigherValue="255"
-                          HorizontalAlignment="Center" VerticalAlignment="Center" IsSnapToTickEnabled="True"/>
+                          HorizontalAlignment="Center" VerticalAlignment="Center" IsSnapToTickEnabled="True" LowerValueChanged="slider_LowerValueChanged" HigherValueChanged="slider_HigherValueChanged"/>
         </Grid>
     </Border>
 </UserControl>

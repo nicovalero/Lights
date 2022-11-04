@@ -57,18 +57,18 @@ namespace UI
 
         private void RefreshValuesInCard()
         {
-            
+            BrightnessCard.HigherBrightnessLevel = _flashConfigSet.SecondBrightnessLevel.BrightnessLevel;
+            BrightnessCard.LowerBrightnessLevel = _flashConfigSet.FirstBrightnessLevel.BrightnessLevel;
         }
 
-        private void FirstBrightnessCard_SelectedColorChanged(object sender, RoutedEventArgs e)
+        private void BrightnessCard_HigherBrightnessLevelChanged(object sender, RoutedEventArgs e)
         {
-            //byte newBrightness = ((BrightnessConfigCard)sender).SelectedValue;
-            //FlashConfigSet.FirstBrightnessLevel = new BrightnessConfig_ViewModel(newBrightness);
+            FlashConfigSet.SecondBrightnessLevel = new BrightnessConfig_ViewModel(BrightnessCard.HigherBrightnessLevel);
         }
-        private void SecondBrightnessCard_SelectedColorChanged(object sender, RoutedEventArgs e)
+
+        private void BrightnessCard_LowerBrightnessLevelChanged(object sender, RoutedEventArgs e)
         {
-            //byte newBrightness = ((BrightnessConfigCard)sender).SelectedValue;
-            //FlashConfigSet.SecondBrightnessLevel = new BrightnessConfig_ViewModel(newBrightness);
+            FlashConfigSet.FirstBrightnessLevel = new BrightnessConfig_ViewModel(BrightnessCard.LowerBrightnessLevel);
         }
     }
 }
