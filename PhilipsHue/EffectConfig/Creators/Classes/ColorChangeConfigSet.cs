@@ -7,10 +7,11 @@ using PhilipsHue.EffectConfig.Creators.Interfaces;
 using PhilipsHue.Models.Classes;
 using PhilipsHue.EffectConfig.Products.Interfaces;
 using PhilipsHue.Models;
+using System.Linq;
 
 namespace PhilipsHue.EffectConfig.Creators.Classes
 {
-    public class ColorChangeConfigSet: IEffectConfigSet
+    public class ColorChangeConfigSet : IEffectConfigSet
     {
         private ColorConfig _finalColor;
         private Queue<HueStateJSONProperty> _hueStateQueue;
@@ -19,7 +20,8 @@ namespace PhilipsHue.EffectConfig.Creators.Classes
             get { return _finalColor; }
             set { _finalColor = value; }
         }
-        public ColorChangeConfigSet(Color newValue) {
+        public ColorChangeConfigSet(Color newValue)
+        {
             FillFinalColor(newValue);
             _hueStateQueue = new Queue<HueStateJSONProperty>();
         }
@@ -31,7 +33,7 @@ namespace PhilipsHue.EffectConfig.Creators.Classes
                 _finalColor = new ColorConfig(d["x"], d["y"]);
         }
 
-        private Dictionary<string,double> ConvertToXYDictionary(Color value)
+        private Dictionary<string, double> ConvertToXYDictionary(Color value)
         {
             return HueColorConverter.TransformRGBtoXY(value);
         }
@@ -56,24 +58,26 @@ namespace PhilipsHue.EffectConfig.Creators.Classes
                 switch (property.JsonProperty)
                 {
                     case HueJSONBodyStateProperty.XY:
-                        if (property.Value is List<double> || property.Value is List<float>)
+                        if (property.Value is Dictionary<string, double>)
                         {
-                            //Adds the JsonProperty if it doesn't exist yet
-                            if(!jsonProperties.Contains(property.JsonProperty))
-                                jsonProperties.Add(property.JsonProperty);
+                            List<double> values = ((Dictionary<string, double>)property.Value).Values.ToList();                            
 
-                            if(property.Value is List<double>)
+                            List<float> floatValues = new List<float>();
+                            try
                             {
-                                List<float> list = new List<float>();
-                                double x = ((List<double>)property.Value)[0];
-                                double y = ((List<double>)property.Value)[1];
+                                if (values.Count == 2)
+                                {
+                                    floatValues.Add((float)values[0]);
+                                    floatValues.Add((float)values[1]);
 
-                                list.Add((float)x);
-                                list.Add((float)y);
-                                state.xy = list;
+                                    state.xy = floatValues;
+
+                                    //Adds the JsonProperty if it doesn't exist yet
+                                    if (!jsonProperties.Contains(property.JsonProperty))
+                                        jsonProperties.Add(property.JsonProperty);
+                                }
                             }
-                            else
-                                state.xy = (List<float>)property.Value;
+                            catch { }
                         }
                         break;
                     default:
