@@ -192,39 +192,27 @@ namespace UI
 
         private void EffectConfiguration_Click(object sender, RoutedEventArgs e)
         {
-            FlashConfigWindow window = new FlashConfigWindow();
-            try
+            if (LinkEffectList.SelectedItem != null)
             {
-
-            }
-            //ColorChangeConfigWindow window = null;
-            //try
-            //{
-            //    if(CurrentEffectConfiguration != null)
-            //    {
-            //        if(CurrentEffectConfiguration is ColorChangeConfig_VMSet)
-            //            window = new ColorChangeConfigWindow((ColorChangeConfig_VMSet)CurrentEffectConfiguration);
-            //    }
-            //    else
-            //        window = new ColorChangeConfigWindow();
-            //}
-            //catch(Exception ex)
-            //{
-            //    window = new ColorChangeConfigWindow();
-            //}
-
-            finally
-            {
-                window.Width = 300;
-                window.Height = 400;
-                window.Closed += ConfigWindow_Closed;
-
-                window.ShowDialog();
+                Window window = null;
+                try
+                {
+                    window = _mainWindow_Controller.GetConfigWindow((CardConfigList_ViewModel)LinkEffectList.SelectedItem);
+                }
+                finally
+                {
+                    if (window != null)
+                    {
+                        window.Closed += ConfigWindow_Closed;
+                        window.ShowDialog();
+                    }
+                }
             }
         }
 
         private void ConfigWindow_Closed(object sender, System.EventArgs e)
         {
+            //This has to go to the Window Controller
             IConfigVMSet newConfig;
             switch (sender)
             {

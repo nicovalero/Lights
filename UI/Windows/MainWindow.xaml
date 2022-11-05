@@ -76,11 +76,9 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
                     <uc:CustomButton Grid.Row="0" Title="Save links as..." CardBackground="#152457" Width="230" Height="55" Icon="Download" Click="SaveButton_Click"/>
                     <uc:CustomButton Grid.Row="1" Title="Load links" CardBackground="#152457" Width="230" Height="55" Icon="FileUpload" Click="LoadButton_Click"/>
-                    <uc:CustomButton Grid.Row="2" Title="Open Color canvas" CardBackground="#152457" Width="230" Height="55" Icon="EnvelopeOpen" Click="EffectConfiguration_Click"/>
                 </Grid>
             </Grid>            
         </Border>
@@ -248,6 +246,9 @@
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
+                            <StackPanel Grid.Column="0">
+                                <uc:CustomButton Title="Configure effect" CardBackground="#152457" Width="230" Height="45" Icon="Cog" Click="EffectConfiguration_Click"/>
+                            </StackPanel>
                             <StackPanel Grid.Column="2">
                                 <uc:CustomButton Title="Link" CardBackground="#152457" Width="200" Height="45" HorizontalAlignment="Right" Icon="Link" Click="LinkButton_Click"/>
                             </StackPanel>
