@@ -11,6 +11,11 @@ namespace PhilipsHue.Models.Classes
 {
     internal class BridgeV2Finder : BridgeFinder
     {
+        private string _path;
+        internal BridgeV2Finder(string path)
+        {
+            _path = path;
+        }
         public bool Exist(Uri uri)
         {
             throw new NotImplementedException();
@@ -19,16 +24,16 @@ namespace PhilipsHue.Models.Classes
         public List<Bridge> FindAll()
         {
             List<Bridge> bridges = new List<Bridge>();
-            string path = "https://discovery.meethue.com";
-            HttpResponseMessage response = HTTPMessenger.SendGetRequestAsync(path);
-
-            string responseContent = "";
-
-            if (response != null)
+            if (_path != null)
             {
-                responseContent = response.Content.ReadAsStringAsync().Result;
-                List<HueBridgeV2Response> list = ParseResponseContent(responseContent);
-                bridges = ConvertToBridgeV2(list);
+                HttpResponseMessage response = HTTPMessenger.SendGetRequestAsync(_path);
+
+                if (response != null)
+                {
+                    string responseContent = response.Content.ReadAsStringAsync().Result;
+                    List<HueBridgeV2Response> list = ParseResponseContent(responseContent);
+                    bridges = ConvertToBridgeV2(list);
+                }
             }
 
             return bridges;
@@ -48,7 +53,15 @@ namespace PhilipsHue.Models.Classes
 
         private List<HueBridgeV2Response> ParseResponseContent(string content)
         {
-            return JsonConvert.DeserializeObject<List<HueBridgeV2Response>>(content);
+            try
+            {
+                var result = JsonConvert.DeserializeObject<List<HueBridgeV2Response>>(content);
+                return result;
+            }
+            catch
+            {
+                return new List<HueBridgeV2Response>();
+            }
         }
 
         private List<Bridge> ConvertToBridgeV2(List<HueBridgeV2Response> content)

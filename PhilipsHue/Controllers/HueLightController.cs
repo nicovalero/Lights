@@ -16,10 +16,11 @@ namespace PhilipsHue.Controllers
         private BridgeV2Finder _bridgeV2Finder;
         private Dictionary<string, Bridge> _lightBridgeDictionary;
         private List<Bridge> _bridgeList;
+        private string path = "https://discovery.meethue.com";
 
         private HueLightController()
         {
-            _bridgeV2Finder = new BridgeV2Finder();
+            _bridgeV2Finder = new BridgeV2Finder(path);
             _lightBridgeDictionary = new Dictionary<string, Bridge>();
             _bridgeList = new List<Bridge>();
         }
