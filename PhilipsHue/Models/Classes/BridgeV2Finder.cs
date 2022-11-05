@@ -70,14 +70,20 @@ namespace PhilipsHue.Models.Classes
             Bridge bridge;
             Uri uri;
 
-            foreach (HueBridgeV2Response response in content)
+            if (content != null)
             {
-                if(!response.internalipaddress.Contains("http://"))
-                    uri = new Uri("http://" + response.internalipaddress);
-                else
-                    uri = new Uri(response.internalipaddress);
-                bridge = new HueBridgeV2(uri);
-                bridges.Add(bridge);
+                foreach (HueBridgeV2Response response in content)
+                {
+                    if (response.internalipaddress != null)
+                    {
+                        if (!response.internalipaddress.Contains("http://"))
+                            uri = new Uri("http://" + response.internalipaddress);
+                        else
+                            uri = new Uri(response.internalipaddress);
+                        bridge = new HueBridgeV2(uri);
+                        bridges.Add(bridge);
+                    }
+                }
             }
 
             return bridges;
