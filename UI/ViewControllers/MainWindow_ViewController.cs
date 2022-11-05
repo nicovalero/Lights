@@ -16,6 +16,8 @@ using PhilipsHue.EffectConfig.Creators.Interfaces;
 using UI.Models.Classes;
 using System.CodeDom;
 using UI.Models.ViewModel_Config_Sets.Interfaces;
+using System.Windows;
+using UI.Resources;
 
 namespace UI
 {
@@ -201,6 +203,17 @@ namespace UI
         internal IEffectConfigSet GetConfigFromViewModel(IConfigVMSet set)
         {
             return EffectConfigSetCreator.CreateConfigSet(set);
+        }
+
+        internal Window GetConfigWindow(IConfigListViewModel model)
+        {
+            if(model.Item != null)
+            {
+                if(model.Item is LightEffect)
+                    return EffectConfigWindowAssigner.GetWindowByEffect((LightEffect)model.Item);
+            }
+
+            return null;
         }
     }
 }
