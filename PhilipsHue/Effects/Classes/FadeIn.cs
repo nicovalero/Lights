@@ -36,19 +36,14 @@ namespace PhilipsHue.Effects.Classes
             //in the UI.
             if (config == null)
             {
-                FadeInConfigSet configuration = new FadeInConfigSet((byte)255, (byte)0);
+                FadeInConfigSet configuration = new FadeInConfigSet((byte)255);
                 config = configuration;
             }
 
-            if (config is FadeOutConfigSet)
+            if (config is FadeInConfigSet)
             {
                 //Maybe the queue logic should be done in this class instead of the config class
                 Queue<HueStateJSONProperty> queue = config.GetHueStateQueue();
-                HueStateJSONProperty combo = queue.Dequeue();
-
-                foreach (HueLight light in lights)
-                    ChangeLightState(light, combo).Wait();
-                Thread.Sleep(400);
 
                 foreach (HueStateJSONProperty c in queue)
                 {

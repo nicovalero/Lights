@@ -21,13 +21,16 @@ namespace UI.Resources
                     return null;
                 case Flash f:
                     window = new FlashConfigWindow();
-                    SetWindowProperties(window);
                     break;
                 case ColorChange c:
                     window = new ColorChangeConfigWindow();
-                    SetWindowProperties(window);
+                    break;
+                case FadeIn f:
+                    window = new FadeInConfigWindow();
                     break;
             }
+
+            SetWindowProperties(window);
 
             return window;
         }
@@ -43,6 +46,10 @@ namespace UI.Resources
                     window.Height = 400;
                     break;
                 case ColorChangeConfigWindow w:
+                    window.Width = 300;
+                    window.Height = 400;
+                    break;
+                case FadeInConfigWindow w:
                     window.Width = 300;
                     window.Height = 400;
                     break;

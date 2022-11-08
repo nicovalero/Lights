@@ -89,6 +89,9 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Resources\EffectConfigWindowAssigner.cs" />
+    <Compile Include="Windows\Effect Config Windows\FadeInConfigWindow.xaml.cs">
+      <DependentUpon>FadeInConfigWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\Effect Config Windows\FlashConfigWindow.xaml.cs">
       <DependentUpon>FlashConfigWindow.xaml</DependentUpon>
     </Compile>
@@ -142,6 +145,10 @@
       <DependentUpon>WindowUtils.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewControllers\MainWindow_ViewController.cs" />
+    <Page Include="Windows\Effect Config Windows\FadeInConfigWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Windows\Effect Config Windows\FlashConfigWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
