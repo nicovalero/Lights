@@ -18,6 +18,10 @@ namespace PhilipsHue.Models.Classes
         private HueDeveloper _developer;
         public Dictionary<string, string> _uniqueIdJsonPairs;
 
+        internal Dictionary<int, Scene> Scenes { get { return _scenes; } private set { _scenes = value; } }
+        internal Dictionary<string, HueLight> Lights { get { return _lights; } private set { _lights = value; } }
+        internal Dictionary<int,Group> Groups { get { return _groups; } private set { _groups = value; } }
+
         public Uri URL { get { return _URL; } set { _URL = value; } }
         public HueDeveloper developer { get { return _developer; } set { _developer = value; } }
         public Dictionary<string, HueLight> lights { get { return _lights; } set { _lights = value; } }
@@ -32,12 +36,14 @@ namespace PhilipsHue.Models.Classes
             _uniqueIdJsonPairs = new Dictionary<string, string>();
             _developer = new HueDeveloper("qFtbsJJ6H2SvZthKQWqECEctGQozVGQZRepoCnZw");
 
-            ServicePointManager.FindServicePoint(uri).ConnectionLimit = 20;
+            if(uri != null)
+                ServicePointManager.FindServicePoint(uri).ConnectionLimit = 20;
         }
 
         public void AddGroup(int key, Group group)
         {
-            _groups.Add(key, group);
+            if(group != null)
+                _groups.Add(key, group);
         }
 
         public void AddLight(string key, HueLight light)

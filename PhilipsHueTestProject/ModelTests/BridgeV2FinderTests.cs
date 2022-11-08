@@ -6,7 +6,7 @@ using PhilipsHue.Models.Classes;
 using System.Collections.Generic;
 using System.Reflection;
 
-namespace PhilipsHueTestProject
+namespace PhilipsHueTestProject.ModelTests
 {
     [TestClass]
     public class BridgeV2FinderTests

@@ -63,6 +63,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ModelTests\BridgeV2FinderTests.cs" />
+    <Compile Include="ModelTests\HueBridgeV2Tests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
