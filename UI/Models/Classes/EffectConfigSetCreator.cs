@@ -64,11 +64,11 @@ namespace UI.Models.Classes
         private static IEffectConfigSet CreateFadeInConfigSet(IConfigVMSet vmSet)
         {
             //To be implemented
-            if (vmSet is FlashConfig_VMSet)
+            if (vmSet is FadeInConfig_VMSet)
             {
-                FlashConfig_VMSet flashConfig = (FlashConfig_VMSet)vmSet;
+                FadeInConfig_VMSet fadeInConfig = (FadeInConfig_VMSet)vmSet;
 
-                return new FadeInConfigSet(flashConfig.FirstBrightnessLevel.BrightnessLevel, flashConfig.SecondBrightnessLevel.BrightnessLevel);
+                return new FadeInConfigSet(fadeInConfig.BrightnessLevel.BrightnessLevel);
             }
             return null;
         }

@@ -222,6 +222,9 @@ namespace UI
                 case FlashConfigWindow w:
                     newConfig = ((FlashConfigWindow)sender).FlashConfigSet;
                     break;
+                case FadeInConfigWindow w:
+                    newConfig = ((FadeInConfigWindow)sender).FadeInConfigSet;
+                    break;
                 default:
                     newConfig = null;
                     break;
