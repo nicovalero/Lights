@@ -92,6 +92,9 @@
     <Compile Include="User Controls\EffectConfigCards\BrightnessSingleValueCard.xaml.cs">
       <DependentUpon>BrightnessSingleValueCard.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Windows\Effect Config Windows\FadeOutConfigWindow.xaml.cs">
+      <DependentUpon>FadeOutConfigWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\Effect Config Windows\FadeInConfigWindow.xaml.cs">
       <DependentUpon>FadeInConfigWindow.xaml</DependentUpon>
     </Compile>
@@ -149,6 +152,10 @@
     </Compile>
     <Compile Include="ViewControllers\MainWindow_ViewController.cs" />
     <Page Include="User Controls\EffectConfigCards\BrightnessSingleValueCard.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\Effect Config Windows\FadeOutConfigWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

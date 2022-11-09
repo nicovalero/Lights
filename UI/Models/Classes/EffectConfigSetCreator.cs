@@ -27,7 +27,7 @@ namespace UI.Models.Classes
                     effectConfigSet = CreateFadeInConfigSet(set);
                     break;
                 case FadeOutConfig_VMSet s:
-                    effectConfigSet = CreateFadeInConfigSet(set);
+                    effectConfigSet = CreateFadeOutConfigSet(set);
                     break;
                 default:
                     break;
@@ -63,7 +63,6 @@ namespace UI.Models.Classes
         }
         private static IEffectConfigSet CreateFadeInConfigSet(IConfigVMSet vmSet)
         {
-            //To be implemented
             if (vmSet is FadeInConfig_VMSet)
             {
                 FadeInConfig_VMSet fadeInConfig = (FadeInConfig_VMSet)vmSet;
@@ -75,11 +74,11 @@ namespace UI.Models.Classes
         private static IEffectConfigSet CreateFadeOutConfigSet(IConfigVMSet vmSet)
         {
             //To be implemented
-            if (vmSet is FlashConfig_VMSet)
+            if (vmSet is FadeOutConfig_VMSet)
             {
-                FlashConfig_VMSet flashConfig = (FlashConfig_VMSet)vmSet;
+                FadeOutConfig_VMSet fadeOutConfig = (FadeOutConfig_VMSet)vmSet;
 
-                return new FadeOutConfigSet(flashConfig.FirstBrightnessLevel.BrightnessLevel, flashConfig.SecondBrightnessLevel.BrightnessLevel);
+                return new FadeOutConfigSet(fadeOutConfig.BrightnessLevel.BrightnessLevel);
             }
             return null;
         }

@@ -28,6 +28,9 @@ namespace UI.Resources
                 case FadeIn f:
                     window = new FadeInConfigWindow();
                     break;
+                case FadeOut f:
+                    window = new FadeOutConfigWindow();
+                    break;
             }
 
             SetWindowProperties(window);
@@ -50,6 +53,10 @@ namespace UI.Resources
                     window.Height = 400;
                     break;
                 case FadeInConfigWindow w:
+                    window.Width = 300;
+                    window.Height = 400;
+                    break;
+                case FadeOutConfigWindow w:
                     window.Width = 300;
                     window.Height = 400;
                     break;

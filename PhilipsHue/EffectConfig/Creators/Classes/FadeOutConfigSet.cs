@@ -14,16 +14,13 @@ namespace PhilipsHue.EffectConfig.Creators.Classes
 {
     public class FadeOutConfigSet : IEffectConfigSet
     {
-        private BrightnessConfig _firstBrightnessConfig;
-        private BrightnessConfig _secondBrightnessConfig;
+        private BrightnessConfig _brightnessConfig;
         private Queue<HueStateJSONProperty> _hueStateQueue;
-        public BrightnessConfig FirstBrightnessConfig { get => _firstBrightnessConfig; set => _firstBrightnessConfig = value; }
-        public BrightnessConfig SecondBrightnessConfig { get => _secondBrightnessConfig; set => _secondBrightnessConfig = value; }
+        public BrightnessConfig BrightnessConfig { get => _brightnessConfig; set => _brightnessConfig = value; }
 
-        public FadeOutConfigSet(byte firstBrightnessValue, byte secondBrightnessValue)
+        public FadeOutConfigSet(byte firstBrightnessValue)
         {
-            _firstBrightnessConfig = new BrightnessConfig(firstBrightnessValue);
-            _secondBrightnessConfig = new BrightnessConfig(secondBrightnessValue);
+            _brightnessConfig = new BrightnessConfig(firstBrightnessValue);
             _hueStateQueue = new Queue<HueStateJSONProperty>();
         }
 
@@ -32,20 +29,15 @@ namespace PhilipsHue.EffectConfig.Creators.Classes
             _hueStateQueue.Clear();
             List<IEffectPropertyConfig> list = new List<IEffectPropertyConfig>();
 
-            list.Add(FirstBrightnessConfig);
+            list.Add(BrightnessConfig);
             HueStateJSONProperty state = GetHueStateJSONProperty(list);
-            _hueStateQueue.Enqueue(state);
-
-            list.Clear();
-            list.Add(SecondBrightnessConfig);
-            state = GetHueStateJSONProperty(list);
             _hueStateQueue.Enqueue(state);
         }
 
         private HueStateJSONProperty GetHueStateJSONProperty(List<IEffectPropertyConfig> properties)
         {
             HueState state = new HueState();
-            HueStateJSONProperty hueStateJSONProperty = new HueStateJSONProperty();
+            HashSet<HueJSONBodyStateProperty> set = new HashSet<HueJSONBodyStateProperty>();
 
             foreach (IEffectPropertyConfig property in properties)
             {
@@ -54,8 +46,8 @@ namespace PhilipsHue.EffectConfig.Creators.Classes
                     case HueJSONBodyStateProperty.BRI:
                         if (property.Value is byte)
                         {
-                            if (!hueStateJSONProperty.JsonProperties.Contains(property.JsonProperty))
-                                hueStateJSONProperty.JsonProperties.Add(property.JsonProperty);
+                            if (!set.Contains(property.JsonProperty))
+                                set.Add(property.JsonProperty);
                             state.bri = (byte)property.Value;
                         }
                         break;
@@ -64,7 +56,7 @@ namespace PhilipsHue.EffectConfig.Creators.Classes
                 }
             }
 
-            hueStateJSONProperty.State = state;
+            HueStateJSONProperty hueStateJSONProperty = new HueStateJSONProperty(set, state);
 
             return hueStateJSONProperty;
         }
