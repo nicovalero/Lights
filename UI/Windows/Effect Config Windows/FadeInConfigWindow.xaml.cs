@@ -57,16 +57,12 @@ namespace UI
 
         private void RefreshValuesInCard()
         {
-            BrightnessCard.HigherBrightnessLevel = _fadeInConfigSet.BrightnessLevel.BrightnessLevel;
+            BrightnessCard.BrightnessLevel = _fadeInConfigSet.BrightnessLevel.BrightnessLevel;
         }
 
-        private void BrightnessCard_HigherBrightnessLevelChanged(object sender, RoutedEventArgs e)
+        private void BrightnessCard_BrightnessLevelChanged(object sender, RoutedEventArgs e)
         {
-            FadeInConfigSet.BrightnessLevel = new BrightnessConfig_ViewModel(BrightnessCard.HigherBrightnessLevel);
-        }
-        private void BrightnessCard_LowerBrightnessLevelChanged(object sender, RoutedEventArgs e)
-        {
-            
+            FadeInConfigSet.BrightnessLevel = new BrightnessConfig_ViewModel(BrightnessCard.BrightnessLevel);
         }
     }
 }
