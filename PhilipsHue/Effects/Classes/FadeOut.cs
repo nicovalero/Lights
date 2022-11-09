@@ -35,7 +35,7 @@ namespace PhilipsHue.Effects.Classes
             //in the UI.
             if (config == null)
             {
-                FadeOutConfigSet configuration = new FadeOutConfigSet((byte)255, (byte)0);
+                FadeOutConfigSet configuration = new FadeOutConfigSet((byte)0);
                 config = configuration;
             }
 

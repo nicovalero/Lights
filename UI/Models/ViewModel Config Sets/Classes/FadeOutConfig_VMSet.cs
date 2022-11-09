@@ -10,22 +10,18 @@ namespace UI.Models.ViewModel_Config_Sets.Classes
 {
     internal class FadeOutConfig_VMSet : IConfigVMSet
     {
-        private BrightnessConfig_ViewModel _firstBrightnessLevel;
-        private BrightnessConfig_ViewModel _secondBrightnessLevel;
-        public BrightnessConfig_ViewModel FirstBrightnessLevel { get { return _firstBrightnessLevel; } set { _firstBrightnessLevel = value; } }
-        public BrightnessConfig_ViewModel SecondBrightnessLevel { get { return _secondBrightnessLevel; } set { _secondBrightnessLevel = value; } }
+        private BrightnessConfig_ViewModel _brightnessLevel;
+        public BrightnessConfig_ViewModel BrightnessLevel { get { return _brightnessLevel; } set { _brightnessLevel = value; } }
 
-        public FadeOutConfig_VMSet(BrightnessConfig_ViewModel firstBrightnessLevel, BrightnessConfig_ViewModel secondBrightnessLevel)
+        public FadeOutConfig_VMSet(BrightnessConfig_ViewModel brightnessLevel)
         {
-            _firstBrightnessLevel = firstBrightnessLevel;
-            _secondBrightnessLevel = secondBrightnessLevel;
+            _brightnessLevel = brightnessLevel;
         }
 
         public List<object> GetConfigViewModels()
         {
             List<object> list = new List<object>();
-            list.Add(FirstBrightnessLevel);
-            list.Add(SecondBrightnessLevel);
+            list.Add(BrightnessLevel);
             return list;
         }
     }
