@@ -1,5 +1,6 @@
 ﻿using MIDI.Models.Structs;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -43,9 +44,22 @@ namespace UI.User_Controls
 
         internal static readonly DependencyProperty SourceProperty = DependencyProperty.Register("Source", typeof(List<CardConfigList_ViewModel>), typeof(DoubleColumnListConfigCard));
 
+        internal SelectionMode ListSelectionMode
+        {
+            get { return (SelectionMode)GetValue(ListSelectionModeProperty); }
+            set { SetValue(ListSelectionModeProperty, value); }
+        }
+
+        internal static readonly DependencyProperty ListSelectionModeProperty = DependencyProperty.Register("ListSelectionMode", typeof(SelectionMode), typeof(DoubleColumnListConfigCard));
+
         public object SelectedItem
         {
             get { return ItemList.SelectedItem; }
+        }
+
+        public IList SelectedItems
+        {
+            get { return ItemList.SelectedItems; }
         }
     }
 }
