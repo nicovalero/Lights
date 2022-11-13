@@ -4,6 +4,7 @@ using PhilipsHue.Models.Interfaces;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -114,8 +115,7 @@ namespace UI
 
         private void LinkButton_Click(object sender, RoutedEventArgs e)
         {
-            IList selectedLights = new List<IConfigListViewModel>();
-            selectedLights.Add(LinkLightList.SelectedItem);
+            IList selectedLights = GetSelectedLightsCollection();            
 
             IConfigListViewModel selectedEffect = (CardConfigList_ViewModel)LinkEffectList.SelectedItem;
             IConfigListViewModel selectedChannel = (SimpleConfigList_ViewModel)LinkChannelList.SelectedItem;
@@ -234,6 +234,18 @@ namespace UI
             }
 
             _currentEffectConfiguration = newConfig;
+        }
+
+        private List<IConfigListViewModel> GetSelectedLightsCollection()
+        {
+            List<IConfigListViewModel> selectedLights = new List<IConfigListViewModel>();
+            IList items = LinkLightList.SelectedItems;
+            var collection = items.Cast<CardConfigList_ViewModel>();
+
+            foreach (CardConfigList_ViewModel item in collection)
+                selectedLights.Add(item);
+
+            return selectedLights;
         }
     }
 }

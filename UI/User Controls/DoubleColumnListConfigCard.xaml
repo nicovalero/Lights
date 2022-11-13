@@ -19,12 +19,13 @@
             </StackPanel>
 
             <StackPanel Grid.Row="1" x:Name="ItemListGrid">
-                <ListBox Grid.Column="0" x:Name="ItemList" Width="{Binding ElementName=ItemListGrid, Path=ActualWidth}" 
-                                         Height="{Binding ElementName=ItemListGrid, Path=ActualHeight}" 
-                                         BorderThickness="0" Background="Transparent" ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                                         ScrollViewer.VerticalScrollBarVisibility="Hidden"
-                                         ItemsSource="{Binding Path=Source, ElementName=doubleColumnListConfigCard}" 
-                                         HorizontalAlignment="Center" VerticalAlignment="Top">
+                <ListBox Grid.Column="0" x:Name="ItemList" SelectionMode="{Binding Path=ListSelectionMode, ElementName=doubleColumnListConfigCard}"
+                         Width="{Binding ElementName=ItemListGrid, Path=ActualWidth}" 
+                         Height="{Binding ElementName=ItemListGrid, Path=ActualHeight}" 
+                         BorderThickness="0" Background="Transparent" ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                         ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                         ItemsSource="{Binding Path=Source, ElementName=doubleColumnListConfigCard}" 
+                         HorizontalAlignment="Center" VerticalAlignment="Top">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <Border Grid.Column="0" Padding="5" Margin="0 2" HorizontalAlignment="Stretch" CornerRadius="10" Width="170" Height="80">
