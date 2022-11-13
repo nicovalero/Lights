@@ -51,7 +51,7 @@ namespace Control.Controllers
 
         public void MidiMessageReceived(MidiController sender, MidiMessageKeys args)
         {
-            PerformLinkedAction(args);
+              PerformLinkedAction(args);
         }
 
         public bool CreateLink(MidiChannel channel, MidiNote note, MidiVelocity velocity, List<HueLight> lights, LightEffect effect, IEffectConfigSet config = null)

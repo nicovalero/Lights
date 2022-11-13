@@ -14,7 +14,7 @@ namespace MIDI.Models.Structs
         public MidiChannel(byte channel)
         {
             Channel = channel;
-            Name = "Channel " + channel;
+            Name = "Channel " + (channel + 1);
         }
         public static bool operator ==(MidiChannel key1, MidiChannel key2)
         {
