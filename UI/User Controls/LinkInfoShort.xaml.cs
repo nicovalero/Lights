@@ -41,5 +41,13 @@ namespace UI.User_Controls
         }
 
         public static readonly DependencyProperty SourceProperty = DependencyProperty.Register("Source", typeof(List<MidiEffectLink_ViewModel>), typeof(LinkInfoShort));
+
+        public event RoutedEventHandler OnDeleteClick;
+
+        private void deleteButton_Click(object sender, RoutedEventArgs args)
+        {
+            if (OnDeleteClick != null)
+                OnDeleteClick(this, args);
+        }
     }
 }

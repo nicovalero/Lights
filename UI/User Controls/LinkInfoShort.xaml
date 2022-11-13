@@ -37,7 +37,8 @@
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="30"/>
                                             <ColumnDefinition Width="50"/>
-                                            <ColumnDefinition Width="95"/>
+                                            <ColumnDefinition Width="145"/>
+                                            <ColumnDefinition Width="20"/>
                                         </Grid.ColumnDefinitions>
                                         <fa:IconImage Icon="Lightbulb" Foreground="#bcc6e6" Width="25" Margin="10 0 0 0"/>
                                         <StackPanel Grid.Column="1" VerticalAlignment="Center" Orientation="Horizontal" Margin="10 0 0 0">
@@ -46,6 +47,10 @@
                                         <StackPanel Grid.Column="2" VerticalAlignment="Center" Orientation="Horizontal" HorizontalAlignment="Center" Margin="10 0 0 0">
                                             <TextBlock Text="{Binding EffectName}" FontSize="14" Foreground="#7c8dc3" Padding="0 0 5 0"/>
                                         </StackPanel>
+                                        <Button Grid.Column="3" VerticalAlignment="Center" HorizontalAlignment="Center" Background="Transparent" BorderThickness="0"
+                                                Cursor="Hand" Click="deleteButton_Click">
+                                            <fa:IconImage Icon="Close" Foreground="#ff0000" Width="15"/>
+                                        </Button>
                                     </Grid>
                                 </StackPanel>
                             </Border>

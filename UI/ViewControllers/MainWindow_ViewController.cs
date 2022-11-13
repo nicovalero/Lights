@@ -18,6 +18,7 @@ using System.CodeDom;
 using UI.Models.ViewModel_Config_Sets.Interfaces;
 using System.Windows;
 using UI.Resources;
+using System.Windows.Documents;
 
 namespace UI
 {
@@ -88,6 +89,21 @@ namespace UI
             }
 
             return list;
+        }
+
+        private MidiMessageKeys GetMidiMessageKeys_FromMidiEffectLinkVM(MidiEffectLink_ViewModel model)
+        {
+            MidiMessageKeys keys;
+            try
+            {
+                keys = new MidiMessageKeys(model.Channel, model.Velocity, model.Note);
+            }
+            catch
+            {
+                keys = new MidiMessageKeys();
+            }
+
+            return keys;
         }
 
         private List<SimpleConfigList_ViewModel> ConvertMidiNoteList_ToSimpleConfigListVM(List<MidiNote> notes)
@@ -214,6 +230,20 @@ namespace UI
             }
 
             return null;
+        }
+
+        internal bool DeleteLink(object dataContext)
+        {
+            if(dataContext != null)
+            {
+                if(dataContext is MidiEffectLink_ViewModel)
+                {
+                    MidiMessageKeys keys = GetMidiMessageKeys_FromMidiEffectLinkVM((MidiEffectLink_ViewModel)dataContext);
+                    return _midiLightsController.RemoveLink(keys);
+                }
+            }
+
+            return false;
         }
     }
 }

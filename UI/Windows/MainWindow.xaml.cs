@@ -6,6 +6,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -246,6 +247,21 @@ namespace UI
                 selectedLights.Add(item);
 
             return selectedLights;
+        }
+
+        private void LinkManagement_LinkList_OnDeleteClick(object sender, RoutedEventArgs e)
+        {
+            bool success = false;
+            if(e.Source is Button)
+            {
+                if(((Button)e.Source).DataContext != null)
+                {
+                    success = _mainWindow_Controller.DeleteLink(((Button)e.Source).DataContext);
+                }                
+            }
+
+            if (success)
+                RefreshLinkList();
         }
     }
 }
