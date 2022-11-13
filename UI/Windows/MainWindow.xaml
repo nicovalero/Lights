@@ -7,7 +7,7 @@
         xmlns:uc="clr-namespace:UI.User_Controls"
         xmlns:xced="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
-        mc:Ignorable="d" Title="Emily" Height="900" Width="1280" WindowStartupLocation="CenterScreen"
+        mc:Ignorable="d" Title="Emily" Height="900" Width="1350" WindowStartupLocation="CenterScreen"
         WindowStyle="None" AllowsTransparency="True" Background="Transparent" ShowInTaskbar="True">
     <Grid>
         <Grid.ColumnDefinitions>
@@ -181,12 +181,12 @@
                 <TextBlock Text="Link Management" FontSize="26" Foreground="#ccd7ff" HorizontalAlignment="Left" Margin="35 35 0 20"/>
                 <Grid Grid.Row="1" Margin="0 0 0 0">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="220"/>
+                        <ColumnDefinition Width="290"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
 
                     <Grid Grid.Column="0">
-                        <uc:LinkInfoShort Padding="0 0 0 0" Icon="Link" Source="{DynamicResource MidiEffectLinks}" HorizontalAlignment="Stretch"/>
+                        <uc:LinkInfoShort x:Name="LinkManagement_LinkList" Padding="0 0 0 0" Icon="Link" Source="{DynamicResource MidiEffectLinks}" OnDeleteClick="LinkManagement_LinkList_OnDeleteClick" HorizontalAlignment="Stretch"/>
                     </Grid>
 
                     <Grid Grid.Column="1">

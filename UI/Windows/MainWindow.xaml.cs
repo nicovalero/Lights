@@ -247,5 +247,10 @@ namespace UI
 
             return selectedLights;
         }
+
+        private void LinkManagement_LinkList_OnDeleteClick(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
