@@ -61,6 +61,7 @@
     <Compile Include="EffectConfig\Creators\Classes\FadeOutConfigSet.cs" />
     <Compile Include="EffectConfig\Creators\Classes\FlashConfigSet.cs" />
     <Compile Include="EffectConfig\Creators\Interfaces\IEffectConfigSet.cs" />
+    <Compile Include="EffectConfig\Parts\Classes\TransitionTimeConfig.cs" />
     <Compile Include="EffectConfig\Parts\Classes\BrightnessConfig.cs" />
     <Compile Include="EffectConfig\Parts\Classes\ColorConfig.cs" />
     <Compile Include="EffectConfig\Parts\Interfaces\IEffectPropertyConfig.cs" />

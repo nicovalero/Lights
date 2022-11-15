@@ -15,10 +15,15 @@ namespace UI.Models.ViewModel_Config_Sets.Classes
         public BrightnessConfig_ViewModel FirstBrightnessLevel { get { return _firstBrightnessLevel; } set { _firstBrightnessLevel = value; } }
         public BrightnessConfig_ViewModel SecondBrightnessLevel { get { return _secondBrightnessLevel; } set { _secondBrightnessLevel = value; } }
 
-        public FlashConfig_VMSet(BrightnessConfig_ViewModel firstBrightnessLevel, BrightnessConfig_ViewModel secondBrightnessLevel)
+        private TransitionTimeConfig_ViewModel _transitionTime;
+        public TransitionTimeConfig_ViewModel TransitionTime { get { return _transitionTime; } set { _transitionTime = value; } }
+
+        public FlashConfig_VMSet(BrightnessConfig_ViewModel firstBrightnessLevel, BrightnessConfig_ViewModel secondBrightnessLevel,
+            TransitionTimeConfig_ViewModel transitionTimeViewModel)
         {
             _firstBrightnessLevel = firstBrightnessLevel;
             _secondBrightnessLevel = secondBrightnessLevel;
+            _transitionTime = transitionTimeViewModel;
         }
 
         public List<object> GetConfigViewModels()
@@ -26,6 +31,7 @@ namespace UI.Models.ViewModel_Config_Sets.Classes
             List<object> list = new List<object>();
             list.Add(FirstBrightnessLevel);
             list.Add(SecondBrightnessLevel);
+            list.Add(TransitionTime);
             return list;
         }
     }

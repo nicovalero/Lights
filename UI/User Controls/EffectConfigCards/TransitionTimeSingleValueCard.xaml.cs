@@ -19,29 +19,29 @@ namespace UI.User_Controls.EffectConfigCards
     /// <summary>
     /// Interaction logic for BrightnessRangeConfigCard.xaml
     /// </summary>
-    public partial class BrightnessSingleValueCard : UserControl
+    public partial class TransitionTimeSingleValueCard : UserControl
     {
-        private const byte DEFAULTBRIGHTNESS = 0;
-        private byte _brightnessLevel;
-        public byte BrightnessLevel
+        private const uint DEFAULTTIME = 0;
+        private uint _timeInMiliseconds;
+        public uint TimeInMiliseconds
         {
-            get { return _brightnessLevel; }
+            get { return _timeInMiliseconds; }
             set
             {
-                _brightnessLevel = value; slider.Value = _brightnessLevel;
+                _timeInMiliseconds = value; slider.Value = _timeInMiliseconds;
             }
         }
 
-        public BrightnessSingleValueCard()
+        public TransitionTimeSingleValueCard()
         {
             InitializeComponent();
-            BrightnessLevel = DEFAULTBRIGHTNESS;
+            TimeInMiliseconds = DEFAULTTIME;
         }
 
-        public BrightnessSingleValueCard(byte higherBrightnessLevel)
+        public TransitionTimeSingleValueCard(uint timeInMiliseconds)
         {
             InitializeComponent();
-            BrightnessLevel = higherBrightnessLevel;
+            TimeInMiliseconds = timeInMiliseconds;
         }
 
         private void slider_ValueChanged(object sender, RoutedEventArgs e)
@@ -49,20 +49,20 @@ namespace UI.User_Controls.EffectConfigCards
             double value = ((Slider)sender).Value;
             try
             {
-                byte valueByte = (byte)value;
-                BrightnessLevel = valueByte;
+                uint valueUint = (uint)value;
+                TimeInMiliseconds = valueUint;
             }
             catch
             {
-                BrightnessLevel = DEFAULTBRIGHTNESS;
+                TimeInMiliseconds = DEFAULTTIME;
             }
             finally
             {
-                if (BrightnessLevelChanged != null)
-                    BrightnessLevelChanged(this, e);
+                if (TransitionTimeChanged != null)
+                    TransitionTimeChanged(this, e);
             }
         }
 
-        public event RoutedEventHandler BrightnessLevelChanged;
+        public event RoutedEventHandler TransitionTimeChanged;
     }
 }

@@ -28,7 +28,7 @@ namespace UI
 
         internal FadeOutConfigWindow()
         {
-            _fadeOutConfigSet = new FadeOutConfig_VMSet(new BrightnessConfig_ViewModel());
+            _fadeOutConfigSet = new FadeOutConfig_VMSet(new BrightnessConfig_ViewModel(), new TransitionTimeConfig_ViewModel());
             InitializeComponent();
         }
 
@@ -37,7 +37,7 @@ namespace UI
             if(configSet != null)
                 _fadeOutConfigSet = configSet;
             else
-                _fadeOutConfigSet = new FadeOutConfig_VMSet(new BrightnessConfig_ViewModel());
+                _fadeOutConfigSet = new FadeOutConfig_VMSet(new BrightnessConfig_ViewModel(), new TransitionTimeConfig_ViewModel());
             InitializeComponent();
             RefreshValuesInCard();
         }

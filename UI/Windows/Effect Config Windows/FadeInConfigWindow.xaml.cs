@@ -28,7 +28,7 @@ namespace UI
 
         internal FadeInConfigWindow()
         {
-            _fadeInConfigSet = new FadeInConfig_VMSet(new BrightnessConfig_ViewModel());
+            _fadeInConfigSet = new FadeInConfig_VMSet(new BrightnessConfig_ViewModel(), new TransitionTimeConfig_ViewModel());
             InitializeComponent();
         }
 
@@ -37,7 +37,7 @@ namespace UI
             if(configSet != null)
                 _fadeInConfigSet = configSet;
             else
-                _fadeInConfigSet = new FadeInConfig_VMSet(new BrightnessConfig_ViewModel());
+                _fadeInConfigSet = new FadeInConfig_VMSet(new BrightnessConfig_ViewModel(), new TransitionTimeConfig_ViewModel());
             InitializeComponent();
             RefreshValuesInCard();
         }
@@ -63,6 +63,11 @@ namespace UI
         private void BrightnessCard_BrightnessLevelChanged(object sender, RoutedEventArgs e)
         {
             FadeInConfigSet.BrightnessLevel = new BrightnessConfig_ViewModel(BrightnessCard.BrightnessLevel);
+        }
+
+        private void TransitionTimeCard_TransitionTimeChanged(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

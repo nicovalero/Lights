@@ -13,15 +13,20 @@ namespace UI.Models.ViewModel_Config_Sets.Classes
         private BrightnessConfig_ViewModel _brightnessLevel;
         public BrightnessConfig_ViewModel BrightnessLevel { get { return _brightnessLevel; } set { _brightnessLevel = value; } }
 
-        public FadeInConfig_VMSet(BrightnessConfig_ViewModel brightnessLevel)
+        private TransitionTimeConfig_ViewModel _transitionTime;
+        public TransitionTimeConfig_ViewModel TransitionTime { get { return _transitionTime; } set { _transitionTime = value; } }
+
+        public FadeInConfig_VMSet(BrightnessConfig_ViewModel brightnessLevel, TransitionTimeConfig_ViewModel transitionTimeViewModel)
         {
             _brightnessLevel = brightnessLevel;
+            _transitionTime = transitionTimeViewModel;
         }
 
         public List<object> GetConfigViewModels()
         {
             List<object> list = new List<object>();
             list.Add(BrightnessLevel);
+            list.Add(TransitionTime);
             return list;
         }
     }

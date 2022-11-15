@@ -28,7 +28,7 @@ namespace UI
 
         internal FlashConfigWindow()
         {
-            _flashConfigSet = new FlashConfig_VMSet(new BrightnessConfig_ViewModel(), new BrightnessConfig_ViewModel());
+            _flashConfigSet = new FlashConfig_VMSet(new BrightnessConfig_ViewModel(), new BrightnessConfig_ViewModel(), new TransitionTimeConfig_ViewModel());
             InitializeComponent();
         }
 
@@ -37,7 +37,7 @@ namespace UI
             if(configSet != null)
                 _flashConfigSet = configSet;
             else
-                _flashConfigSet = new FlashConfig_VMSet(new BrightnessConfig_ViewModel(), new BrightnessConfig_ViewModel());
+                _flashConfigSet = new FlashConfig_VMSet(new BrightnessConfig_ViewModel(), new BrightnessConfig_ViewModel(), new TransitionTimeConfig_ViewModel());
             InitializeComponent();
             RefreshValuesInCard();
         }

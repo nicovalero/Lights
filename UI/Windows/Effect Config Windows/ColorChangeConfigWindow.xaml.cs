@@ -27,7 +27,7 @@ namespace UI
 
         internal ColorChangeConfigWindow()
         {
-            _colorChangeConfigSet = new ColorChangeConfig_VMSet(new ColorConfig_ViewModel());
+            _colorChangeConfigSet = new ColorChangeConfig_VMSet(new ColorConfig_ViewModel(), new TransitionTimeConfig_ViewModel());
             InitializeComponent();
         }
 

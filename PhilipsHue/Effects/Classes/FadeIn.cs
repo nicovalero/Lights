@@ -32,14 +32,6 @@ namespace PhilipsHue.Effects.Classes
 
         public async void Perform(List<HueLight> lights, IEffectConfigSet config = null)
         {
-            //Values are in place temporarily until I develop the config panel
-            //in the UI.
-            if (config == null)
-            {
-                FadeInConfigSet configuration = new FadeInConfigSet((byte)255);
-                config = configuration;
-            }
-
             if (config is FadeInConfigSet)
             {
                 //Maybe the queue logic should be done in this class instead of the config class
