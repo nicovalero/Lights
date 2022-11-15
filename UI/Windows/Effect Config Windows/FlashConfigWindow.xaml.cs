@@ -70,5 +70,10 @@ namespace UI
         {
             FlashConfigSet.FirstBrightnessLevel = new BrightnessConfig_ViewModel(BrightnessCard.LowerBrightnessLevel);
         }
+
+        private void TransitionTimeCard_TransitionTimeChanged(object sender, RoutedEventArgs e)
+        {
+            FlashConfigSet.TransitionTime = new TransitionTimeConfig_ViewModel(TransitionTimeCard.TimeInMiliseconds);
+        }
     }
 }
