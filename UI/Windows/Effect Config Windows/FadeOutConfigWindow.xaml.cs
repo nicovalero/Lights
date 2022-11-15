@@ -64,5 +64,10 @@ namespace UI
         {
             FadeOutConfigSet.BrightnessLevel = new BrightnessConfig_ViewModel(BrightnessCard.BrightnessLevel);
         }
+
+        private void TransitionTimeCard_TransitionTimeChanged(object sender, RoutedEventArgs e)
+        {
+            FadeOutConfigSet.TransitionTime = new TransitionTimeConfig_ViewModel(TransitionTimeCard.TimeInMiliseconds);
+        }
     }
 }

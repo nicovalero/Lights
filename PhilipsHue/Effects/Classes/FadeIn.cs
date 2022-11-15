@@ -41,7 +41,6 @@ namespace PhilipsHue.Effects.Classes
                 {
                     foreach (HueLight light in lights)
                         await ChangeLightState(light, c);
-                    Thread.Sleep(0);
                 }
             }
         }
