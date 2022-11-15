@@ -11,6 +11,7 @@
         ALERT,
         COLORMODE,
         MODE,
-        REACHABLE
+        REACHABLE,
+        TRANSITIONTIME
     }
 }

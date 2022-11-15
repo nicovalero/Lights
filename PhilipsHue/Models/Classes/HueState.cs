@@ -19,6 +19,7 @@ namespace PhilipsHue.Models.Classes
         public string colorMode;
         public string mode;
         public bool reachable;
+        public uint transitiontime;
         public readonly Dictionary<HueJSONBodyStateProperty, string> jsonProperties;
 
         public HueState()
@@ -34,10 +35,11 @@ namespace PhilipsHue.Models.Classes
             this.colorMode = "";
             this.mode = "";
             this.reachable = false;
+            this.transitiontime = 0;
             this.jsonProperties = FillJSONProperties();
         }
 
-        public HueState(bool on, int bri, ushort hue, int sat, string effect, List<float> xy, int ct, string alert, string colorMode, string mode, bool reachable)
+        public HueState(bool on, int bri, ushort hue, int sat, string effect, List<float> xy, int ct, string alert, string colorMode, string mode, bool reachable, uint transitiontime)
         {
             this.on = on;
             this.bri = bri;
@@ -50,6 +52,7 @@ namespace PhilipsHue.Models.Classes
             this.colorMode = colorMode;
             this.mode = mode;
             this.reachable = reachable;
+            this.transitiontime = transitiontime;
             this.jsonProperties = FillJSONProperties();
         }
 
@@ -68,6 +71,7 @@ namespace PhilipsHue.Models.Classes
             properties.Add(HueJSONBodyStateProperty.COLORMODE, "colormode");
             properties.Add(HueJSONBodyStateProperty.MODE, "mode");
             properties.Add(HueJSONBodyStateProperty.REACHABLE, "reachable");
+            properties.Add(HueJSONBodyStateProperty.TRANSITIONTIME, "transitiontime");
 
             return properties;
         }
@@ -121,7 +125,10 @@ namespace PhilipsHue.Models.Classes
                         case HueJSONBodyStateProperty.REACHABLE:
                             value = this.reachable;
                             break;
-                    default:
+                        case HueJSONBodyStateProperty.TRANSITIONTIME:
+                            value = this.transitiontime;
+                            break;
+                        default:
                             value = "";
                             break;
                     }
