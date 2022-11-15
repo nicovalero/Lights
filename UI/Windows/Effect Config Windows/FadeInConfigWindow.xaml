@@ -46,7 +46,12 @@
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
                     <Grid Grid.Row="0">
-                        <TextBlock Text="Choose the transition time" TextWrapping="Wrap" FontSize="15" Foreground="#ccd7ff" HorizontalAlignment="Left" Margin="15 10 0 0"/>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Grid.Row="0" Text="" FontSize="26" Foreground="#ccd7ff" HorizontalAlignment="Left" Margin="15 10 0 0"/>
+                        <TextBlock Grid.Row="1" Text="Choose the transition time" TextWrapping="Wrap" FontSize="15" Foreground="#ccd7ff" HorizontalAlignment="Left" Margin="15 10 0 0"/>
                     </Grid>
                     <uc:TransitionTimeSingleValueCard x:Name="TransitionTimeCard" Grid.Row="1" Height="100" Width="230" Foreground="White" 
                                               Margin="20" TransitionTimeChanged="TransitionTimeCard_TransitionTimeChanged"/>

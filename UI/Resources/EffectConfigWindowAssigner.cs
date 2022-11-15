@@ -53,7 +53,7 @@ namespace UI.Resources
                     window.Height = 400;
                     break;
                 case FadeInConfigWindow w:
-                    window.Width = 300;
+                    window.Width = 600;
                     window.Height = 400;
                     break;
                 case FadeOutConfigWindow w:

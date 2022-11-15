@@ -1,4 +1,5 @@
 ﻿using PhilipsHue.EffectConfig.Creators.Classes;
+using PhilipsHue.EffectConfig.Parts.Classes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -67,7 +68,7 @@ namespace UI
 
         private void TransitionTimeCard_TransitionTimeChanged(object sender, RoutedEventArgs e)
         {
-
+            FadeInConfigSet.TransitionTime = new TransitionTimeConfig_ViewModel(TransitionTimeCard.TimeInMiliseconds);
         }
     }
 }
