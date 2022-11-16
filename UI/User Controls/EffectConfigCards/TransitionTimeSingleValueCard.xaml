@@ -19,12 +19,18 @@
                 </Grid.ColumnDefinitions>
                 <StackPanel Grid.Column="1">
                     <TextBlock HorizontalAlignment="Center">
-                        <Label Content="{Binding Value, ElementName=slider, UpdateSourceTrigger=PropertyChanged}" FontSize="20" Foreground="#ccd7ff"/>
-                        <Label Content="ms" FontSize="20" Foreground="#ccd7ff" HorizontalAlignment="Left"/>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Label x:Name="TransitionTimeInSecondsLabel" Grid.Column="0" Content="0" FontSize="20" Foreground="#ccd7ff"/>
+                            <Label Grid.Column="1" Content="s" FontSize="20" Foreground="#ccd7ff" HorizontalAlignment="Left"/>
+                        </Grid>
                     </TextBlock>
                 </StackPanel>
             </Grid>
-            <Slider Grid.Row="1" x:Name="slider" Background="Transparent" Width="200" Height="50" Minimum="0" Maximum="5000" Value="0"
+            <Slider Grid.Row="1" x:Name="slider" Background="Transparent" Width="200" Height="50" Minimum="0" Maximum="600" Value="0"
                           HorizontalAlignment="Center" VerticalAlignment="Center" IsSnapToTickEnabled="True" ValueChanged="slider_ValueChanged"/>
         </Grid>
     </Border>

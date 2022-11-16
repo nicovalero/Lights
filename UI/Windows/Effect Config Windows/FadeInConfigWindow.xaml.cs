@@ -68,7 +68,7 @@ namespace UI
 
         private void TransitionTimeCard_TransitionTimeChanged(object sender, RoutedEventArgs e)
         {
-            FadeInConfigSet.TransitionTime = new TransitionTimeConfig_ViewModel(TransitionTimeCard.TimeInMiliseconds);
+            FadeInConfigSet.TransitionTime = new TransitionTimeConfig_ViewModel(TransitionTimeCard.TimeInTenthOfSecond);
         }
     }
 }

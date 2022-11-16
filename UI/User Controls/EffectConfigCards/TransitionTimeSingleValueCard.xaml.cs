@@ -17,50 +17,56 @@ using Xceed.Wpf.Toolkit;
 namespace UI.User_Controls.EffectConfigCards
 {
     /// <summary>
-    /// Interaction logic for BrightnessRangeConfigCard.xaml
+    /// Interaction logic for TransitionTimeSingleValueCard.xaml
     /// </summary>
     public partial class TransitionTimeSingleValueCard : UserControl
     {
         private const uint DEFAULTTIME = 0;
-        private uint _timeInMiliseconds;
-        public uint TimeInMiliseconds
+        private uint _timeInTenthOfSecond;
+        public uint TimeInTenthOfSecond
         {
-            get { return _timeInMiliseconds; }
+            get { return _timeInTenthOfSecond; }
             set
             {
-                _timeInMiliseconds = value; slider.Value = _timeInMiliseconds;
+                _timeInTenthOfSecond = value; slider.Value = _timeInTenthOfSecond;
             }
         }
 
         public TransitionTimeSingleValueCard()
         {
             InitializeComponent();
-            TimeInMiliseconds = DEFAULTTIME;
+            TimeInTenthOfSecond = DEFAULTTIME;
         }
 
-        public TransitionTimeSingleValueCard(uint timeInMiliseconds)
+        public TransitionTimeSingleValueCard(uint timeInTenthOfSecond)
         {
             InitializeComponent();
-            TimeInMiliseconds = timeInMiliseconds;
+            TimeInTenthOfSecond = timeInTenthOfSecond;
         }
 
         private void slider_ValueChanged(object sender, RoutedEventArgs e)
         {
             double value = ((Slider)sender).Value;
+            UpdateTransitionTimeInSecondsLabel(value);
             try
             {
                 uint valueUint = (uint)value;
-                TimeInMiliseconds = valueUint;
+                TimeInTenthOfSecond = valueUint;
             }
             catch
             {
-                TimeInMiliseconds = DEFAULTTIME;
+                TimeInTenthOfSecond = DEFAULTTIME;
             }
             finally
             {
                 if (TransitionTimeChanged != null)
                     TransitionTimeChanged(this, e);
             }
+        }
+
+        private void UpdateTransitionTimeInSecondsLabel(double value)
+        {
+            TransitionTimeInSecondsLabel.Content = value / 10.0;
         }
 
         public event RoutedEventHandler TransitionTimeChanged;
