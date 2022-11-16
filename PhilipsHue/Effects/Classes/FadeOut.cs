@@ -31,29 +31,15 @@ namespace PhilipsHue.Effects.Classes
 
         public async void Perform(List<HueLight> lights, IEffectConfigSet config = null)
         {
-            //Values are in place temporarily until I develop the config panel
-            //in the UI.
-            if (config == null)
-            {
-                FadeOutConfigSet configuration = new FadeOutConfigSet((byte)0);
-                config = configuration;
-            }
-
             if (config is FadeOutConfigSet)
             {
                 //Maybe the queue logic should be done in this class instead of the config class
                 Queue<HueStateJSONProperty> queue = config.GetHueStateQueue();
-                HueStateJSONProperty combo = queue.Dequeue();
-
-                foreach (HueLight light in lights)
-                    ChangeLightState(light, combo).Wait();
-                Thread.Sleep(400);
 
                 foreach (HueStateJSONProperty c in queue)
                 {
                     foreach (HueLight light in lights)
                         await ChangeLightState(light, c);
-                    Thread.Sleep(0);
                 }
             }
         }

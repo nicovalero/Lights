@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PhilipsHue.EffectConfig.Creators.Classes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -27,7 +28,7 @@ namespace UI
 
         internal ColorChangeConfigWindow()
         {
-            _colorChangeConfigSet = new ColorChangeConfig_VMSet(new ColorConfig_ViewModel());
+            _colorChangeConfigSet = new ColorChangeConfig_VMSet(new ColorConfig_ViewModel(), new TransitionTimeConfig_ViewModel());
             InitializeComponent();
         }
 
@@ -63,6 +64,11 @@ namespace UI
         {
             Color? newColor = ((ColorConfigCard)sender).SelectedColor;
             ColorChangeConfigSet.FinalColor = new ColorConfig_ViewModel(newColor);
+        }
+
+        private void TransitionTimeCard_TransitionTimeChanged(object sender, RoutedEventArgs e)
+        {
+            ColorChangeConfigSet.TransitionTime = new TransitionTimeConfig_ViewModel(TransitionTimeCard.TimeInTenthOfSecond);
         }
     }
 }

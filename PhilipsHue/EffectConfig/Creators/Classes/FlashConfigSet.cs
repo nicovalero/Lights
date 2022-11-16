@@ -16,14 +16,17 @@ namespace PhilipsHue.EffectConfig.Creators.Classes
     {
         private BrightnessConfig _finalBrightnessConfig;
         private BrightnessConfig _initialBrightnessConfig;
+        private TransitionTimeConfig _transitionTimeConfig;
         private Queue<HueStateJSONProperty> _hueStateQueue;
         public BrightnessConfig FinalBrightnessConfig { get => _finalBrightnessConfig; set => _finalBrightnessConfig = value; }
         public BrightnessConfig InitialBrightnessConfig { get => _initialBrightnessConfig; set => _initialBrightnessConfig = value; }
+        public TransitionTimeConfig TransitionTimeConfig { get => _transitionTimeConfig; set => _transitionTimeConfig = value; }
 
-        public FlashConfigSet(byte finalBrightnessValue, byte initialBrightnessValue)
+        public FlashConfigSet(byte finalBrightnessValue, byte initialBrightnessValue, uint transitionTime)
         {
             _finalBrightnessConfig = new BrightnessConfig(finalBrightnessValue);
             _initialBrightnessConfig = new BrightnessConfig(initialBrightnessValue);
+            _transitionTimeConfig = new TransitionTimeConfig(transitionTime);
             _hueStateQueue = new Queue<HueStateJSONProperty>();
         }
 
@@ -33,11 +36,13 @@ namespace PhilipsHue.EffectConfig.Creators.Classes
             List<IEffectPropertyConfig> list = new List<IEffectPropertyConfig>();
 
             list.Add(InitialBrightnessConfig);
+            list.Add(TransitionTimeConfig);
             HueStateJSONProperty state = GetHueStateJSONProperty(list);
             _hueStateQueue.Enqueue(state);
 
             list.Clear();
             list.Add(FinalBrightnessConfig);
+            list.Add(TransitionTimeConfig);
             state = GetHueStateJSONProperty(list);
             _hueStateQueue.Enqueue(state);
         }
@@ -57,6 +62,14 @@ namespace PhilipsHue.EffectConfig.Creators.Classes
                             if (!set.Contains(property.JsonProperty))
                                 set.Add(property.JsonProperty);
                             state.bri = (byte)property.Value;
+                        }
+                        break;
+                    case HueJSONBodyStateProperty.TRANSITIONTIME:
+                        if (property.Value is uint)
+                        {
+                            if (!set.Contains(property.JsonProperty))
+                                set.Add(property.JsonProperty);
+                            state.transitiontime = (uint)property.Value;
                         }
                         break;
                     default:

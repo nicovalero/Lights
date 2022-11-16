@@ -28,7 +28,7 @@ namespace UI
 
         internal FlashConfigWindow()
         {
-            _flashConfigSet = new FlashConfig_VMSet(new BrightnessConfig_ViewModel(), new BrightnessConfig_ViewModel());
+            _flashConfigSet = new FlashConfig_VMSet(new BrightnessConfig_ViewModel(), new BrightnessConfig_ViewModel(), new TransitionTimeConfig_ViewModel());
             InitializeComponent();
         }
 
@@ -37,7 +37,7 @@ namespace UI
             if(configSet != null)
                 _flashConfigSet = configSet;
             else
-                _flashConfigSet = new FlashConfig_VMSet(new BrightnessConfig_ViewModel(), new BrightnessConfig_ViewModel());
+                _flashConfigSet = new FlashConfig_VMSet(new BrightnessConfig_ViewModel(), new BrightnessConfig_ViewModel(), new TransitionTimeConfig_ViewModel());
             InitializeComponent();
             RefreshValuesInCard();
         }
@@ -69,6 +69,11 @@ namespace UI
         private void BrightnessCard_LowerBrightnessLevelChanged(object sender, RoutedEventArgs e)
         {
             FlashConfigSet.FirstBrightnessLevel = new BrightnessConfig_ViewModel(BrightnessCard.LowerBrightnessLevel);
+        }
+
+        private void TransitionTimeCard_TransitionTimeChanged(object sender, RoutedEventArgs e)
+        {
+            FlashConfigSet.TransitionTime = new TransitionTimeConfig_ViewModel(TransitionTimeCard.TimeInTenthOfSecond);
         }
     }
 }

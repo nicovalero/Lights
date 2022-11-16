@@ -59,6 +59,8 @@ namespace PhilipsHue.Effects.Classes
             //Console.WriteLine("GO!");
             //signal.Set();
 
+            //Need to think how we are going to wait for the inner loop to finish before
+            //going back to the outer loop
             foreach (HueStateJSONProperty c in queue)
             {
                 foreach (HueLight light in lights)

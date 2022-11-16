@@ -8,22 +8,27 @@ using PhilipsHue.Models.Classes;
 using PhilipsHue.EffectConfig.Products.Interfaces;
 using PhilipsHue.Models;
 using System.Linq;
+using PhilipsHue.EffectConfig.Parts.Classes;
 
 namespace PhilipsHue.EffectConfig.Creators.Classes
 {
     public class ColorChangeConfigSet : IEffectConfigSet
     {
         private ColorConfig _finalColor;
+        private TransitionTimeConfig _transitionTimeConfig;
         private Queue<HueStateJSONProperty> _hueStateQueue;
         public ColorConfig FinalColor
         {
             get { return _finalColor; }
             set { _finalColor = value; }
         }
-        public ColorChangeConfigSet(Color newValue)
+        public TransitionTimeConfig TransitionTimeConfig { get => _transitionTimeConfig; set => _transitionTimeConfig = value; }
+
+        public ColorChangeConfigSet(Color newValue, uint transitionTime)
         {
             FillFinalColor(newValue);
             _hueStateQueue = new Queue<HueStateJSONProperty>();
+            _transitionTimeConfig = new TransitionTimeConfig(transitionTime);
         }
 
         public void FillFinalColor(Color newValue)
@@ -44,6 +49,7 @@ namespace PhilipsHue.EffectConfig.Creators.Classes
             List<IEffectPropertyConfig> list = new List<IEffectPropertyConfig>();
 
             list.Add(FinalColor);
+            list.Add(TransitionTimeConfig);
             HueStateJSONProperty state = GetHueStateJSONProperty(list);
             _hueStateQueue.Enqueue(state);
         }
@@ -78,6 +84,14 @@ namespace PhilipsHue.EffectConfig.Creators.Classes
                                 }
                             }
                             catch { }
+                        }
+                        break;
+                    case HueJSONBodyStateProperty.TRANSITIONTIME:
+                        if (property.Value is uint)
+                        {
+                            if (!jsonProperties.Contains(property.JsonProperty))
+                                jsonProperties.Add(property.JsonProperty);
+                            state.transitiontime = (uint)property.Value;
                         }
                         break;
                     default:

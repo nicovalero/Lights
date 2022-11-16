@@ -38,7 +38,7 @@ namespace UI.User_Controls.EffectConfigCards
             BrightnessLevel = DEFAULTBRIGHTNESS;
         }
 
-        public BrightnessSingleValueCard(byte higherBrightnessLevel, byte lowerBrightnessLevel)
+        public BrightnessSingleValueCard(byte higherBrightnessLevel)
         {
             InitializeComponent();
             BrightnessLevel = higherBrightnessLevel;

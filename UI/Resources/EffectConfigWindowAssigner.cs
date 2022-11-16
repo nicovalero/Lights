@@ -45,19 +45,19 @@ namespace UI.Resources
                 default:
                     break;
                 case FlashConfigWindow w:
-                    window.Width = 300;
+                    window.Width = 600;
                     window.Height = 400;
                     break;
                 case ColorChangeConfigWindow w:
-                    window.Width = 300;
+                    window.Width = 600;
                     window.Height = 400;
                     break;
                 case FadeInConfigWindow w:
-                    window.Width = 300;
+                    window.Width = 600;
                     window.Height = 400;
                     break;
                 case FadeOutConfigWindow w:
-                    window.Width = 300;
+                    window.Width = 600;
                     window.Height = 400;
                     break;
             }

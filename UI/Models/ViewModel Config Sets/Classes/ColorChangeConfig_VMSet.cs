@@ -14,19 +14,24 @@ namespace UI.Models.ViewModel_Config_Sets.Classes
         private ColorConfig_ViewModel _finalColor;
         public ColorConfig_ViewModel FinalColor { get { return _finalColor; } set { _finalColor = value; } }
 
+        private TransitionTimeConfig_ViewModel _transitionTime;
+        public TransitionTimeConfig_ViewModel TransitionTime { get { return _transitionTime; } set { _transitionTime = value; } }
+
         public ColorChangeConfig_VMSet()
         {
         }
 
-        public ColorChangeConfig_VMSet(ColorConfig_ViewModel viewModel)
+        public ColorChangeConfig_VMSet(ColorConfig_ViewModel colorViewModel, TransitionTimeConfig_ViewModel transitionTimeViewModel)
         {
-            _finalColor = viewModel;
+            _finalColor = colorViewModel;
+            _transitionTime = transitionTimeViewModel;
         }
 
         public List<object> GetConfigViewModels()
         {
             List<object> models = new List<object>();
-            models.Add(_finalColor);
+            models.Add(FinalColor);
+            models.Add(TransitionTime);
             return models;
         }
     }

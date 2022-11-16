@@ -40,13 +40,17 @@ namespace UI.Models.Classes
             if (vmSet is ColorChangeConfig_VMSet)
             {
                 ColorChangeConfig_VMSet set = (ColorChangeConfig_VMSet)vmSet;
-                ColorConfig_ViewModel colorConfig = set.FinalColor;
+                ColorConfig_ViewModel colorConfig = set.FinalColor;                
 
                 if (colorConfig.SelectedColor.HasValue)
                 {
                     Color value = colorConfig.SelectedColor.Value;
                     var color = System.Drawing.Color.FromArgb(value.A, value.R, value.G, value.B);
-                    return new ColorChangeConfigSet(color);
+
+                    TransitionTimeConfig_ViewModel transitionTimeConfig = set.TransitionTime;
+                    uint transitiontime = transitionTimeConfig.TransitionTime;
+
+                    return new ColorChangeConfigSet(color, transitiontime);
                 }
             }
             return null;
@@ -56,8 +60,10 @@ namespace UI.Models.Classes
             if (vmSet is FlashConfig_VMSet)
             {
                 FlashConfig_VMSet flashConfig = (FlashConfig_VMSet)vmSet;
+                TransitionTimeConfig_ViewModel transitionTimeConfig = flashConfig.TransitionTime;
 
-                return new FlashConfigSet(flashConfig.FirstBrightnessLevel.BrightnessLevel, flashConfig.SecondBrightnessLevel.BrightnessLevel);
+                return new FlashConfigSet(flashConfig.FirstBrightnessLevel.BrightnessLevel, flashConfig.SecondBrightnessLevel.BrightnessLevel,
+                    transitionTimeConfig.TransitionTime);
             }
             return null;
         }
@@ -66,19 +72,20 @@ namespace UI.Models.Classes
             if (vmSet is FadeInConfig_VMSet)
             {
                 FadeInConfig_VMSet fadeInConfig = (FadeInConfig_VMSet)vmSet;
+                TransitionTimeConfig_ViewModel transitionTimeConfig = fadeInConfig.TransitionTime;
 
-                return new FadeInConfigSet(fadeInConfig.BrightnessLevel.BrightnessLevel);
+                return new FadeInConfigSet(fadeInConfig.BrightnessLevel.BrightnessLevel, transitionTimeConfig.TransitionTime);
             }
             return null;
         }
         private static IEffectConfigSet CreateFadeOutConfigSet(IConfigVMSet vmSet)
         {
-            //To be implemented
             if (vmSet is FadeOutConfig_VMSet)
             {
                 FadeOutConfig_VMSet fadeOutConfig = (FadeOutConfig_VMSet)vmSet;
+                TransitionTimeConfig_ViewModel transitionTimeConfig = fadeOutConfig.TransitionTime;
 
-                return new FadeOutConfigSet(fadeOutConfig.BrightnessLevel.BrightnessLevel);
+                return new FadeOutConfigSet(fadeOutConfig.BrightnessLevel.BrightnessLevel, transitionTimeConfig.TransitionTime);
             }
             return null;
         }
