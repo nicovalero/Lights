@@ -49,6 +49,7 @@ namespace PhilipsHue.EffectConfig.Creators.Classes
             List<IEffectPropertyConfig> list = new List<IEffectPropertyConfig>();
 
             list.Add(FinalColor);
+            list.Add(TransitionTimeConfig);
             HueStateJSONProperty state = GetHueStateJSONProperty(list);
             _hueStateQueue.Enqueue(state);
         }
@@ -88,6 +89,8 @@ namespace PhilipsHue.EffectConfig.Creators.Classes
                     case HueJSONBodyStateProperty.TRANSITIONTIME:
                         if (property.Value is uint)
                         {
+                            if (!jsonProperties.Contains(property.JsonProperty))
+                                jsonProperties.Add(property.JsonProperty);
                             state.transitiontime = (uint)property.Value;
                         }
                         break;
