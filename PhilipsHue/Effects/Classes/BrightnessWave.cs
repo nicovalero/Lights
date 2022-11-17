@@ -1,5 +1,6 @@
 ﻿using PhilipsHue.Collections;
 using PhilipsHue.Controllers;
+using PhilipsHue.EffectConfig.Creators.Classes;
 using PhilipsHue.EffectConfig.Creators.Interfaces;
 using PhilipsHue.Effects.Interfaces;
 using PhilipsHue.Models;
@@ -34,10 +35,25 @@ namespace PhilipsHue.Effects.Classes
         {
             Queue<HueStateJSONProperty> queue = config.GetHueStateQueue();
 
+            List<HueLight> hueLights;
+            int intervalInt = 0;
+            if (config is BrightnessWaveConfigSet)
+            {
+                BrightnessWaveConfigSet configSet = (BrightnessWaveConfigSet)config;
+                hueLights = (List<HueLight>)(configSet.ListConfig.Value);
+                uint interval = (uint)(configSet.TransitionTimeConfig.Value);
+                intervalInt = (int)(interval * 100);
+            }
+            else
+                hueLights = lights;
+
             foreach (HueStateJSONProperty c in queue)
             {
-                foreach (HueLight light in lights)
+                foreach (HueLight light in hueLights)
+                {
                     await _controller.ChangeLightState(light.uniqueId, c);
+                    Thread.Sleep(intervalInt);
+                }
             }
         }
     }

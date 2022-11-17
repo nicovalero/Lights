@@ -1,5 +1,6 @@
 ﻿using PhilipsHue.EffectConfig.Creators.Classes;
 using PhilipsHue.EffectConfig.Creators.Interfaces;
+using PhilipsHue.Models.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Windows.Media;
@@ -28,6 +29,9 @@ namespace UI.Models.Classes
                     break;
                 case FadeOutConfig_VMSet s:
                     effectConfigSet = CreateFadeOutConfigSet(set);
+                    break;
+                case BrightnessWaveConfig_VMSet s:
+                    effectConfigSet = CreateBrightnessWaveConfigSet(set);
                     break;
                 default:
                     break;
@@ -86,6 +90,30 @@ namespace UI.Models.Classes
                 TransitionTimeConfig_ViewModel transitionTimeConfig = fadeOutConfig.TransitionTime;
 
                 return new FadeOutConfigSet(fadeOutConfig.BrightnessLevel.BrightnessLevel, transitionTimeConfig.TransitionTime);
+            }
+            return null;
+        }
+
+        private static IEffectConfigSet CreateBrightnessWaveConfigSet(IConfigVMSet vmSet)
+        {
+            if (vmSet is BrightnessWaveConfig_VMSet)
+            {
+                BrightnessWaveConfig_VMSet config = (BrightnessWaveConfig_VMSet)vmSet;
+                TransitionTimeConfig_ViewModel transitionTimeConfig = config.TransitionTime;
+                LightListConfig_ViewModel lightListConfig = config.LightList;
+                List<HueLight> lights = new List<HueLight>();
+                foreach(var item in lightListConfig.Collection)
+                {
+                    CardConfigList_ViewModel cardConfigList = (CardConfigList_ViewModel)item;
+                    if (cardConfigList.Item is HueLight)
+                    {
+                        HueLight light = (HueLight)cardConfigList.Item;
+                        lights.Add(light);
+                    }
+                }
+
+
+                return new BrightnessWaveConfigSet(config.BrightnessLevel.BrightnessLevel, transitionTimeConfig.TransitionTime, lights);
             }
             return null;
         }

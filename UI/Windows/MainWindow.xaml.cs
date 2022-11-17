@@ -239,9 +239,6 @@ namespace UI
                     break;
             }
 
-            //IEnumerable<IConfigListViewModel> enumerable = (IEnumerable<IConfigListViewModel>)TestList.ItemCollection.SourceCollection;
-            //List<IConfigListViewModel> collection = enumerable.ToList();
-
             _currentEffectConfiguration = newConfig;
         }
 
