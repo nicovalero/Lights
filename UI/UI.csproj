@@ -43,6 +43,9 @@
     <Reference Include="FontAwesome.Sharp, Version=6.1.1.0, Culture=neutral, PublicKeyToken=d16d1e4e568ec10f, processorArchitecture=MSIL">
       <HintPath>..\packages\FontAwesome.Sharp.6.1.1\lib\net48\FontAwesome.Sharp.dll</HintPath>
     </Reference>
+    <Reference Include="GongSolutions.WPF.DragDrop, Version=3.0.0.0, Culture=neutral, PublicKeyToken=91f1945125b7a587, processorArchitecture=MSIL">
+      <HintPath>..\packages\gong-wpf-dragdrop.3.2.0\lib\net48\GongSolutions.WPF.DragDrop.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Xaml.Behaviors, Version=1.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Xaml.Behaviors.Wpf.1.1.19\lib\net45\Microsoft.Xaml.Behaviors.dll</HintPath>
     </Reference>
@@ -88,8 +91,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Models\Classes\DraggableItemConfigList_ViewModel.cs" />
+    <Compile Include="Models\Structs\LightListConfig_ViewModel.cs" />
     <Compile Include="Models\Structs\TransitionTimeConfig_ViewModel.cs" />
+    <Compile Include="Models\ViewModel Config Sets\Classes\BrightnessWaveConfig_VMSet.cs" />
     <Compile Include="Resources\EffectConfigWindowAssigner.cs" />
+    <Compile Include="User Controls\EffectConfigCards\DraggableListConfigCard.xaml.cs">
+      <DependentUpon>DraggableListConfigCard.xaml</DependentUpon>
+    </Compile>
     <Compile Include="User Controls\EffectConfigCards\TransitionTimeSingleValueCard.xaml.cs">
       <DependentUpon>TransitionTimeSingleValueCard.xaml</DependentUpon>
     </Compile>
@@ -101,6 +110,9 @@
     </Compile>
     <Compile Include="Windows\Effect Config Windows\FadeInConfigWindow.xaml.cs">
       <DependentUpon>FadeInConfigWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\Effect Config Windows\BrightnessWaveConfigWindow.xaml.cs">
+      <DependentUpon>BrightnessWaveConfigWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\Effect Config Windows\FlashConfigWindow.xaml.cs">
       <DependentUpon>FlashConfigWindow.xaml</DependentUpon>
@@ -155,6 +167,10 @@
       <DependentUpon>WindowUtils.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewControllers\MainWindow_ViewController.cs" />
+    <Page Include="User Controls\EffectConfigCards\DraggableListConfigCard.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="User Controls\EffectConfigCards\TransitionTimeSingleValueCard.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -168,6 +184,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Windows\Effect Config Windows\FadeInConfigWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\Effect Config Windows\BrightnessWaveConfigWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

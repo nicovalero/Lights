@@ -68,6 +68,7 @@
     <Compile Include="Effects\Classes\ColorChange.cs" />
     <Compile Include="Effects\Classes\FadeIn.cs" />
     <Compile Include="Effects\Classes\FadeOut.cs" />
+    <Compile Include="Effects\Classes\BrightnessWave.cs" />
     <Compile Include="Effects\Classes\Flash.cs" />
     <Compile Include="Effects\Interfaces\LightEffect.cs" />
     <Compile Include="Models\Classes\BridgeV2Finder.cs" />

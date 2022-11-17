@@ -83,6 +83,15 @@ namespace UI
                         green2 = 0;
                         blue2 = 255;
                         break;
+                    case BrightnessWave f:
+                        red = 0;
+                        green = 0;
+                        blue = 0;
+
+                        red2 = 200;
+                        green2 = 0;
+                        blue2 = 0;
+                        break;
                 }
                 colorList.Add(Color.FromRgb(red, green, blue));
                 colorList.Add(Color.FromRgb(red2, green2, blue2));
@@ -111,6 +120,9 @@ namespace UI
                         break;
                     case ColorChange f:
                         icon = IconChar.YinYang;
+                        break;
+                    case BrightnessWave b:
+                        icon = IconChar.HouseTsunami;
                         break;
                 }
                 _iconDictionary.Add(effect, icon);

@@ -19,6 +19,7 @@ using UI.Models.ViewModel_Config_Sets.Interfaces;
 using System.Windows;
 using UI.Resources;
 using System.Windows.Documents;
+using System.Collections.ObjectModel;
 
 namespace UI
 {
@@ -118,6 +119,20 @@ namespace UI
             }
 
             return list;
+        }
+
+        private ObservableCollection<DraggableItemConfigList_ViewModel> ConvertMidiNoteList_ToDraggableItemConfigListVMCollection(List<MidiNote> notes)
+        {
+            ObservableCollection<DraggableItemConfigList_ViewModel> collection = new ObservableCollection<DraggableItemConfigList_ViewModel>();
+
+            foreach (MidiNote note in notes)
+            {
+                collection.Add(new DraggableItemConfigList_ViewModel(
+                    note,
+                    note.Name));
+            }
+
+            return collection;
         }
 
         private List<SimpleConfigList_ViewModel> ConvertMidiChannelList_ToSimpleConfigListVM(List<MidiChannel> channels)
@@ -221,12 +236,19 @@ namespace UI
             return EffectConfigSetCreator.CreateConfigSet(set);
         }
 
-        internal Window GetConfigWindow(IConfigListViewModel model)
+        internal Window GetConfigWindow(IConfigListViewModel model, List<IConfigListViewModel> data = null)
         {
             if(model.Item != null)
             {
-                if(model.Item is LightEffect)
-                    return EffectConfigWindowAssigner.GetWindowByEffect((LightEffect)model.Item);
+                if (model.Item is LightEffect)
+                {
+                    ObservableCollection<IConfigListViewModel> collection = new ObservableCollection<IConfigListViewModel>();
+
+                    foreach (IConfigListViewModel element in data)
+                        collection.Add(element);
+
+                    return EffectConfigWindowAssigner.GetWindowByEffect((LightEffect)model.Item, collection);
+                }
             }
 
             return null;
