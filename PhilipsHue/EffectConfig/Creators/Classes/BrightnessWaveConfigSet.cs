@@ -1,5 +1,6 @@
 ﻿using PhilipsHue.EffectConfig.Creators.Interfaces;
 using PhilipsHue.EffectConfig.Parts.Classes;
+using PhilipsHue.EffectConfig.Parts.Interfaces;
 using PhilipsHue.EffectConfig.Products.Interfaces;
 using PhilipsHue.Models;
 using PhilipsHue.Models.Classes;
@@ -17,20 +18,24 @@ namespace PhilipsHue.EffectConfig.Creators.Classes
     public class BrightnessWaveConfigSet : IEffectConfigSet
     {
         private BrightnessConfig _brightnessConfig;
-        private ListConfig _listConfig;
-        private TransitionTimeConfig _transitionTimeConfig;
+        private IHueLightListConfig _lightListConfig;
+        private IEffectPropertyConfig _transitionTimeConfig;
+        private ITimeConfig _intervalTimeConfig;
         private Queue<HueStateJSONProperty> _hueStateQueue;
         
         public BrightnessConfig BrightnessConfig { get => _brightnessConfig; set => _brightnessConfig = value; }
-        public ListConfig ListConfig { get => _listConfig; set => _listConfig = value; }
-        public TransitionTimeConfig TransitionTimeConfig { get => _transitionTimeConfig; set => _transitionTimeConfig = value; }
+        public IHueLightListConfig LightListConfig { get => _lightListConfig; set => _lightListConfig = value; }
+        public IEffectPropertyConfig TransitionTimeConfig { get => _transitionTimeConfig; set => _transitionTimeConfig = value; }
+        public ITimeConfig IntervalTimeConfig { get => _intervalTimeConfig; set => _intervalTimeConfig = value; }
 
-        public BrightnessWaveConfigSet(byte firstBrightnessValue, uint transitionTime, List<HueLight> lights)
+        public BrightnessWaveConfigSet(byte firstBrightnessValue, IEffectPropertyConfig transitionConfig, 
+            IHueLightListConfig listConfig, ITimeConfig intervalTimeConfig)
         {
             _brightnessConfig = new BrightnessConfig(firstBrightnessValue);
-            _transitionTimeConfig = new TransitionTimeConfig(transitionTime);
-            _listConfig = new ListConfig(lights);
+            _transitionTimeConfig = transitionConfig;
+            _lightListConfig = listConfig;
             _hueStateQueue = new Queue<HueStateJSONProperty>();
+            _intervalTimeConfig = intervalTimeConfig;
         }
 
         private void RefreshQueue()

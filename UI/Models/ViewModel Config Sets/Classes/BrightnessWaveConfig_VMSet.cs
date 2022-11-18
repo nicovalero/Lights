@@ -20,16 +20,20 @@ namespace UI.Models.ViewModel_Config_Sets.Classes
         private TransitionTimeConfig_ViewModel _transitionTime;
         public TransitionTimeConfig_ViewModel TransitionTime { get { return _transitionTime; } set { _transitionTime = value; } }
 
+        private TransitionTimeConfig_ViewModel _intervalTime;
+        public TransitionTimeConfig_ViewModel IntervalTime { get { return _intervalTime; } set { _intervalTime = value; } }
+
         public BrightnessWaveConfig_VMSet()
         {
         }
 
         public BrightnessWaveConfig_VMSet(BrightnessConfig_ViewModel brightnessViewModel, LightListConfig_ViewModel lightsViewModel,
-            TransitionTimeConfig_ViewModel transitionTimeViewModel)
+            TransitionTimeConfig_ViewModel transitionTimeViewModel, TransitionTimeConfig_ViewModel intervalTimeViewModel)
         {
             _brightnessLevel = brightnessViewModel;
             _lightList = lightsViewModel;
             _transitionTime = transitionTimeViewModel;
+            _intervalTime = intervalTimeViewModel;
         }
 
         public List<object> GetConfigViewModels()
@@ -38,6 +42,7 @@ namespace UI.Models.ViewModel_Config_Sets.Classes
             models.Add(BrightnessLevel);
             models.Add(TransitionTime);
             models.Add(LightList);
+            models.Add(IntervalTime);
             return models;
         }
     }

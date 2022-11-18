@@ -244,8 +244,11 @@ namespace UI
                 {
                     ObservableCollection<IConfigListViewModel> collection = new ObservableCollection<IConfigListViewModel>();
 
-                    foreach (IConfigListViewModel element in data)
-                        collection.Add(element);
+                    if (data != null)
+                    {
+                        foreach (IConfigListViewModel element in data)
+                            collection.Add(element);
+                    }
 
                     return EffectConfigWindowAssigner.GetWindowByEffect((LightEffect)model.Item, collection);
                 }

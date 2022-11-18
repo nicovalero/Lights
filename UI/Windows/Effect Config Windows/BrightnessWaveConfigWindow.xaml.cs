@@ -31,7 +31,7 @@ namespace UI
 
         internal BrightnessWaveConfigWindow()
         {
-            _brightnessWaveConfigSet = new BrightnessWaveConfig_VMSet(new BrightnessConfig_ViewModel(), new LightListConfig_ViewModel() ,new TransitionTimeConfig_ViewModel());
+            _brightnessWaveConfigSet = new BrightnessWaveConfig_VMSet(new BrightnessConfig_ViewModel(), new LightListConfig_ViewModel() ,new TransitionTimeConfig_ViewModel(), new TransitionTimeConfig_ViewModel());
             InitializeComponent();
         }
 
@@ -40,7 +40,7 @@ namespace UI
             if(configSet != null)
                 _brightnessWaveConfigSet = configSet;
             else
-                _brightnessWaveConfigSet = new BrightnessWaveConfig_VMSet(new BrightnessConfig_ViewModel(), new LightListConfig_ViewModel(), new TransitionTimeConfig_ViewModel());
+                _brightnessWaveConfigSet = new BrightnessWaveConfig_VMSet(new BrightnessConfig_ViewModel(), new LightListConfig_ViewModel(), new TransitionTimeConfig_ViewModel(), new TransitionTimeConfig_ViewModel());
             InitializeComponent();
             RefreshValuesInCard();
         }
@@ -81,6 +81,11 @@ namespace UI
         private void TransitionTimeCard_TransitionTimeChanged(object sender, RoutedEventArgs e)
         {
             BrightnessWaveConfigSet.TransitionTime = new TransitionTimeConfig_ViewModel(TransitionTimeCard.TimeInTenthOfSecond);
+        }
+
+        private void IntervalTimeCard_TransitionTimeChanged(object sender, RoutedEventArgs e)
+        {
+            BrightnessWaveConfigSet.IntervalTime = new TransitionTimeConfig_ViewModel(IntervalTimeCard.TimeInTenthOfSecond);
         }
     }
 }

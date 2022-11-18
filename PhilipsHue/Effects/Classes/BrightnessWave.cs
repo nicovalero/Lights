@@ -40,9 +40,8 @@ namespace PhilipsHue.Effects.Classes
             if (config is BrightnessWaveConfigSet)
             {
                 BrightnessWaveConfigSet configSet = (BrightnessWaveConfigSet)config;
-                hueLights = (List<HueLight>)(configSet.ListConfig.Value);
-                uint interval = (uint)(configSet.TransitionTimeConfig.Value);
-                intervalInt = (int)(interval * 100);
+                hueLights = configSet.LightListConfig.GetList();
+                intervalInt = (int)(configSet.IntervalTimeConfig.GetTimeInMiliseconds());
             }
             else
                 hueLights = lights;

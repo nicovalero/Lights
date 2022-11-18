@@ -37,7 +37,7 @@ namespace UI.Resources
                     break;
                 case BrightnessWave b:
                     BrightnessWaveConfig_VMSet set = new BrightnessWaveConfig_VMSet(new BrightnessConfig_ViewModel(),
-                        new LightListConfig_ViewModel(data), new TransitionTimeConfig_ViewModel());
+                        new LightListConfig_ViewModel(data), new TransitionTimeConfig_ViewModel(), new TransitionTimeConfig_ViewModel());
                     window = new BrightnessWaveConfigWindow(set);
                     break;
             }
@@ -70,8 +70,8 @@ namespace UI.Resources
                     window.Height = 400;
                     break;
                 case BrightnessWaveConfigWindow w:
-                    window.Width = 900;
-                    window.Height = 500;
+                    window.Width = 650;
+                    window.Height = 700;
                     break;
             }
         }
