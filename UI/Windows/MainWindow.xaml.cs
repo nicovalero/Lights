@@ -4,6 +4,7 @@ using PhilipsHue.Models.Interfaces;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -116,7 +117,7 @@ namespace UI
 
         private void LinkButton_Click(object sender, RoutedEventArgs e)
         {
-            IList selectedLights = GetSelectedLightsCollection();            
+            IList selectedLights = GetSelectedLightsCollection();
 
             IConfigListViewModel selectedEffect = (CardConfigList_ViewModel)LinkEffectList.SelectedItem;
             IConfigListViewModel selectedChannel = (SimpleConfigList_ViewModel)LinkChannelList.SelectedItem;
@@ -198,7 +199,9 @@ namespace UI
                 Window window = null;
                 try
                 {
-                    window = _mainWindow_Controller.GetConfigWindow((CardConfigList_ViewModel)LinkEffectList.SelectedItem);
+                    List<IConfigListViewModel> list = GetSelectedLightsCollection();
+
+                    window = _mainWindow_Controller.GetConfigWindow((CardConfigList_ViewModel)LinkEffectList.SelectedItem, list);
                 }
                 finally
                 {
@@ -213,21 +216,26 @@ namespace UI
 
         private void ConfigWindow_Closed(object sender, System.EventArgs e)
         {
-            //This has to go to the Window Controller
             IConfigVMSet newConfig;
             switch (sender)
             {
                 case ColorChangeConfigWindow w:
-                    newConfig = ((ColorChangeConfigWindow)sender).ColorChangeConfigSet;
+                    newConfig = w.ColorChangeConfigSet;
                     break;
                 case FlashConfigWindow w:
-                    newConfig = ((FlashConfigWindow)sender).FlashConfigSet;
+                    newConfig = w.FlashConfigSet;
                     break;
                 case FadeInConfigWindow w:
-                    newConfig = ((FadeInConfigWindow)sender).FadeInConfigSet;
+                    newConfig = w.FadeInConfigSet;
                     break;
                 case FadeOutConfigWindow w:
-                    newConfig = ((FadeOutConfigWindow)sender).FadeOutConfigSet;
+                    newConfig = w.FadeOutConfigSet;
+                    break;
+                case BrightnessWaveConfigWindow w:
+                    newConfig = w.BrightnessWaveConfigSet;
+                    break;
+                case ColorWaveConfigWindow w:
+                    newConfig = w.ColorWaveConfigSet;
                     break;
                 default:
                     newConfig = null;

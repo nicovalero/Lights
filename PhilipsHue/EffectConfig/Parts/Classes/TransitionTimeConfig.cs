@@ -1,4 +1,5 @@
-﻿using PhilipsHue.EffectConfig.Products.Interfaces;
+﻿using PhilipsHue.EffectConfig.Parts.Interfaces;
+using PhilipsHue.EffectConfig.Products.Interfaces;
 using PhilipsHue.Models.Enums;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace PhilipsHue.EffectConfig.Parts.Classes
 {
-    public class TransitionTimeConfig : IEffectPropertyConfig
+    public class TransitionTimeConfig : IEffectPropertyConfig, ITimeConfig
     {
         private readonly HueJSONBodyStateProperty _jsonProperty = HueJSONBodyStateProperty.TRANSITIONTIME;
         private uint _value;
@@ -18,6 +19,18 @@ namespace PhilipsHue.EffectConfig.Parts.Classes
         public TransitionTimeConfig(uint value)
         {
             _value = value;
+        }
+
+        public uint GetTimeInMiliseconds()
+        {
+            uint result = 0;
+            if (Value is int || Value is uint)
+            {
+                result = (uint)Value;
+                return result * 100;
+            }
+            else
+                return 0;
         }
     }
 }
