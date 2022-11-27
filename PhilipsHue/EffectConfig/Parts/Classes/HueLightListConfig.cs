@@ -11,11 +11,7 @@ namespace PhilipsHue.EffectConfig.Parts.Classes
     public class HueLightListConfig : IHueLightListConfig
     {
         private List<HueLight> _lightList;
-        public List<HueLight> SetList { set { _lightList = value; } }
-        public List<HueLight> GetList()
-        {
-            return _lightList;
-        }
+        public List<HueLight> LightList { get { return _lightList; } set { _lightList = value; } }
 
         public HueLightListConfig(List<HueLight> lightList)
         {

@@ -40,7 +40,7 @@ namespace PhilipsHue.Effects.Classes
             if (config is ColorWaveConfigSet)
             {
                 ColorWaveConfigSet configSet = (ColorWaveConfigSet)config;
-                hueLights = configSet.LightListConfig.GetList();
+                hueLights = configSet.LightListConfig.LightList;
                 intervalInt = (int)(configSet.IntervalTimeConfig.GetTimeInMiliseconds());
             }
             else

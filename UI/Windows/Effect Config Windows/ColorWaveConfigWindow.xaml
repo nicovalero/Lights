@@ -34,7 +34,7 @@
                             <RowDefinition Height="auto"/>
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
-                        <TextBlock Grid.Row="0" Text="Brightness Wave" FontSize="26" Foreground="#ccd7ff" HorizontalAlignment="Left" Margin="15 10 0 0"/>
+                        <TextBlock Grid.Row="0" Text="Color Wave" FontSize="26" Foreground="#ccd7ff" HorizontalAlignment="Left" Margin="15 10 0 0"/>
                         <TextBlock Grid.Row="1" Text="Sort the lights from the first to take the effect to the last." Width="300" TextWrapping="Wrap" FontSize="15" Foreground="#ccd7ff" HorizontalAlignment="Left" Margin="15 10 0 0"/>
                     </Grid>
                     <uc:DraggableListConfigCard x:Name="LightsList" Grid.Row="1" Height="500" Foreground="White" 

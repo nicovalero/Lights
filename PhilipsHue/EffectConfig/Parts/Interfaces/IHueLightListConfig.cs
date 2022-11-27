@@ -9,6 +9,6 @@ namespace PhilipsHue.EffectConfig.Parts.Interfaces
 {
     public interface IHueLightListConfig
     {
-        List<HueLight> GetList();
+        List<HueLight> LightList { get; set; }
     }
 }
