@@ -94,6 +94,7 @@
     <Compile Include="Models\Classes\DraggableItemConfigList_ViewModel.cs" />
     <Compile Include="Models\Structs\LightListConfig_ViewModel.cs" />
     <Compile Include="Models\Structs\TransitionTimeConfig_ViewModel.cs" />
+    <Compile Include="Models\ViewModel Config Sets\Classes\ColorWaveConfig_VMSet.cs" />
     <Compile Include="Models\ViewModel Config Sets\Classes\BrightnessWaveConfig_VMSet.cs" />
     <Compile Include="Resources\EffectConfigWindowAssigner.cs" />
     <Compile Include="User Controls\EffectConfigCards\DraggableListConfigCard.xaml.cs">
@@ -104,6 +105,9 @@
     </Compile>
     <Compile Include="User Controls\EffectConfigCards\BrightnessSingleValueCard.xaml.cs">
       <DependentUpon>BrightnessSingleValueCard.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\Effect Config Windows\ColorWaveConfigWindow.xaml.cs">
+      <DependentUpon>ColorWaveConfigWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\Effect Config Windows\FadeOutConfigWindow.xaml.cs">
       <DependentUpon>FadeOutConfigWindow.xaml</DependentUpon>
@@ -176,6 +180,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="User Controls\EffectConfigCards\BrightnessSingleValueCard.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\Effect Config Windows\ColorWaveConfigWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

@@ -234,6 +234,9 @@ namespace UI
                 case BrightnessWaveConfigWindow w:
                     newConfig = w.BrightnessWaveConfigSet;
                     break;
+                case ColorWaveConfigWindow w:
+                    newConfig = w.ColorWaveConfigSet;
+                    break;
                 default:
                     newConfig = null;
                     break;

@@ -40,6 +40,11 @@ namespace UI.Resources
                         new LightListConfig_ViewModel(data), new TransitionTimeConfig_ViewModel(), new TransitionTimeConfig_ViewModel());
                     window = new BrightnessWaveConfigWindow(set);
                     break;
+                case ColorWave c:
+                    ColorWaveConfig_VMSet colorSet = new ColorWaveConfig_VMSet(new ColorConfig_ViewModel(),
+                        new LightListConfig_ViewModel(data), new TransitionTimeConfig_ViewModel(), new TransitionTimeConfig_ViewModel());
+                    window = new ColorWaveConfigWindow(colorSet);
+                    break;
             }
 
             SetWindowProperties(window);
@@ -70,6 +75,10 @@ namespace UI.Resources
                     window.Height = 400;
                     break;
                 case BrightnessWaveConfigWindow w:
+                    window.Width = 650;
+                    window.Height = 700;
+                    break;
+                case ColorWaveConfigWindow w:
                     window.Width = 650;
                     window.Height = 700;
                     break;

@@ -56,6 +56,7 @@
     <Compile Include="ColorConverters\HueColorConverter.cs" />
     <Compile Include="Controllers\ActionController.cs" />
     <Compile Include="Controllers\HueLightController.cs" />
+    <Compile Include="EffectConfig\Creators\Classes\ColorWaveConfigSet.cs" />
     <Compile Include="EffectConfig\Creators\Classes\ColorChangeConfigSet.cs" />
     <Compile Include="EffectConfig\Creators\Classes\BrightnessWaveConfigSet.cs" />
     <Compile Include="EffectConfig\Creators\Classes\FadeInConfigSet.cs" />
@@ -70,6 +71,7 @@
     <Compile Include="EffectConfig\Parts\Interfaces\IEffectPropertyConfig.cs" />
     <Compile Include="EffectConfig\Parts\Interfaces\IHueLightListConfig.cs" />
     <Compile Include="EffectConfig\Parts\Interfaces\ITimeConfig.cs" />
+    <Compile Include="Effects\Classes\ColorWave.cs" />
     <Compile Include="Effects\Classes\ColorChange.cs" />
     <Compile Include="Effects\Classes\FadeIn.cs" />
     <Compile Include="Effects\Classes\FadeOut.cs" />
