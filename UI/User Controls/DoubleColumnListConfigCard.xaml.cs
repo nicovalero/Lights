@@ -65,16 +65,29 @@ namespace UI.User_Controls
             get { return ItemList.SelectedItems; }
         }
 
+        internal void SelectItem(string key)
+        {
+            for (int i = 0; i < ItemList.Items.Count; i++)
+            {
+                if (ItemList.Items[i] is CardConfigList_ViewModel card)
+                {
+                    if (card.ItemID.ToLower() == key.ToLower())
+                    {
+                        ItemList.SelectedItem = card;
+                        break;
+                    }
+                }
+            }
+        }
+
         internal void SelectItems(HashSet<string> keys)
         {
-            IList<CardConfigList_ViewModel> selectedItems = new List<CardConfigList_ViewModel>();
-            for(int i=0; i < ItemList.Items.Count; i++)
+            for (int i = 0; i < ItemList.Items.Count; i++)
             {
                 if (ItemList.Items[i] is CardConfigList_ViewModel card)
                 {
                     if (keys.Contains(card.ItemID))
                     {
-                        selectedItems.Add(card);
                         ItemList.SetItemSelected(card, true);
                     }
                     else

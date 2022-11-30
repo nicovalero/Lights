@@ -302,11 +302,9 @@ namespace UI
                     vm = new SimpleConfigList_ViewModel(midiEffectLink.Velocity, midiEffectLink.VelocityName);
                     LinkVelocityList.SelectItem(vm);
 
-                    HashSet<string> keys = new HashSet<string>();
-                    keys.Add(midiEffectLink.EffectName);
-                    LinkEffectList.SelectItems(keys);
+                    LinkEffectList.SelectItem(midiEffectLink.EffectName);
 
-                    keys.Clear();
+                    HashSet<string> keys = new HashSet<string>();
                     foreach (HueLight light in midiEffectLink.Lights)
                     {
                         if(!keys.Contains(light.uniqueId))
