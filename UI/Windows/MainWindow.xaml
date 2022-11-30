@@ -187,7 +187,9 @@
                     </Grid.ColumnDefinitions>
 
                     <Grid Grid.Column="0">
-                        <uc:LinkInfoShort x:Name="LinkManagement_LinkList" Padding="0 0 0 0" Icon="Link" Source="{DynamicResource MidiEffectLinks}" OnDeleteClick="LinkManagement_LinkList_OnDeleteClick" HorizontalAlignment="Stretch"/>
+                        <uc:LinkInfoShort x:Name="LinkManagement_LinkList" Padding="0 0 0 0" Icon="Link" Source="{DynamicResource MidiEffectLinks}" 
+                                          OnDeleteClick="LinkManagement_LinkList_OnDeleteClick" OnMouseDoubleClick="LinkManagement_LinkList_OnMouseDoubleClick"
+                                          HorizontalAlignment="Stretch"/>
                     </Grid>
 
                     <Grid Grid.Column="1">

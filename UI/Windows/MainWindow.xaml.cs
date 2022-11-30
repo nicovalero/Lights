@@ -257,6 +257,18 @@ namespace UI
             return selectedLights;
         }
 
+        private void LinkManagement_LinkList_OnEditClick(object sender, RoutedEventArgs e)
+        {
+            bool success = false;
+            if (e.Source is Button)
+            {
+                if (((Button)e.Source).DataContext != null)
+                {
+                    success = _mainWindow_Controller.DeleteLink(((Button)e.Source).DataContext);
+                }
+            }
+        }
+
         private void LinkManagement_LinkList_OnDeleteClick(object sender, RoutedEventArgs e)
         {
             bool success = false;
@@ -270,6 +282,39 @@ namespace UI
 
             if (success)
                 RefreshLinkList();
+        }
+
+        private void LinkManagement_LinkList_OnMouseDoubleClick(object sender, RoutedEventArgs e)
+        {
+            if(sender is ListBox list)
+            {
+                //This is MidiEffectLink_ViewModel
+                var item = list.SelectedItem;
+
+                if(item is MidiEffectLink_ViewModel midiEffectLink)
+                {
+                    SimpleConfigList_ViewModel vm = new SimpleConfigList_ViewModel(midiEffectLink.Note, midiEffectLink.NoteName);
+                    LinkNoteList.SelectItem(vm);
+
+                    vm = new SimpleConfigList_ViewModel(midiEffectLink.Channel, midiEffectLink.ChannelName);
+                    LinkChannelList.SelectItem(vm);
+
+                    vm = new SimpleConfigList_ViewModel(midiEffectLink.Velocity, midiEffectLink.VelocityName);
+                    LinkVelocityList.SelectItem(vm);
+
+                    HashSet<string> keys = new HashSet<string>();
+                    keys.Add(midiEffectLink.EffectName);
+                    LinkEffectList.SelectItems(keys);
+
+                    keys.Clear();
+                    foreach (HueLight light in midiEffectLink.Lights)
+                    {
+                        if(!keys.Contains(light.uniqueId))
+                            keys.Add(light.uniqueId);
+                    }
+                    LinkLightList.SelectItems(keys);
+                }
+            }
         }
     }
 }

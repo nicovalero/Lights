@@ -49,5 +49,13 @@ namespace UI.User_Controls
             if (OnDeleteClick != null)
                 OnDeleteClick(this, args);
         }
+
+        public event RoutedEventHandler OnMouseDoubleClick;
+
+        private void LinkList_MouseDoubleClick(object sender, MouseButtonEventArgs args)
+        {
+            if (OnMouseDoubleClick != null)
+                OnMouseDoubleClick(sender, args);
+        }
     }
 }

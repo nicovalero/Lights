@@ -148,7 +148,7 @@ namespace UI
             foreach(LightEffect effect in effects)
             {
                 if(_colorDictionary.ContainsKey(effect) && _iconDictionary.ContainsKey(effect))
-                    list.Add(new CardConfigList_ViewModel(effect, effect.Name, _colorDictionary[effect][0], _colorDictionary[effect][1], _iconDictionary[effect], effect.EffectTypeName));
+                    list.Add(new CardConfigList_ViewModel(effect.Name, effect, effect.Name, _colorDictionary[effect][0], _colorDictionary[effect][1], _iconDictionary[effect], effect.EffectTypeName));
             }
 
             return list;

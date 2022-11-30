@@ -64,5 +64,9 @@ namespace UI.User_Controls
             get { return ItemList.SelectedItem; }
         }
 
+        internal void SelectItem(SimpleConfigList_ViewModel key)
+        {
+            ItemList.SelectedValue = key;
+        }
     }
 }

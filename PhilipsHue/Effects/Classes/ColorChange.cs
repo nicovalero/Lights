@@ -28,11 +28,15 @@ namespace PhilipsHue.Effects.Classes
 
         public async void Perform(List<HueLight> lights, IEffectConfigSet config)
         {
-            foreach (HueStateJSONProperty combo in config.GetHueStateQueue())
+            try
             {
-                foreach (HueLight light in lights)
-                    await _controller.ChangeLightState(light.uniqueId, combo);
+                foreach (HueStateJSONProperty combo in config.GetHueStateQueue())
+                {
+                    foreach (HueLight light in lights)
+                        await _controller.ChangeLightState(light.uniqueId, combo);
+                }
             }
+            catch { }
         }
 
         public string GetName()

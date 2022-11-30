@@ -1,4 +1,6 @@
-﻿using MIDI.Models.Structs;
+﻿using GongSolutions.Wpf.DragDrop.Utilities;
+using MIDI.Models.Structs;
+using PhilipsHue.Models.Interfaces;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -14,6 +16,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using UI.Models.Interfaces;
 using UI.Models.Structs;
 
 namespace UI.User_Controls
@@ -60,6 +63,26 @@ namespace UI.User_Controls
         public IList SelectedItems
         {
             get { return ItemList.SelectedItems; }
+        }
+
+        internal void SelectItems(HashSet<string> keys)
+        {
+            IList<CardConfigList_ViewModel> selectedItems = new List<CardConfigList_ViewModel>();
+            for(int i=0; i < ItemList.Items.Count; i++)
+            {
+                if (ItemList.Items[i] is CardConfigList_ViewModel card)
+                {
+                    if (keys.Contains(card.ItemID))
+                    {
+                        selectedItems.Add(card);
+                        ItemList.SetItemSelected(card, true);
+                    }
+                    else
+                    {
+                        ItemList.SetItemSelected(card, false);
+                    }
+                }
+            }
         }
     }
 }
