@@ -120,8 +120,8 @@ namespace UI.Models.Classes
                 uint transitiontime = (uint)configSet.TransitionTimeConfig.Value;
                 TransitionTimeConfig_ViewModel transitionTimeVM = new TransitionTimeConfig_ViewModel(transitiontime);
 
-                uint intervaltime = (uint)configSet.IntervalTimeConfig.GetTimeInMiliseconds();
-                TransitionTimeConfig_ViewModel intervalTimeVM = new TransitionTimeConfig_ViewModel(transitiontime);
+                uint intervaltime = (uint)configSet.IntervalTimeConfig.GetTimeInTenthOfSeconds();
+                TransitionTimeConfig_ViewModel intervalTimeVM = new TransitionTimeConfig_ViewModel(intervaltime);
 
                 return new BrightnessWaveConfig_VMSet(brightnessVM, lightListConfigVM, transitionTimeVM, intervalTimeVM);
             }
