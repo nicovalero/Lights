@@ -24,9 +24,9 @@ namespace UI.Models.Classes
                 case ColorChangeConfigSet s:
                     effectConfigSet = CreateColorChangeConfigVMSet(s);
                     break;
-                //case FlashConfigSet s:
-                //    effectConfigSet = CreateFlashConfigVMSet(s);
-                //    break;
+                case FlashConfigSet s:
+                    effectConfigSet = CreateFlashConfigVMSet(s);
+                    break;
                 //case FadeInConfigSet s:
                 //    effectConfigSet = CreateFadeInConfigVMSet(s);
                 //    break;
@@ -59,18 +59,20 @@ namespace UI.Models.Classes
             }
             return null;
         }
-        //private static IConfigVMSet CreateFlashConfigSet(IEffectConfigSet vmSet)
-        //{
-        //    if (vmSet is FlashConfig_VMSet)
-        //    {
-        //        FlashConfig_VMSet flashConfig = (FlashConfig_VMSet)vmSet;
-        //        TransitionTimeConfig_ViewModel transitionTimeConfig = flashConfig.TransitionTime;
+        private static IConfigVMSet CreateFlashConfigVMSet(IEffectConfigSet set)
+        {
+            if (set is FlashConfigSet configSet)
+            {
+                uint transitiontime = (uint)configSet.TransitionTimeConfig.Value;
+                TransitionTimeConfig_ViewModel transitionTimeConfig = new TransitionTimeConfig_ViewModel(transitiontime);
 
-        //        return new FlashConfigSet(flashConfig.FirstBrightnessLevel.BrightnessLevel, flashConfig.SecondBrightnessLevel.BrightnessLevel,
-        //            transitionTimeConfig.TransitionTime);
-        //    }
-        //    return null;
-        //}
+                BrightnessConfig_ViewModel firstBrightnessVM = new BrightnessConfig_ViewModel((byte)configSet.FinalBrightnessConfig.Value);
+                BrightnessConfig_ViewModel secondBrightnessVM = new BrightnessConfig_ViewModel((byte)configSet.InitialBrightnessConfig.Value);
+
+                return new FlashConfig_VMSet(firstBrightnessVM, secondBrightnessVM, transitionTimeConfig);
+            }
+            return null;
+        }
         //private static IConfigVMSet CreateFadeInConfigSet(IEffectConfigSet vmSet)
         //{
         //    if (vmSet is FadeInConfig_VMSet)
