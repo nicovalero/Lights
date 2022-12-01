@@ -27,12 +27,12 @@ namespace UI.Models.Classes
                 case FlashConfigSet s:
                     effectConfigSet = CreateFlashConfigVMSet(s);
                     break;
-                //case FadeInConfigSet s:
-                //    effectConfigSet = CreateFadeInConfigVMSet(s);
-                //    break;
-                //case FadeOutConfigSet s:
-                //    effectConfigSet = CreateFadeOutConfigVMSet(s);
-                //    break;
+                case FadeInConfigSet s:
+                    effectConfigSet = CreateFadeInConfigVMSet(s);
+                    break;
+                case FadeOutConfigSet s:
+                    effectConfigSet = CreateFadeOutConfigVMSet(s);
+                    break;
                 //case BrightnessWaveConfigSet s:
                 //    effectConfigSet = CreateBrightnessWaveConfigVMSet(s);
                 //    break;
@@ -53,9 +53,9 @@ namespace UI.Models.Classes
                 ColorConfig_ViewModel colorConfig = new ColorConfig_ViewModel(color);
 
                 uint transitiontime = (uint)configSet.TransitionTimeConfig.Value;
-                TransitionTimeConfig_ViewModel transitionTimeConfig = new TransitionTimeConfig_ViewModel(transitiontime);
+                TransitionTimeConfig_ViewModel transitionTimeVM = new TransitionTimeConfig_ViewModel(transitiontime);
 
-                return new ColorChangeConfig_VMSet(colorConfig, transitionTimeConfig);
+                return new ColorChangeConfig_VMSet(colorConfig, transitionTimeVM);
             }
             return null;
         }
@@ -64,37 +64,41 @@ namespace UI.Models.Classes
             if (set is FlashConfigSet configSet)
             {
                 uint transitiontime = (uint)configSet.TransitionTimeConfig.Value;
-                TransitionTimeConfig_ViewModel transitionTimeConfig = new TransitionTimeConfig_ViewModel(transitiontime);
+                TransitionTimeConfig_ViewModel transitionTimeVM = new TransitionTimeConfig_ViewModel(transitiontime);
 
                 BrightnessConfig_ViewModel firstBrightnessVM = new BrightnessConfig_ViewModel((byte)configSet.FinalBrightnessConfig.Value);
                 BrightnessConfig_ViewModel secondBrightnessVM = new BrightnessConfig_ViewModel((byte)configSet.InitialBrightnessConfig.Value);
 
-                return new FlashConfig_VMSet(firstBrightnessVM, secondBrightnessVM, transitionTimeConfig);
+                return new FlashConfig_VMSet(firstBrightnessVM, secondBrightnessVM, transitionTimeVM);
             }
             return null;
         }
-        //private static IConfigVMSet CreateFadeInConfigSet(IEffectConfigSet vmSet)
-        //{
-        //    if (vmSet is FadeInConfig_VMSet)
-        //    {
-        //        FadeInConfig_VMSet fadeInConfig = (FadeInConfig_VMSet)vmSet;
-        //        TransitionTimeConfig_ViewModel transitionTimeConfig = fadeInConfig.TransitionTime;
+        private static IConfigVMSet CreateFadeInConfigVMSet(IEffectConfigSet vmSet)
+        {
+            if (vmSet is FadeInConfigSet configSet)
+            {
+                uint transitiontime = (uint)configSet.TransitionTimeConfig.Value;
+                TransitionTimeConfig_ViewModel transitionTimeVM = new TransitionTimeConfig_ViewModel(transitiontime);
 
-        //        return new FadeInConfigSet(fadeInConfig.BrightnessLevel.BrightnessLevel, transitionTimeConfig.TransitionTime);
-        //    }
-        //    return null;
-        //}
-        //private static IConfigVMSet CreateFadeOutConfigSet(IEffectConfigSet vmSet)
-        //{
-        //    if (vmSet is FadeOutConfig_VMSet)
-        //    {
-        //        FadeOutConfig_VMSet fadeOutConfig = (FadeOutConfig_VMSet)vmSet;
-        //        TransitionTimeConfig_ViewModel transitionTimeConfig = fadeOutConfig.TransitionTime;
+                BrightnessConfig_ViewModel brightnessVM = new BrightnessConfig_ViewModel((byte)configSet.BrightnessConfig.Value);
 
-        //        return new FadeOutConfigSet(fadeOutConfig.BrightnessLevel.BrightnessLevel, transitionTimeConfig.TransitionTime);
-        //    }
-        //    return null;
-        //}
+                return new FadeInConfig_VMSet(brightnessVM, transitionTimeVM);
+            }
+            return null;
+        }
+        private static IConfigVMSet CreateFadeOutConfigVMSet(IEffectConfigSet vmSet)
+        {
+            if (vmSet is FadeOutConfigSet configSet)
+            {
+                uint transitiontime = (uint)configSet.TransitionTimeConfig.Value;
+                TransitionTimeConfig_ViewModel transitionTimeVM = new TransitionTimeConfig_ViewModel(transitiontime);
+
+                BrightnessConfig_ViewModel brightnessVM = new BrightnessConfig_ViewModel((byte)configSet.BrightnessConfig.Value);
+
+                return new FadeOutConfig_VMSet(brightnessVM, transitionTimeVM);
+            }
+            return null;
+        }
 
         //private static IConfigVMSet CreateBrightnessWaveConfigSet(IEffectConfigSet vmSet)
         //{
