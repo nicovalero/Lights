@@ -27,7 +27,12 @@ namespace UI
     {
         private readonly MainWindow_ViewController _mainWindow_Controller;
         private IConfigVMSet _currentEffectConfiguration;
-        internal IConfigVMSet CurrentEffectConfiguration => _currentEffectConfiguration;
+        internal IConfigVMSet CurrentEffectConfiguration
+        {
+            get { return _currentEffectConfiguration; }
+            set { _currentEffectConfiguration = value; }
+        }
+
         public MainWindow()
         {
             _mainWindow_Controller = MainWindow_ViewController.Singleton();
@@ -201,7 +206,7 @@ namespace UI
                 {
                     List<IConfigListViewModel> list = GetSelectedLightsCollection();
 
-                    window = _mainWindow_Controller.GetConfigWindow((CardConfigList_ViewModel)LinkEffectList.SelectedItem, list);
+                    window = _mainWindow_Controller.GetConfigWindow((CardConfigList_ViewModel)LinkEffectList.SelectedItem, CurrentEffectConfiguration, list);
                 }
                 finally
                 {
@@ -242,7 +247,7 @@ namespace UI
                     break;
             }
 
-            _currentEffectConfiguration = newConfig;
+            CurrentEffectConfiguration = newConfig;
         }
 
         private List<IConfigListViewModel> GetSelectedLightsCollection()
@@ -311,6 +316,8 @@ namespace UI
                             keys.Add(light.uniqueId);
                     }
                     LinkLightList.SelectItems(keys);
+
+                    CurrentEffectConfiguration = _mainWindow_Controller.GetConfigVMSet(midiEffectLink.Configuration);
                 }
             }
         }

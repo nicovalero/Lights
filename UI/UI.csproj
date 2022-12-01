@@ -92,6 +92,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Models\Classes\DraggableItemConfigList_ViewModel.cs" />
+    <Compile Include="Models\Classes\ConfigVMSetCreator.cs" />
     <Compile Include="Models\Structs\LightListConfig_ViewModel.cs" />
     <Compile Include="Models\Structs\TransitionTimeConfig_ViewModel.cs" />
     <Compile Include="Models\ViewModel Config Sets\Classes\ColorWaveConfig_VMSet.cs" />

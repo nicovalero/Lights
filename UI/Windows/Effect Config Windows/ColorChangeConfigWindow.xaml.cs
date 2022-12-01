@@ -39,7 +39,7 @@ namespace UI
             else
                 _colorChangeConfigSet = new ColorChangeConfig_VMSet();
             InitializeComponent();
-            RefreshColorInCard();
+            RefreshCardValues();
         }
 
         private void WindowUtils_CloseClick(object sender, RoutedEventArgs e)
@@ -53,6 +53,17 @@ namespace UI
             {
                 this.DragMove();
             }
+        }
+
+        private void RefreshCardValues()
+        {
+            RefreshTransitionTimeInCard();
+            RefreshColorInCard();
+        }
+
+        private void RefreshTransitionTimeInCard()
+        {
+            TransitionTimeCard.TimeInTenthOfSecond = ColorChangeConfigSet.TransitionTime.TransitionTime;
         }
 
         private void RefreshColorInCard()

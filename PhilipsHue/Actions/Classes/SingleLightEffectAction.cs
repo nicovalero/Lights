@@ -31,12 +31,17 @@ namespace PhilipsHue.Actions.Classes
 
         public LightEffect GetEffect()
         {
-            return _effect;
+            return Effect;
         }
 
         public List<HueLight> GetLights()
         {
-            return _lights;
+            return Lights;
+        }
+
+        public IEffectConfigSet GetConfiguration()
+        {
+            return Configuration;
         }
     }
 }

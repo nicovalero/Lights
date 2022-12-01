@@ -11,12 +11,13 @@ using System.Windows.Media.Effects;
 using UI.Models.Interfaces;
 using UI.Models.Structs;
 using UI.Models.ViewModel_Config_Sets.Classes;
+using UI.Models.ViewModel_Config_Sets.Interfaces;
 
 namespace UI.Resources
 {
     internal static class EffectConfigWindowAssigner
     {
-        internal static Window GetWindowByEffect(LightEffect effect, ObservableCollection<IConfigListViewModel> data)
+        internal static Window GetWindowByEffect(LightEffect effect, IConfigVMSet configuration, ObservableCollection<IConfigListViewModel> data)
         {
             Window window = null;
             switch (effect)
@@ -24,26 +25,48 @@ namespace UI.Resources
                 default: 
                     return null;
                 case Flash f:
-                    window = new FlashConfigWindow();
+                    if(configuration is FlashConfig_VMSet flashConfig)
+                        window = new FlashConfigWindow(flashConfig);
+                    else
+                        window = new FlashConfigWindow();
                     break;
                 case ColorChange c:
-                    window = new ColorChangeConfigWindow();
+                    if (configuration is ColorChangeConfig_VMSet colorChangeConfig)
+                        window = new ColorChangeConfigWindow(colorChangeConfig);
+                    else
+                        window = new ColorChangeConfigWindow();
                     break;
                 case FadeIn f:
-                    window = new FadeInConfigWindow();
+                    if (configuration is FadeInConfig_VMSet fadeInConfig)
+                        window = new FadeInConfigWindow(fadeInConfig);
+                    else
+                        window = new FadeInConfigWindow();
                     break;
                 case FadeOut f:
-                    window = new FadeOutConfigWindow();
+                    if (configuration is FadeOutConfig_VMSet fadeOutConfig)
+                        window = new FadeOutConfigWindow(fadeOutConfig);
+                    else
+                        window = new FadeOutConfigWindow();
                     break;
                 case BrightnessWave b:
+                    //This part might be redundant if the config object already contains the light list
+                    //Double check it
                     BrightnessWaveConfig_VMSet set = new BrightnessWaveConfig_VMSet(new BrightnessConfig_ViewModel(),
                         new LightListConfig_ViewModel(data), new TransitionTimeConfig_ViewModel(), new TransitionTimeConfig_ViewModel());
-                    window = new BrightnessWaveConfigWindow(set);
+
+                    if (configuration is BrightnessWaveConfig_VMSet brightnessWaveConfig)
+                        window = new BrightnessWaveConfigWindow(brightnessWaveConfig);
+                    else
+                        window = new BrightnessWaveConfigWindow(set);
                     break;
                 case ColorWave c:
                     ColorWaveConfig_VMSet colorSet = new ColorWaveConfig_VMSet(new ColorConfig_ViewModel(),
                         new LightListConfig_ViewModel(data), new TransitionTimeConfig_ViewModel(), new TransitionTimeConfig_ViewModel());
-                    window = new ColorWaveConfigWindow(colorSet);
+
+                    if (configuration is ColorWaveConfig_VMSet colorWaveConfig)
+                        window = new ColorWaveConfigWindow(colorWaveConfig);
+                    else
+                        window = new ColorWaveConfigWindow(colorSet);
                     break;
             }
 

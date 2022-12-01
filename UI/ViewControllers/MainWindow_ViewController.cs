@@ -86,7 +86,8 @@ namespace UI
                     pair.Key.Velocity,
                     pair.Key.Note,
                     pair.Value.GetEffect(),
-                    pair.Value.GetLights()));
+                    pair.Value.GetLights(),
+                    pair.Value.GetConfiguration()));
             }
 
             return list;
@@ -236,7 +237,12 @@ namespace UI
             return EffectConfigSetCreator.CreateConfigSet(set);
         }
 
-        internal Window GetConfigWindow(IConfigListViewModel model, List<IConfigListViewModel> data = null)
+        internal IConfigVMSet GetConfigVMSet(IEffectConfigSet set)
+        {
+            return ConfigVMSetCreator.CreateConfigSet(set);
+        }
+
+        internal Window GetConfigWindow(IConfigListViewModel model, IConfigVMSet configuration = null, List<IConfigListViewModel> data = null)
         {
             if(model.Item != null)
             {
@@ -250,7 +256,7 @@ namespace UI
                             collection.Add(element);
                     }
 
-                    return EffectConfigWindowAssigner.GetWindowByEffect((LightEffect)model.Item, collection);
+                    return EffectConfigWindowAssigner.GetWindowByEffect((LightEffect)model.Item, configuration, collection);
                 }
             }
 
