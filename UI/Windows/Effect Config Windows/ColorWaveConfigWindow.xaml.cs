@@ -45,15 +45,6 @@ namespace UI
             RefreshValuesInCard();
         }
 
-        internal ObservableCollection<IConfigListViewModel> LightListSource
-        {
-            get { return ColorWaveConfigSet.LightList.Collection; }
-            set {
-                LightListConfig_ViewModel model = new LightListConfig_ViewModel(value);
-                RefreshValuesInCard();
-            }
-        }
-
         private void WindowUtils_CloseClick(object sender, RoutedEventArgs e)
         {
             Close();
@@ -69,8 +60,29 @@ namespace UI
 
         private void RefreshValuesInCard()
         {
+            RefreshTransitionTimeInCard();
+            RefreshIntervalTimeInCard();
+            RefreshValuesInColorCard();
+            RefreshLightListInCard();
+        }
+
+        private void RefreshLightListInCard()
+        {
+            Resources["ColorWaveWindowLightListSource"] = ColorWaveConfigSet.LightList.Collection;
+        }
+
+        private void RefreshValuesInColorCard()
+        {
             ColorCard.SelectedColor = ColorWaveConfigSet.FinalColor.SelectedColor;
-            Resources["ColorWaveWindowLightListSource"] = LightListSource;
+        }
+        private void RefreshTransitionTimeInCard()
+        {
+            TransitionTimeCard.TimeInTenthOfSecond = ColorWaveConfigSet.TransitionTime.TransitionTime;
+        }
+
+        private void RefreshIntervalTimeInCard()
+        {
+            IntervalTimeCard.TimeInTenthOfSecond = ColorWaveConfigSet.IntervalTime.TransitionTime;
         }
 
         private void ColorCard_SelectedColorChanged(object sender, RoutedEventArgs e)

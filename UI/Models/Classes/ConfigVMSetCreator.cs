@@ -38,9 +38,9 @@ namespace UI.Models.Classes
                 case BrightnessWaveConfigSet s:
                     effectConfigSet = CreateBrightnessWaveConfigVMSet(s);
                     break;
-                //case ColorWaveConfigSet s:
-                //    effectConfigSet = CreateColorWaveConfigVMSet(s);
-                //    break;
+                case ColorWaveConfigSet s:
+                    effectConfigSet = CreateColorWaveConfigVMSet(s);
+                    break;
                 default:
                     break;
             }
@@ -128,37 +128,31 @@ namespace UI.Models.Classes
             return null;
         }
 
-        //private static IConfigVMSet CreateColorWaveConfigSet(IEffectConfigSet vmSet)
-        //{
-        //    if (vmSet is ColorWaveConfig_VMSet)
-        //    {
-        //        ColorWaveConfig_VMSet config = (ColorWaveConfig_VMSet)vmSet;
-        //        LightListConfig_ViewModel lightListConfig = config.LightList;
+        private static IConfigVMSet CreateColorWaveConfigVMSet(IEffectConfigSet vmSet)
+        {
+            if (vmSet is ColorWaveConfigSet configSet)
+            {
+                Color color = Color.FromRgb(configSet.ColorConfig.RGBColor.R, configSet.ColorConfig.RGBColor.G, configSet.ColorConfig.RGBColor.B);
+                ColorConfig_ViewModel colorConfig = new ColorConfig_ViewModel(color);
 
-        //        if (config.FinalColor.SelectedColor.HasValue)
-        //        {
-        //            Color colorValue = config.FinalColor.SelectedColor.Value;
-        //            var color = System.Drawing.Color.FromArgb(colorValue.A, colorValue.R, colorValue.G, colorValue.B);
+                List<IConfigListViewModel> lightsVM = new List<IConfigListViewModel>();
+                List<CardConfigList_ViewModel> list = HueLight_ToCardConfigConverter.ConvertHueLight_ToCardConfig(configSet.LightListConfig.LightList);
 
-        //            List<HueLight> lights = new List<HueLight>();
-        //            foreach (var item in lightListConfig.Collection)
-        //            {
-        //                CardConfigList_ViewModel cardConfigList = (CardConfigList_ViewModel)item;
-        //                if (cardConfigList.Item is HueLight)
-        //                {
-        //                    HueLight light = (HueLight)cardConfigList.Item;
-        //                    lights.Add(light);
-        //                }
-        //            }
+                foreach (CardConfigList_ViewModel vm in list)
+                    lightsVM.Add(vm);
 
-        //            HueLightListConfig lightsConfig = new HueLightListConfig(lights);
-        //            TransitionTimeConfig transitionConfig = new TransitionTimeConfig(config.TransitionTime.TransitionTime);
-        //            TransitionTimeConfig intervalConfig = new TransitionTimeConfig(config.IntervalTime.TransitionTime);
+                ObservableCollection<IConfigListViewModel> collection = new ObservableCollection<IConfigListViewModel>(lightsVM);
+                LightListConfig_ViewModel lightListConfigVM = new LightListConfig_ViewModel(collection);
 
-        //            return new ColorWaveConfigSet(color, transitionConfig, lightsConfig, intervalConfig);
-        //        }
-        //    }
-        //    return null;
-        //}
+                uint transitiontime = (uint)configSet.TransitionTimeConfig.Value;
+                TransitionTimeConfig_ViewModel transitionTimeVM = new TransitionTimeConfig_ViewModel(transitiontime);
+
+                uint intervaltime = (uint)configSet.IntervalTimeConfig.GetTimeInTenthOfSeconds();
+                TransitionTimeConfig_ViewModel intervalTimeVM = new TransitionTimeConfig_ViewModel(intervaltime);
+
+                return new ColorWaveConfig_VMSet(colorConfig, lightListConfigVM, transitionTimeVM, intervalTimeVM);
+            }
+            return null;
+        }
     }
 }
