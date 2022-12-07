@@ -242,21 +242,13 @@ namespace UI
             return ConfigVMSetCreator.CreateConfigSet(set);
         }
 
-        internal Window GetConfigWindow(IConfigListViewModel model, IConfigVMSet configuration = null, List<IConfigListViewModel> data = null)
+        internal Window GetConfigWindow(IConfigListViewModel model, IConfigVMSet configuration = null)
         {
             if(model.Item != null)
             {
                 if (model.Item is LightEffect)
                 {
-                    ObservableCollection<IConfigListViewModel> collection = new ObservableCollection<IConfigListViewModel>();
-
-                    if (data != null)
-                    {
-                        foreach (IConfigListViewModel element in data)
-                            collection.Add(element);
-                    }
-
-                    return EffectConfigWindowAssigner.GetWindowByEffect((LightEffect)model.Item, configuration, collection);
+                    return EffectConfigWindowAssigner.GetWindowByEffect((LightEffect)model.Item, configuration);
                 }
             }
 

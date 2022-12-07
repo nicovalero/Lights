@@ -9,7 +9,7 @@ using UI.Models.ViewModel_Config_Sets.Interfaces;
 
 namespace UI.Models.ViewModel_Config_Sets.Classes
 {
-    internal class BrightnessWaveConfig_VMSet : IConfigVMSet
+    internal class BrightnessWaveConfig_VMSet : IConfigVMSet, ILightListConfig
     {
         private BrightnessConfig_ViewModel _brightnessLevel;
         public BrightnessConfig_ViewModel BrightnessLevel { get { return _brightnessLevel; } set { _brightnessLevel = value; } }
@@ -44,6 +44,16 @@ namespace UI.Models.ViewModel_Config_Sets.Classes
             models.Add(LightList);
             models.Add(IntervalTime);
             return models;
+        }
+
+        public LightListConfig_ViewModel GetLightListConfig()
+        {
+            return LightList;
+        }
+
+        public void SetLightListConfig(LightListConfig_ViewModel config)
+        {
+            LightList = config;
         }
     }
 }

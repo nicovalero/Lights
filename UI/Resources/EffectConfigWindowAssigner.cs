@@ -17,7 +17,7 @@ namespace UI.Resources
 {
     internal static class EffectConfigWindowAssigner
     {
-        internal static Window GetWindowByEffect(LightEffect effect, IConfigVMSet configuration, ObservableCollection<IConfigListViewModel> data)
+        internal static Window GetWindowByEffect(LightEffect effect, IConfigVMSet configuration)
         {
             Window window = null;
             switch (effect)
@@ -49,24 +49,16 @@ namespace UI.Resources
                         window = new FadeOutConfigWindow();
                     break;
                 case BrightnessWave b:
-                    //This part might be redundant if the config object already contains the light list
-                    //Double check it
-                    BrightnessWaveConfig_VMSet set = new BrightnessWaveConfig_VMSet(new BrightnessConfig_ViewModel(),
-                        new LightListConfig_ViewModel(data), new TransitionTimeConfig_ViewModel(), new TransitionTimeConfig_ViewModel());
-
                     if (configuration is BrightnessWaveConfig_VMSet brightnessWaveConfig)
                         window = new BrightnessWaveConfigWindow(brightnessWaveConfig);
                     else
-                        window = new BrightnessWaveConfigWindow(set);
+                        window = new BrightnessWaveConfigWindow();
                     break;
                 case ColorWave c:
-                    ColorWaveConfig_VMSet colorSet = new ColorWaveConfig_VMSet(new ColorConfig_ViewModel(),
-                        new LightListConfig_ViewModel(data), new TransitionTimeConfig_ViewModel(), new TransitionTimeConfig_ViewModel());
-
                     if (configuration is ColorWaveConfig_VMSet colorWaveConfig)
                         window = new ColorWaveConfigWindow(colorWaveConfig);
                     else
-                        window = new ColorWaveConfigWindow(colorSet);
+                        window = new ColorWaveConfigWindow();
                     break;
             }
 

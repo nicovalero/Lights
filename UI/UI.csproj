@@ -97,6 +97,7 @@
     <Compile Include="Models\Structs\TransitionTimeConfig_ViewModel.cs" />
     <Compile Include="Models\ViewModel Config Sets\Classes\ColorWaveConfig_VMSet.cs" />
     <Compile Include="Models\ViewModel Config Sets\Classes\BrightnessWaveConfig_VMSet.cs" />
+    <Compile Include="Models\ViewModel Config Sets\Interfaces\ILightListConfig.cs" />
     <Compile Include="Resources\EffectConfigWindowAssigner.cs" />
     <Compile Include="User Controls\EffectConfigCards\DraggableListConfigCard.xaml.cs">
       <DependentUpon>DraggableListConfigCard.xaml</DependentUpon>

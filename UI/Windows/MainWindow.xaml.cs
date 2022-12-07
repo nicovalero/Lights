@@ -122,7 +122,7 @@ namespace UI
 
         private void LinkButton_Click(object sender, RoutedEventArgs e)
         {
-            IList selectedLights = GetSelectedLightsCollection();
+            IList selectedLights = GetSelectedLightsList();
 
             IConfigListViewModel selectedEffect = (CardConfigList_ViewModel)LinkEffectList.SelectedItem;
             IConfigListViewModel selectedChannel = (SimpleConfigList_ViewModel)LinkChannelList.SelectedItem;
@@ -204,9 +204,14 @@ namespace UI
                 Window window = null;
                 try
                 {
-                    List<IConfigListViewModel> list = GetSelectedLightsCollection();
+                    if(CurrentEffectConfiguration is ILightListConfig lightListConfig)
+                    {
+                        List<IConfigListViewModel> list = GetSelectedLightsList();
+                        LightListConfig_ViewModel lightListConfigViewModel = new LightListConfig_ViewModel(new ObservableCollection<IConfigListViewModel>(list));
+                        lightListConfig.SetLightListConfig(lightListConfigViewModel);
+                    }
 
-                    window = _mainWindow_Controller.GetConfigWindow((CardConfigList_ViewModel)LinkEffectList.SelectedItem, CurrentEffectConfiguration, list);
+                    window = _mainWindow_Controller.GetConfigWindow((CardConfigList_ViewModel)LinkEffectList.SelectedItem, CurrentEffectConfiguration);
                 }
                 finally
                 {
@@ -250,7 +255,7 @@ namespace UI
             CurrentEffectConfiguration = newConfig;
         }
 
-        private List<IConfigListViewModel> GetSelectedLightsCollection()
+        private List<IConfigListViewModel> GetSelectedLightsList()
         {
             List<IConfigListViewModel> selectedLights = new List<IConfigListViewModel>();
             IList items = LinkLightList.SelectedItems;

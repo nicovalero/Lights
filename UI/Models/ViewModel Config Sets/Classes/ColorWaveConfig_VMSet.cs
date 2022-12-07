@@ -9,7 +9,7 @@ using UI.Models.ViewModel_Config_Sets.Interfaces;
 
 namespace UI.Models.ViewModel_Config_Sets.Classes
 {
-    internal class ColorWaveConfig_VMSet : IConfigVMSet
+    internal class ColorWaveConfig_VMSet : IConfigVMSet, ILightListConfig
     {
         private ColorConfig_ViewModel _finalColor;
         public ColorConfig_ViewModel FinalColor { get { return _finalColor; } set { _finalColor = value; } }
@@ -44,6 +44,16 @@ namespace UI.Models.ViewModel_Config_Sets.Classes
             models.Add(LightList);
             models.Add(IntervalTime);
             return models;
+        }
+
+        public LightListConfig_ViewModel GetLightListConfig()
+        {
+            return LightList;
+        }
+
+        public void SetLightListConfig(LightListConfig_ViewModel config)
+        {
+            LightList = config;
         }
     }
 }
