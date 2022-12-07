@@ -20,6 +20,10 @@ using System.Windows;
 using UI.Resources;
 using System.Windows.Documents;
 using System.Collections.ObjectModel;
+using System.Configuration;
+using PhilipsHue.EffectConfig.Creators.Classes;
+using UI.Models.ViewModel_Config_Sets.Classes;
+using PhilipsHue.Effects.Classes;
 
 namespace UI
 {
@@ -235,6 +239,18 @@ namespace UI
         internal IEffectConfigSet GetConfigFromViewModel(IConfigVMSet set)
         {
             return EffectConfigSetCreator.CreateConfigSet(set);
+        }
+
+        internal IConfigVMSet CreateConfigVMSetFromEffect(IConfigListViewModel model)
+        {
+            if (model.Item != null)
+            {
+                if (model.Item is LightEffect effect)
+                {
+                    return ConfigVMSetCreator.CreateConfigSetFromEffect(effect);
+                }
+            }
+            return null;
         }
 
         internal IConfigVMSet GetConfigVMSet(IEffectConfigSet set)

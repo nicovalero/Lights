@@ -97,5 +97,13 @@ namespace UI.User_Controls
                 }
             }
         }
+
+        public event RoutedEventHandler OnItemSelectionChanged;
+
+        private void ItemList_SelectionChanged(object sender, SelectionChangedEventArgs args)
+        {
+            if (OnItemSelectionChanged != null)
+                OnItemSelectionChanged(sender, args);
+        }
     }
 }

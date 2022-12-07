@@ -204,13 +204,6 @@ namespace UI
                 Window window = null;
                 try
                 {
-                    if(CurrentEffectConfiguration is ILightListConfig lightListConfig)
-                    {
-                        List<IConfigListViewModel> list = GetSelectedLightsList();
-                        LightListConfig_ViewModel lightListConfigViewModel = new LightListConfig_ViewModel(new ObservableCollection<IConfigListViewModel>(list));
-                        lightListConfig.SetLightListConfig(lightListConfigViewModel);
-                    }
-
                     window = _mainWindow_Controller.GetConfigWindow((CardConfigList_ViewModel)LinkEffectList.SelectedItem, CurrentEffectConfiguration);
                 }
                 finally
@@ -324,6 +317,27 @@ namespace UI
 
                     CurrentEffectConfiguration = _mainWindow_Controller.GetConfigVMSet(midiEffectLink.Configuration);
                 }
+            }
+        }
+
+        private void LinkEffectList_OnItemSelectionChanged(object sender, RoutedEventArgs e)
+        {
+            CurrentEffectConfiguration = _mainWindow_Controller.CreateConfigVMSetFromEffect((CardConfigList_ViewModel)LinkEffectList.SelectedItem);
+            PopulateCurrentEffectConfigWithLightList();
+        }
+
+        private void LinkLightList_OnItemSelectionChanged(object sender, RoutedEventArgs e)
+        {
+            PopulateCurrentEffectConfigWithLightList();
+        }
+
+        private void PopulateCurrentEffectConfigWithLightList()
+        {
+            if (CurrentEffectConfiguration is ILightListConfig lightListConfig)
+            {
+                List<IConfigListViewModel> list = GetSelectedLightsList();
+                LightListConfig_ViewModel lightListConfigViewModel = new LightListConfig_ViewModel(new ObservableCollection<IConfigListViewModel>(list));
+                lightListConfig.SetLightListConfig(lightListConfigViewModel);
             }
         }
     }

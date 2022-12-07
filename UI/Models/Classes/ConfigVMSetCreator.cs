@@ -3,6 +3,8 @@ using PhilipsHue.EffectConfig.Creators.Classes;
 using PhilipsHue.EffectConfig.Creators.Interfaces;
 using PhilipsHue.EffectConfig.Parts.Classes;
 using PhilipsHue.EffectConfig.Products.Classes;
+using PhilipsHue.Effects.Classes;
+using PhilipsHue.Effects.Interfaces;
 using PhilipsHue.Models.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -45,6 +47,38 @@ namespace UI.Models.Classes
                     break;
             }
             return effectConfigSet;
+        }
+
+        internal static IConfigVMSet CreateConfigSetFromEffect(LightEffect effect)
+        {
+            IConfigVMSet set = null;
+            switch (effect)
+            {
+                case Flash f:
+                    set = new FlashConfig_VMSet(new BrightnessConfig_ViewModel(), new BrightnessConfig_ViewModel(), new TransitionTimeConfig_ViewModel());
+                    break;
+                case ColorChange c:
+                    set = new ColorChangeConfig_VMSet(new ColorConfig_ViewModel(), new TransitionTimeConfig_ViewModel());
+                    break;
+                case FadeIn f:
+                    set = new FadeInConfig_VMSet(new BrightnessConfig_ViewModel(), new TransitionTimeConfig_ViewModel());
+                    break;
+                case FadeOut f:
+                    set = new FadeOutConfig_VMSet(new BrightnessConfig_ViewModel(), new TransitionTimeConfig_ViewModel());
+                    break;
+                case BrightnessWave b:
+                    set = new BrightnessWaveConfig_VMSet(new BrightnessConfig_ViewModel(), new LightListConfig_ViewModel(),
+                        new TransitionTimeConfig_ViewModel(), new TransitionTimeConfig_ViewModel());
+                    break;
+                case ColorWave s:
+                    set = new ColorWaveConfig_VMSet(new ColorConfig_ViewModel(), new LightListConfig_ViewModel(),
+                        new TransitionTimeConfig_ViewModel(), new TransitionTimeConfig_ViewModel());
+                    break;
+                default:
+                    break;
+            }
+
+            return set;
         }
 
         private static IConfigVMSet CreateColorChangeConfigVMSet(IEffectConfigSet set)
