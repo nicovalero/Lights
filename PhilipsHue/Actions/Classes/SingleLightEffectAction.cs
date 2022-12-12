@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using PhilipsHue.Actions.Interfaces;
 using PhilipsHue.EffectConfig.Creators.Interfaces;
+using PhilipsHue.Effects.Classes;
 using PhilipsHue.Effects.Interfaces;
 using PhilipsHue.Models.Interfaces;
 using System.Collections.Generic;
@@ -20,7 +21,18 @@ namespace PhilipsHue.Actions.Classes
         public SingleLightEffectAction(List<HueLight> lights, LightEffect effect, IEffectConfigSet configuration = null)
         {
             this._lights = lights;
-            this._effect = effect;
+
+            //This needs to be done in the event of Singleton or not Singleton effects.
+            //To be fair, it might not make sense to use the effects as Singletons at all.
+            switch(effect)
+            {
+                case Flash f:
+                    _effect = new Flash();
+                    break;
+                default:
+                    this._effect = effect;
+                    break;
+            }
             _configuration = configuration;
         }
 
