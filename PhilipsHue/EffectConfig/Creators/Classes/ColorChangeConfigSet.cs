@@ -35,7 +35,7 @@ namespace PhilipsHue.EffectConfig.Creators.Classes
         {
             Dictionary<string, double> d = ConvertToXYDictionary(newValue);
             if (d.ContainsKey("x") && d.ContainsKey("y"))
-                _finalColor = new ColorConfig(d["x"], d["y"]);
+                _finalColor = new ColorConfig(d["x"], d["y"], newValue);
         }
 
         private Dictionary<string, double> ConvertToXYDictionary(Color value)

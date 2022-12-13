@@ -21,7 +21,7 @@ namespace PhilipsHue.Collections
         private static void FillDictionary()
         {
             Effects.Add(1, ColorChange.Singleton());
-            Effects.Add(2, Flash.Singleton());
+            Effects.Add(2, new Flash());
             Effects.Add(3, FadeIn.Singleton());
             Effects.Add(4, FadeOut.Singleton());
             Effects.Add(5, BrightnessWave.Singleton());

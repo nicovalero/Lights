@@ -57,7 +57,18 @@ namespace UI
 
         private void RefreshValuesInCard()
         {
-            BrightnessCard.BrightnessLevel = _fadeOutConfigSet.BrightnessLevel.BrightnessLevel;
+            RefreshTransitionTimeCard();
+            RefreshBrightnessCard();
+        }
+
+        private void RefreshTransitionTimeCard()
+        {
+            TransitionTimeCard.TimeInTenthOfSecond = FadeOutConfigSet.TransitionTime.TransitionTime;
+        }
+
+        private void RefreshBrightnessCard()
+        {
+            BrightnessCard.BrightnessLevel = FadeOutConfigSet.BrightnessLevel.BrightnessLevel;
         }
 
         private void BrightnessCard_BrightnessLevelChanged(object sender, RoutedEventArgs e)

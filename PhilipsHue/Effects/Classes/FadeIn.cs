@@ -37,11 +37,15 @@ namespace PhilipsHue.Effects.Classes
                 //Maybe the queue logic should be done in this class instead of the config class
                 Queue<HueStateJSONProperty> queue = config.GetHueStateQueue();
 
-                foreach (HueStateJSONProperty c in queue)
+                try
                 {
-                    foreach (HueLight light in lights)
-                        await ChangeLightState(light, c);
+                    foreach (HueStateJSONProperty c in queue)
+                    {
+                        foreach (HueLight light in lights)
+                            await ChangeLightState(light, c);
+                    }
                 }
+                catch { }
             }
         }
 

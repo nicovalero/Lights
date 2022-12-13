@@ -27,7 +27,12 @@ namespace UI
     {
         private readonly MainWindow_ViewController _mainWindow_Controller;
         private IConfigVMSet _currentEffectConfiguration;
-        internal IConfigVMSet CurrentEffectConfiguration => _currentEffectConfiguration;
+        internal IConfigVMSet CurrentEffectConfiguration
+        {
+            get { return _currentEffectConfiguration; }
+            set { _currentEffectConfiguration = value; }
+        }
+
         public MainWindow()
         {
             _mainWindow_Controller = MainWindow_ViewController.Singleton();
@@ -117,7 +122,7 @@ namespace UI
 
         private void LinkButton_Click(object sender, RoutedEventArgs e)
         {
-            IList selectedLights = GetSelectedLightsCollection();
+            IList selectedLights = GetSelectedLightsList();
 
             IConfigListViewModel selectedEffect = (CardConfigList_ViewModel)LinkEffectList.SelectedItem;
             IConfigListViewModel selectedChannel = (SimpleConfigList_ViewModel)LinkChannelList.SelectedItem;
@@ -199,9 +204,7 @@ namespace UI
                 Window window = null;
                 try
                 {
-                    List<IConfigListViewModel> list = GetSelectedLightsCollection();
-
-                    window = _mainWindow_Controller.GetConfigWindow((CardConfigList_ViewModel)LinkEffectList.SelectedItem, list);
+                    window = _mainWindow_Controller.GetConfigWindow((CardConfigList_ViewModel)LinkEffectList.SelectedItem, CurrentEffectConfiguration);
                 }
                 finally
                 {
@@ -242,10 +245,10 @@ namespace UI
                     break;
             }
 
-            _currentEffectConfiguration = newConfig;
+            CurrentEffectConfiguration = newConfig;
         }
 
-        private List<IConfigListViewModel> GetSelectedLightsCollection()
+        private List<IConfigListViewModel> GetSelectedLightsList()
         {
             List<IConfigListViewModel> selectedLights = new List<IConfigListViewModel>();
             IList items = LinkLightList.SelectedItems;
@@ -255,6 +258,18 @@ namespace UI
                 selectedLights.Add(item);
 
             return selectedLights;
+        }
+
+        private void LinkManagement_LinkList_OnEditClick(object sender, RoutedEventArgs e)
+        {
+            bool success = false;
+            if (e.Source is Button)
+            {
+                if (((Button)e.Source).DataContext != null)
+                {
+                    success = _mainWindow_Controller.DeleteLink(((Button)e.Source).DataContext);
+                }
+            }
         }
 
         private void LinkManagement_LinkList_OnDeleteClick(object sender, RoutedEventArgs e)
@@ -270,6 +285,60 @@ namespace UI
 
             if (success)
                 RefreshLinkList();
+        }
+
+        private void LinkManagement_LinkList_OnMouseDoubleClick(object sender, RoutedEventArgs e)
+        {
+            if(sender is ListBox list)
+            {
+                //This is MidiEffectLink_ViewModel
+                var item = list.SelectedItem;
+
+                if(item is MidiEffectLink_ViewModel midiEffectLink)
+                {
+                    SimpleConfigList_ViewModel vm = new SimpleConfigList_ViewModel(midiEffectLink.Note, midiEffectLink.NoteName);
+                    LinkNoteList.SelectItem(vm);
+
+                    vm = new SimpleConfigList_ViewModel(midiEffectLink.Channel, midiEffectLink.ChannelName);
+                    LinkChannelList.SelectItem(vm);
+
+                    vm = new SimpleConfigList_ViewModel(midiEffectLink.Velocity, midiEffectLink.VelocityName);
+                    LinkVelocityList.SelectItem(vm);
+
+                    LinkEffectList.SelectItem(midiEffectLink.EffectName);
+
+                    HashSet<string> keys = new HashSet<string>();
+                    foreach (HueLight light in midiEffectLink.Lights)
+                    {
+                        if(!keys.Contains(light.uniqueId))
+                            keys.Add(light.uniqueId);
+                    }
+                    LinkLightList.SelectItems(keys);
+
+                    CurrentEffectConfiguration = _mainWindow_Controller.GetConfigVMSet(midiEffectLink.Configuration);
+                }
+            }
+        }
+
+        private void LinkEffectList_OnItemSelectionChanged(object sender, RoutedEventArgs e)
+        {
+            CurrentEffectConfiguration = _mainWindow_Controller.CreateConfigVMSetFromEffect((CardConfigList_ViewModel)LinkEffectList.SelectedItem);
+            PopulateCurrentEffectConfigWithLightList();
+        }
+
+        private void LinkLightList_OnItemSelectionChanged(object sender, RoutedEventArgs e)
+        {
+            PopulateCurrentEffectConfigWithLightList();
+        }
+
+        private void PopulateCurrentEffectConfigWithLightList()
+        {
+            if (CurrentEffectConfiguration is ILightListConfig lightListConfig)
+            {
+                List<IConfigListViewModel> list = GetSelectedLightsList();
+                LightListConfig_ViewModel lightListConfigViewModel = new LightListConfig_ViewModel(new ObservableCollection<IConfigListViewModel>(list));
+                lightListConfig.SetLightListConfig(lightListConfigViewModel);
+            }
         }
     }
 }

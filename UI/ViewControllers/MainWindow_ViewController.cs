@@ -20,6 +20,10 @@ using System.Windows;
 using UI.Resources;
 using System.Windows.Documents;
 using System.Collections.ObjectModel;
+using System.Configuration;
+using PhilipsHue.EffectConfig.Creators.Classes;
+using UI.Models.ViewModel_Config_Sets.Classes;
+using PhilipsHue.Effects.Classes;
 
 namespace UI
 {
@@ -86,7 +90,8 @@ namespace UI
                     pair.Key.Velocity,
                     pair.Key.Note,
                     pair.Value.GetEffect(),
-                    pair.Value.GetLights()));
+                    pair.Value.GetLights(),
+                    pair.Value.GetConfiguration()));
             }
 
             return list;
@@ -236,21 +241,30 @@ namespace UI
             return EffectConfigSetCreator.CreateConfigSet(set);
         }
 
-        internal Window GetConfigWindow(IConfigListViewModel model, List<IConfigListViewModel> data = null)
+        internal IConfigVMSet CreateConfigVMSetFromEffect(IConfigListViewModel model)
+        {
+            if (model.Item != null)
+            {
+                if (model.Item is LightEffect effect)
+                {
+                    return ConfigVMSetCreator.CreateConfigSetFromEffect(effect);
+                }
+            }
+            return null;
+        }
+
+        internal IConfigVMSet GetConfigVMSet(IEffectConfigSet set)
+        {
+            return ConfigVMSetCreator.CreateConfigSet(set);
+        }
+
+        internal Window GetConfigWindow(IConfigListViewModel model, IConfigVMSet configuration = null)
         {
             if(model.Item != null)
             {
                 if (model.Item is LightEffect)
                 {
-                    ObservableCollection<IConfigListViewModel> collection = new ObservableCollection<IConfigListViewModel>();
-
-                    if (data != null)
-                    {
-                        foreach (IConfigListViewModel element in data)
-                            collection.Add(element);
-                    }
-
-                    return EffectConfigWindowAssigner.GetWindowByEffect((LightEffect)model.Item, collection);
+                    return EffectConfigWindowAssigner.GetWindowByEffect((LightEffect)model.Item, configuration);
                 }
             }
 

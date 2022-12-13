@@ -32,5 +32,17 @@ namespace PhilipsHue.EffectConfig.Parts.Classes
             else
                 return 0;
         }
+
+        public uint GetTimeInTenthOfSeconds()
+        {
+            uint result = 0;
+            if (Value is int || Value is uint)
+            {
+                result = (uint)Value;
+                return result;
+            }
+            else
+                return 0;
+        }
     }
 }

@@ -57,8 +57,9 @@ namespace UI
 
         private void RefreshValuesInCard()
         {
-            BrightnessCard.HigherBrightnessLevel = _flashConfigSet.SecondBrightnessLevel.BrightnessLevel;
-            BrightnessCard.LowerBrightnessLevel = _flashConfigSet.FirstBrightnessLevel.BrightnessLevel;
+            BrightnessCard.HigherBrightnessLevel = FlashConfigSet.SecondBrightnessLevel.BrightnessLevel;
+            BrightnessCard.LowerBrightnessLevel = FlashConfigSet.FirstBrightnessLevel.BrightnessLevel;
+            TransitionTimeCard.TimeInTenthOfSecond = FlashConfigSet.TransitionTime.TransitionTime;
         }
 
         private void BrightnessCard_HigherBrightnessLevelChanged(object sender, RoutedEventArgs e)

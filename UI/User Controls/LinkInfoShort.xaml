@@ -23,7 +23,8 @@
                                          Height="{Binding ElementName=LinkStatusGrid, Path=ActualHeight}" 
                                          BorderThickness="0" Background="Transparent" ScrollViewer.VerticalScrollBarVisibility="Hidden"
                                          ItemsSource="{Binding Path=Source, ElementName=linkInfoShort}" 
-                                         HorizontalAlignment="Center" VerticalAlignment="Top">
+                                         HorizontalAlignment="Center" VerticalAlignment="Top"
+                                         MouseDoubleClick="LinkList_MouseDoubleClick">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <Border Padding="5" Margin="0 5" HorizontalAlignment="Stretch" Background="#152457" CornerRadius="10">

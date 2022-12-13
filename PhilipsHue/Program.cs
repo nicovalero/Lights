@@ -15,26 +15,7 @@ namespace PhilipsHue
         static ManualResetEvent _quitEvent = new ManualResetEvent(false);
         static void Main(string[] args)
         {
-            Console.CancelKeyPress += (sender, eArgs) => {
-                _quitEvent.Set();
-                eArgs.Cancel = true;
-            };
-
-            FadeIn fadeIn = FadeIn.Singleton();
-            FadeOut fadeOut = FadeOut.Singleton();
-            ColorChange colorChange = ColorChange.Singleton();
-            Flash flash = Flash.Singleton();
-
-            //List<string> ids = new List<string>();
-            //ids.Add("3");
-
-            //for (int i = 0; i < 50; i++)
-            //{
-            //    flash.Perform(ids);
-            //    Thread.Sleep(50);
-            //}
-
-            _quitEvent.WaitOne();
+            
         }
     }
 }

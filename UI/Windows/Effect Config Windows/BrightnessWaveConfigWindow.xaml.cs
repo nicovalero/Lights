@@ -45,14 +45,14 @@ namespace UI
             RefreshValuesInCard();
         }
 
-        internal ObservableCollection<IConfigListViewModel> LightListSource
-        {
-            get { return BrightnessWaveConfigSet.LightList.Collection; }
-            set {
-                LightListConfig_ViewModel model = new LightListConfig_ViewModel(value);
-                RefreshValuesInCard();
-            }
-        }
+        //internal ObservableCollection<IConfigListViewModel> LightListSource
+        //{
+        //    get { return BrightnessWaveConfigSet.LightList.Collection; }
+        //    set {
+        //        LightListConfig_ViewModel model = new LightListConfig_ViewModel(value);
+        //        //RefreshValuesInCard();
+        //    }
+        //}
 
         private void WindowUtils_CloseClick(object sender, RoutedEventArgs e)
         {
@@ -69,8 +69,30 @@ namespace UI
 
         private void RefreshValuesInCard()
         {
+            RefreshBrightnessInCard();
+            RefreshTransitionTimeInCard();
+            RefreshIntervalTimeInCard();
+            RefreshLightListInCard();
+        }
+
+        private void RefreshLightListInCard()
+        {
+            Resources["LightListSource"] = BrightnessWaveConfigSet.LightList.Collection;
+        }
+
+        private void RefreshBrightnessInCard()
+        {
             BrightnessCard.BrightnessLevel = BrightnessWaveConfigSet.BrightnessLevel.BrightnessLevel;
-            Resources["LightListSource"] = LightListSource;
+        }
+
+        private void RefreshTransitionTimeInCard()
+        {
+            TransitionTimeCard.TimeInTenthOfSecond = BrightnessWaveConfigSet.TransitionTime.TransitionTime;
+        }
+
+        private void RefreshIntervalTimeInCard()
+        {
+            IntervalTimeCard.TimeInTenthOfSecond = BrightnessWaveConfigSet.IntervalTime.TransitionTime;
         }
 
         private void BrightnessCard_BrightnessLevelChanged(object sender, RoutedEventArgs e)

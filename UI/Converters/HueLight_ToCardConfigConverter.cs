@@ -49,7 +49,7 @@ namespace UI
 
             foreach (HueLight light in lights)
             {
-                list.Add(new CardConfigList_ViewModel(light, light.name, _backgroundColor1, _backgroundColor2, GetLightIconByType(light), light.productName));
+                list.Add(new CardConfigList_ViewModel(light.uniqueId, light, light.name, _backgroundColor1, _backgroundColor2, GetLightIconByType(light), light.productName));
             }
 
             return list;

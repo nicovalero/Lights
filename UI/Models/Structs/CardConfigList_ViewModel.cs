@@ -14,6 +14,7 @@ namespace UI.Models.Structs
 {
     internal struct CardConfigList_ViewModel: IConfigListViewModel
     {
+        private string _itemID;
         private object _item;
         private string _itemName;
         private string _subtitle;
@@ -21,6 +22,7 @@ namespace UI.Models.Structs
         private Color _backgroundColor2;
         private FontAwesome.Sharp.IconChar _icon;
 
+        public string ItemID { get { return _itemID; } }
         public object Item { get { return _item; } }
         public string ItemName { get { return _itemName; } }
         public string Subtitle { get { return _subtitle; } }
@@ -29,8 +31,9 @@ namespace UI.Models.Structs
         public FontAwesome.Sharp.IconChar Icon { get { return _icon; } }
 
 
-        public CardConfigList_ViewModel(object item, string itemName, Color backgroundColor1, Color backgroundColor2, FontAwesome.Sharp.IconChar icon, string subtitle = "")
+        public CardConfigList_ViewModel(string itemID, object item, string itemName, Color backgroundColor1, Color backgroundColor2, FontAwesome.Sharp.IconChar icon, string subtitle = "")
         {
+            _itemID = itemID;
             _item = item;
             _itemName = itemName;
             _backgroundColor1 = backgroundColor1;

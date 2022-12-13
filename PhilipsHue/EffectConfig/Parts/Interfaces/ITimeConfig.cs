@@ -9,5 +9,6 @@ namespace PhilipsHue.EffectConfig.Parts.Interfaces
     public interface ITimeConfig
     {
         uint GetTimeInMiliseconds();
+        uint GetTimeInTenthOfSeconds();
     }
 }

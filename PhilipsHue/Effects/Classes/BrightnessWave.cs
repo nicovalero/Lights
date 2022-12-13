@@ -46,14 +46,18 @@ namespace PhilipsHue.Effects.Classes
             else
                 hueLights = lights;
 
-            foreach (HueStateJSONProperty c in queue)
+            try
             {
-                foreach (HueLight light in hueLights)
+                foreach (HueStateJSONProperty c in queue)
                 {
-                    await _controller.ChangeLightState(light.uniqueId, c);
-                    Thread.Sleep(intervalInt);
+                    foreach (HueLight light in hueLights)
+                    {
+                        await _controller.ChangeLightState(light.uniqueId, c);
+                        Thread.Sleep(intervalInt);
+                    }
                 }
             }
+            catch { }
         }
     }
 }
