@@ -19,30 +19,15 @@ namespace PhilipsHue.Controllers
 
         private HueLightController()
         {
-            _bridgeV2Finder = new BridgeV2Finder();
+            _bridgeV2Finder = new BridgeV2Finder(ProcessBridgeRequestAnswer);
             _lightBridgeDictionary = new Dictionary<string, Bridge>();
             _bridgeList = new List<Bridge>();
         }
 
         public void InitializeBridges()
         {
-            //Exchange FindAllManual with FindAll when the issues
-            //of discovering the bridges dynamically are over.
-
-            //List<Bridge> bridges = await _bridgeV2Finder.FindAll();
-            List<Bridge> bridges = _bridgeV2Finder.FindAllManual();
-            _lightBridgeDictionary = new Dictionary<string, Bridge>();
             ResetProperties();
-
-            foreach (Bridge bridge in bridges)
-            {
-                _bridgeList.Add(bridge);
-                ConnectBridge(bridge);
-                foreach (HueLight light in bridge.GetAllLights())
-                {
-                    _lightBridgeDictionary.Add(light.uniqueId, bridge);
-                }
-            }
+            _bridgeV2Finder.FindAllmDNSMulticast();
         }
 
         private void ResetProperties()
@@ -73,7 +58,7 @@ namespace PhilipsHue.Controllers
         {
             List<HueLight> list = new List<HueLight>();
 
-            foreach(Bridge bridge in _bridgeList)
+            foreach (Bridge bridge in _bridgeList)
             {
                 list.AddRange(bridge.GetAllLights());
             }
@@ -84,6 +69,17 @@ namespace PhilipsHue.Controllers
         public int GetBridgeCount()
         {
             return _bridgeList.Count;
+        }
+
+        private void ProcessBridgeRequestAnswer(object sender, Bridge bridge)
+        {
+            _bridgeList.Add(bridge);
+            ConnectBridge(bridge);
+            foreach (HueLight light in bridge.GetAllLights())
+            {
+                if (!_lightBridgeDictionary.ContainsKey(light.uniqueId))
+                    _lightBridgeDictionary.Add(light.uniqueId, bridge);
+            }
         }
     }
 }

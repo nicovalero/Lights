@@ -10,6 +10,9 @@ namespace PhilipsHue.Models.Interfaces
     internal interface BridgeFinder
     {
         bool Exist(Uri uri);
-        List<Bridge> FindAll();
+
+        void FindAllmDNSMulticast();
+        List<Bridge> FindAllOnline();
+        Bridge FindManual(Uri uri);
     }
 }

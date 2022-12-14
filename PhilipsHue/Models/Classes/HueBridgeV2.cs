@@ -64,8 +64,6 @@ namespace PhilipsHue.Models.Classes
             if (connected)
             {
                 DownloadLights();
-                //DownloadGroups();
-                //DownloadScenes();
             }
 
             return connected;
