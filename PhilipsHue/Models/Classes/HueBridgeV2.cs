@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Net;
 using System.Linq;
+using System.Runtime.CompilerServices;
 
 namespace PhilipsHue.Models.Classes
 {
@@ -33,6 +34,52 @@ namespace PhilipsHue.Models.Classes
             _developer = new HueDeveloper("qFtbsJJ6H2SvZthKQWqECEctGQozVGQZRepoCnZw");
 
             ServicePointManager.FindServicePoint(uri).ConnectionLimit = 20;
+        }
+
+        //public static bool operator ==(HueBridgeV2 obj1, object obj2)
+        //{
+        //    if (obj1 == null || obj2 == null)
+        //        return false;
+
+        //    var item2 = obj2 as HueBridgeV2;
+
+        //    if (obj1._URL == item2._URL)
+        //        return true;
+        //    else
+        //        return false;
+        //}
+
+        //public static bool operator !=(HueBridgeV2 obj1, object obj2)
+        //{
+        //    if (obj1 == null || obj2 == null)
+        //        return false;
+
+        //    var item2 = obj2 as HueBridgeV2;
+
+        //    if (obj1._URL == item2._URL)
+        //        return true;
+        //    else
+        //        return false;
+        //}
+
+        public override bool Equals(object obj)
+        {
+            var item = obj as HueBridgeV2;
+
+            if (item == null)
+                return false;
+
+            return obj is HueBridgeV2 && Equals((HueBridgeV2) item);
+        }
+
+        private bool Equals(HueBridgeV2 obj)
+        {
+            return _URL == obj._URL;
+        }
+
+        public override int GetHashCode()
+        {
+            return _URL.GetHashCode();
         }
 
         public void AddGroup(int key, Group group)
@@ -107,16 +154,16 @@ namespace PhilipsHue.Models.Classes
             try
             {
                 Dictionary<string, HueColorLight> hueDevResponse = JsonConvert.DeserializeObject<Dictionary<string, HueColorLight>>(content);
-                if(hueDevResponse != null)
+                if (hueDevResponse != null)
                 {
-                    foreach(KeyValuePair<string, HueColorLight> kvp in hueDevResponse)
+                    foreach (KeyValuePair<string, HueColorLight> kvp in hueDevResponse)
                     {
                         lights.Add(kvp.Value.GetUniqueId(), kvp.Value);
                         uniqueIdJsonPairs.Add(kvp.Value.GetUniqueId(), kvp.Key);
                     }
                 }
             }
-            catch(Exception e)
+            catch (Exception e)
             {
 
             }

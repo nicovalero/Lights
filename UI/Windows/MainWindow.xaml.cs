@@ -6,6 +6,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
@@ -36,6 +37,7 @@ namespace UI
         public MainWindow()
         {
             _mainWindow_Controller = MainWindow_ViewController.Singleton();
+            _mainWindow_Controller.MainWindow = this;
             InitializeLists();
             InitializeComponent();
         }
@@ -98,7 +100,7 @@ namespace UI
             Resources["MIDIListening"] = _mainWindow_Controller.GetMidiListeningStatusString();
         }
 
-        private void RefreshAvailableHueLights()
+        public void RefreshAvailableHueLights()
         {
             var list = _mainWindow_Controller.GetAvailableHueLightsList();
             if (list != null)
@@ -115,6 +117,7 @@ namespace UI
         private void ConnectBridgesButton_Click(object sender, RoutedEventArgs e)
         {
             ConnectBridges();
+            Thread.Sleep(5000);
             RefreshLinkList();
             RefreshAvailableHueLights();
             RefreshHueBridgeCount();

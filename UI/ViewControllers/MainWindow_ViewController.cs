@@ -31,6 +31,8 @@ namespace UI
     {
         private MidiLightsController _midiLightsController;
         private static readonly MainWindow_ViewController _controller = new MainWindow_ViewController();
+        private MainWindow _mainWindow;
+        public MainWindow MainWindow { get { return _mainWindow; } set { _mainWindow = value; } }
 
         private MainWindow_ViewController()
         {
@@ -283,6 +285,11 @@ namespace UI
             }
 
             return false;
+        }
+
+        public void UpdateLightList()
+        {
+            MainWindow.RefreshAvailableHueLights();
         }
     }
 }

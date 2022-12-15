@@ -15,13 +15,13 @@ namespace PhilipsHue.Controllers
         private static readonly HueLightController _controller = new HueLightController();
         private BridgeV2Finder _bridgeV2Finder;
         private Dictionary<string, Bridge> _lightBridgeDictionary;
-        private List<Bridge> _bridgeList;
+        private HashSet<Bridge> _bridgeSet;
 
         private HueLightController()
         {
             _bridgeV2Finder = new BridgeV2Finder(ProcessBridgeRequestAnswer);
             _lightBridgeDictionary = new Dictionary<string, Bridge>();
-            _bridgeList = new List<Bridge>();
+            _bridgeSet = new HashSet<Bridge>();
         }
 
         public void InitializeBridges()
@@ -33,7 +33,7 @@ namespace PhilipsHue.Controllers
         private void ResetProperties()
         {
             _lightBridgeDictionary.Clear();
-            _bridgeList.Clear();
+            _bridgeSet.Clear();
         }
 
         public static HueLightController Singleton()
@@ -57,8 +57,9 @@ namespace PhilipsHue.Controllers
         public List<HueLight> GetAllLightsList()
         {
             List<HueLight> list = new List<HueLight>();
+            List<Bridge> bridges = _bridgeSet.ToList();
 
-            foreach (Bridge bridge in _bridgeList)
+            foreach (Bridge bridge in bridges)
             {
                 list.AddRange(bridge.GetAllLights());
             }
@@ -68,17 +69,20 @@ namespace PhilipsHue.Controllers
 
         public int GetBridgeCount()
         {
-            return _bridgeList.Count;
+            return _bridgeSet.Count;
         }
 
         private void ProcessBridgeRequestAnswer(object sender, Bridge bridge)
         {
-            _bridgeList.Add(bridge);
-            ConnectBridge(bridge);
-            foreach (HueLight light in bridge.GetAllLights())
+            if (!_bridgeSet.Contains(bridge))
             {
-                if (!_lightBridgeDictionary.ContainsKey(light.uniqueId))
-                    _lightBridgeDictionary.Add(light.uniqueId, bridge);
+                _bridgeSet.Add(bridge);
+                ConnectBridge(bridge);
+                foreach (HueLight light in bridge.GetAllLights())
+                {
+                    if (!_lightBridgeDictionary.ContainsKey(light.uniqueId))
+                        _lightBridgeDictionary.Add(light.uniqueId, bridge);
+                }
             }
         }
     }
