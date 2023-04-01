@@ -9,6 +9,8 @@ using PhilipsHue.Models.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
+using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -25,24 +27,34 @@ namespace PhilipsHue.Effects.Classes
 
         public Flash() { }
 
-        //public static Flash Singleton()
-        //{
-        //    return _flash;
-        //}
-
-        public async void Perform(List<HueLight> lights, IEffectConfigSet config)
+        public void Perform(List<HueLight> lights, IEffectConfigSet config)
         {
             //Maybe the queue logic should be done in this class instead of the config class
-            Queue<HueStateJSONProperty> queue = config.GetHueStateQueue();
+            List<HueStateJSONProperty> queue = config.GetHueStateQueue().ToList();
+            short flag = 0;
+            short nStates = (short)queue.Count;
+            Semaphore startFlag = new Semaphore(0, lights.Count);
 
-            while(queue.Count > 0)
+            foreach (HueLight light in lights)
             {
-                HueStateJSONProperty c = queue.Dequeue();
-                Parallel.ForEach(lights, light =>
+                var thread = new Thread(() =>
                 {
-                    _controller.ChangeLightState(light.uniqueId, c);
+                    short executionNumber = 1;
+
+                    startFlag.WaitOne();
+
+                    foreach (HueStateJSONProperty property in queue)
+                    {
+                        flag++;
+                        while (flag < executionNumber * nStates) { }
+                        _controller.ChangeLightState(light.uniqueId, property).Wait();
+                        executionNumber++;
+                    }
                 });
+                thread.Start();
             }
+
+            startFlag.Release(lights.Count);
         }
     }
 }
