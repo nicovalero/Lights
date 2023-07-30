@@ -38,6 +38,9 @@ namespace UI.Models.Classes
                 case ColorWaveConfig_VMSet s:
                     effectConfigSet = CreateColorWaveConfigSet(set);
                     break;
+                case TurnOnConfig_VMSet s:
+                    effectConfigSet = CreateTurnOnConfigSet(set);
+                    break;
                 default:
                     break;
             }
@@ -155,6 +158,17 @@ namespace UI.Models.Classes
 
                     return new ColorWaveConfigSet(color, transitionConfig, lightsConfig, intervalConfig);
                 }
+            }
+            return null;
+        }
+
+        private static IEffectConfigSet CreateTurnOnConfigSet(IConfigVMSet vmSet)
+        {
+            if (vmSet is TurnOnConfig_VMSet)
+            {
+                TurnOnConfig_VMSet turnOnConfig = (TurnOnConfig_VMSet)vmSet;
+
+                return new TurnOnConfigSet();
             }
             return null;
         }
