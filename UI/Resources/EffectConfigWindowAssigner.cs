@@ -60,6 +60,12 @@ namespace UI.Resources
                     else
                         window = new ColorWaveConfigWindow();
                     break;
+                case TurnOn c:
+                    if (configuration is TurnOnConfig_VMSet turnOnConfig)
+                        window = new TurnOnConfigWindow(turnOnConfig);
+                    else
+                        window = new TurnOnConfigWindow();
+                    break;
             }
 
             SetWindowProperties(window);
@@ -96,6 +102,10 @@ namespace UI.Resources
                 case ColorWaveConfigWindow w:
                     window.Width = 650;
                     window.Height = 700;
+                    break;
+                case TurnOnConfigWindow w:
+                    window.Width = 300;
+                    window.Height = 200;
                     break;
             }
         }

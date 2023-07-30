@@ -240,6 +240,9 @@ namespace UI
                 case ColorWaveConfigWindow w:
                     newConfig = w.ColorWaveConfigSet;
                     break;
+                case TurnOnConfigWindow w:
+                    newConfig = w.TurnOnConfigSet;
+                    break;
                 default:
                     newConfig = null;
                     break;
