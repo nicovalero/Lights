@@ -172,5 +172,16 @@ namespace UI.Models.Classes
             }
             return null;
         }
+
+        private static IEffectConfigSet CreateTurnOffConfigSet(IConfigVMSet vmSet)
+        {
+            if (vmSet is TurnOffConfig_VMSet)
+            {
+                TurnOffConfig_VMSet turnOnConfig = (TurnOffConfig_VMSet)vmSet;
+
+                return new TurnOffConfigSet();
+            }
+            return null;
+        }
     }
 }

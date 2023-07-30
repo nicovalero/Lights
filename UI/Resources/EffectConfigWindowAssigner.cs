@@ -66,6 +66,12 @@ namespace UI.Resources
                     else
                         window = new TurnOnConfigWindow();
                     break;
+                case TurnOff c:
+                    if (configuration is TurnOffConfig_VMSet turnOffConfig)
+                        window = new TurnOffConfigWindow(turnOffConfig);
+                    else
+                        window = new TurnOffConfigWindow();
+                    break;
             }
 
             SetWindowProperties(window);
@@ -104,6 +110,10 @@ namespace UI.Resources
                     window.Height = 700;
                     break;
                 case TurnOnConfigWindow w:
+                    window.Width = 300;
+                    window.Height = 200;
+                    break;
+                case TurnOffConfigWindow w:
                     window.Width = 300;
                     window.Height = 200;
                     break;

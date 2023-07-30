@@ -1,0 +1,43 @@
+﻿<Window x:Class="UI.TurnOffConfigWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:uc="clr-namespace:UI.User_Controls.EffectConfigCards" xmlns:uc1="clr-namespace:UI.User_Controls"
+        mc:Ignorable="d"
+        Title="turnOffConfigWindow" WindowStyle="None">
+    <Border CornerRadius="0 0 0 0" MouseDown="Border_MouseDown">
+        <Border.Background>
+            <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                <GradientStop Color="#223266" Offset="0"/>
+                <GradientStop Color="#27396b" Offset="1"/>
+            </LinearGradientBrush>
+        </Border.Background>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <uc1:WindowUtils Grid.Row="0" CloseClick="WindowUtils_CloseClick" ShowMinimizeButton="Hidden" MouseDown="Border_MouseDown"/>
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Grid.Row="0" Text="Turn Off" FontSize="26" Foreground="#ccd7ff" HorizontalAlignment="Left" Margin="15 10 0 0"/>
+                        <TextBlock Grid.Row="1" Text="There is nothing to configure here" TextWrapping="Wrap" FontSize="15" Foreground="#ccd7ff" HorizontalAlignment="Left" Margin="15 10 0 0"/>
+                    </Grid>
+                </Grid>
+            </Grid>
+        </Grid>
+    </Border>
+</Window>
