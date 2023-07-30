@@ -27,6 +27,7 @@ namespace PhilipsHue.Collections
             Effects.Add(5, BrightnessWave.Singleton());
             Effects.Add(6, ColorWave.Singleton());
             Effects.Add(7, new TurnOn());
+            Effects.Add(8, new TurnOff());
         }
 
         public static LightEffect GetEffect(byte id)

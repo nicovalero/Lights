@@ -243,6 +243,9 @@ namespace UI
                 case TurnOnConfigWindow w:
                     newConfig = w.TurnOnConfigSet;
                     break;
+                case TurnOffConfigWindow w:
+                    newConfig = w.TurnOffConfigSet;
+                    break;
                 default:
                     newConfig = null;
                     break;

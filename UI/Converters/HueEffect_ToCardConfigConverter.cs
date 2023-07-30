@@ -110,6 +110,15 @@ namespace UI
                         green2 = 204;
                         blue2 = 0;
                         break;
+                    case TurnOff f:
+                        red = 0;
+                        green = 0;
+                        blue = 0;
+
+                        red2 = 0;
+                        green2 = 0;
+                        blue2 = 0;
+                        break;
                 }
                 colorList.Add(Color.FromRgb(red, green, blue));
                 colorList.Add(Color.FromRgb(red2, green2, blue2));
@@ -147,6 +156,9 @@ namespace UI
                         break;
                     case TurnOn b:
                         icon = IconChar.Lightbulb;
+                        break;
+                    case TurnOff b:
+                        icon = IconChar.Moon;
                         break;
                 }
                 _iconDictionary.Add(effect, icon);

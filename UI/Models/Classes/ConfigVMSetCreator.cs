@@ -46,6 +46,9 @@ namespace UI.Models.Classes
                 case TurnOnConfigSet s:
                     effectConfigSet = CreateTurnOnConfigVMSet(s);
                     break;
+                case TurnOffConfigSet s:
+                    effectConfigSet = CreateTurnOffConfigVMSet(s);
+                    break;
                 default:
                     break;
             }
@@ -79,6 +82,9 @@ namespace UI.Models.Classes
                     break;
                 case TurnOn s:
                     set = new TurnOnConfig_VMSet();
+                    break;
+                case TurnOff s:
+                    set = new TurnOffConfig_VMSet();
                     break;
                 default:
                     break;
@@ -201,6 +207,16 @@ namespace UI.Models.Classes
             {
 
                 return new TurnOnConfig_VMSet();
+            }
+            return null;
+        }
+
+        private static IConfigVMSet CreateTurnOffConfigVMSet(IEffectConfigSet vmSet)
+        {
+            if (vmSet is TurnOffConfigSet configSet)
+            {
+
+                return new TurnOffConfig_VMSet();
             }
             return null;
         }

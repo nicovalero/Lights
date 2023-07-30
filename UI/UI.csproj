@@ -112,6 +112,7 @@
     <Compile Include="Models\Structs\TransitionTimeConfig_ViewModel.cs" />
     <Compile Include="Models\ViewModel Config Sets\Classes\ColorWaveConfig_VMSet.cs" />
     <Compile Include="Models\ViewModel Config Sets\Classes\BrightnessWaveConfig_VMSet.cs" />
+    <Compile Include="Models\ViewModel Config Sets\Classes\TurnOffConfig_VMSet.cs" />
     <Compile Include="Models\ViewModel Config Sets\Classes\TurnOnConfig_VMSet.cs" />
     <Compile Include="Models\ViewModel Config Sets\Interfaces\ILightListConfig.cs" />
     <Compile Include="Resources\EffectConfigWindowAssigner.cs" />
@@ -135,6 +136,9 @@
     </Compile>
     <Compile Include="Windows\Effect Config Windows\BrightnessWaveConfigWindow.xaml.cs">
       <DependentUpon>BrightnessWaveConfigWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\Effect Config Windows\TurnOffConfigWindow.xaml.cs">
+      <DependentUpon>TurnOffConfigWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\Effect Config Windows\TurnOnConfigWindow.xaml.cs">
       <DependentUpon>TurnOnConfigWindow.xaml</DependentUpon>
@@ -217,6 +221,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Windows\Effect Config Windows\BrightnessWaveConfigWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\Effect Config Windows\TurnOffConfigWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
