@@ -41,6 +41,9 @@ namespace UI.Models.Classes
                 case TurnOnConfig_VMSet s:
                     effectConfigSet = CreateTurnOnConfigSet(set);
                     break;
+                case TurnOffConfig_VMSet s:
+                    effectConfigSet = CreateTurnOffConfigSet(set);
+                    break;
                 default:
                     break;
             }
