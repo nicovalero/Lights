@@ -43,6 +43,12 @@ namespace UI.Models.Classes
                 case ColorWaveConfigSet s:
                     effectConfigSet = CreateColorWaveConfigVMSet(s);
                     break;
+                case TurnOnConfigSet s:
+                    effectConfigSet = CreateTurnOnConfigVMSet(s);
+                    break;
+                case TurnOffConfigSet s:
+                    effectConfigSet = CreateTurnOffConfigVMSet(s);
+                    break;
                 default:
                     break;
             }
@@ -73,6 +79,12 @@ namespace UI.Models.Classes
                 case ColorWave s:
                     set = new ColorWaveConfig_VMSet(new ColorConfig_ViewModel(), new LightListConfig_ViewModel(),
                         new TransitionTimeConfig_ViewModel(), new TransitionTimeConfig_ViewModel());
+                    break;
+                case TurnOn s:
+                    set = new TurnOnConfig_VMSet();
+                    break;
+                case TurnOff s:
+                    set = new TurnOffConfig_VMSet();
                     break;
                 default:
                     break;
@@ -185,6 +197,26 @@ namespace UI.Models.Classes
                 TransitionTimeConfig_ViewModel intervalTimeVM = new TransitionTimeConfig_ViewModel(intervaltime);
 
                 return new ColorWaveConfig_VMSet(colorConfig, lightListConfigVM, transitionTimeVM, intervalTimeVM);
+            }
+            return null;
+        }
+
+        private static IConfigVMSet CreateTurnOnConfigVMSet(IEffectConfigSet vmSet)
+        {
+            if (vmSet is TurnOnConfigSet configSet)
+            {
+
+                return new TurnOnConfig_VMSet();
+            }
+            return null;
+        }
+
+        private static IConfigVMSet CreateTurnOffConfigVMSet(IEffectConfigSet vmSet)
+        {
+            if (vmSet is TurnOffConfigSet configSet)
+            {
+
+                return new TurnOffConfig_VMSet();
             }
             return null;
         }
