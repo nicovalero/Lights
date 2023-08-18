@@ -1,5 +1,6 @@
 ﻿using PhilipsHue.Collections;
 using PhilipsHue.Controllers;
+using PhilipsHue.EffectConfig.Creators.Classes;
 using PhilipsHue.EffectConfig.Creators.Interfaces;
 using PhilipsHue.Effects.Interfaces;
 using PhilipsHue.Models;
@@ -9,6 +10,8 @@ using PhilipsHue.Models.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
+using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -25,23 +28,30 @@ namespace PhilipsHue.Effects.Classes
 
         public Flash() { }
 
-        //public static Flash Singleton()
-        //{
-        //    return _flash;
-        //}
-
-        public async void Perform(List<HueLight> lights, IEffectConfigSet config)
+        public void Perform(List<HueLight> lights, IEffectConfigSet config)
         {
-            //Maybe the queue logic should be done in this class instead of the config class
             Queue<HueStateJSONProperty> queue = config.GetHueStateQueue();
+            int interval = 0;
 
-            while(queue.Count > 0)
+            if(config is FlashConfigSet)
             {
-                HueStateJSONProperty c = queue.Dequeue();
-                Parallel.ForEach(lights, light =>
+                interval = (int)((FlashConfigSet)config).TransitionTimeConfig.GetTimeInMiliseconds() / 2;
+            }
+
+            foreach (HueLight light in lights)
+            {
+                var queueCopy = new Queue<HueStateJSONProperty>(queue);
+                var t = new Thread(() =>
                 {
-                    _controller.ChangeLightState(light.uniqueId, c);
+                    while (queueCopy.Count > 0)
+                    {
+                        var state = queueCopy.Dequeue();
+                        Task task = _controller.ChangeLightState(light.uniqueId, state);
+                        task.Wait();
+                        Thread.Sleep(interval);
+                    }
                 });
+                t.Start();
             }
         }
     }
