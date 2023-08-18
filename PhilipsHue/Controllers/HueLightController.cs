@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
 namespace PhilipsHue.Controllers
@@ -46,12 +47,13 @@ namespace PhilipsHue.Controllers
             bridge.Connect();
         }
 
-        public async Task ChangeLightState(string uniqueid, HueStateJSONProperty combo)
+        public Task ChangeLightState(string uniqueid, HueStateJSONProperty combo)
         {
             HueState state = combo.State;
             List<HueJSONBodyStateProperty> properties = combo.JsonProperties.ToList();
             if (_lightBridgeDictionary.ContainsKey(uniqueid))
-                await _lightBridgeDictionary[uniqueid].ChangeLightState(uniqueid, state, properties);
+                return _lightBridgeDictionary[uniqueid].ChangeLightState(uniqueid, state, properties);
+            return null;
         }
 
         public List<HueLight> GetAllLightsList()

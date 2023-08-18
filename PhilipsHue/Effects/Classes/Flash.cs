@@ -1,5 +1,6 @@
 ﻿using PhilipsHue.Collections;
 using PhilipsHue.Controllers;
+using PhilipsHue.EffectConfig.Creators.Classes;
 using PhilipsHue.EffectConfig.Creators.Interfaces;
 using PhilipsHue.Effects.Interfaces;
 using PhilipsHue.Models;
@@ -29,32 +30,29 @@ namespace PhilipsHue.Effects.Classes
 
         public void Perform(List<HueLight> lights, IEffectConfigSet config)
         {
-            //Maybe the queue logic should be done in this class instead of the config class
-            List<HueStateJSONProperty> queue = config.GetHueStateQueue().ToList();
-            short flag = 0;
-            short nStates = (short)queue.Count;
-            Semaphore startFlag = new Semaphore(0, lights.Count);
+            Queue<HueStateJSONProperty> queue = config.GetHueStateQueue();
+            int interval = 0;
+
+            if(config is FlashConfigSet)
+            {
+                interval = (int)((FlashConfigSet)config).TransitionTimeConfig.GetTimeInMiliseconds() / 2;
+            }
 
             foreach (HueLight light in lights)
             {
-                var thread = new Thread(() =>
+                var queueCopy = new Queue<HueStateJSONProperty>(queue);
+                var t = new Thread(() =>
                 {
-                    short executionNumber = 1;
-
-                    startFlag.WaitOne();
-
-                    foreach (HueStateJSONProperty property in queue)
+                    while (queueCopy.Count > 0)
                     {
-                        flag++;
-                        while (flag < executionNumber * nStates) { }
-                        _controller.ChangeLightState(light.uniqueId, property).Wait();
-                        executionNumber++;
+                        var state = queueCopy.Dequeue();
+                        Task task = _controller.ChangeLightState(light.uniqueId, state);
+                        task.Wait();
+                        Thread.Sleep(interval);
                     }
                 });
-                thread.Start();
+                t.Start();
             }
-
-            startFlag.Release(lights.Count);
         }
     }
 }
