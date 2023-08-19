@@ -39,12 +39,27 @@ namespace UI.User_Controls
                 CloseClick(this, args);
         }
 
+        public event RoutedEventHandler MaximizeClick;
+        private void MaximizeButton_Click(object sender, RoutedEventArgs args)
+        {
+            if (MaximizeClick != null)
+                MaximizeClick(this, args);
+        }
+
         public Visibility ShowMinimizeButton
         {
             get { return (Visibility)GetValue(ShowMinimizeButtonProperty); }
             set { SetValue(ShowMinimizeButtonProperty, value); }
         }
 
+        public Visibility ShowMaximizeButton
+        {
+            get { return (Visibility)GetValue(ShowMaximizeButtonProperty); }
+            set { SetValue(ShowMaximizeButtonProperty, value); }
+        }
+
         public static readonly DependencyProperty ShowMinimizeButtonProperty = DependencyProperty.Register("ShowMinimizeButton", typeof(Visibility), typeof(WindowUtils));
+
+        public static readonly DependencyProperty ShowMaximizeButtonProperty = DependencyProperty.Register("ShowMaximizeButton", typeof(Visibility), typeof(WindowUtils));
     }
 }

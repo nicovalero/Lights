@@ -8,6 +8,7 @@
         xmlns:uc="clr-namespace:UI.User_Controls"
         xmlns:xced="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
+        WindowState="Maximized"
         mc:Ignorable="d" Title="Emily" Height="900" Width="1350" WindowStartupLocation="CenterScreen"
         WindowStyle="None" AllowsTransparency="True" Background="Transparent" ShowInTaskbar="True">
     <Grid>
@@ -30,7 +31,7 @@
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="160"/>
                 </Grid.RowDefinitions>
-                <uc:WindowUtils Grid.Row="0" CloseClick="CloseAppButton_Click" MinimizeClick="MinimizeAppButton_Click" ShowMinimizeButton="Visible"/>
+                <uc:WindowUtils Grid.Row="0" CloseClick="CloseAppButton_Click" MinimizeClick="MinimizeAppButton_Click" MaximizeClick="MaximizeAppButton_Click"  ShowMinimizeButton="Visible" ShowMaximizeButton="Visible"/>
                 <StackPanel Grid.Row="1">
                     <!--UserName-->
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 35 0 0">

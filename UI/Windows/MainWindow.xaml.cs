@@ -346,5 +346,13 @@ namespace UI
                 lightListConfig.SetLightListConfig(lightListConfigViewModel);
             }
         }
+
+        private void MaximizeAppButton_Click(object sender, RoutedEventArgs e)
+        {
+            if(this.WindowState == WindowState.Normal)
+                this.WindowState = WindowState.Maximized;
+            else
+                this.WindowState = WindowState.Normal;
+        }
     }
 }

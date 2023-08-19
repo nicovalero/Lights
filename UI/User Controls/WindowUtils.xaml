@@ -10,8 +10,10 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="31"/>
             <ColumnDefinition Width="31"/>
+            <ColumnDefinition Width="31"/>
         </Grid.ColumnDefinitions>
         <Button x:Name="CloseButton" Content="X" Grid.Column="0" Style="{StaticResource windowUtilButton}" Background="#bb0000" Click="closeButton_Click"/>
         <Button x:Name="MinimizeButton" Content="-" Grid.Column="1" Visibility="{Binding Path=ShowMinimizeButton, ElementName=windowUtils}" Style="{StaticResource windowUtilButton}" Background="#eebb00" Click="minimizeButton_Click"/>
+        <Button x:Name="MaximizeButton" Content="+" Grid.Column="2" Visibility="{Binding Path=ShowMaximizeButton, ElementName=windowUtils}" Style="{StaticResource windowUtilButton}" Background="#00ee00" Click="MaximizeButton_Click"/>
     </Grid>
 </UserControl>
