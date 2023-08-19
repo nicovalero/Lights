@@ -8,9 +8,9 @@
         xmlns:uc="clr-namespace:UI.User_Controls"
         xmlns:xced="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
-        WindowState="Maximized"
+        WindowState="Maximized" ResizeMode="CanResize" AllowsTransparency="False"
         mc:Ignorable="d" Title="Emily" Height="900" Width="1350" WindowStartupLocation="CenterScreen"
-        WindowStyle="None" AllowsTransparency="True" Background="Transparent" ShowInTaskbar="True">
+        WindowStyle="None" Background="Transparent" ShowInTaskbar="True">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="250"/>
