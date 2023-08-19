@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:uc="clr-namespace:UI.User_Controls.EffectConfigCards" xmlns:uc1="clr-namespace:UI.User_Controls"
-        mc:Ignorable="d"
+        mc:Ignorable="d" ResizeMode="CanResize" AllowsTransparency="False"
         Title="fadeInConfigWindow" WindowStyle="None">
     <Border CornerRadius="0 0 0 0" MouseDown="Border_MouseDown">
         <Border.Background>
@@ -18,7 +18,7 @@
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <uc1:WindowUtils Grid.Row="0" CloseClick="WindowUtils_CloseClick" ShowMinimizeButton="Hidden" MouseDown="Border_MouseDown"/>
+            <uc1:WindowUtils Grid.Row="0" CloseClick="WindowUtils_CloseClick" ShowMinimizeButton="Hidden" ShowMaximizeButton="Hidden" MouseDown="Border_MouseDown"/>
             <Grid Grid.Row="1">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>

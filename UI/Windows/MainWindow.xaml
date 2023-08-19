@@ -8,8 +8,9 @@
         xmlns:uc="clr-namespace:UI.User_Controls"
         xmlns:xced="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
+        WindowState="Maximized" ResizeMode="CanResize" AllowsTransparency="False"
         mc:Ignorable="d" Title="Emily" Height="900" Width="1350" WindowStartupLocation="CenterScreen"
-        WindowStyle="None" AllowsTransparency="True" Background="Transparent" ShowInTaskbar="True">
+        WindowStyle="None" Background="Transparent" ShowInTaskbar="True">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="250"/>
@@ -30,7 +31,7 @@
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="160"/>
                 </Grid.RowDefinitions>
-                <uc:WindowUtils Grid.Row="0" CloseClick="CloseAppButton_Click" MinimizeClick="MinimizeAppButton_Click" ShowMinimizeButton="Visible"/>
+                <uc:WindowUtils Grid.Row="0" CloseClick="CloseAppButton_Click" MinimizeClick="MinimizeAppButton_Click" MaximizeClick="MaximizeAppButton_Click"  ShowMinimizeButton="Visible" ShowMaximizeButton="Visible"/>
                 <StackPanel Grid.Row="1">
                     <!--UserName-->
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 35 0 0">
@@ -47,7 +48,7 @@
                         </Border>
                         <StackPanel Margin="10 0 0 0" VerticalAlignment="Center">
                             <TextBlock Text="Emily MLE" FontSize="15" Margin="0 0 0 5" Foreground="#c2cfff"/>
-                            <TextBlock Text="Alpha 0.4" FontSize="11" Foreground="#7788bf"/>
+                            <TextBlock Text="Alpha 0.4.1" FontSize="11" Foreground="#7788bf"/>
                         </StackPanel>
                     </StackPanel>
 
