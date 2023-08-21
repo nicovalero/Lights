@@ -31,7 +31,7 @@ namespace PhilipsHue.Effects.Classes
             return _flash;
         }
 
-        public async void Perform(List<HueLight> lights, IEffectConfigSet config)
+        public void Perform(List<HueLight> lights, IEffectConfigSet config)
         {
             Queue<HueStateJSONProperty> queue = config.GetHueStateQueue();
 
@@ -46,18 +46,18 @@ namespace PhilipsHue.Effects.Classes
             else
                 hueLights = lights;
 
-            try
+            foreach (HueStateJSONProperty c in queue)
             {
-                foreach (HueStateJSONProperty c in queue)
+                ThreadPool.QueueUserWorkItem((state) =>
                 {
                     foreach (HueLight light in hueLights)
                     {
-                        await _controller.ChangeLightState(light.uniqueId, c);
+                        var task = _controller.ChangeLightState(light.uniqueId, c);
+                        task.Wait();
                         Thread.Sleep(intervalInt);
                     }
-                }
+                });
             }
-            catch { }
         }
     }
 }
