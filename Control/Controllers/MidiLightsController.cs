@@ -22,6 +22,7 @@ using System.Collections;
 using Windows.UI.Xaml.Shapes;
 using Windows.Devices.Enumeration;
 using PhilipsHue.EffectConfig.Creators.Interfaces;
+using System.Diagnostics;
 
 namespace Control.Controllers
 {
@@ -51,7 +52,10 @@ namespace Control.Controllers
 
         public void MidiMessageReceived(MidiController sender, MidiMessageKeys args)
         {
-              PerformLinkedAction(args);
+            var stopw = Stopwatch.StartNew();
+            ThreadPool.QueueUserWorkItem((state) => PerformLinkedAction(args));
+            stopw.Stop();
+            Console.WriteLine("Midi Message processed in " + stopw.ElapsedMilliseconds);
         }
 
         public bool CreateLink(MidiChannel channel, MidiNote note, MidiVelocity velocity, List<HueLight> lights, LightEffect effect, IEffectConfigSet config = null)

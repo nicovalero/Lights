@@ -7,10 +7,11 @@ using PhilipsHue.Models.Classes;
 using PhilipsHue.Models.Enums;
 using PhilipsHue.Models.Interfaces;
 using System.Collections.Generic;
+using System.Threading;
 
 namespace PhilipsHue.Effects.Classes
 {
-    public class TurnOn: LightEffect
+    public class TurnOn : LightEffect
     {
         private static readonly HueLightController _controller = HueLightController.Singleton();
         private const string _name = "Turn On";
@@ -23,17 +24,19 @@ namespace PhilipsHue.Effects.Classes
 
         }
 
-        public async void Perform(List<HueLight> lights, IEffectConfigSet config)
+        public void Perform(List<HueLight> lights, IEffectConfigSet config)
         {
-            try
+            foreach (HueStateJSONProperty combo in config.GetHueStateQueue())
             {
-                foreach (HueStateJSONProperty combo in  config.GetHueStateQueue())
+
+                foreach (HueLight light in lights)
                 {
-                    foreach (HueLight light in lights)
-                        await _controller.ChangeLightState(light.uniqueId, combo);
+                    ThreadPool.QueueUserWorkItem((state) =>
+                    {
+                        _controller.ChangeLightState(light.uniqueId, combo);
+                    });
                 }
             }
-            catch { }
         }
 
         public string GetName()
