@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UI", "UI\UI.csproj", "{E11C
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataStorage", "DataStorage\DataStorage.csproj", "{E96518AB-76C5-4355-80C9-93363CA4F57C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nanoleaf", "Nanoleaf\Nanoleaf.csproj", "{9B6616C5-0776-4F95-A6B8-53C5D7E80A9F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{E96518AB-76C5-4355-80C9-93363CA4F57C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E96518AB-76C5-4355-80C9-93363CA4F57C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E96518AB-76C5-4355-80C9-93363CA4F57C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9B6616C5-0776-4F95-A6B8-53C5D7E80A9F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9B6616C5-0776-4F95-A6B8-53C5D7E80A9F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9B6616C5-0776-4F95-A6B8-53C5D7E80A9F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9B6616C5-0776-4F95-A6B8-53C5D7E80A9F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
