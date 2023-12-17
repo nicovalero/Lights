@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Nanoleaf.Network.Interfaces
+namespace Nanoleaf.Devices.Interfaces
 {
-    internal interface IDeviceFinder
+    internal interface INanoleafShapes
     {
-        void FindAllmDNSMulticast();
+        void Connect();
     }
 }

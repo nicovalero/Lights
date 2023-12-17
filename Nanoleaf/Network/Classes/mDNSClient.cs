@@ -2,7 +2,7 @@
 using System.Threading;
 using Makaretu.Dns;
 
-namespace PhilipsHue.Models.Classes
+namespace Nanoleaf.Network.Classes
 {
     internal class mDNSClient
     {
@@ -19,7 +19,7 @@ namespace PhilipsHue.Models.Classes
         {
             _multicastService.NetworkInterfaceDiscovered += (s, e) => _multicastService.SendQuery(query);
             StartDiscovery();
-            Thread.Sleep(1000);
+            Thread.Sleep(10000);
             StopDiscovery();
         }
 
