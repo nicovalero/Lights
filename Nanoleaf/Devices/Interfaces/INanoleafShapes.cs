@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Nanoleaf.Network.Classes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,5 +10,9 @@ namespace Nanoleaf.Devices.Interfaces
     internal interface INanoleafShapes
     {
         void Connect();
+        bool HasAuthToken();
+        Uri GetURL();
+        void SetDeveloperAuthToken(DeveloperAuthToken authToken);
+        DeveloperAuthToken GetDeveloperAuthToken();
     }
 }

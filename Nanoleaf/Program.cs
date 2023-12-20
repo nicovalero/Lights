@@ -1,4 +1,5 @@
-﻿using Nanoleaf.Devices.Classes;
+﻿using Nanoleaf.Action.Classes;
+using Nanoleaf.Devices.Classes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +13,13 @@ namespace Nanoleaf
         static void Main(string[] args)
         {
             var controller = new ShapesController();
-            controller.InitializeDevices();
+            
+            controller.LoadDevices();
+
+            var shapes = controller.ShapesList[0];
+            var actionController = new ActionController();
+
+            var allLightControllerInfoResponse = actionController.GetShapesPanelList(shapes);
         }
     }
 }

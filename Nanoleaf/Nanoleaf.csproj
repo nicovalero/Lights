@@ -64,14 +64,45 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Action\Actions\GetAllLightControllerInfoAction.cs" />
+    <Compile Include="Action\Classes\ActionController.cs" />
+    <Compile Include="Action\Classes\SinglePanelChangeColor.cs" />
+    <Compile Include="Action\Interfaces\IAction.cs" />
+    <Compile Include="Action\Interfaces\ISinglePanelAction.cs" />
     <Compile Include="Devices\Classes\ShapesController.cs" />
+    <Compile Include="Devices\Classes\ShapesPanel.cs" />
+    <Compile Include="Devices\Classes\ShapesMiniTriangle.cs" />
+    <Compile Include="Devices\ShapesStateClasses\ShapesState.cs" />
+    <Compile Include="Devices\Classes\ShapesTriangle.cs" />
+    <Compile Include="Devices\Enums\ShapeType.cs" />
+    <Compile Include="Devices\Factories\ShapesFactory.cs" />
+    <Compile Include="Devices\Interfaces\IShapesPanelModel.cs" />
+    <Compile Include="Devices\Interfaces\IShapesPanel.cs" />
+    <Compile Include="Devices\ShapesEffectsClasses\ShapesEffects.cs" />
+    <Compile Include="Devices\ShapesPanelLayoutClasses\ShapesGlobalOrientation.cs" />
+    <Compile Include="Devices\ShapesPanelLayoutClasses\ShapesLayout.cs" />
+    <Compile Include="Devices\ShapesPanelLayoutClasses\ShapesPanelLayout.cs" />
+    <Compile Include="Devices\ShapesPanelLayoutClasses\ShapesPositionData.cs" />
+    <Compile Include="Devices\ShapesRhythm\ShapesRhythm.cs" />
+    <Compile Include="Devices\ShapesStateClasses\ShapesStateCT.cs" />
+    <Compile Include="Devices\ShapesStateClasses\ShapesStateSat.cs" />
+    <Compile Include="Devices\ShapesStateClasses\ShapesStateHue.cs" />
+    <Compile Include="Devices\ShapesStateClasses\ShapesStateBrightness.cs" />
+    <Compile Include="Devices\ShapesStateClasses\ShapesStateOn.cs" />
+    <Compile Include="Network\Classes\DeveloperAuthToken.cs" />
     <Compile Include="Network\Classes\DeviceFinder.cs" />
     <Compile Include="Network\Classes\HTTPMessenger.cs" />
+    <Compile Include="Network\Classes\EndpointMessenger.cs" />
     <Compile Include="Network\Classes\NanoleafDeviceResponse.cs" />
     <Compile Include="Network\Classes\mDNSClient.cs" />
     <Compile Include="Devices\Classes\Shapes.cs" />
+    <Compile Include="Network\Classes\Responses\AllLightControllerInfoResponse.cs" />
+    <Compile Include="Network\Classes\Responses\DeveloperAuthTokenResponse.cs" />
+    <Compile Include="Network\Enums\HTTPMethods.cs" />
+    <Compile Include="Network\Interfaces\IDeveloperAuthToken.cs" />
     <Compile Include="Network\Interfaces\IDeviceFinder.cs" />
     <Compile Include="Devices\Interfaces\INanoleafShapes.cs" />
+    <Compile Include="Network\Interfaces\IResponse.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -79,5 +110,6 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

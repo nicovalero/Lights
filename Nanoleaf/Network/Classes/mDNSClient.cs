@@ -19,7 +19,7 @@ namespace Nanoleaf.Network.Classes
         {
             _multicastService.NetworkInterfaceDiscovered += (s, e) => _multicastService.SendQuery(query);
             StartDiscovery();
-            Thread.Sleep(10000);
+            Thread.Sleep(1000);
             StopDiscovery();
         }
 
