@@ -1,4 +1,6 @@
-﻿using Nanoleaf.Devices.Interfaces;
+﻿using Nanoleaf.Action.Actions.ShapesActions;
+using Nanoleaf.Action.Classes;
+using Nanoleaf.Devices.Interfaces;
 using Nanoleaf.Network;
 using Nanoleaf.Network.Classes;
 using Nanoleaf.Network.Classes.Responses;
@@ -15,56 +17,25 @@ namespace Nanoleaf.Devices.Classes
 {
     internal class ShapesController
     {
-        private IDeviceFinder deviceFinder;
-        private Dictionary<string, INanoleafShapes> shapesDictionary;
-        public List<INanoleafShapes> ShapesList { get; private set; }
+        public INanoleafShapes LinkedShapes { get; private set; }
+        private ActionController actionController;
 
-        public ShapesController()
+        public ShapesController(ActionController actionController, INanoleafShapes shapes)
         {
-            deviceFinder = new DeviceFinder(ProcessBridgeRequestAnswer);
-            shapesDictionary = new Dictionary<string, INanoleafShapes>();
-            ShapesList = new List<INanoleafShapes>();
+            LinkedShapes = shapes;
+            this.actionController = actionController;
         }
 
-        public void LoadDevices()
+        public void UpdateBrightness(UpdateBrightnessActionValues values)
         {
-            ResetProperties();
-            deviceFinder.FindAllmDNSMulticast();
-            Thread.Sleep(5000);
+            var action = new ShapesUpdateBrightnessAction(LinkedShapes, values);
+            action.Perform();
         }
 
-        private void ResetProperties()
+        public void UpdateEffects(ShapesUpdateEffectsActionValues values)
         {
-            shapesDictionary.Clear();
-            ShapesList.Clear();
-        }
-
-        public void ConnectDevice(INanoleafShapes shapes)
-        {
-            if(!shapes.HasAuthToken())
-            {
-                var authTokenResponse = GetUserForShapes(shapes);
-                shapes.SetDeveloperAuthToken(new DeveloperAuthToken(authTokenResponse.AuthToken));
-            }
-            shapes.Connect();
-        }
-
-        //public List<IShapesPanelModel> GetShapesPanels(INanoleafShapes shapes)
-        //{
-
-        //}
-
-        private DeveloperAuthTokenResponse GetUserForShapes(INanoleafShapes shapes)
-        {
-            var responseContent = EndpointMessenger.SendNewDeveloperRequest(shapes.GetURL()).Result;
-            var authTokenResponse = JsonConvert.DeserializeObject<DeveloperAuthTokenResponse>(responseContent);
-            return authTokenResponse;
-        }
-
-        private void ProcessBridgeRequestAnswer(object sender, INanoleafShapes device)
-        {
-            ConnectDevice(device);
-            ShapesList.Add(device);
+            var action = new ShapesUpdateEffectsAction(LinkedShapes, values);
+            action.Perform();
         }
     }
 }

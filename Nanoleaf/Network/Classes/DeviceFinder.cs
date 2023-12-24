@@ -15,9 +15,9 @@ namespace Nanoleaf.Network.Classes
         private mDNSClient _mDNSClient;
         private const string NANOLEAFQUERY = "_hap._tcp.local";
         private const string DEVICEMESSAGEKEY = "_hap._tcp.local";
-        private EventHandler<INanoleafShapes> _ipHandler;
+        private EventHandler<Uri> _ipHandler;
 
-        internal DeviceFinder(EventHandler<INanoleafShapes> ipHandler)
+        internal DeviceFinder(EventHandler<Uri> ipHandler)
         {
             _mDNSClient = new mDNSClient(mDNSAnswerReceived);
             _ipHandler = ipHandler;
@@ -51,8 +51,7 @@ namespace Nanoleaf.Network.Classes
                     string path = e.RemoteEndPoint.Address.ToString();
                     if (!path.Contains("http://"))
                         path = "http://" + path;
-                    INanoleafShapes device = new Shapes(new Uri(path));
-                    _ipHandler(this, device);
+                    _ipHandler(this, new Uri(path));
                 }
             }
         }

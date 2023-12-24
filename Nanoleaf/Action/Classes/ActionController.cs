@@ -13,7 +13,7 @@ namespace Nanoleaf.Action.Classes
 {
     internal class ActionController
     {
-        public AllLightControllerInfoResponse GetShapesPanelList(INanoleafShapes shapes)
+        public AllLightControllerInfoResponse GetAllLightControllerInfo(INanoleafShapes shapes)
         {
             var action = new GetAllLightControllerInfoAction(shapes);
             var result = action.Perform();

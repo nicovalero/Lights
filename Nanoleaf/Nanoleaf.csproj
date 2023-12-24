@@ -65,13 +65,21 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Action\Actions\GetAllLightControllerInfoAction.cs" />
+    <Compile Include="Action\Actions\ShapesActions\ShapesUpdateEffectsAction.cs" />
+    <Compile Include="Action\Actions\ShapesActions\ShapesUpdateSaturationAction.cs" />
+    <Compile Include="Action\Actions\ShapesActions\ShapesUpdateHueAction.cs" />
+    <Compile Include="Action\Actions\ShapesActions\ShapesUpdateBrightnessAction.cs" />
     <Compile Include="Action\Classes\ActionController.cs" />
     <Compile Include="Action\Classes\SinglePanelChangeColor.cs" />
     <Compile Include="Action\Interfaces\IAction.cs" />
     <Compile Include="Action\Interfaces\ISinglePanelAction.cs" />
+    <Compile Include="Devices\Factories\ShapesPanelFactory.cs" />
+    <Compile Include="Devices\Classes\PanelController.cs" />
     <Compile Include="Devices\Classes\ShapesController.cs" />
     <Compile Include="Devices\Classes\ShapesPanel.cs" />
     <Compile Include="Devices\Classes\ShapesMiniTriangle.cs" />
+    <Compile Include="Devices\Interfaces\IPanelController.cs" />
+    <Compile Include="Devices\Interfaces\IShapesPanelFactory.cs" />
     <Compile Include="Devices\ShapesStateClasses\ShapesState.cs" />
     <Compile Include="Devices\Classes\ShapesTriangle.cs" />
     <Compile Include="Devices\Enums\ShapeType.cs" />
@@ -96,6 +104,10 @@
     <Compile Include="Network\Classes\NanoleafDeviceResponse.cs" />
     <Compile Include="Network\Classes\mDNSClient.cs" />
     <Compile Include="Devices\Classes\Shapes.cs" />
+    <Compile Include="Network\Classes\Requests\ShapesRequests\UpdateEffectsRequest.cs" />
+    <Compile Include="Network\Classes\Requests\ShapesRequests\UpdateSaturationRequest.cs" />
+    <Compile Include="Network\Classes\Requests\ShapesRequests\UpdateHueRequest.cs" />
+    <Compile Include="Network\Classes\Requests\ShapesRequests\UpdateBrightnessRequest.cs" />
     <Compile Include="Network\Classes\Responses\AllLightControllerInfoResponse.cs" />
     <Compile Include="Network\Classes\Responses\DeveloperAuthTokenResponse.cs" />
     <Compile Include="Network\Enums\HTTPMethods.cs" />
@@ -103,6 +115,9 @@
     <Compile Include="Network\Interfaces\IDeviceFinder.cs" />
     <Compile Include="Devices\Interfaces\INanoleafShapes.cs" />
     <Compile Include="Network\Interfaces\IResponse.cs" />
+    <Compile Include="Network\Interfaces\IUpdateEffectsRequest.cs" />
+    <Compile Include="Network\Interfaces\IUpdateSaturationRequest.cs" />
+    <Compile Include="Network\Interfaces\IUpdateStateRequest.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
