@@ -1,4 +1,6 @@
 ﻿using DataStorage.Models;
+using DataStorage.Models.Classes;
+using DataStorage.Models.Interfaces;
 using MIDI.Models.Structs;
 using Newtonsoft.Json;
 using PhilipsHue.Actions.Interfaces;
@@ -20,18 +22,18 @@ namespace Control.Controllers
             return _storageController;
         }
 
-        public bool SaveLinks(HueLinkSaveObject saveObject)
+        public bool SaveLinks(ILinkSaveObject saveObject)
         {
             return FileManager.Save(saveObject);
         }
 
-        public HueLinkSaveObject ReadLinks()
+        public ILinkSaveObject ReadLinks()
         {
             string content = FileManager.Read();
 
             if (!string.IsNullOrEmpty(content))
             {
-                HueLinkSaveObject links = JsonConvert.DeserializeObject<HueLinkSaveObject>(content, new JsonSerializerSettings
+                ILinkSaveObject links = JsonConvert.DeserializeObject<LinkSaveObject>(content, new JsonSerializerSettings
                 {
                     TypeNameHandling = TypeNameHandling.Objects
                 });

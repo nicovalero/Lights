@@ -40,6 +40,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -51,8 +52,43 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Enums\AvailableViewLights.cs" />
+    <Compile Include="Enums\EffectConfigPropertyIdentifier.cs" />
+    <Compile Include="Enums\LinkType.cs" />
+    <Compile Include="Factories\PhilipsHueActionFactory.cs" />
+    <Compile Include="Factories\ViewLightFactory.cs" />
+    <Compile Include="Factories\ViewEffectFactory.cs" />
+    <Compile Include="Enums\EffectType.cs" />
+    <Compile Include="Enums\LightType.cs" />
+    <Compile Include="Factories\ViewLinkFactory.cs" />
+    <Compile Include="Models\Classes\AvailableViewEffectsCollection.cs" />
+    <Compile Include="Models\Classes\PhilipsHueControlledLightEffectAction.cs" />
+    <Compile Include="Controllers\Interfaces\IMidiLightsController.cs" />
     <Compile Include="Controllers\MidiLightsController.cs" />
+    <Compile Include="Controllers\PhilipsHueLightsController.cs" />
     <Compile Include="Controllers\StorageController.cs" />
+    <Compile Include="Models\Classes\ViewEffectConfigSet\FadeOutViewConfigSet.cs" />
+    <Compile Include="Models\Classes\ViewEffectConfigSet\TurnOffViewConfigSet.cs" />
+    <Compile Include="Models\Classes\ViewEffectConfigSet\TurnOnViewConfigSet.cs" />
+    <Compile Include="Models\Classes\ViewEffectConfigSet\FlashViewConfigSet.cs" />
+    <Compile Include="Models\Classes\ViewEffectConfigSet\FadeInViewConfigSet.cs" />
+    <Compile Include="Models\Classes\ViewEffectConfigSet\ColorWaveViewConfigSet.cs" />
+    <Compile Include="Models\Classes\ViewEffectConfigSet\ColorChangeViewConfigSet.cs" />
+    <Compile Include="Models\Classes\ViewEffectConfigSet\BrightnessWaveViewConfigSet.cs" />
+    <Compile Include="Models\Classes\ViewEffects\UniversalOffViewEffect.cs" />
+    <Compile Include="Models\Classes\ViewEffects\UniversalOnViewEffect.cs" />
+    <Compile Include="Models\Classes\ViewLights\NanoleafViewLight.cs" />
+    <Compile Include="Models\Classes\ViewLights\PhilipsHueViewLight.cs" />
+    <Compile Include="Models\Classes\ViewLink.cs" />
+    <Compile Include="Models\Interfaces\IControlledLightEffectAction.cs" />
+    <Compile Include="Models\Interfaces\IMidiLinkedAction.cs" />
+    <Compile Include="Models\Interfaces\IEffectConfigProperty.cs" />
+    <Compile Include="Models\Interfaces\IViewEffect.cs" />
+    <Compile Include="Models\Interfaces\IViewEffectConfigSet.cs" />
+    <Compile Include="Models\Interfaces\IViewLight.cs" />
+    <Compile Include="Models\Interfaces\IViewLink.cs" />
+    <Compile Include="Models\Structs\MidiMessageViewLightList.cs" />
+    <Compile Include="Parsers\DeviceParsers\HueDevicesParser.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -1,27 +1,24 @@
-﻿using PhilipsHue.Effects.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using FontAwesome.Sharp;
 using System.Windows.Media;
-using PhilipsHue.Effects.Classes;
-using PhilipsHue.Collections;
-using System.Windows.Forms;
 using UI.Models.Structs;
+using Control.Models.Interfaces;
+using Control.Models.Classes;
+using Control.Controllers;
 
 namespace UI
 {
     internal static class HueEffect_ToCardConfigConverter
     {
-        private static readonly Dictionary<LightEffect, List<Color>> _colorDictionary;
-        private static readonly Dictionary<LightEffect, FontAwesome.Sharp.IconChar> _iconDictionary;
+        private static readonly Dictionary<AvailableViewEffects, List<Color>> _colorDictionary;
+        private static readonly Dictionary<AvailableViewEffects, FontAwesome.Sharp.IconChar> _iconDictionary;
+        private static MidiLightsController _midiLightsController;
 
         static HueEffect_ToCardConfigConverter()
         {
-            _colorDictionary = new Dictionary<LightEffect, List<Color>>();
-            _iconDictionary = new Dictionary<LightEffect, IconChar>();
+            _colorDictionary = new Dictionary<AvailableViewEffects, List<Color>>();
+            _iconDictionary = new Dictionary<AvailableViewEffects, IconChar>();
+            _midiLightsController = new MidiLightsController();
 
             PopulateColorDictionary();
             PopulateIconDictionary();
@@ -33,10 +30,10 @@ namespace UI
             byte red, red2;
             byte green, green2;
             byte blue, blue2;
-            foreach (LightEffect effect in HueLightEffectCollection.GetAllEffectList())
+            foreach (IViewEffect effect in _midiLightsController.GetAllViewEffectsAvailable())
             {
                 colorList = new List<Color>();
-                switch (effect)
+                switch (effect.GetKind())
                 {
                     default:
                         red = 50;
@@ -47,7 +44,7 @@ namespace UI
                         green2 = 0;
                         blue2 = 255;
                         break;
-                    case Flash f:
+                    case AvailableViewEffects.UniversalFlash:
                         red = 180;
                         green = 150;
                         blue = 0;
@@ -56,7 +53,7 @@ namespace UI
                         green2 = 210;
                         blue2 = 210;
                         break;
-                    case FadeIn f:
+                    case AvailableViewEffects.UniversalFadeIn:
                         red = 0;
                         green = 0;
                         blue = 0;
@@ -65,7 +62,7 @@ namespace UI
                         green2 = 165;
                         blue2 = 0;
                         break;
-                    case FadeOut f:
+                    case AvailableViewEffects.UniversalFadeOut:
                         red = 170;
                         green = 180;
                         blue = 183;
@@ -74,7 +71,7 @@ namespace UI
                         green2 = 0;
                         blue2 = 0;
                         break;
-                    case ColorChange f:
+                    case AvailableViewEffects.UniversalColorChange:
                         red = 59;
                         green = 173;
                         blue = 202;
@@ -83,7 +80,7 @@ namespace UI
                         green2 = 0;
                         blue2 = 255;
                         break;
-                    case BrightnessWave f:
+                    case AvailableViewEffects.UniversalBrightnessWave:
                         red = 0;
                         green = 0;
                         blue = 0;
@@ -92,7 +89,7 @@ namespace UI
                         green2 = 0;
                         blue2 = 0;
                         break;
-                    case ColorWave f:
+                    case AvailableViewEffects.UniversalColorWave:
                         red = 0;
                         green = 200;
                         blue = 0;
@@ -101,7 +98,7 @@ namespace UI
                         green2 = 0;
                         blue2 = 200;
                         break;
-                    case TurnOn f:
+                    case AvailableViewEffects.UniversalOn:
                         red = 204;
                         green = 204;
                         blue = 0;
@@ -110,7 +107,7 @@ namespace UI
                         green2 = 204;
                         blue2 = 0;
                         break;
-                    case TurnOff f:
+                    case AvailableViewEffects.UniversalOff:
                         red = 0;
                         green = 0;
                         blue = 0;
@@ -122,57 +119,61 @@ namespace UI
                 }
                 colorList.Add(Color.FromRgb(red, green, blue));
                 colorList.Add(Color.FromRgb(red2, green2, blue2));
-                _colorDictionary.Add(effect, colorList);
-            }            
+                _colorDictionary.Add(effect.GetKind(), colorList);
+            }
         }
 
         private static void PopulateIconDictionary()
         {
             FontAwesome.Sharp.IconChar icon;
-            foreach (LightEffect effect in HueLightEffectCollection.GetAllEffectList())
+            foreach (IViewEffect effect in _midiLightsController.GetAllViewEffectsAvailable())
             {
-                switch (effect)
+                var kind = effect.GetKind();
+                switch (kind)
                 {
                     default:
                         icon = IconChar.Explosion;
                         break;
-                    case Flash f:
+                    case AvailableViewEffects.UniversalFlash:
                         icon = IconChar.Sun;
                         break;
-                    case FadeIn f:
+                    case AvailableViewEffects.UniversalFadeIn:
                         icon = IconChar.MountainSun;
                         break;
-                    case FadeOut f:
+                    case AvailableViewEffects.UniversalFadeOut:
                         icon = IconChar.Moon;
                         break;
-                    case ColorChange f:
+                    case AvailableViewEffects.UniversalColorChange:
                         icon = IconChar.YinYang;
                         break;
-                    case BrightnessWave b:
+                    case AvailableViewEffects.UniversalBrightnessWave:
                         icon = IconChar.HouseTsunami;
                         break;
-                    case ColorWave b:
+                    case AvailableViewEffects.UniversalColorWave:
                         icon = IconChar.Rainbow;
                         break;
-                    case TurnOn b:
+                    case AvailableViewEffects.UniversalOn:
                         icon = IconChar.Lightbulb;
                         break;
-                    case TurnOff b:
+                    case AvailableViewEffects.UniversalOff:
                         icon = IconChar.Moon;
                         break;
+                    case AvailableViewEffects.NanoleafEffect:
+                        icon = IconChar.Star;
+                        break;
                 }
-                _iconDictionary.Add(effect, icon);
+                _iconDictionary.Add(effect.GetKind(), icon);
             }
         }
 
-        public static List<CardConfigList_ViewModel> ConvertLightEffect_ToCardConfig(List<LightEffect> effects)
+        public static List<CardConfigList_ViewModel> ConvertLightEffect_ToCardConfig(List<IViewEffect> effects)
         {
             List<CardConfigList_ViewModel> list = new List<CardConfigList_ViewModel>();
 
-            foreach(LightEffect effect in effects)
+            foreach(IViewEffect effect in effects)
             {
-                if(_colorDictionary.ContainsKey(effect) && _iconDictionary.ContainsKey(effect))
-                    list.Add(new CardConfigList_ViewModel(effect.Name, effect, effect.Name, _colorDictionary[effect][0], _colorDictionary[effect][1], _iconDictionary[effect], effect.EffectTypeName));
+                if(_colorDictionary.ContainsKey(effect.GetKind()) && _iconDictionary.ContainsKey(effect.GetKind()))
+                    list.Add(new CardConfigList_ViewModel(effect.GetName(), effect, effect.GetName(), _colorDictionary[effect.GetKind()][0], _colorDictionary[effect.GetKind()][1], _iconDictionary[effect.GetKind()], effect.GetEffectTypeName()));
             }
 
             return list;

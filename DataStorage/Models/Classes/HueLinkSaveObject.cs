@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace DataStorage.Models
 {
-    public class HueLinkSaveObject: LinkSaveObject
+    public class HueLinkSaveObject: IHueLinkSaveObject
     {
         private List<KeyValuePair<MidiMessageKeys, LightEffectAction>> _links;
         public List<KeyValuePair<MidiMessageKeys, LightEffectAction>> Links { get { return _links; } set { _links = value; } }
@@ -31,15 +31,6 @@ namespace DataStorage.Models
         public HueLinkSaveObject(List<KeyValuePair<MidiMessageKeys, LightEffectAction>> list)
         {
             _links = list;
-        }
-
-        public string SerializeToJSON()
-        {
-            return JsonConvert.SerializeObject(this, Formatting.Indented, new JsonSerializerSettings
-            {
-                TypeNameHandling = TypeNameHandling.Objects,
-                TypeNameAssemblyFormat = System.Runtime.Serialization.Formatters.FormatterAssemblyStyle.Simple
-            });
         }
     }
 }

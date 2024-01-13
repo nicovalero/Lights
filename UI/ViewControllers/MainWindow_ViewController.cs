@@ -24,6 +24,7 @@ using System.Configuration;
 using PhilipsHue.EffectConfig.Creators.Classes;
 using UI.Models.ViewModel_Config_Sets.Classes;
 using PhilipsHue.Effects.Classes;
+using Control.Models.Interfaces;
 
 namespace UI
 {
@@ -34,7 +35,7 @@ namespace UI
 
         private MainWindow_ViewController()
         {
-            _midiLightsController = MidiLightsController.Singleton();
+            _midiLightsController = new MidiLightsController();
         }
 
         public static MainWindow_ViewController Singleton()
@@ -45,8 +46,8 @@ namespace UI
         internal bool CreateLink(IList selectedLights, IConfigListViewModel selectedEffect, IConfigListViewModel selectedChannel, 
             IConfigListViewModel selectedNote, IConfigListViewModel selectedVelocity, IConfigVMSet config)
         {
-            List<HueLight> lights = ConvertIList_ToHueLightList(selectedLights);
-            LightEffect effect = (LightEffect)selectedEffect.Item;
+            List<IViewLight> lights = ConvertIList_ToHueLightList(selectedLights);
+            IViewEffect effect = (IViewEffect)selectedEffect.Item;
             MidiChannel channel = (MidiChannel)selectedChannel.Item;
             MidiNote note = (MidiNote)selectedNote.Item;
             MidiVelocity velocity = (MidiVelocity)selectedVelocity.Item;
@@ -59,7 +60,7 @@ namespace UI
 
         public List<MidiEffectLink_ViewModel> GetLinks()
         {
-            Dictionary<MidiMessageKeys, LightEffectAction> result = _midiLightsController.GetMessageActionLinks();
+            Dictionary<MidiMessageKeys, IViewLink> result = _midiLightsController.GetMidiMessageLinkDictionary();
 
             return ConvertMidiActionDictionary_ToMidiEffectLinkVM(result);
         }
@@ -79,19 +80,19 @@ namespace UI
             return false;
         }
 
-        private List<MidiEffectLink_ViewModel> ConvertMidiActionDictionary_ToMidiEffectLinkVM(Dictionary<MidiMessageKeys, LightEffectAction> dictionary)
+        private List<MidiEffectLink_ViewModel> ConvertMidiActionDictionary_ToMidiEffectLinkVM(Dictionary<MidiMessageKeys, IViewLink> dictionary)
         {
             List<MidiEffectLink_ViewModel> list = new List<MidiEffectLink_ViewModel>();
 
-            foreach (KeyValuePair<MidiMessageKeys, LightEffectAction> pair in dictionary)
+            foreach (KeyValuePair<MidiMessageKeys, IViewLink> pair in dictionary)
             {
                 list.Add(new MidiEffectLink_ViewModel(
                     pair.Key.Channel,
                     pair.Key.Velocity,
                     pair.Key.Note,
-                    pair.Value.GetEffect(),
-                    pair.Value.GetLights(),
-                    pair.Value.GetConfiguration()));
+                    pair.Value.ViewEffect,
+                    pair.Value.Lights,
+                    pair.Value.Config));
             }
 
             return list;
@@ -168,13 +169,13 @@ namespace UI
             return list;
         }
 
-        private List<HueLight> ConvertIList_ToHueLightList(IList selectedLightItems)
+        private List<IViewLight> ConvertIList_ToHueLightList(IList selectedLightItems)
         {
-            List<HueLight> lights = new List<HueLight>();
+            List<IViewLight> lights = new List<IViewLight>();
 
             foreach (IConfigListViewModel light in selectedLightItems)
             {
-                lights.Add((HueLight)light.Item);
+                lights.Add((IViewLight)light.Item);
             }
 
             return lights;
@@ -202,7 +203,7 @@ namespace UI
 
         internal List<CardConfigList_ViewModel> GetHueEffectCardConfigList()
         {
-            return HueEffect_ToCardConfigConverter.ConvertLightEffect_ToCardConfig(_midiLightsController.GetAllHueEffects());
+            return HueEffect_ToCardConfigConverter.ConvertLightEffect_ToCardConfig(_midiLightsController.GetAllViewEffectsAvailable());
         }
 
         public List<SimpleConfigList_ViewModel> GetAvailableMidiNoteList()
@@ -226,17 +227,17 @@ namespace UI
             return ConvertMidiChannelList_ToSimpleConfigListVM(result);
         }
 
-        internal List<HueLight> GetAvailableHueLightsList()
+        internal List<IViewLight> GetAvailableHueLightsList()
         {
             return _midiLightsController.GetAllAvailableHueLights();
         }
 
         internal List<CardConfigList_ViewModel> GetAvailableHueLights_CardConfigList()
         {
-            return HueLight_ToCardConfigConverter.ConvertHueLight_ToCardConfig(_midiLightsController.GetAllAvailableHueLights());
+            return HueLight_ToCardConfigConverter.ConvertViewLight_ToCardConfig(_midiLightsController.GetAllAvailableHueLights());
         }
 
-        internal IEffectConfigSet GetConfigFromViewModel(IConfigVMSet set)
+        internal IViewEffectConfigSet GetConfigFromViewModel(IConfigVMSet set)
         {
             return EffectConfigSetCreator.CreateConfigSet(set);
         }
@@ -253,7 +254,7 @@ namespace UI
             return null;
         }
 
-        internal IConfigVMSet GetConfigVMSet(IEffectConfigSet set)
+        internal IConfigVMSet GetConfigVMSet(IViewEffectConfigSet set)
         {
             return ConfigVMSetCreator.CreateConfigSet(set);
         }

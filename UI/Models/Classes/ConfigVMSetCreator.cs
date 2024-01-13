@@ -1,4 +1,7 @@
-﻿using PhilipsHue.ColorConverters;
+﻿using Control.Enums;
+using Control.Models.Classes.ViewEffectConfigSet;
+using Control.Models.Interfaces;
+using PhilipsHue.ColorConverters;
 using PhilipsHue.EffectConfig.Creators.Classes;
 using PhilipsHue.EffectConfig.Creators.Interfaces;
 using PhilipsHue.EffectConfig.Parts.Classes;
@@ -20,33 +23,33 @@ namespace UI.Models.Classes
 {
     public static class ConfigVMSetCreator
     {
-        internal static IConfigVMSet CreateConfigSet(IEffectConfigSet set)
+        internal static IConfigVMSet CreateConfigSet(IViewEffectConfigSet set)
         {
             IConfigVMSet effectConfigSet = null;
             switch (set)
             {
-                case ColorChangeConfigSet s:
+                case ColorChangeViewConfigSet s:
                     effectConfigSet = CreateColorChangeConfigVMSet(s);
                     break;
-                case FlashConfigSet s:
+                case FlashViewConfigSet s:
                     effectConfigSet = CreateFlashConfigVMSet(s);
                     break;
-                case FadeInConfigSet s:
+                case FadeInViewConfigSet s:
                     effectConfigSet = CreateFadeInConfigVMSet(s);
                     break;
-                case FadeOutConfigSet s:
+                case FadeOutViewConfigSet s:
                     effectConfigSet = CreateFadeOutConfigVMSet(s);
                     break;
-                case BrightnessWaveConfigSet s:
+                case BrightnessWaveViewConfigSet s:
                     effectConfigSet = CreateBrightnessWaveConfigVMSet(s);
                     break;
-                case ColorWaveConfigSet s:
+                case ColorWaveViewConfigSet s:
                     effectConfigSet = CreateColorWaveConfigVMSet(s);
                     break;
-                case TurnOnConfigSet s:
+                case TurnOnViewConfigSet s:
                     effectConfigSet = CreateTurnOnConfigVMSet(s);
                     break;
-                case TurnOffConfigSet s:
+                case TurnOffViewConfigSet s:
                     effectConfigSet = CreateTurnOffConfigVMSet(s);
                     break;
                 default:
@@ -93,7 +96,7 @@ namespace UI.Models.Classes
             return set;
         }
 
-        private static IConfigVMSet CreateColorChangeConfigVMSet(IEffectConfigSet set)
+        private static IConfigVMSet CreateColorChangeConfigVMSet(IViewEffectConfigSet set)
         {
             if (set is ColorChangeConfigSet configSet)
             {
@@ -107,53 +110,53 @@ namespace UI.Models.Classes
             }
             return null;
         }
-        private static IConfigVMSet CreateFlashConfigVMSet(IEffectConfigSet set)
+        private static IConfigVMSet CreateFlashConfigVMSet(IViewEffectConfigSet set)
         {
-            if (set is FlashConfigSet configSet)
+            if (set is FlashViewConfigSet configSet)
             {
-                uint transitiontime = (uint)configSet.TransitionTimeConfig.Value;
+                uint transitiontime = (uint)configSet.GetEffectConfigProperty(EffectConfigPropertyIdentifier.TransitionTime);
                 TransitionTimeConfig_ViewModel transitionTimeVM = new TransitionTimeConfig_ViewModel(transitiontime);
 
-                BrightnessConfig_ViewModel firstBrightnessVM = new BrightnessConfig_ViewModel((byte)configSet.FinalBrightnessConfig.Value);
-                BrightnessConfig_ViewModel secondBrightnessVM = new BrightnessConfig_ViewModel((byte)configSet.InitialBrightnessConfig.Value);
+                BrightnessConfig_ViewModel firstBrightnessVM = new BrightnessConfig_ViewModel((byte)configSet.GetEffectConfigProperty(EffectConfigPropertyIdentifier.BrightnessFinal));
+                BrightnessConfig_ViewModel secondBrightnessVM = new BrightnessConfig_ViewModel((byte)configSet.GetEffectConfigProperty(EffectConfigPropertyIdentifier.BrightnessStart));
 
                 return new FlashConfig_VMSet(firstBrightnessVM, secondBrightnessVM, transitionTimeVM);
             }
             return null;
         }
-        private static IConfigVMSet CreateFadeInConfigVMSet(IEffectConfigSet vmSet)
+        private static IConfigVMSet CreateFadeInConfigVMSet(IViewEffectConfigSet vmSet)
         {
-            if (vmSet is FadeInConfigSet configSet)
+            if (vmSet is FadeInViewConfigSet configSet)
             {
-                uint transitiontime = (uint)configSet.TransitionTimeConfig.Value;
+                uint transitiontime = (uint)configSet.GetEffectConfigProperty(EffectConfigPropertyIdentifier.TransitionTime);
                 TransitionTimeConfig_ViewModel transitionTimeVM = new TransitionTimeConfig_ViewModel(transitiontime);
 
-                BrightnessConfig_ViewModel brightnessVM = new BrightnessConfig_ViewModel((byte)configSet.BrightnessConfig.Value);
+                BrightnessConfig_ViewModel brightnessVM = new BrightnessConfig_ViewModel((byte)configSet.GetEffectConfigProperty(EffectConfigPropertyIdentifier.BrightnessLevel));
 
                 return new FadeInConfig_VMSet(brightnessVM, transitionTimeVM);
             }
             return null;
         }
-        private static IConfigVMSet CreateFadeOutConfigVMSet(IEffectConfigSet vmSet)
+        private static IConfigVMSet CreateFadeOutConfigVMSet(IViewEffectConfigSet vmSet)
         {
-            if (vmSet is FadeOutConfigSet configSet)
+            if (vmSet is FadeOutViewConfigSet configSet)
             {
-                uint transitiontime = (uint)configSet.TransitionTimeConfig.Value;
+                uint transitiontime = (uint)configSet.GetEffectConfigProperty(EffectConfigPropertyIdentifier.TransitionTime);
                 TransitionTimeConfig_ViewModel transitionTimeVM = new TransitionTimeConfig_ViewModel(transitiontime);
 
-                BrightnessConfig_ViewModel brightnessVM = new BrightnessConfig_ViewModel((byte)configSet.BrightnessConfig.Value);
+                BrightnessConfig_ViewModel brightnessVM = new BrightnessConfig_ViewModel((byte)configSet.GetEffectConfigProperty(EffectConfigPropertyIdentifier.BrightnessLevel));
 
                 return new FadeOutConfig_VMSet(brightnessVM, transitionTimeVM);
             }
             return null;
         }
 
-        private static IConfigVMSet CreateBrightnessWaveConfigVMSet(IEffectConfigSet vmSet)
+        private static IConfigVMSet CreateBrightnessWaveConfigVMSet(IViewEffectConfigSet vmSet)
         {
-            if (vmSet is BrightnessWaveConfigSet configSet)
+            if (vmSet is BrightnessWaveViewConfigSet configSet)
             {
                 List<IConfigListViewModel> lightsVM = new List<IConfigListViewModel>();
-                List<CardConfigList_ViewModel> list = HueLight_ToCardConfigConverter.ConvertHueLight_ToCardConfig(configSet.LightListConfig.LightList);
+                List<CardConfigList_ViewModel> list = HueLight_ToCardConfigConverter.ConvertViewLight_ToCardConfig(configSet.GetViewLights());
 
                 foreach (CardConfigList_ViewModel vm in list)
                     lightsVM.Add(vm);
@@ -161,12 +164,12 @@ namespace UI.Models.Classes
                 ObservableCollection<IConfigListViewModel> collection = new ObservableCollection<IConfigListViewModel>(lightsVM);
                 LightListConfig_ViewModel lightListConfigVM = new LightListConfig_ViewModel(collection);
 
-                BrightnessConfig_ViewModel brightnessVM = new BrightnessConfig_ViewModel((byte)configSet.BrightnessConfig.Value);
+                BrightnessConfig_ViewModel brightnessVM = new BrightnessConfig_ViewModel((byte)configSet.GetEffectConfigProperty(EffectConfigPropertyIdentifier.BrightnessLevel));
 
-                uint transitiontime = (uint)configSet.TransitionTimeConfig.Value;
+                uint transitiontime = (uint)configSet.GetEffectConfigProperty(EffectConfigPropertyIdentifier.TransitionTime);
                 TransitionTimeConfig_ViewModel transitionTimeVM = new TransitionTimeConfig_ViewModel(transitiontime);
 
-                uint intervaltime = (uint)configSet.IntervalTimeConfig.GetTimeInTenthOfSeconds();
+                uint intervaltime = (uint)configSet.GetEffectConfigProperty(EffectConfigPropertyIdentifier.IntervalTime);
                 TransitionTimeConfig_ViewModel intervalTimeVM = new TransitionTimeConfig_ViewModel(intervaltime);
 
                 return new BrightnessWaveConfig_VMSet(brightnessVM, lightListConfigVM, transitionTimeVM, intervalTimeVM);
@@ -174,15 +177,16 @@ namespace UI.Models.Classes
             return null;
         }
 
-        private static IConfigVMSet CreateColorWaveConfigVMSet(IEffectConfigSet vmSet)
+        private static IConfigVMSet CreateColorWaveConfigVMSet(IViewEffectConfigSet vmSet)
         {
-            if (vmSet is ColorWaveConfigSet configSet)
+            if (vmSet is ColorWaveViewConfigSet configSet)
             {
-                Color color = Color.FromRgb(configSet.ColorConfig.RGBColor.R, configSet.ColorConfig.RGBColor.G, configSet.ColorConfig.RGBColor.B);
+                var colorFromSet = (System.Drawing.Color)configSet.GetEffectConfigProperty(EffectConfigPropertyIdentifier.Color);
+                Color color = Color.FromRgb(colorFromSet.R, colorFromSet.G, colorFromSet.B);
                 ColorConfig_ViewModel colorConfig = new ColorConfig_ViewModel(color);
 
                 List<IConfigListViewModel> lightsVM = new List<IConfigListViewModel>();
-                List<CardConfigList_ViewModel> list = HueLight_ToCardConfigConverter.ConvertHueLight_ToCardConfig(configSet.LightListConfig.LightList);
+                List<CardConfigList_ViewModel> list = HueLight_ToCardConfigConverter.ConvertViewLight_ToCardConfig(configSet.GetViewLights());
 
                 foreach (CardConfigList_ViewModel vm in list)
                     lightsVM.Add(vm);
@@ -190,10 +194,10 @@ namespace UI.Models.Classes
                 ObservableCollection<IConfigListViewModel> collection = new ObservableCollection<IConfigListViewModel>(lightsVM);
                 LightListConfig_ViewModel lightListConfigVM = new LightListConfig_ViewModel(collection);
 
-                uint transitiontime = (uint)configSet.TransitionTimeConfig.Value;
+                uint transitiontime = (uint)configSet.GetEffectConfigProperty(EffectConfigPropertyIdentifier.TransitionTime);
                 TransitionTimeConfig_ViewModel transitionTimeVM = new TransitionTimeConfig_ViewModel(transitiontime);
 
-                uint intervaltime = (uint)configSet.IntervalTimeConfig.GetTimeInTenthOfSeconds();
+                uint intervaltime = (uint)configSet.GetEffectConfigProperty(EffectConfigPropertyIdentifier.IntervalTime);
                 TransitionTimeConfig_ViewModel intervalTimeVM = new TransitionTimeConfig_ViewModel(intervaltime);
 
                 return new ColorWaveConfig_VMSet(colorConfig, lightListConfigVM, transitionTimeVM, intervalTimeVM);
@@ -201,21 +205,19 @@ namespace UI.Models.Classes
             return null;
         }
 
-        private static IConfigVMSet CreateTurnOnConfigVMSet(IEffectConfigSet vmSet)
+        private static IConfigVMSet CreateTurnOnConfigVMSet(IViewEffectConfigSet vmSet)
         {
-            if (vmSet is TurnOnConfigSet configSet)
+            if (vmSet is TurnOnViewConfigSet configSet)
             {
-
                 return new TurnOnConfig_VMSet();
             }
             return null;
         }
 
-        private static IConfigVMSet CreateTurnOffConfigVMSet(IEffectConfigSet vmSet)
+        private static IConfigVMSet CreateTurnOffConfigVMSet(IViewEffectConfigSet vmSet)
         {
-            if (vmSet is TurnOffConfigSet configSet)
+            if (vmSet is TurnOffViewConfigSet configSet)
             {
-
                 return new TurnOffConfig_VMSet();
             }
             return null;

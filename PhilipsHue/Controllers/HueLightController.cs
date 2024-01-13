@@ -56,7 +56,7 @@ namespace PhilipsHue.Controllers
             return null;
         }
 
-        public List<HueLight> GetAllLightsList()
+        public List<HueLight> GetAllAvailableDevices()
         {
             List<HueLight> list = new List<HueLight>();
 

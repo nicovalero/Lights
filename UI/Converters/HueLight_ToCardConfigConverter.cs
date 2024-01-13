@@ -1,17 +1,10 @@
-﻿using PhilipsHue.Effects.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using FontAwesome.Sharp;
 using System.Windows.Media;
-using PhilipsHue.Effects.Classes;
-using PhilipsHue.Collections;
-using System.Windows.Forms;
 using UI.Models.Structs;
 using PhilipsHue.Models.Interfaces;
-using PhilipsHue.Models.Classes;
+using Control.Models.Interfaces;
+using Control.Enums;
 
 namespace UI
 {
@@ -28,28 +21,31 @@ namespace UI
             _backgroundColor2 = Color.FromRgb(21, 36, 87);
         }
 
-        private static FontAwesome.Sharp.IconChar GetLightIconByType(HueLight light)
+        private static FontAwesome.Sharp.IconChar GetLightIconByType(LightType lightType)
         {
             FontAwesome.Sharp.IconChar icon;
-            switch (light)
+            switch (lightType)
             {
                 default:
                     icon = IconChar.Lightbulb;
                     break;
-                case HueColorLight l:
+                case LightType.PhilipsHue:
                     icon = IconChar.Lightbulb;
+                    break;
+                case LightType.Nanoleaf:
+                    icon = IconChar.TriangleCircleSquare;
                     break;
             }
             return icon;
         }
 
-        public static List<CardConfigList_ViewModel> ConvertHueLight_ToCardConfig(List<HueLight> lights)
+        public static List<CardConfigList_ViewModel> ConvertViewLight_ToCardConfig(List<IViewLight> lights)
         {
             List<CardConfigList_ViewModel> list = new List<CardConfigList_ViewModel>();
 
-            foreach (HueLight light in lights)
+            foreach (IViewLight light in lights)
             {
-                list.Add(new CardConfigList_ViewModel(light.uniqueId, light, light.name, _backgroundColor1, _backgroundColor2, GetLightIconByType(light), light.productName));
+                list.Add(new CardConfigList_ViewModel(light.GetID(), light, light.GetName(), _backgroundColor1, _backgroundColor2, GetLightIconByType(light.GetLightType()), light.GetName()));
             }
 
             return list;

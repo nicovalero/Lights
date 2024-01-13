@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataStorage.Models.Interfaces
+namespace Control.Models.Interfaces
 {
-    public interface LinkSaveObject
+    public interface IEffectConfigProperty
     {
-        string SerializeToJSON();
     }
 }
