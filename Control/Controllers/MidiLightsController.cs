@@ -233,7 +233,14 @@ namespace Control.Controllers
             var list = new List<IViewEffect>
             {
                 viewEffectFactory.Construct(AvailableViewEffects.UniversalOn),
-                viewEffectFactory.Construct(AvailableViewEffects.UniversalOff)
+                viewEffectFactory.Construct(AvailableViewEffects.UniversalOff),
+                viewEffectFactory.Construct(AvailableViewEffects.UniversalFlash),
+                viewEffectFactory.Construct(AvailableViewEffects.UniversalColorChange),
+                viewEffectFactory.Construct(AvailableViewEffects.UniversalColorWave),
+                viewEffectFactory.Construct(AvailableViewEffects.UniversalBrightnessWave),
+                viewEffectFactory.Construct(AvailableViewEffects.UniversalFadeIn),
+                viewEffectFactory.Construct(AvailableViewEffects.UniversalFadeOut),
+                viewEffectFactory.Construct(AvailableViewEffects.NanoleafEffect)
             };
 
             return list;

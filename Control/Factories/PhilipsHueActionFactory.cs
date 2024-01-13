@@ -72,7 +72,6 @@ namespace Control.Factories
                     config = new ColorChangeConfigSet((System.Drawing.Color)viewEffectConfigSet.GetEffectConfigProperty(EffectConfigPropertyIdentifier.Color), (uint)viewEffectConfigSet.GetEffectConfigProperty(EffectConfigPropertyIdentifier.TransitionTime));
                     break;
                 case AvailableViewEffects.UniversalColorWave:
-                    //Continue here
                     var transitionConfig = new TransitionTimeConfig((uint)viewEffectConfigSet.GetEffectConfigProperty(EffectConfigPropertyIdentifier.TransitionTime));
                     var intervalTime = new TransitionTimeConfig((uint)viewEffectConfigSet.GetEffectConfigProperty(EffectConfigPropertyIdentifier.IntervalTime));
                     var lightListConfig = new HueLightListConfig(lights);

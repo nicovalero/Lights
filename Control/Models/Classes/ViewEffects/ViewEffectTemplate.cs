@@ -10,13 +10,23 @@ using System.Threading.Tasks;
 
 namespace Control.Models.Classes.ViewLights
 {
-    public class UniversalOnViewEffect : IViewEffect
+    public class ViewEffectTemplate : IViewEffect
     {
-        private const string DESCRIPTION = "Switches the device on";
-        private const EffectType TYPE = EffectType.Universal;
-        private const string TYPENAME = "Universal";
-        private const string NAME = "Turn On";
-        private const AvailableViewEffects KIND = AvailableViewEffects.UniversalOn;
+        private readonly string DESCRIPTION;
+        private readonly EffectType TYPE;
+        private readonly string TYPENAME;
+        private readonly string NAME;
+        private readonly AvailableViewEffects KIND;
+
+        public ViewEffectTemplate(string DESCRIPTION, EffectType TYPE, string TYPENAME, string NAME, AvailableViewEffects KIND)
+        {
+            this.DESCRIPTION = DESCRIPTION;
+            this.TYPE = TYPE;
+            this.TYPENAME = TYPENAME;
+            this.NAME = NAME;
+            this.KIND = KIND;
+        }
+
         public string GetDescription()
         {
             return DESCRIPTION;
@@ -44,7 +54,7 @@ namespace Control.Models.Classes.ViewLights
 
         public override bool Equals(object obj)
         {
-            var concreteObj = (UniversalOnViewEffect)obj;
+            var concreteObj = (ViewEffectTemplate)obj;
             return concreteObj.GetName() == this.GetName() && concreteObj.GetEffectType() == this.GetEffectType()
                 && concreteObj.GetKind() == concreteObj.GetKind();
         }

@@ -61,7 +61,7 @@
     <Compile Include="Enums\EffectType.cs" />
     <Compile Include="Enums\LightType.cs" />
     <Compile Include="Factories\ViewLinkFactory.cs" />
-    <Compile Include="Models\Classes\AvailableViewEffectsCollection.cs" />
+    <Compile Include="Enums\AvailableViewEffects.cs" />
     <Compile Include="Models\Classes\PhilipsHueControlledLightEffectAction.cs" />
     <Compile Include="Controllers\Interfaces\IMidiLightsController.cs" />
     <Compile Include="Controllers\MidiLightsController.cs" />
@@ -75,8 +75,7 @@
     <Compile Include="Models\Classes\ViewEffectConfigSet\ColorWaveViewConfigSet.cs" />
     <Compile Include="Models\Classes\ViewEffectConfigSet\ColorChangeViewConfigSet.cs" />
     <Compile Include="Models\Classes\ViewEffectConfigSet\BrightnessWaveViewConfigSet.cs" />
-    <Compile Include="Models\Classes\ViewEffects\UniversalOffViewEffect.cs" />
-    <Compile Include="Models\Classes\ViewEffects\UniversalOnViewEffect.cs" />
+    <Compile Include="Models\Classes\ViewEffects\ViewEffectTemplate.cs" />
     <Compile Include="Models\Classes\ViewLights\NanoleafViewLight.cs" />
     <Compile Include="Models\Classes\ViewLights\PhilipsHueViewLight.cs" />
     <Compile Include="Models\Classes\ViewLink.cs" />

@@ -3,7 +3,7 @@ using FontAwesome.Sharp;
 using System.Windows.Media;
 using UI.Models.Structs;
 using Control.Models.Interfaces;
-using Control.Models.Classes;
+using Control.Enums;
 using Control.Controllers;
 
 namespace UI
