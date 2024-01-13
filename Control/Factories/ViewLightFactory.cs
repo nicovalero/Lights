@@ -3,6 +3,7 @@ using Control.Models.Classes;
 using Control.Models.Classes.ViewEffects;
 using Control.Models.Interfaces;
 using PhilipsHue.Collections;
+using PhilipsHue.Models.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,20 +18,17 @@ namespace Control.Factories
         {
         }
 
-        public IViewLight Construct(AvailableViewLights availableLights, string ID)
+        public IViewLight Construct(AvailableViewLights availableLights, HueLight light)
         {
-            IViewLight light = null;
+            IViewLight viewLight = null;
             switch (availableLights)
             {
-                case AvailableViewLights.Nanoleaf:
-                    light = new NanoleafViewLight(ID);
-                    break;
                 case AvailableViewLights.PhilipsHue:
-                    light = new PhilipsHueViewLight(ID);
+                    viewLight = new PhilipsHueViewLight(light.uniqueId, light.name, light.type);
                     break;
             }
 
-            return light;
+            return viewLight;
         }
     }
 }

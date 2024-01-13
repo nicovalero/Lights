@@ -246,7 +246,7 @@ namespace Control.Controllers
 
             foreach(var light in hueLights)
             {
-                viewLights.Add(viewLightFactory.Construct(AvailableViewLights.PhilipsHue, light.productId));
+                viewLights.Add(viewLightFactory.Construct(AvailableViewLights.PhilipsHue, light));
             }
 
             return viewLights;

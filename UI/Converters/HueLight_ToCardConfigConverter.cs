@@ -45,7 +45,7 @@ namespace UI
 
             foreach (IViewLight light in lights)
             {
-                list.Add(new CardConfigList_ViewModel(light.GetID(), light, light.GetName(), _backgroundColor1, _backgroundColor2, GetLightIconByType(light.GetLightType()), light.GetName()));
+                list.Add(new CardConfigList_ViewModel(light.GetID(), light, light.GetName(), _backgroundColor1, _backgroundColor2, GetLightIconByType(light.GetLightType()), light.GetDescription()));
             }
 
             return list;

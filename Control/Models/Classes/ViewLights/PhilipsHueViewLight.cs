@@ -12,15 +12,17 @@ namespace Control.Models.Classes.ViewEffects
 {
     public class PhilipsHueViewLight : IViewLight
     {
-        private const string DESCRIPTION = "Philips Hue light";
+        private readonly string DESCRIPTION = "Philips Hue light";
         private const LightType TYPE = LightType.PhilipsHue;
         private const string TYPENAME = "Philips Hue";
-        private const string NAME = "Philips Hue Light";
+        private readonly string NAME = "Philips Hue Light";
         private readonly string id;
 
-        public PhilipsHueViewLight(string ID)
+        public PhilipsHueViewLight(string ID, string lightName, string description)
         {
             this.id = ID;
+            NAME = lightName;
+            DESCRIPTION = description;
         }
         public string GetDescription()
         {
