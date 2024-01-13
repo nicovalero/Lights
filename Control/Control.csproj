@@ -69,6 +69,7 @@
     <Compile Include="Controllers\StorageController.cs" />
     <Compile Include="Models\Classes\ViewEffectConfigSet\FadeOutViewConfigSet.cs" />
     <Compile Include="Models\Classes\ViewEffectConfigSet\TurnOffViewConfigSet.cs" />
+    <Compile Include="Models\Classes\ViewEffectConfigSet\NanoleafViewConfigSet.cs" />
     <Compile Include="Models\Classes\ViewEffectConfigSet\TurnOnViewConfigSet.cs" />
     <Compile Include="Models\Classes\ViewEffectConfigSet\FlashViewConfigSet.cs" />
     <Compile Include="Models\Classes\ViewEffectConfigSet\FadeInViewConfigSet.cs" />

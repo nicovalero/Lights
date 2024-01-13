@@ -263,9 +263,9 @@ namespace UI
         {
             if(model.Item != null)
             {
-                if (model.Item is LightEffect)
+                if (model.Item is IViewEffect viewEffect)
                 {
-                    return EffectConfigWindowAssigner.GetWindowByEffect((LightEffect)model.Item, configuration);
+                    return EffectConfigWindowAssigner.GetWindowByEffect(viewEffect, configuration);
                 }
             }
 

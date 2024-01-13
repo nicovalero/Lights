@@ -246,6 +246,9 @@ namespace UI
                 case TurnOffConfigWindow w:
                     newConfig = w.TurnOffConfigSet;
                     break;
+                case NanoleafEffectConfigWindow w:
+                    newConfig = w.NanoleafEffectConfigSet;
+                    break;
                 default:
                     newConfig = null;
                     break;

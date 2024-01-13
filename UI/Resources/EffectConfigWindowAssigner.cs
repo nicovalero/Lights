@@ -1,4 +1,6 @@
-﻿using PhilipsHue.Effects.Classes;
+﻿using Control.Enums;
+using Control.Models.Interfaces;
+using PhilipsHue.Effects.Classes;
 using PhilipsHue.Effects.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -17,60 +19,66 @@ namespace UI.Resources
 {
     internal static class EffectConfigWindowAssigner
     {
-        internal static Window GetWindowByEffect(LightEffect effect, IConfigVMSet configuration)
+        internal static Window GetWindowByEffect(IViewEffect effect, IConfigVMSet configuration)
         {
             Window window = null;
-            switch (effect)
+            switch (effect.GetKind())
             {
                 default: 
                     return null;
-                case Flash f:
+                case AvailableViewEffects.UniversalFlash:
                     if(configuration is FlashConfig_VMSet flashConfig)
                         window = new FlashConfigWindow(flashConfig);
                     else
                         window = new FlashConfigWindow();
                     break;
-                case ColorChange c:
+                case AvailableViewEffects.UniversalColorChange:
                     if (configuration is ColorChangeConfig_VMSet colorChangeConfig)
                         window = new ColorChangeConfigWindow(colorChangeConfig);
                     else
                         window = new ColorChangeConfigWindow();
                     break;
-                case FadeIn f:
+                case AvailableViewEffects.UniversalFadeIn:
                     if (configuration is FadeInConfig_VMSet fadeInConfig)
                         window = new FadeInConfigWindow(fadeInConfig);
                     else
                         window = new FadeInConfigWindow();
                     break;
-                case FadeOut f:
+                case AvailableViewEffects.UniversalFadeOut:
                     if (configuration is FadeOutConfig_VMSet fadeOutConfig)
                         window = new FadeOutConfigWindow(fadeOutConfig);
                     else
                         window = new FadeOutConfigWindow();
                     break;
-                case BrightnessWave b:
+                case AvailableViewEffects.UniversalBrightnessWave:
                     if (configuration is BrightnessWaveConfig_VMSet brightnessWaveConfig)
                         window = new BrightnessWaveConfigWindow(brightnessWaveConfig);
                     else
                         window = new BrightnessWaveConfigWindow();
                     break;
-                case ColorWave c:
+                case AvailableViewEffects.UniversalColorWave:
                     if (configuration is ColorWaveConfig_VMSet colorWaveConfig)
                         window = new ColorWaveConfigWindow(colorWaveConfig);
                     else
                         window = new ColorWaveConfigWindow();
                     break;
-                case TurnOn c:
+                case AvailableViewEffects.UniversalOn:
                     if (configuration is TurnOnConfig_VMSet turnOnConfig)
                         window = new TurnOnConfigWindow(turnOnConfig);
                     else
                         window = new TurnOnConfigWindow();
                     break;
-                case TurnOff c:
+                case AvailableViewEffects.UniversalOff:
                     if (configuration is TurnOffConfig_VMSet turnOffConfig)
                         window = new TurnOffConfigWindow(turnOffConfig);
                     else
                         window = new TurnOffConfigWindow();
+                    break;
+                case AvailableViewEffects.NanoleafEffect:
+                    if (configuration is NanoleafEffectConfig_VMSet nanoleafEffectConfig)
+                        window = new NanoleafEffectConfigWindow(nanoleafEffectConfig);
+                    else
+                        window = new NanoleafEffectConfigWindow();
                     break;
             }
 
