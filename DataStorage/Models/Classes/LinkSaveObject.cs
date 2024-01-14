@@ -12,11 +12,16 @@ namespace DataStorage.Models.Classes
 {
     public class LinkSaveObject : ILinkSaveObject
     {
-        public string JsonContent { get; private set; }
+        [JsonProperty("LinksJson")]
+        public string LinksJson { get; private set; }
 
-        public LinkSaveObject(string jsonContent)
+        [JsonProperty("PhilipsHueMidiLightsControllerJson")]
+        public string PhilipsHueMidiLightsControllerJson { get; private set; }
+
+        public LinkSaveObject(string linksJson, string philipsHueJsonContent)
         {
-            this.JsonContent = jsonContent;
+            this.LinksJson = linksJson;
+            this.PhilipsHueMidiLightsControllerJson = philipsHueJsonContent;
         }
     }
 }

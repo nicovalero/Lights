@@ -1,4 +1,5 @@
 ﻿using DataStorage.Models.Interfaces;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -21,7 +22,7 @@ namespace DataStorage.Models
 
             if(dialog.ShowDialog() == DialogResult.OK)
             {
-                string content = saveObject.JsonContent;
+                string content = JsonConvert.SerializeObject(saveObject);
                 string fileName = dialog.FileName;
                 File.WriteAllText(fileName, content);
             }

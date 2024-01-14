@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace Control.Controllers.Interfaces
 {
-    internal interface IMidiLightsController
+    public interface IMidiLightsController
     {
         bool CreateLink(MidiMessageViewLightsEffectConfig linkData);
         bool RemoveLink(MidiMessageKeys keys);

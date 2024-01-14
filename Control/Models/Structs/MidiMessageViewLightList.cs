@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Control.Models.Structs
 {
-    internal struct MidiMessageViewLightsEffectConfig
+    public struct MidiMessageViewLightsEffectConfig
     {
         public List<IViewLight> ViewLights { get; set; }
         public MidiMessageKeys MidiMessageKeys { get; set; }

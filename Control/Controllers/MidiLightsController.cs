@@ -39,8 +39,10 @@ namespace Control.Controllers
     {
         private readonly MidiController _midiController;
         private readonly StorageController _storageController;
-        private static Dictionary<MidiMessageKeys, IViewLink> _links;
-        private readonly IMidiLightsController _hueLightsController;
+
+        public static Dictionary<MidiMessageKeys, IViewLink> _links;
+        public static IMidiLightsController _hueLightsController;
+
         private ViewEffectFactory viewEffectFactory;
         private ViewLightFactory viewLightFactory;
         private ViewLinkFactory viewLinkFactory;
@@ -122,15 +124,21 @@ namespace Control.Controllers
 
         public bool SaveLinksToFile()
         {
-            var hueLightsLinks = _hueLightsController.GetMessageActionLinks();
+            //var hueLightsLinks = _hueLightsController.GetMessageActionLinks();
 
             //Needs to deal with the Nanoleaf links as well, once it is in place
-            var jsonContent = JsonConvert.SerializeObject(hueLightsLinks, Formatting.Indented, new JsonSerializerSettings
+            var hueLightsControllerJson = JsonConvert.SerializeObject(_hueLightsController, Formatting.Indented, new JsonSerializerSettings
             {
                 TypeNameHandling = TypeNameHandling.Objects,
                 TypeNameAssemblyFormat = System.Runtime.Serialization.Formatters.FormatterAssemblyStyle.Simple
             });
-            ILinkSaveObject saveObject = new LinkSaveObject(jsonContent);
+
+            var linksJson = JsonConvert.SerializeObject(_links, Formatting.Indented, new JsonSerializerSettings
+            {
+                TypeNameHandling = TypeNameHandling.Objects,
+                TypeNameAssemblyFormat = System.Runtime.Serialization.Formatters.FormatterAssemblyStyle.Simple
+            });
+            ILinkSaveObject saveObject = new LinkSaveObject(linksJson, hueLightsControllerJson);
             return _storageController.SaveLinks(saveObject);
         }
 
@@ -140,11 +148,9 @@ namespace Control.Controllers
 
             if (links != null)
             {
-                _links.Clear();
-                //foreach (KeyValuePair<MidiMessageKeys, IControlledLightEffectAction> link in links.Links)
-                //{
-                //    _links.Add(link.Key);
-                //}
+                //_links.Clear();
+                //_links = JsonConvert.DeserializeObject<Dictionary<MidiMessageKeys, IViewLink>>(links.LinksJson);
+                _hueLightsController = JsonConvert.DeserializeObject<PhilipsHueLightsController>(links.PhilipsHueMidiLightsControllerJson);
             }
             else
                 return false;

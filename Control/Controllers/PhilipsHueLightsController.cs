@@ -6,6 +6,7 @@ using DataStorage.Models.Interfaces;
 using MIDI.Controllers;
 using MIDI.Models.Class;
 using MIDI.Models.Structs;
+using Newtonsoft.Json;
 using PhilipsHue.Actions.Classes;
 using PhilipsHue.Actions.Interfaces;
 using PhilipsHue.Collections;
@@ -25,7 +26,13 @@ namespace Control.Controllers
     {
         private readonly ActionController _actionController;
         private readonly HueLightController _hueLightController;
-        private static Dictionary<MidiMessageKeys, LightEffectAction> _messageActionLinks;
+        public static Dictionary<MidiMessageKeys, LightEffectAction> _messageActionLinks;
+
+        [JsonProperty("MessageActionLinks")]
+        public Dictionary<MidiMessageKeys, LightEffectAction> MessageActionLinks { 
+            get { return _messageActionLinks; } 
+            set { _messageActionLinks = value; }
+        }
 
         internal PhilipsHueLightsController()
         {
