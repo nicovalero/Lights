@@ -1,20 +1,17 @@
 ﻿using Control.Enums;
 using Control.Models.Interfaces;
+using Newtonsoft.Json;
 using System.Collections.Generic;
 
 namespace Control.Models.Classes.ViewEffectConfigSet
 {
     public class FadeOutViewConfigSet : IViewEffectConfigSet
     {
-        private byte brightnessLevel;
-        private uint transitionTime;
+        [JsonProperty]
         private Dictionary<EffectConfigPropertyIdentifier, object> effectDictionary;
 
         public FadeOutViewConfigSet(byte brightnessLevel, uint transitionTime)
         {
-            this.brightnessLevel = brightnessLevel;
-            this.transitionTime = transitionTime;
-
             effectDictionary = new Dictionary<EffectConfigPropertyIdentifier, object>();
             effectDictionary.Add(EffectConfigPropertyIdentifier.BrightnessLevel, brightnessLevel);
             effectDictionary.Add(EffectConfigPropertyIdentifier.TransitionTime, transitionTime);

@@ -1,5 +1,7 @@
 ﻿using Control.Enums;
+using Control.Models.Classes.ViewLights;
 using Control.Models.Interfaces;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,15 +12,20 @@ namespace Control.Models.Classes
 {
     public class ViewLink: IViewLink
     {
-        public List<IViewLight> Lights { get; private set; }
-        public IViewEffect ViewEffect { get; private set; }
-        public EffectType LinkType { get; private set; }
-        public IViewEffectConfigSet Config { get; private set; }
+        private List<IViewLight> lights;
+        private IViewEffect viewEffect;
+        private IViewEffectConfigSet config;
+        public List<IViewLight> Lights { get { return lights; } set { lights = value; } }
+        public ViewEffectTemplate ViewEffect { get { return (ViewEffectTemplate)viewEffect; } set { viewEffect = (ViewEffectTemplate)value; } }
+        public EffectType LinkType { get; set; }
+        public IViewEffectConfigSet Config { get { return config; } set { config = value; } }
 
-        internal ViewLink(List<IViewLight> lights, IViewEffect viewEffect, EffectType linkType, IViewEffectConfigSet config)
+        public ViewLink() { }
+
+        public ViewLink(List<IViewLight> lights, IViewEffect viewEffect, EffectType linkType, IViewEffectConfigSet config)
         {
             Lights = lights;
-            ViewEffect = viewEffect;
+            ViewEffect = (ViewEffectTemplate)viewEffect;
             LinkType = linkType;
             Config = config;
         }

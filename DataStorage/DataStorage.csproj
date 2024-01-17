@@ -49,8 +49,10 @@
   <ItemGroup>
     <Compile Include="Enums\SaveObjectFileType.cs" />
     <Compile Include="Models\Classes\FileManager.cs" />
+    <Compile Include="Models\Classes\MainLinkSaveObject.cs" />
     <Compile Include="Models\Classes\HueLinkSaveObject.cs" />
     <Compile Include="Models\Classes\LinkSaveObject.cs" />
+    <Compile Include="Models\Interfaces\IMainLinkSaveObject.cs" />
     <Compile Include="Models\Interfaces\IHueLinkSaveObject.cs" />
     <Compile Include="Models\Interfaces\ILinkSaveObject.cs" />
     <Compile Include="Program.cs" />

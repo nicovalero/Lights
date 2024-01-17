@@ -1,5 +1,6 @@
 ﻿using Control.Enums;
 using Control.Models.Interfaces;
+using Newtonsoft.Json;
 using PhilipsHue.EffectConfig.Parts.Classes;
 using System.Collections.Generic;
 
@@ -7,18 +8,14 @@ namespace Control.Models.Classes.ViewEffectConfigSet
 {
     public class BrightnessWaveViewConfigSet : IViewEffectConfigSet
     {
-        private byte brightnessLevel;
-        private uint transitionTime;
+        [JsonProperty]
         private List<IViewLight> lights;
-        private uint intervalTime;
+        [JsonProperty]
         private Dictionary<EffectConfigPropertyIdentifier, object> effectsDictionary;
 
         public BrightnessWaveViewConfigSet(byte brightnessLevel, uint transitionTime, List<IViewLight> lights, uint intervalTime)
         {
-            this.brightnessLevel = brightnessLevel;
-            this.transitionTime = transitionTime;
             this.lights = lights;
-            this.intervalTime = intervalTime;
 
             effectsDictionary = new Dictionary<EffectConfigPropertyIdentifier, object>();
             effectsDictionary.Add(EffectConfigPropertyIdentifier.BrightnessLevel, brightnessLevel);

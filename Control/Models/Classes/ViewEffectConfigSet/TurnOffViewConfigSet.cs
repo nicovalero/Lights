@@ -1,5 +1,6 @@
 ﻿using Control.Enums;
 using Control.Models.Interfaces;
+using Newtonsoft.Json;
 using PhilipsHue.EffectConfig.Parts.Classes;
 using System.Collections.Generic;
 
@@ -7,6 +8,7 @@ namespace Control.Models.Classes.ViewEffectConfigSet
 {
     public class TurnOffViewConfigSet : IViewEffectConfigSet
     {
+        [JsonProperty]
         private Dictionary<EffectConfigPropertyIdentifier, object> effectDictionary;
         public TurnOffViewConfigSet()
         {

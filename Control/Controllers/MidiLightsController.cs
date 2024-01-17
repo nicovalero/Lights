@@ -32,6 +32,8 @@ using Control.Models.Classes;
 using Windows.Foundation;
 using Control.Models.Structs;
 using Control.Controllers.Interfaces;
+using System.Security.AccessControl;
+using System.Text.Json;
 
 namespace Control.Controllers
 {
@@ -56,7 +58,7 @@ namespace Control.Controllers
         {
             viewEffectFactory = new ViewEffectFactory();
             viewLightFactory = new ViewLightFactory();
-            _storageController = StorageController.Singleton();            
+            _storageController = StorageController.Singleton();
             _midiController = MidiController.Singleton();
             _links = new Dictionary<MidiMessageKeys, IViewLink>();
             _hueLightsController = new PhilipsHueLightsController();
@@ -74,7 +76,7 @@ namespace Control.Controllers
             Console.WriteLine("Midi Message processed in " + stopw.ElapsedMilliseconds);
         }
 
-        public bool CreateLink(MidiChannel channel, MidiNote note, MidiVelocity velocity, 
+        public bool CreateLink(MidiChannel channel, MidiNote note, MidiVelocity velocity,
             List<IViewLight> viewLights, IViewEffect viewEffect, IViewEffectConfigSet viewConfig)
         {
             MidiMessageKeys keys = new MidiMessageKeys(channel, velocity, note);
@@ -83,27 +85,34 @@ namespace Control.Controllers
                 return false;
             else
             {
-                var hueLights = viewLights.Where(x => x.GetLightType() == LightType.PhilipsHue).ToList();
-                var nanoleafLights = viewLights.Where(x => x.GetLightType() == LightType.Nanoleaf).ToList();
-
-                if (hueLights.Count > 0)
+                if (viewLights.Count > 0)
                 {
-                    var hueLightsAndKeys = new MidiMessageViewLightsEffectConfig(hueLights, keys, viewEffect, viewConfig);
+                    var hueLights = viewLights.Where(x => x.GetLightType() == LightType.PhilipsHue).ToList();
+                    var nanoleafLights = viewLights.Where(x => x.GetLightType() == LightType.Nanoleaf).ToList();
 
-                    //The following line tells the Hue controller to create the link
-                    CreateLinkPhilipsHueEventHandler(this, hueLightsAndKeys);
+                    if (hueLights.Count > 0)
+                    {
+                        var hueLightsAndKeys = new MidiMessageViewLightsEffectConfig(hueLights, keys, viewEffect, viewConfig);
+
+                        //The following line tells the Hue controller to create the link
+                        CreateLinkPhilipsHueEventHandler(this, hueLightsAndKeys);
+                    }
+
+                    if (nanoleafLights.Count > 0)
+                    {
+                        var nanoleafLightsAndKeys = new MidiMessageViewLightsEffectConfig(nanoleafLights, keys, viewEffect, viewConfig);
+
+                        //The following line tells the Nanoleaf controller to create the link
+                        CreateLinkNanoleafEventHandler(this, nanoleafLightsAndKeys);
+                    }
+
+                    var viewLink = viewLinkFactory.Construct(viewEffect, viewLights, viewConfig);
+                    _links.Add(keys, viewLink);
                 }
-
-                if (nanoleafLights.Count > 0)
+                else
                 {
-                    var nanoleafLightsAndKeys = new MidiMessageViewLightsEffectConfig(nanoleafLights, keys, viewEffect, viewConfig);
-
-                    //The following line tells the Nanoleaf controller to create the link
-                    CreateLinkNanoleafEventHandler(this, nanoleafLightsAndKeys);
+                    return false;
                 }
-                
-                var viewLink = viewLinkFactory.Construct(viewEffect, viewLights, viewConfig);
-                _links.Add(keys, viewLink);
             }
 
             return true;
@@ -127,18 +136,24 @@ namespace Control.Controllers
             //var hueLightsLinks = _hueLightsController.GetMessageActionLinks();
 
             //Needs to deal with the Nanoleaf links as well, once it is in place
-            var hueLightsControllerJson = JsonConvert.SerializeObject(_hueLightsController, Formatting.Indented, new JsonSerializerSettings
+
+            var linkList = new List<KeyValuePair<MidiMessageKeys, ViewLink>>();
+
+            foreach (KeyValuePair<MidiMessageKeys, IViewLink> link in _links)
             {
-                TypeNameHandling = TypeNameHandling.Objects,
+                linkList.Add(new KeyValuePair<MidiMessageKeys, ViewLink>(link.Key, (ViewLink)link.Value));
+            }
+
+            var linksJson = JsonConvert.SerializeObject(linkList, Formatting.Indented, new JsonSerializerSettings
+            {
+                TypeNameHandling = TypeNameHandling.Auto,
                 TypeNameAssemblyFormat = System.Runtime.Serialization.Formatters.FormatterAssemblyStyle.Simple
             });
 
-            var linksJson = JsonConvert.SerializeObject(_links, Formatting.Indented, new JsonSerializerSettings
-            {
-                TypeNameHandling = TypeNameHandling.Objects,
-                TypeNameAssemblyFormat = System.Runtime.Serialization.Formatters.FormatterAssemblyStyle.Simple
-            });
-            ILinkSaveObject saveObject = new LinkSaveObject(linksJson, hueLightsControllerJson);
+            var hueSaveObject = new HueLinkSaveObject(_hueLightsController.GetMessageActionLinks());
+            var mainSaveObject = new MainLinkSaveObject(linksJson);
+
+            ILinkSaveObject saveObject = new LinkSaveObject(mainSaveObject, hueSaveObject);
             return _storageController.SaveLinks(saveObject);
         }
 
@@ -148,9 +163,8 @@ namespace Control.Controllers
 
             if (links != null)
             {
-                //_links.Clear();
-                //_links = JsonConvert.DeserializeObject<Dictionary<MidiMessageKeys, IViewLink>>(links.LinksJson);
-                _hueLightsController = JsonConvert.DeserializeObject<PhilipsHueLightsController>(links.PhilipsHueMidiLightsControllerJson);
+                ParseLinks(links.MainLinksJson);
+                _hueLightsController.ParseLinks(links.PhilipsHueLinkSaveObject);
             }
             else
                 return false;
@@ -257,7 +271,7 @@ namespace Control.Controllers
             var hueLights = _hueLightsController.GetAllAvailableDevices();
             var viewLights = new List<IViewLight>();
 
-            foreach(var light in hueLights)
+            foreach (var light in hueLights)
             {
                 viewLights.Add(viewLightFactory.Construct(AvailableViewLights.PhilipsHue, light));
             }
@@ -273,6 +287,23 @@ namespace Control.Controllers
         public Dictionary<MidiMessageKeys, IViewLink> GetMidiMessageLinkDictionary()
         {
             return _links;
+        }
+
+        private void ParseLinks(IMainLinkSaveObject saveObject)
+        {
+            _links.Clear();
+            var jsonLinks = saveObject.LinksJson;
+
+            var parsedObject = JsonConvert.DeserializeObject<List<KeyValuePair<MidiMessageKeys, ViewLink>>>(jsonLinks,                
+                new JsonSerializerSettings()
+                {
+                    TypeNameHandling = TypeNameHandling.Auto,
+                    TypeNameAssemblyFormat = System.Runtime.Serialization.Formatters.FormatterAssemblyStyle.Simple
+                });
+            foreach (KeyValuePair<MidiMessageKeys, ViewLink> link in parsedObject)
+            {
+                _links.Add(link.Key, link.Value);
+            }
         }
     }
 }

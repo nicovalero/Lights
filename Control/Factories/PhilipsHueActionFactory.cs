@@ -50,8 +50,6 @@ namespace Control.Factories
                 case AvailableViewEffects.UniversalFlash:
                     effect = new Flash();
                     break;
-                case AvailableViewEffects.UniversalBrightnessChange:
-                    break;
                 case AvailableViewEffects.UniversalBrightnessWave:
                     effect = BrightnessWave.Singleton();
                     break;
@@ -69,13 +67,19 @@ namespace Control.Factories
             switch (viewEffectConfigSet.GetKind())
             {
                 case AvailableViewEffects.UniversalColorChange:
-                    config = new ColorChangeConfigSet((System.Drawing.Color)viewEffectConfigSet.GetEffectConfigProperty(EffectConfigPropertyIdentifier.Color), (uint)viewEffectConfigSet.GetEffectConfigProperty(EffectConfigPropertyIdentifier.TransitionTime));
+                    var colorString = viewEffectConfigSet.GetEffectConfigProperty(EffectConfigPropertyIdentifier.Color).ToString();
+                    var drawingColor = System.Drawing.Color.FromArgb(Convert.ToInt32(colorString));
+                    config = new ColorChangeConfigSet(drawingColor, 
+                        Convert.ToUInt16(viewEffectConfigSet.GetEffectConfigProperty(EffectConfigPropertyIdentifier.TransitionTime)));
                     break;
                 case AvailableViewEffects.UniversalColorWave:
                     var transitionConfig = new TransitionTimeConfig((uint)viewEffectConfigSet.GetEffectConfigProperty(EffectConfigPropertyIdentifier.TransitionTime));
                     var intervalTime = new TransitionTimeConfig((uint)viewEffectConfigSet.GetEffectConfigProperty(EffectConfigPropertyIdentifier.IntervalTime));
                     var lightListConfig = new HueLightListConfig(lights);
-                    config = new ColorWaveConfigSet((System.Drawing.Color)viewEffectConfigSet.GetEffectConfigProperty(EffectConfigPropertyIdentifier.Color), transitionConfig, 
+                    var colorString2 = viewEffectConfigSet.GetEffectConfigProperty(EffectConfigPropertyIdentifier.Color).ToString();
+                    //var drawingColor2 = System.Drawing.Color.FromArgb(Convert.ToInt16(components2[0]), Convert.ToInt16(components2[1]), Convert.ToInt16(components2[2]));
+                    var drawingColor2 = System.Drawing.Color.FromArgb(Convert.ToInt32(colorString2));
+                    config = new ColorWaveConfigSet(drawingColor2, transitionConfig, 
                         lightListConfig, intervalTime);
                     break;
                 case AvailableViewEffects.UniversalOn:
@@ -86,9 +90,7 @@ namespace Control.Factories
                     break;
                 case AvailableViewEffects.UniversalFlash:
                     config = new FlashConfigSet((byte)viewEffectConfigSet.GetEffectConfigProperty(EffectConfigPropertyIdentifier.BrightnessFinal), (byte)viewEffectConfigSet.GetEffectConfigProperty(EffectConfigPropertyIdentifier.BrightnessStart),
-                        (uint)viewEffectConfigSet.GetEffectConfigProperty(EffectConfigPropertyIdentifier.IntervalTime));
-                    break;
-                case AvailableViewEffects.UniversalBrightnessChange:
+                        (uint)viewEffectConfigSet.GetEffectConfigProperty(EffectConfigPropertyIdentifier.TransitionTime));
                     break;
                 case AvailableViewEffects.UniversalBrightnessWave:
                     var transition = new TransitionTimeConfig((uint)viewEffectConfigSet.GetEffectConfigProperty(EffectConfigPropertyIdentifier.TransitionTime));

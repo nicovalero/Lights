@@ -1,6 +1,7 @@
 ﻿using Control.Enums;
 using Control.Factories;
 using Control.Models.Interfaces;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -12,10 +13,15 @@ namespace Control.Models.Classes.ViewLights
 {
     public class ViewEffectTemplate : IViewEffect
     {
+        [JsonProperty]
         private readonly string DESCRIPTION;
+        [JsonProperty]
         private readonly EffectType TYPE;
+        [JsonProperty]
         private readonly string TYPENAME;
+        [JsonProperty]
         private readonly string NAME;
+        [JsonProperty]
         private readonly AvailableViewEffects KIND;
 
         public ViewEffectTemplate(string DESCRIPTION, EffectType TYPE, string TYPENAME, string NAME, AvailableViewEffects KIND)

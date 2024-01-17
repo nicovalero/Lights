@@ -22,7 +22,7 @@ namespace DataStorage.Models
 
             if(dialog.ShowDialog() == DialogResult.OK)
             {
-                string content = JsonConvert.SerializeObject(saveObject);
+                string content = saveObject.SerializeToJSON();
                 string fileName = dialog.FileName;
                 File.WriteAllText(fileName, content);
             }

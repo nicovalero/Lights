@@ -246,7 +246,7 @@ namespace UI
         {
             if (model.Item != null)
             {
-                if (model.Item is LightEffect effect)
+                if (model.Item is IViewEffect effect)
                 {
                     return ConfigVMSetCreator.CreateConfigSetFromEffect(effect);
                 }

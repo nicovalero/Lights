@@ -1,6 +1,7 @@
 ﻿using Control.Enums;
 using Control.Factories;
 using Control.Models.Interfaces;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -16,6 +17,8 @@ namespace Control.Models.Classes.ViewEffects
         private const LightType TYPE = LightType.Nanoleaf;
         private const string TYPENAME = "Nanoleaf";
         private const string NAME = "Nanoleaf panels";
+
+        [JsonProperty]
         private readonly string id;
 
         public NanoleafViewLight(string ID)

@@ -33,7 +33,7 @@ namespace Control.Controllers
 
             if (!string.IsNullOrEmpty(content))
             {
-                ILinkSaveObject links = JsonConvert.DeserializeObject<LinkSaveObject>(content, new JsonSerializerSettings
+                ILinkSaveObject links = JsonConvert.DeserializeObject<ILinkSaveObject>(content, new JsonSerializerSettings
                 {
                     TypeNameHandling = TypeNameHandling.Objects
                 });

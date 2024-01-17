@@ -1,5 +1,6 @@
 ﻿using Control.Enums;
 using Control.Models.Interfaces;
+using Newtonsoft.Json;
 using PhilipsHue.EffectConfig.Parts.Classes;
 using PhilipsHue.EffectConfig.Products.Classes;
 using PhilipsHue.EffectConfig.Products.Interfaces;
@@ -9,8 +10,11 @@ namespace Control.Models.Classes.ViewEffectConfigSet
 {
     public class ColorChangeViewConfigSet: IViewEffectConfigSet
     {
+        [JsonProperty]
         private System.Drawing.Color finalColor;
+        [JsonProperty]
         private uint transitionTimeConfig;
+        [JsonProperty]
         private Dictionary<EffectConfigPropertyIdentifier, object> effectsDictionary;
 
         public ColorChangeViewConfigSet(System.Drawing.Color finalColor, uint transitionTimeConfig)
@@ -18,7 +22,7 @@ namespace Control.Models.Classes.ViewEffectConfigSet
             this.finalColor = finalColor;
             this.transitionTimeConfig = transitionTimeConfig;
             effectsDictionary = new Dictionary<EffectConfigPropertyIdentifier, object>();
-            effectsDictionary.Add(EffectConfigPropertyIdentifier.Color, finalColor);
+            effectsDictionary.Add(EffectConfigPropertyIdentifier.Color, finalColor.ToArgb());
             effectsDictionary.Add(EffectConfigPropertyIdentifier.TransitionTime, transitionTimeConfig);
         }
 

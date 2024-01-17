@@ -12,16 +12,25 @@ namespace DataStorage.Models.Classes
 {
     public class LinkSaveObject : ILinkSaveObject
     {
-        [JsonProperty("LinksJson")]
-        public string LinksJson { get; private set; }
+        [JsonProperty("MainLinksJson")]
+        public IMainLinkSaveObject MainLinksJson { get; private set; }
 
-        [JsonProperty("PhilipsHueMidiLightsControllerJson")]
-        public string PhilipsHueMidiLightsControllerJson { get; private set; }
+        [JsonProperty("HueLinkSaveObject")]
+        public IHueLinkSaveObject PhilipsHueLinkSaveObject { get; private set; }
 
-        public LinkSaveObject(string linksJson, string philipsHueJsonContent)
+        public LinkSaveObject(IMainLinkSaveObject linksJson, IHueLinkSaveObject philipsHueLinkSaveObject)
         {
-            this.LinksJson = linksJson;
-            this.PhilipsHueMidiLightsControllerJson = philipsHueJsonContent;
+            MainLinksJson = linksJson;
+            PhilipsHueLinkSaveObject = philipsHueLinkSaveObject;
+        }
+
+        public string SerializeToJSON()
+        {
+            return JsonConvert.SerializeObject(this, Formatting.Indented, new JsonSerializerSettings
+            {
+                TypeNameHandling = TypeNameHandling.Objects,
+                TypeNameAssemblyFormat = System.Runtime.Serialization.Formatters.FormatterAssemblyStyle.Simple
+            });
         }
     }
 }

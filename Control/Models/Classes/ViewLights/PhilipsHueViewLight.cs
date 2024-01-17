@@ -1,6 +1,7 @@
 ﻿using Control.Enums;
 using Control.Factories;
 using Control.Models.Interfaces;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -12,10 +13,15 @@ namespace Control.Models.Classes.ViewEffects
 {
     public class PhilipsHueViewLight : IViewLight
     {
+        [JsonProperty]
         private readonly string DESCRIPTION = "Philips Hue light";
+
         private const LightType TYPE = LightType.PhilipsHue;
         private const string TYPENAME = "Philips Hue";
+
+        [JsonProperty]
         private readonly string NAME = "Philips Hue Light";
+        [JsonProperty]
         private readonly string id;
 
         public PhilipsHueViewLight(string ID, string lightName, string description)

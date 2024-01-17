@@ -29,8 +29,9 @@ namespace Control.Controllers
         public static Dictionary<MidiMessageKeys, LightEffectAction> _messageActionLinks;
 
         [JsonProperty("MessageActionLinks")]
-        public Dictionary<MidiMessageKeys, LightEffectAction> MessageActionLinks { 
-            get { return _messageActionLinks; } 
+        public Dictionary<MidiMessageKeys, LightEffectAction> MessageActionLinks
+        {
+            get { return _messageActionLinks; }
             set { _messageActionLinks = value; }
         }
 
@@ -89,15 +90,13 @@ namespace Control.Controllers
             return true;
         }
 
-        public bool ParseLinks(IHueLinkSaveObject links)
+        public bool ParseLinks(IHueLinkSaveObject saveObject)
         {
-            if (links != null)
+            _messageActionLinks.Clear();
+            var links = saveObject.Links;
+            foreach (KeyValuePair<MidiMessageKeys, LightEffectAction> link in links)
             {
-                _messageActionLinks.Clear();
-                foreach (KeyValuePair<MidiMessageKeys, LightEffectAction> link in links.Links)
-                {
-                    _messageActionLinks.Add(link.Key, link.Value);
-                }
+                _messageActionLinks.Add(link.Key, link.Value);
             }
 
             return true;

@@ -8,7 +8,8 @@ namespace DataStorage.Models.Interfaces
 {
     public interface ILinkSaveObject
     {
-        string LinksJson { get; }
-        string PhilipsHueMidiLightsControllerJson { get; }
+        IMainLinkSaveObject MainLinksJson { get; }
+        IHueLinkSaveObject PhilipsHueLinkSaveObject { get; }
+        string SerializeToJSON();
     }
 }

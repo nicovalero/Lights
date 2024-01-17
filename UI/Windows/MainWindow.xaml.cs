@@ -1,4 +1,5 @@
 ﻿using Control.Controllers;
+using Control.Models.Interfaces;
 using PhilipsHue.EffectConfig.Creators.Interfaces;
 using PhilipsHue.Models.Interfaces;
 using System;
@@ -317,10 +318,10 @@ namespace UI
                     LinkEffectList.SelectItem(midiEffectLink.EffectName);
 
                     HashSet<string> keys = new HashSet<string>();
-                    foreach (HueLight light in midiEffectLink.Lights)
+                    foreach (IViewLight light in midiEffectLink.Lights)
                     {
-                        if(!keys.Contains(light.uniqueId))
-                            keys.Add(light.uniqueId);
+                        if(!keys.Contains(light.GetID()))
+                            keys.Add(light.GetID());
                     }
                     LinkLightList.SelectItems(keys);
 

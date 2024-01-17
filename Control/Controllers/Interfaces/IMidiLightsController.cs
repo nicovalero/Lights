@@ -19,7 +19,7 @@ namespace Control.Controllers.Interfaces
         bool CreateLink(MidiMessageViewLightsEffectConfig linkData);
         bool RemoveLink(MidiMessageKeys keys);
         bool PerformLinkedAction(MidiMessageKeys keys);
-        bool ParseLinks(IHueLinkSaveObject links);
+        bool ParseLinks(IHueLinkSaveObject json);
         void ConnectSystem();
         int GetControllerDeviceCount();
         List<LightEffect> GetEffects();
