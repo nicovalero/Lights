@@ -14,7 +14,9 @@ namespace DataStorage.Models
 {
     public class HueLinkSaveObject: IHueLinkSaveObject
     {
+        [JsonProperty]
         private List<KeyValuePair<MidiMessageKeys, LightEffectAction>> _links;
+
         public List<KeyValuePair<MidiMessageKeys, LightEffectAction>> Links { get { return _links; } set { _links = value; } }
 
         public HueLinkSaveObject(Dictionary<MidiMessageKeys, LightEffectAction> dictionary)

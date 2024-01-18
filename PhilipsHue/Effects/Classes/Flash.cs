@@ -19,7 +19,6 @@ namespace PhilipsHue.Effects.Classes
 {
     public class Flash : LightEffect
     {
-        //private static readonly Flash _flash = new Flash();
         private static readonly HueLightController _controller = HueLightController.Singleton();
         private const string _name = "Flash";
         private const HueLightEffectKindEnum _effectType = HueLightEffectKindEnum.MULTI;
@@ -40,9 +39,9 @@ namespace PhilipsHue.Effects.Classes
 
             foreach (HueLight light in lights)
             {
-                var queueCopy = new Queue<HueStateJSONProperty>(queue);
                 var t = new Thread(() =>
                 {
+                    var queueCopy = new Queue<HueStateJSONProperty>(queue);
                     while (queueCopy.Count > 0)
                     {
                         var state = queueCopy.Dequeue();

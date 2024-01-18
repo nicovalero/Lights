@@ -80,7 +80,7 @@ namespace UI.Models.Classes
                 FlashConfig_VMSet flashConfig = (FlashConfig_VMSet)vmSet;
                 TransitionTimeConfig_ViewModel transitionTimeConfig = flashConfig.TransitionTime;
 
-                return new FlashViewConfigSet(flashConfig.FirstBrightnessLevel.BrightnessLevel, flashConfig.SecondBrightnessLevel.BrightnessLevel,
+                return new FlashViewConfigSet(flashConfig.SecondBrightnessLevel.BrightnessLevel, flashConfig.FirstBrightnessLevel.BrightnessLevel,
                     transitionTimeConfig.TransitionTime);
             }
             return null;

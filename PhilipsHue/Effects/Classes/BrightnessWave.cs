@@ -17,19 +17,13 @@ namespace PhilipsHue.Effects.Classes
 {
     public class BrightnessWave : LightEffect
     {
-        private static readonly BrightnessWave _flash = new BrightnessWave();
         private static readonly HueLightController _controller = HueLightController.Singleton();
         private const string _name = "Brightness Wave";
         private const HueLightEffectKindEnum _effectType = HueLightEffectKindEnum.MULTI;
         public string Name { get { return _name; } }
         public string EffectTypeName { get { return HueLightEffectKindCollection.GetKindName(_effectType); } }
 
-        private BrightnessWave() { }
-
-        public static BrightnessWave Singleton()
-        {
-            return _flash;
-        }
+        public BrightnessWave() { }
 
         public void Perform(List<HueLight> lights, IEffectConfigSet config)
         {

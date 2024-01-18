@@ -15,18 +15,14 @@ namespace PhilipsHue.Effects.Classes
 {
     public class FadeOut : LightEffect
     {
-        private static readonly FadeOut _fadeOut = new FadeOut();
         private static readonly HueLightController _controller = HueLightController.Singleton();
         private const string _name = "Fade out";
         private const HueLightEffectKindEnum _effectType = HueLightEffectKindEnum.MULTI;
         public string Name { get { return _name; } }
         public string EffectTypeName { get { return HueLightEffectKindCollection.GetKindName(_effectType); } }
 
-        private FadeOut() { }
-
-        public static FadeOut Singleton()
+        public FadeOut()
         {
-            return _fadeOut;
         }
 
         public void Perform(List<HueLight> lights, IEffectConfigSet config = null)

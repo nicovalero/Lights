@@ -16,7 +16,7 @@ namespace DataStorage.Models.Classes
         public IMainLinkSaveObject MainLinksJson { get; private set; }
 
         [JsonProperty("HueLinkSaveObject")]
-        public IHueLinkSaveObject PhilipsHueLinkSaveObject { get; private set; }
+        public IHueLinkSaveObject PhilipsHueLinkSaveObject { get; set; }
 
         public LinkSaveObject(IMainLinkSaveObject linksJson, IHueLinkSaveObject philipsHueLinkSaveObject)
         {

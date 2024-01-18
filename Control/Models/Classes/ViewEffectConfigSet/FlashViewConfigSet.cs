@@ -10,11 +10,11 @@ namespace Control.Models.Classes.ViewEffectConfigSet
     {
         [JsonProperty]
         private Dictionary<EffectConfigPropertyIdentifier, object> effectDictionary;
-        public FlashViewConfigSet(byte brightnessLevel1, byte brightnessLevel2, uint transitionTime)
+        public FlashViewConfigSet(byte brightnessLevelHigh, byte brightnessLevelLow, uint transitionTime)
         {
             effectDictionary = new Dictionary<EffectConfigPropertyIdentifier, object>();
-            effectDictionary.Add(EffectConfigPropertyIdentifier.BrightnessStart, brightnessLevel1);
-            effectDictionary.Add(EffectConfigPropertyIdentifier.BrightnessFinal, brightnessLevel2);
+            effectDictionary.Add(EffectConfigPropertyIdentifier.BrightnessStart, brightnessLevelHigh);
+            effectDictionary.Add(EffectConfigPropertyIdentifier.BrightnessFinal, brightnessLevelLow);
             effectDictionary.Add(EffectConfigPropertyIdentifier.TransitionTime, transitionTime);
         }
 

@@ -77,17 +77,13 @@ namespace Control.Controllers
             return true;
         }
 
-        public bool PerformLinkedAction(MidiMessageKeys keys)
+        public void PerformLinkedAction(MidiLightsController sender, MidiMessageKeys keys)
         {
-            if (!_messageActionLinks.ContainsKey(keys))
-                return false;
-            else
+            if (_messageActionLinks.ContainsKey(keys))
             {
                 LightEffectAction action = _messageActionLinks[keys];
                 _actionController.PerformAction(action);
             }
-
-            return true;
         }
 
         public bool ParseLinks(IHueLinkSaveObject saveObject)

@@ -16,19 +16,13 @@ namespace PhilipsHue.Effects.Classes
 
     public class FadeIn : LightEffect
     {
-        private static readonly FadeIn _fadeIn = new FadeIn();
         private static readonly HueLightController _controller = HueLightController.Singleton();
         private const string _name = "Fade in";
         private const HueLightEffectKindEnum _effectType = HueLightEffectKindEnum.MULTI;
         public string Name { get { return _name; } }
         public string EffectTypeName { get { return HueLightEffectKindCollection.GetKindName(_effectType); } }
 
-        private FadeIn() { }
-
-        public static FadeIn Singleton()
-        {
-            return _fadeIn;
-        }
+        public FadeIn() { }
 
         public void Perform(List<HueLight> lights, IEffectConfigSet config = null)
         {

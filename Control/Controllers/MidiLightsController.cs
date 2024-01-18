@@ -66,6 +66,8 @@ namespace Control.Controllers
             _midiController.MessageEventHandler += MidiMessageReceived;
             CreateLinkPhilipsHueEventHandler += _hueLightsController.CreateLinkHandler;
             DeleteLinkEventHandler += _hueLightsController.DeleteLinkHandler;
+
+            PerformLinkEventHandler += _hueLightsController.PerformLinkedAction;
         }
 
         public void MidiMessageReceived(MidiController sender, MidiMessageKeys args)

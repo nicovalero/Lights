@@ -36,10 +36,10 @@ namespace Control.Factories
             switch (viewEffect.GetKind())
             {
                 case AvailableViewEffects.UniversalColorChange:
-                    effect = ColorChange.Singleton();
+                    effect = new ColorChange();
                     break;
                 case AvailableViewEffects.UniversalColorWave:
-                    effect = ColorWave.Singleton();
+                    effect = new ColorWave();
                     break;
                 case AvailableViewEffects.UniversalOn:
                     effect = new TurnOn();
@@ -51,13 +51,13 @@ namespace Control.Factories
                     effect = new Flash();
                     break;
                 case AvailableViewEffects.UniversalBrightnessWave:
-                    effect = BrightnessWave.Singleton();
+                    effect = new BrightnessWave();
                     break;
                 case AvailableViewEffects.UniversalFadeIn:
-                    effect = FadeIn.Singleton();
+                    effect = new FadeIn();
                     break;
                 case AvailableViewEffects.UniversalFadeOut:
-                    effect = FadeOut.Singleton();
+                    effect = new FadeOut();
                     break;
             }
 

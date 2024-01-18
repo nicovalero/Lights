@@ -18,7 +18,7 @@ namespace Control.Controllers.Interfaces
     {
         bool CreateLink(MidiMessageViewLightsEffectConfig linkData);
         bool RemoveLink(MidiMessageKeys keys);
-        bool PerformLinkedAction(MidiMessageKeys keys);
+        void PerformLinkedAction(MidiLightsController sender, MidiMessageKeys keys);
         bool ParseLinks(IHueLinkSaveObject json);
         void ConnectSystem();
         int GetControllerDeviceCount();
