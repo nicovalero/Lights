@@ -19,15 +19,17 @@ namespace PhilipsHue.Effects.Classes
 {
     public class Flash : LightEffect
     {
-        private static readonly HueLightController _controller = HueLightController.Singleton();
+        private EffectProxy effectProxy;
         private const string _name = "Flash";
         private const HueLightEffectKindEnum _effectType = HueLightEffectKindEnum.MULTI;
         public string Name { get { return _name; } }
         public string EffectTypeName { get { return HueLightEffectKindCollection.GetKindName(_effectType); } }
 
-        public Flash() { }
+        public Flash() {
+            effectProxy = new EffectProxy();
+        }
 
-        public void Perform(List<HueLight> lights, IEffectConfigSet config)
+        public void Perform(Dictionary<string, Bridge> dictionary, List<HueLight> lights, IEffectConfigSet config)
         {
             Queue<HueStateJSONProperty> queue = config.GetHueStateQueue();
             int interval = 0;
@@ -45,7 +47,8 @@ namespace PhilipsHue.Effects.Classes
                     while (queueCopy.Count > 0)
                     {
                         var state = queueCopy.Dequeue();
-                        Task task = _controller.ChangeLightState(light.uniqueId, state);
+                        Task task = effectProxy.ChangeLightState(dictionary, light.uniqueId, state);
+
                         task.Wait();
                         Thread.Sleep(interval);
                     }

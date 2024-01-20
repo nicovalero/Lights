@@ -11,6 +11,6 @@ namespace PhilipsHue.Effects.Interfaces
     {
         string Name { get; }
         string EffectTypeName { get; }
-        void Perform(List<HueLight> lightIds, IEffectConfigSet value);
+        void Perform(Dictionary<string, Bridge> dictionary, List<HueLight> lightIds, IEffectConfigSet value);
     }
 }

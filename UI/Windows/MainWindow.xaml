@@ -48,7 +48,7 @@
                         </Border>
                         <StackPanel Margin="10 0 0 0" VerticalAlignment="Center">
                             <TextBlock Text="Emily MLE" FontSize="15" Margin="0 0 0 5" Foreground="#c2cfff"/>
-                            <TextBlock Text="Alpha 0.5" FontSize="11" Foreground="#7788bf"/>
+                            <TextBlock Text="Alpha 0.5.2" FontSize="11" Foreground="#7788bf"/>
                         </StackPanel>
                     </StackPanel>
 

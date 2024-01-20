@@ -15,7 +15,7 @@ namespace PhilipsHue.Effects.Classes
 {
     public class FadeOut : LightEffect
     {
-        private static readonly HueLightController _controller = HueLightController.Singleton();
+        private EffectProxy effectProxy;
         private const string _name = "Fade out";
         private const HueLightEffectKindEnum _effectType = HueLightEffectKindEnum.MULTI;
         public string Name { get { return _name; } }
@@ -23,9 +23,10 @@ namespace PhilipsHue.Effects.Classes
 
         public FadeOut()
         {
+            effectProxy = new EffectProxy();
         }
 
-        public void Perform(List<HueLight> lights, IEffectConfigSet config = null)
+        public void Perform(Dictionary<string, Bridge> dictionary, List<HueLight> lights, IEffectConfigSet config = null)
         {
             if (config is FadeOutConfigSet)
             {
@@ -38,16 +39,11 @@ namespace PhilipsHue.Effects.Classes
                     {
                         foreach (HueLight light in lights)
                         {
-                            ChangeLightState(light, c);
+                            effectProxy.ChangeLightState(dictionary, light.uniqueId, c);
                         }
                     });
                 }
             }
-        }
-
-        private Task ChangeLightState(HueLight light, HueStateJSONProperty combo)
-        {
-            return _controller.ChangeLightState(light.uniqueId, combo);
         }
 
         public string GetName()

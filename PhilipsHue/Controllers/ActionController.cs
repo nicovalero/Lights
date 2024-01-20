@@ -1,5 +1,6 @@
 ﻿using PhilipsHue.Actions.Interfaces;
 using PhilipsHue.Models.Classes;
+using PhilipsHue.Models.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,18 +11,11 @@ namespace PhilipsHue.Controllers
 {
     public class ActionController
     {
-        private static readonly ActionController _controller = new ActionController();
+        public ActionController(){ }
 
-        private ActionController(){ }
-
-        public static ActionController Singleton()
+        public void PerformAction(Dictionary<string, Bridge> dictionary, LightEffectAction action)
         {
-            return _controller;
-        }
-
-        public void PerformAction(LightEffectAction action)
-        {
-            action.Perform();
+            action.Perform(dictionary);
         }
     }
 }

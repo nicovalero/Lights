@@ -43,7 +43,7 @@ namespace Control.Controllers
         private readonly StorageController _storageController;
 
         public static Dictionary<MidiMessageKeys, IViewLink> _links;
-        public static IMidiLightsController _hueLightsController;
+        public IMidiLightsController _hueLightsController;
 
         private ViewEffectFactory viewEffectFactory;
         private ViewLightFactory viewLightFactory;
@@ -59,7 +59,7 @@ namespace Control.Controllers
             viewEffectFactory = new ViewEffectFactory();
             viewLightFactory = new ViewLightFactory();
             _storageController = StorageController.Singleton();
-            _midiController = MidiController.Singleton();
+            _midiController = new MidiController();
             _links = new Dictionary<MidiMessageKeys, IViewLink>();
             _hueLightsController = new PhilipsHueLightsController();
             viewLinkFactory = new ViewLinkFactory();

@@ -24,7 +24,6 @@ namespace Control.Controllers
 {
     internal class PhilipsHueLightsController : IMidiLightsController
     {
-        private readonly ActionController _actionController;
         private readonly HueLightController _hueLightController;
         public static Dictionary<MidiMessageKeys, LightEffectAction> _messageActionLinks;
 
@@ -37,8 +36,7 @@ namespace Control.Controllers
 
         internal PhilipsHueLightsController()
         {
-            _hueLightController = HueLightController.Singleton();
-            _actionController = ActionController.Singleton();
+            _hueLightController = new HueLightController();
             _messageActionLinks = new Dictionary<MidiMessageKeys, LightEffectAction>();
         }
 
@@ -82,7 +80,7 @@ namespace Control.Controllers
             if (_messageActionLinks.ContainsKey(keys))
             {
                 LightEffectAction action = _messageActionLinks[keys];
-                _actionController.PerformAction(action);
+                _hueLightController.PerformAction(action);
             }
         }
 

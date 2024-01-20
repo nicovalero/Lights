@@ -36,9 +36,9 @@ namespace PhilipsHue.Actions.Classes
             _configuration = configuration;
         }
 
-        public void Perform()
+        public void Perform(Dictionary<string, Bridge> dictionary)
         {
-            _effect.Perform(_lights, Configuration);
+            _effect.Perform(dictionary, _lights, Configuration);
         }
 
         public LightEffect GetEffect()

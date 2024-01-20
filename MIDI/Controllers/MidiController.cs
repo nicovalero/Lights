@@ -14,19 +14,15 @@ namespace MIDI.Controllers
 {
     public class MidiController
     {
-        private static readonly MidiController _controller = new MidiController();
-        private static readonly MidiDeviceWatcher _deviceWatcher = new MidiDeviceWatcher(MidiInPort.GetDeviceSelector());
-
-        private MidiController() { }
-
-        public static MidiController Singleton()
-        {
-            return _controller;
-        }
-
+        private readonly MidiDeviceWatcher _deviceWatcher;
         public event TypedEventHandler<MidiController, MidiMessageKeys> MessageEventHandler;
 
-        public void MessageReceived(MidiMessageKeys keys)
+        public MidiController() {
+            _deviceWatcher = new MidiDeviceWatcher(MidiInPort.GetDeviceSelector());
+            _deviceWatcher.MessageReceivedHandler += MessageReceived;
+        }
+
+        internal void MessageReceived(MidiDeviceWatcher sender, MidiMessageKeys keys)
         {
             MessageEventHandler(this, keys);
         }

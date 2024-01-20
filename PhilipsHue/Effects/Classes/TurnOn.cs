@@ -13,7 +13,7 @@ namespace PhilipsHue.Effects.Classes
 {
     public class TurnOn : LightEffect
     {
-        private static readonly HueLightController _controller = HueLightController.Singleton();
+        private EffectProxy effectProxy;
         private const string _name = "Turn On";
         private const HueLightEffectKindEnum _effectType = HueLightEffectKindEnum.MULTI;
         public string Name { get { return _name; } }
@@ -21,10 +21,10 @@ namespace PhilipsHue.Effects.Classes
 
         public TurnOn()
         {
-
+            effectProxy = new EffectProxy();
         }
 
-        public void Perform(List<HueLight> lights, IEffectConfigSet config)
+        public void Perform(Dictionary<string, Bridge> dictionary, List<HueLight> lights, IEffectConfigSet config)
         {
             foreach (HueStateJSONProperty combo in config.GetHueStateQueue())
             {
@@ -33,7 +33,7 @@ namespace PhilipsHue.Effects.Classes
                 {
                     ThreadPool.QueueUserWorkItem((state) =>
                     {
-                        _controller.ChangeLightState(light.uniqueId, combo);
+                        effectProxy.ChangeLightState(dictionary, light.uniqueId, combo);
                     });
                 }
             }

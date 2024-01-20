@@ -1,4 +1,5 @@
-﻿using PhilipsHue.Models;
+﻿using PhilipsHue.Actions.Interfaces;
+using PhilipsHue.Models;
 using PhilipsHue.Models.Classes;
 using PhilipsHue.Models.Enums;
 using PhilipsHue.Models.Interfaces;
@@ -13,16 +14,17 @@ namespace PhilipsHue.Controllers
 {
     public class HueLightController
     {
-        private static readonly HueLightController _controller = new HueLightController();
         private BridgeV2Finder _bridgeV2Finder;
         private Dictionary<string, Bridge> _lightBridgeDictionary;
         private List<Bridge> _bridgeList;
+        private readonly ActionController _actionController;
 
-        private HueLightController()
+        public HueLightController()
         {
             _bridgeV2Finder = new BridgeV2Finder(ProcessBridgeRequestAnswer);
             _lightBridgeDictionary = new Dictionary<string, Bridge>();
             _bridgeList = new List<Bridge>();
+            _actionController = new ActionController();
         }
 
         public void InitializeBridges()
@@ -37,14 +39,14 @@ namespace PhilipsHue.Controllers
             _bridgeList.Clear();
         }
 
-        public static HueLightController Singleton()
-        {
-            return _controller;
-        }
-
         private void ConnectBridge(Bridge bridge)
         {
             bridge.Connect();
+        }
+
+        public void PerformAction(LightEffectAction action)
+        {
+            _actionController.PerformAction(_lightBridgeDictionary, action);
         }
 
         public Task ChangeLightState(string uniqueid, HueStateJSONProperty combo)

@@ -11,7 +11,6 @@ namespace Control.Models.Interfaces
 {
     public interface IControlledLightEffectAction
     {
-        void Perform();
         LightEffect GetEffect();
         List<HueLight> GetLights();
         IEffectConfigSet GetConfiguration();

@@ -34,10 +34,5 @@ namespace Control.Classes
         {
             return lightEffectAction.GetLights();
         }
-
-        public void Perform()
-        {
-            lightEffectAction.Perform();
-        }
     }
 }

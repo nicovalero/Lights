@@ -17,15 +17,17 @@ namespace PhilipsHue.Effects.Classes
 {
     public class ColorWave : LightEffect
     {
-        private static readonly HueLightController _controller = HueLightController.Singleton();
+        private EffectProxy effectProxy;
         private const string _name = "Color Wave";
         private const HueLightEffectKindEnum _effectType = HueLightEffectKindEnum.MULTI;
         public string Name { get { return _name; } }
         public string EffectTypeName { get { return HueLightEffectKindCollection.GetKindName(_effectType); } }
 
-        public ColorWave() { }
+        public ColorWave() {
+            effectProxy = new EffectProxy();
+        }
 
-        public void Perform(List<HueLight> lights, IEffectConfigSet config)
+        public void Perform(Dictionary<string, Bridge> dictionary, List<HueLight> lights, IEffectConfigSet config)
         {
             Queue<HueStateJSONProperty> queue = config.GetHueStateQueue();
 
@@ -47,7 +49,7 @@ namespace PhilipsHue.Effects.Classes
                 {
                     foreach (HueLight light in hueLights)
                     {
-                        var t = _controller.ChangeLightState(light.uniqueId, c);
+                        var t = effectProxy.ChangeLightState(dictionary, light.uniqueId, c);
                         t.Wait();
                         Thread.Sleep(intervalInt);
                     }

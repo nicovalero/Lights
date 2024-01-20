@@ -7,7 +7,7 @@ namespace PhilipsHue.Actions.Interfaces
 {
     public interface LightEffectAction
     {
-        void Perform();
+        void Perform(Dictionary<string, Bridge> dictionary);
         LightEffect GetEffect();
         List<HueLight> GetLights();
         IEffectConfigSet GetConfiguration();

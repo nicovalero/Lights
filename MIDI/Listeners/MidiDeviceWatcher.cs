@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.Devices.Enumeration;
 using Windows.Devices.Midi;
+using Windows.Foundation;
 using Windows.Storage.Streams;
 using Windows.UI.Core;
 using Windows.UI.Xaml.Controls;
@@ -23,6 +24,7 @@ namespace MIDI
         bool enumerationCompleted = false;
         string midiSelector = string.Empty;
         List<MidiInPort> portList;
+        public event TypedEventHandler<MidiDeviceWatcher, MidiMessageKeys> MessageReceivedHandler;
 
         /// <summary>
         /// Constructor: Initialize and hook up Device Watcher events
@@ -208,8 +210,7 @@ namespace MIDI
                         velocity: new MidiVelocity(noteOnMessage.Velocity), 
                         note: MidiNoteCollection.GetNote(noteOnMessage.Note).Value
                         /*, port: null*/);
-                    MidiController controller = MidiController.Singleton();
-                    controller.MessageReceived(keys);
+                    MessageReceivedHandler(this, keys);
                     break;
                 case MidiMessageType.PolyphonicKeyPressure:
                     var polyphonicKeyPressureMessage = (MidiPolyphonicKeyPressureMessage)receivedMidiMessage;

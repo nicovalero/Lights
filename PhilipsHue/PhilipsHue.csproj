@@ -92,6 +92,7 @@
     <Compile Include="EffectConfig\Parts\Interfaces\IEffectPropertyConfig.cs" />
     <Compile Include="EffectConfig\Parts\Interfaces\IHueLightListConfig.cs" />
     <Compile Include="EffectConfig\Parts\Interfaces\ITimeConfig.cs" />
+    <Compile Include="Effects\Classes\EffectProxy.cs" />
     <Compile Include="Effects\Classes\TurnOff.cs" />
     <Compile Include="Effects\Classes\TurnOn.cs" />
     <Compile Include="Effects\Classes\ColorWave.cs" />
