@@ -19,13 +19,9 @@ namespace Control.Controllers.Interfaces
         bool CreateLink(MidiMessageViewLightsEffectConfig linkData);
         bool RemoveLink(MidiMessageKeys keys);
         void PerformLinkedAction(MidiLightsController sender, MidiMessageKeys keys);
-        bool ParseLinks(IHueLinkSaveObject json);
         void ConnectSystem();
         int GetControllerDeviceCount();
-        List<LightEffect> GetEffects();
-        List<HueLight> GetAllAvailableDevices();
         void CreateLinkHandler(object sender, MidiMessageViewLightsEffectConfig linkData);
         void DeleteLinkHandler(object sender, MidiMessageKeys keys);
-        Dictionary<MidiMessageKeys, LightEffectAction> GetMessageActionLinks();
     }
 }

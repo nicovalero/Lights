@@ -80,9 +80,15 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\Interfaces\IHueMidiLightsController.cs" />
+    <Compile Include="Controllers\Interfaces\IPhilipsHueMidiLightsController.cs" />
+    <Compile Include="Controllers\Interfaces\INanoleafMidiLightsController.cs" />
+    <Compile Include="Controllers\NanoleafLightsController.cs" />
     <Compile Include="Enums\AvailableViewLights.cs" />
     <Compile Include="Enums\EffectConfigPropertyIdentifier.cs" />
     <Compile Include="Enums\LinkType.cs" />
+    <Compile Include="Factories\NanoleafActionFactory.cs" />
+    <Compile Include="Factories\NanoleafConfigSetFactory.cs" />
     <Compile Include="Factories\PhilipsHueActionFactory.cs" />
     <Compile Include="Factories\ViewLightFactory.cs" />
     <Compile Include="Factories\ViewEffectFactory.cs" />
@@ -117,6 +123,7 @@
     <Compile Include="Models\Interfaces\IViewLink.cs" />
     <Compile Include="Models\Structs\MidiMessageViewLightList.cs" />
     <Compile Include="Parsers\DeviceParsers\HueDevicesParser.cs" />
+    <Compile Include="Parsers\EffectParsers\NanoleafEffectViewEffectParser.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -132,6 +139,10 @@
     <ProjectReference Include="..\MIDI\MIDI.csproj">
       <Project>{4f049f33-9525-48ef-8098-92d6b7182435}</Project>
       <Name>MIDI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Nanoleaf\Nanoleaf.csproj">
+      <Project>{9B6616C5-0776-4F95-A6B8-53C5D7E80A9F}</Project>
+      <Name>Nanoleaf</Name>
     </ProjectReference>
     <ProjectReference Include="..\PhilipsHue\PhilipsHue.csproj">
       <Project>{26B8DE4E-4D40-4999-B8D4-0F8420009240}</Project>

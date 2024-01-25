@@ -36,7 +36,7 @@ namespace Nanoleaf.Action.Actions.ShapesActions
         public void Perform()
         {
             var request = new UpdateSaturationRequest(values);
-            EndpointMessenger.UpdateSaturationRequest(shapes.GetURL(), shapes.GetDeveloperAuthToken(), request);
+            EndpointMessenger.UpdateSaturationRequest(shapes.URL, shapes.DeveloperAuthToken, request);
         }
     }
 }

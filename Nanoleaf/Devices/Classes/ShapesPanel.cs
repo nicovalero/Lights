@@ -40,6 +40,11 @@ namespace Nanoleaf.Devices.Classes
         [JsonProperty("y")]
         public string panelY;
 
+        public ShapesPanel(string panelID)
+        {
+            this.panelID = panelID;
+        }
+
         public ShapesPanel(string panelID, string panelO, string panelX, string panelY)
         {
             this.panelID = panelID;

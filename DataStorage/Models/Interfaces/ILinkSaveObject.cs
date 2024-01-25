@@ -10,6 +10,7 @@ namespace DataStorage.Models.Interfaces
     {
         IMainLinkSaveObject MainLinksJson { get; }
         IHueLinkSaveObject PhilipsHueLinkSaveObject { get; }
+        INanoleafLinkSaveObject NanoleafLinkSaveObject { get; }
         string SerializeToJSON();
     }
 }

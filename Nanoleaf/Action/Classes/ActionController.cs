@@ -1,4 +1,5 @@
 ﻿using Nanoleaf.Action.Actions;
+using Nanoleaf.Action.Interfaces;
 using Nanoleaf.Devices.Interfaces;
 using Nanoleaf.Network.Classes;
 using Nanoleaf.Network.Classes.Responses;
@@ -11,14 +12,16 @@ using System.Threading.Tasks;
 
 namespace Nanoleaf.Action.Classes
 {
-    internal class ActionController
+    public class ActionController
     {
-        public AllLightControllerInfoResponse GetAllLightControllerInfo(INanoleafShapes shapes)
+        internal void PerformSimpleAction(Dictionary<IShapesPanel, INanoleafShapes> shapesSet, IAction action)
         {
-            var action = new GetAllLightControllerInfoAction(shapes);
-            var result = action.Perform();
+            action.Perform();
+        }
 
-            return result;
+        internal void PerformEffectAction(Dictionary<IShapesPanel,INanoleafShapes> shapesSet, INanoleafEffectAction action)
+        {
+            action.Perform();
         }
     }
 }

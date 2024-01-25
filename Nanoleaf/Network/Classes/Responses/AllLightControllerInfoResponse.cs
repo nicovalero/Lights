@@ -9,7 +9,7 @@ using Newtonsoft.Json.Serialization;
 
 namespace Nanoleaf.Network.Classes.Responses
 {
-    internal class AllLightControllerInfoResponse: IResponse
+    public class AllLightControllerInfoResponse: IResponse
     {
         [JsonProperty("name")]
         public string Name { get; set; }

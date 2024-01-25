@@ -1,14 +1,7 @@
-﻿using Control.Enums;
-using Control.Models.Classes;
-using Control.Models.Classes.ViewEffects;
+﻿using Control.Models.Classes.ViewEffects;
 using Control.Models.Interfaces;
-using PhilipsHue.Collections;
+using Nanoleaf.Devices.Interfaces;
 using PhilipsHue.Models.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Control.Factories
 {
@@ -18,17 +11,14 @@ namespace Control.Factories
         {
         }
 
-        public IViewLight Construct(AvailableViewLights availableLights, HueLight light)
+        public IViewLight ConstructFromHueLight(HueLight light)
         {
-            IViewLight viewLight = null;
-            switch (availableLights)
-            {
-                case AvailableViewLights.PhilipsHue:
-                    viewLight = new PhilipsHueViewLight(light.uniqueId, light.name, light.type);
-                    break;
-            }
+            return new PhilipsHueViewLight(light.uniqueId, light.name, light.type);
+        }
 
-            return viewLight;
+        public IViewLight ConstructFromNanoleafLight(IShapesPanel light)
+        {
+            return new NanoleafViewLight(light.GetPanelID());
         }
     }
 }

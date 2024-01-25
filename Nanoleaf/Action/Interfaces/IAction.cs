@@ -8,8 +8,8 @@ using System.Threading.Tasks;
 
 namespace Nanoleaf.Action.Interfaces
 {
-    internal interface IAction
+    public interface IAction
     {
-        IResponse Perform();
+        bool Perform();
     }
 }

@@ -18,10 +18,14 @@ namespace DataStorage.Models.Classes
         [JsonProperty("HueLinkSaveObject")]
         public IHueLinkSaveObject PhilipsHueLinkSaveObject { get; set; }
 
-        public LinkSaveObject(IMainLinkSaveObject linksJson, IHueLinkSaveObject philipsHueLinkSaveObject)
+        [JsonProperty("NanoleafLinkSaveObject")]
+        public INanoleafLinkSaveObject NanoleafLinkSaveObject { get; set; }
+
+        public LinkSaveObject(IMainLinkSaveObject linksJson, IHueLinkSaveObject philipsHueLinkSaveObject, INanoleafLinkSaveObject nanoleafLinkSaveObject)
         {
             MainLinksJson = linksJson;
             PhilipsHueLinkSaveObject = philipsHueLinkSaveObject;
+            NanoleafLinkSaveObject = nanoleafLinkSaveObject;
         }
 
         public string SerializeToJSON()

@@ -1,4 +1,6 @@
-﻿using Nanoleaf.Network.Classes.Requests.ShapesRequests;
+﻿using Nanoleaf.Devices.ShapesPanelLayoutClasses;
+using Nanoleaf.Network.Classes.Requests.ShapesRequests;
+using Nanoleaf.Network.Classes.Responses;
 using Nanoleaf.Network.Enums;
 using Nanoleaf.Network.Interfaces;
 using Newtonsoft.Json;
@@ -15,12 +17,13 @@ namespace Nanoleaf.Network.Classes
     {
         private const string APIPATH = "/api/v1";
         private const string NEWDEVELOPERPATH = APIPATH + "/new";
+        private const string PANELLAYOUTPATH = "/panelLayout/layout";
         private const string STATEPATH = "state";
         private const string SATURATIONPATH = STATEPATH + "/sat";
         private const string EFFECTSPATH = "effects";
         private const int PORT = 16021;
 
-        internal static async Task<string> SendNewDeveloperRequest(Uri URL)
+        internal static async Task<DeveloperAuthTokenResponse> SendNewDeveloperRequest(Uri URL)
         {
             HttpResponseMessage response = null;
             var builder = new UriBuilder(URL);
@@ -29,14 +32,35 @@ namespace Nanoleaf.Network.Classes
 
             var path = builder.Uri.ToString();
             response = await HTTPMessenger.SendPostRequestAsync(path);
-            string responseContent = "";
+            DeveloperAuthTokenResponse devAuthTokenResponse = null;
 
             if (response != null)
             {
-                responseContent = await response.Content.ReadAsStringAsync();
+                var responseContent = await response.Content.ReadAsStringAsync();
+                devAuthTokenResponse = JsonConvert.DeserializeObject<DeveloperAuthTokenResponse>(responseContent);
             }
 
-            return responseContent;
+            return devAuthTokenResponse;
+        }
+
+        internal static async Task<ShapesLayout> SendLayoutRequest(Uri URL, DeveloperAuthToken token)
+        {
+            HttpResponseMessage response = null;
+            var builder = new UriBuilder(URL);
+            builder.Path = string.Format("{0}/{1}{2}", APIPATH, token.GetToken(), PANELLAYOUTPATH);
+            builder.Port = PORT;
+
+            var path = builder.Uri.ToString();
+            response = HTTPMessenger.SendGetRequestAsync(path);
+            ShapesLayout layoutResponse = null;
+
+            if (response != null)
+            {
+                var responseContent = await response.Content.ReadAsStringAsync();
+                layoutResponse = JsonConvert.DeserializeObject<ShapesLayout>(responseContent);
+            }
+
+            return layoutResponse;
         }
 
         internal static async Task<string> GetAllLightControllerInfoRequest(Uri URL, DeveloperAuthToken token)

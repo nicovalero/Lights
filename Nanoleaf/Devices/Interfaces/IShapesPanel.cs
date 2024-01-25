@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Nanoleaf.Devices.Interfaces
 {
-    internal interface IShapesPanel
+    public interface IShapesPanel
     {
         string GetPanelID();
         string GetPanelX();

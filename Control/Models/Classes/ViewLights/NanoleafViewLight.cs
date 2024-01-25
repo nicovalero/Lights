@@ -13,10 +13,13 @@ namespace Control.Models.Classes.ViewEffects
 {
     public class NanoleafViewLight : IViewLight
     {
+        public string ID { get { return ID; } }
+        public string Name { get { return NAME; } }
+        public string Description { get { return DESCRIPTION; } }
         private const string DESCRIPTION = "Nanoleaf Panels";
         private const LightType TYPE = LightType.Nanoleaf;
         private const string TYPENAME = "Nanoleaf";
-        private const string NAME = "Nanoleaf panels";
+        private readonly string NAME = "Nanoleaf panels";
 
         [JsonProperty]
         private readonly string id;
@@ -24,6 +27,7 @@ namespace Control.Models.Classes.ViewEffects
         public NanoleafViewLight(string ID)
         {
             this.id = ID;
+            this.NAME = ID;
         }
         public string GetDescription()
         {

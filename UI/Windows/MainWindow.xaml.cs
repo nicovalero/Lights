@@ -101,16 +101,31 @@ namespace UI
 
         private void RefreshAvailableHueLights()
         {
-            var list = _mainWindow_Controller.GetAvailableHueLightsList();
+            var hueList = _mainWindow_Controller.GetAvailableHueLightsList();
+            var nanoleafList = _mainWindow_Controller.GetAvailableNanoleafLightsList();
+
+            var list = new List<IViewLight>(hueList);
+            list.AddRange(nanoleafList);
+
             if (list != null)
             {
                 Resources["NumberOfAvailableHueLights"] = list.Count;
-                if (list.Count > 0)
+                if (hueList.Count > 0)
                 {
                     Resources["AvailableHueLights"] = list;
                     Resources["AvailableHueLightsConfigCard"] = _mainWindow_Controller.GetAvailableHueLights_CardConfigList();
                 }
             }
+
+            //if (hueList != null)
+            //{
+            //    Resources["NumberOfAvailableHueLights"] = hueList.Count;
+            //    if (hueList.Count > 0)
+            //    {
+            //        Resources["AvailableHueLights"] = hueList;
+            //        Resources["AvailableHueLightsConfigCard"] = _mainWindow_Controller.GetAvailableHueLights_CardConfigList();
+            //    }
+            //}
         }
 
         private void ConnectBridgesButton_Click(object sender, RoutedEventArgs e)
@@ -118,6 +133,7 @@ namespace UI
             ConnectBridges();
             RefreshLinkList();
             RefreshAvailableHueLights();
+            //RefreshAvailableNanoleafLights();
             RefreshHueBridgeCount();
         }
 

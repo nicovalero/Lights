@@ -1,57 +1,45 @@
 ﻿using Nanoleaf.Devices.Interfaces;
 using Nanoleaf.Network.Classes;
+using Nanoleaf.Network.Enums;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Net.Http;
 using System.Security.Policy;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Nanoleaf.Devices.Classes
 {
-    internal class Shapes: INanoleafShapes
+    internal class Shapes : INanoleafShapes
     {
-        public Uri URL { get; set; }
-        private DeveloperAuthToken developerAuthToken;
+        public Uri URL { get; private set; }
+        public DeveloperAuthToken DeveloperAuthToken { get; private set; }
+        public HashSet<IShapesPanel> Panels { get; private set; }
 
-        public Shapes(Uri uRL)
+        public Shapes(Uri url, DeveloperAuthToken token, HashSet<IShapesPanel> panelCollection)
         {
-            URL = uRL;
-        }
-
-        public void Connect()
-        {
-
+            URL = url;
+            DeveloperAuthToken = token;
+            Panels = panelCollection;
         }
 
         public bool HasAuthToken()
         {
-            return developerAuthToken != null;
-        }
-
-        public Uri GetURL()
-        {
-            return URL;
-        }
-
-        public void SetDeveloperAuthToken(DeveloperAuthToken authToken)
-        {
-            developerAuthToken = authToken;
-        }
-
-        public DeveloperAuthToken GetDeveloperAuthToken()
-        {
-            return developerAuthToken;
+            return DeveloperAuthToken != null;
         }
 
         public override bool Equals(object obj)
         {
             var instance = obj as Shapes;
-            return instance.URL == this.URL && instance.developerAuthToken == this.developerAuthToken;
+            return instance.URL == this.URL && instance.DeveloperAuthToken == this.DeveloperAuthToken;
         }
 
         public override int GetHashCode()
         {
             int hashCode = -1842355318;
             hashCode = hashCode * -1521134295 + EqualityComparer<Uri>.Default.GetHashCode(URL);
-            hashCode = hashCode * -1521134295 + EqualityComparer<DeveloperAuthToken>.Default.GetHashCode(developerAuthToken);
+            hashCode = hashCode * -1521134295 + EqualityComparer<DeveloperAuthToken>.Default.GetHashCode(DeveloperAuthToken);
             return hashCode;
         }
     }

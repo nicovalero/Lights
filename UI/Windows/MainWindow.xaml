@@ -155,7 +155,7 @@
                                          HorizontalAlignment="Left" VerticalAlignment="Top">
                                     <ListBox.ItemTemplate>
                                         <DataTemplate>
-                                            <uc:LightStatus Title="{Binding name}" Subtitle="{Binding productName}" Icon="Lightbulb"/>
+                                            <uc:LightStatus Title="{Binding Name}" Subtitle="{Binding Description}" Icon="Lightbulb"/>
                                         </DataTemplate>
                                     </ListBox.ItemTemplate>
                                 </ListBox>

@@ -232,6 +232,11 @@ namespace UI
             return _midiLightsController.GetAllAvailableHueLights();
         }
 
+        internal List<IViewLight> GetAvailableNanoleafLightsList()
+        {
+            return _midiLightsController.GetAllAvailableNanoleafLights();
+        }
+
         internal List<CardConfigList_ViewModel> GetAvailableHueLights_CardConfigList()
         {
             return HueLight_ToCardConfigConverter.ConvertViewLight_ToCardConfig(_midiLightsController.GetAllAvailableHueLights());

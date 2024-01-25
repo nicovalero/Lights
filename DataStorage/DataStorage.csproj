@@ -49,9 +49,11 @@
   <ItemGroup>
     <Compile Include="Enums\SaveObjectFileType.cs" />
     <Compile Include="Models\Classes\FileManager.cs" />
+    <Compile Include="Models\Classes\NanoleafLinkSaveObject.cs" />
     <Compile Include="Models\Classes\MainLinkSaveObject.cs" />
     <Compile Include="Models\Classes\HueLinkSaveObject.cs" />
     <Compile Include="Models\Classes\LinkSaveObject.cs" />
+    <Compile Include="Models\Interfaces\INanoleafLinkSaveObject.cs" />
     <Compile Include="Models\Interfaces\IMainLinkSaveObject.cs" />
     <Compile Include="Models\Interfaces\IHueLinkSaveObject.cs" />
     <Compile Include="Models\Interfaces\ILinkSaveObject.cs" />
@@ -66,6 +68,10 @@
     <ProjectReference Include="..\MIDI\MIDI.csproj">
       <Project>{4F049F33-9525-48EF-8098-92D6B7182435}</Project>
       <Name>MIDI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Nanoleaf\Nanoleaf.csproj">
+      <Project>{9B6616C5-0776-4F95-A6B8-53C5D7E80A9F}</Project>
+      <Name>Nanoleaf</Name>
     </ProjectReference>
     <ProjectReference Include="..\PhilipsHue\PhilipsHue.csproj">
       <Project>{26B8DE4E-4D40-4999-B8D4-0F8420009240}</Project>

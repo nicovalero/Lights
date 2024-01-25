@@ -7,12 +7,11 @@ using System.Threading.Tasks;
 
 namespace Nanoleaf.Devices.Interfaces
 {
-    internal interface INanoleafShapes
+    public interface INanoleafShapes
     {
-        void Connect();
+        Uri URL { get; }
+        DeveloperAuthToken DeveloperAuthToken { get; }
+        HashSet<IShapesPanel> Panels { get; }
         bool HasAuthToken();
-        Uri GetURL();
-        void SetDeveloperAuthToken(DeveloperAuthToken authToken);
-        DeveloperAuthToken GetDeveloperAuthToken();
     }
 }

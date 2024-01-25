@@ -13,59 +13,26 @@ namespace Nanoleaf.Devices.Factories
 {
     internal class ShapesFactory
     {
-        private IDeviceFinder deviceFinder;
         private HashSet<INanoleafShapes> currentShapes;
+        private ShapesPanelFactory shapesPanelFactory;
 
         public ShapesFactory()
-        {
-            this.deviceFinder = new DeviceFinder(ProcessBridgeRequestAnswer);
+        {            
             currentShapes = new HashSet<INanoleafShapes>();
+            shapesPanelFactory = new ShapesPanelFactory();
         }
-
-        public HashSet<INanoleafShapes> GetAllShapes()
+        
+        internal INanoleafShapes CreateShapes(Uri shapesUri)
         {
-            currentShapes.Clear();
-            deviceFinder.FindAllmDNSMulticast();
-            Thread.Sleep(5000);
+            var authTokenResponse = EndpointMessenger.SendNewDeveloperRequest(shapesUri).Result;
+            var devAuthObject = new DeveloperAuthToken(authTokenResponse.AuthToken);
 
-            return currentShapes;
-        }
+            var panelLayoutResponse = EndpointMessenger.SendLayoutRequest(shapesUri, devAuthObject).Result;
+            var panelSet = shapesPanelFactory.GetPanelsFromLayoutResponse(panelLayoutResponse);
 
-        public HashSet<INanoleafShapes> GetAllShapes2()
-        {
-            currentShapes.Clear();
-            currentShapes.Add(CreateShapes2());
-            return currentShapes;
-        }
-
-        private void ProcessBridgeRequestAnswer(object sender, Uri deviceUri)
-        {
-            var shapes = CreateShapes(deviceUri);
-            if(!currentShapes.Contains(shapes))
-                currentShapes.Add(shapes);
-        }
-        private INanoleafShapes CreateShapes(Uri shapesUri)
-        {
-            var shapes = new Shapes(shapesUri);
-            var authTokenResponse = GetUserForShapes(shapes);
-            shapes.SetDeveloperAuthToken(new DeveloperAuthToken(authTokenResponse.AuthToken));
+            var shapes = new Shapes(shapesUri, devAuthObject, panelSet);
 
             return shapes;
-        }
-
-        private INanoleafShapes CreateShapes2()
-        {
-            var shapes = new Shapes(new Uri("http://192.168.1.9"));
-            shapes.SetDeveloperAuthToken(new DeveloperAuthToken("CckRCKFIS6gE3J8dYOtFfFCvZt7xxqv2"));
-
-            return shapes;
-        }
-
-        private DeveloperAuthTokenResponse GetUserForShapes(INanoleafShapes shapes)
-        {
-            var responseContent = EndpointMessenger.SendNewDeveloperRequest(shapes.GetURL()).Result;
-            var authTokenResponse = JsonConvert.DeserializeObject<DeveloperAuthTokenResponse>(responseContent);
-            return authTokenResponse;
         }
     }
 }

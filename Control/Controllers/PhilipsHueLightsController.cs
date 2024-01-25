@@ -22,7 +22,7 @@ using System.Threading.Tasks;
 
 namespace Control.Controllers
 {
-    internal class PhilipsHueLightsController : IMidiLightsController
+    internal class PhilipsHueLightsController : IMidiLightsController, IPhilipsHueMidiLightsController
     {
         private readonly HueLightController _hueLightController;
         public static Dictionary<MidiMessageKeys, LightEffectAction> _messageActionLinks;

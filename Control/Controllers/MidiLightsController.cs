@@ -44,6 +44,9 @@ namespace Control.Controllers
 
         public static Dictionary<MidiMessageKeys, IViewLink> _links;
         public IMidiLightsController _hueLightsController;
+        public IMidiLightsController _nanoleafLightsController;
+        private IPhilipsHueMidiLightsController _concreteHueLightsController;
+        private INanoleafMidiLightsController _concreteNanoleafLightsController;
 
         private ViewEffectFactory viewEffectFactory;
         private ViewLightFactory viewLightFactory;
@@ -62,6 +65,9 @@ namespace Control.Controllers
             _midiController = new MidiController();
             _links = new Dictionary<MidiMessageKeys, IViewLink>();
             _hueLightsController = new PhilipsHueLightsController();
+            _concreteHueLightsController = _hueLightsController as IPhilipsHueMidiLightsController;
+            _nanoleafLightsController = new NanoleafLightsController();
+            _concreteNanoleafLightsController = _nanoleafLightsController as INanoleafMidiLightsController;
             viewLinkFactory = new ViewLinkFactory();
             _midiController.MessageEventHandler += MidiMessageReceived;
             CreateLinkPhilipsHueEventHandler += _hueLightsController.CreateLinkHandler;
@@ -135,10 +141,6 @@ namespace Control.Controllers
 
         public bool SaveLinksToFile()
         {
-            //var hueLightsLinks = _hueLightsController.GetMessageActionLinks();
-
-            //Needs to deal with the Nanoleaf links as well, once it is in place
-
             var linkList = new List<KeyValuePair<MidiMessageKeys, ViewLink>>();
 
             foreach (KeyValuePair<MidiMessageKeys, IViewLink> link in _links)
@@ -152,10 +154,11 @@ namespace Control.Controllers
                 TypeNameAssemblyFormat = System.Runtime.Serialization.Formatters.FormatterAssemblyStyle.Simple
             });
 
-            var hueSaveObject = new HueLinkSaveObject(_hueLightsController.GetMessageActionLinks());
+            var hueSaveObject = new HueLinkSaveObject(_concreteHueLightsController.GetMessageActionLinks());
+            var nanoleafSaveObject = new NanoleafLinkSaveObject(_concreteNanoleafLightsController.GetMessageActionLinks());
             var mainSaveObject = new MainLinkSaveObject(linksJson);
 
-            ILinkSaveObject saveObject = new LinkSaveObject(mainSaveObject, hueSaveObject);
+            ILinkSaveObject saveObject = new LinkSaveObject(mainSaveObject, hueSaveObject, nanoleafSaveObject);
             return _storageController.SaveLinks(saveObject);
         }
 
@@ -166,7 +169,8 @@ namespace Control.Controllers
             if (links != null)
             {
                 ParseLinks(links.MainLinksJson);
-                _hueLightsController.ParseLinks(links.PhilipsHueLinkSaveObject);
+                _concreteHueLightsController.ParseLinks(links.PhilipsHueLinkSaveObject);
+                _concreteNanoleafLightsController.ParseLinks(links.NanoleafLinkSaveObject);
             }
             else
                 return false;
@@ -228,6 +232,7 @@ namespace Control.Controllers
         public void ConnectBridges()
         {
             _hueLightsController.ConnectSystem();
+            _nanoleafLightsController.ConnectSystem();
         }
 
         public int GetHueBridgeCount()
@@ -270,12 +275,25 @@ namespace Control.Controllers
 
         public List<IViewLight> GetAllAvailableHueLights()
         {
-            var hueLights = _hueLightsController.GetAllAvailableDevices();
+            var hueLights = _concreteHueLightsController.GetAllAvailableDevices();
             var viewLights = new List<IViewLight>();
 
             foreach (var light in hueLights)
             {
-                viewLights.Add(viewLightFactory.Construct(AvailableViewLights.PhilipsHue, light));
+                viewLights.Add(viewLightFactory.ConstructFromHueLight(light));
+            }
+
+            return viewLights;
+        }
+
+        public List<IViewLight> GetAllAvailableNanoleafLights()
+        {
+            var nanoleafLights = _concreteNanoleafLightsController.GetAllAvailableDevices();
+            var viewLights = new List<IViewLight>();
+
+            foreach (var light in nanoleafLights)
+            {
+                viewLights.Add(viewLightFactory.ConstructFromNanoleafLight(light));
             }
 
             return viewLights;

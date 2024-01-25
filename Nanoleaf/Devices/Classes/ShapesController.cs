@@ -1,6 +1,11 @@
-﻿using Nanoleaf.Action.Actions.ShapesActions;
+﻿using Nanoleaf.Action.Actions;
+using Nanoleaf.Action.Actions.ShapesActions;
 using Nanoleaf.Action.Classes;
+using Nanoleaf.Action.Interfaces;
+using Nanoleaf.Devices.Factories;
 using Nanoleaf.Devices.Interfaces;
+using Nanoleaf.Devices.ShapesFinderClasses;
+using Nanoleaf.Effects.Enums;
 using Nanoleaf.Network;
 using Nanoleaf.Network.Classes;
 using Nanoleaf.Network.Classes.Responses;
@@ -15,27 +20,98 @@ using System.Threading.Tasks;
 
 namespace Nanoleaf.Devices.Classes
 {
-    internal class ShapesController
+    public class ShapesController
     {
-        public INanoleafShapes LinkedShapes { get; private set; }
+        internal Dictionary<IShapesPanel, INanoleafShapes> panelShapesDictionary { get; private set; }
+        private HashSet<INanoleafShapes> controllers;
         private ActionController actionController;
+        private ShapesFinder shapesFinder;
+        private ShapesFactory shapesFactory;
+        private readonly List<AvailableEffects> allAvailableEffectsList;
 
-        public ShapesController(ActionController actionController, INanoleafShapes shapes)
+        public ShapesController()
         {
-            LinkedShapes = shapes;
-            this.actionController = actionController;
+            shapesFactory = new ShapesFactory();
+            actionController = new ActionController();
+            shapesFinder = new ShapesFinder();
+            controllers = new HashSet<INanoleafShapes>();
+            shapesFinder.FoundControllerHandler += FoundController;
+
+            allAvailableEffectsList = new List<AvailableEffects>();
+            allAvailableEffectsList.Add(AvailableEffects.TurnOff);
+            allAvailableEffectsList.Add(AvailableEffects.TurnOn);
+            allAvailableEffectsList.Add(AvailableEffects.ColorChange);
+            allAvailableEffectsList.Add(AvailableEffects.FadeIn);
+            allAvailableEffectsList.Add(AvailableEffects.Flash);
+            allAvailableEffectsList.Add(AvailableEffects.FadeIn);
+            allAvailableEffectsList.Add(AvailableEffects.FadeOut);
         }
 
-        public void UpdateBrightness(UpdateBrightnessActionValues values)
+        //public void UpdateBrightness(UpdateBrightnessActionValues values)
+        //{
+        //    var action = new ShapesUpdateBrightnessAction(LinkedShapes, values);
+        //    action.Perform();
+        //}
+
+        //public void UpdateEffects(ShapesUpdateEffectsActionValues values)
+        //{
+        //    var action = new ShapesUpdateEffectsAction(LinkedShapes, values);
+        //    action.Perform();
+        //}
+
+        public void InitializeSystem()
         {
-            var action = new ShapesUpdateBrightnessAction(LinkedShapes, values);
-            action.Perform();
+            shapesFinder.FindShapesControllers();
         }
 
-        public void UpdateEffects(ShapesUpdateEffectsActionValues values)
+        private void FoundController(object sender, Uri controllerUri)
         {
-            var action = new ShapesUpdateEffectsAction(LinkedShapes, values);
-            action.Perform();
+            var shapes = shapesFactory.CreateShapes(controllerUri);
+
+            if(!controllers.Contains(shapes))
+            {
+                controllers.Add(shapes);
+            }
+        }
+
+        public List<IShapesPanel> GetAllAvailableDevices()
+        {
+            List<IShapesPanel> list = new List<IShapesPanel>();
+
+            foreach (INanoleafShapes controller in controllers)
+            {
+                list.AddRange(controller.Panels);
+            }
+
+            return list;
+        }
+
+        public AllLightControllerInfoResponse GetAllLightControllerInfo(INanoleafShapes shapes)
+        {
+            var action = new GetAllLightControllerInfoAction(shapes);
+            var result = action.Perform();
+
+            return result;
+        }
+
+        public void PerformSimpleAction(IAction action)
+        {
+            actionController.PerformSimpleAction(panelShapesDictionary, action);
+        }
+
+        public void PerformEffectAction(INanoleafEffectAction action)
+        {
+            actionController.PerformEffectAction(panelShapesDictionary, action);
+        }
+
+        public List<AvailableEffects> GetAllEffectList()
+        {
+            return allAvailableEffectsList;
+        }
+
+        public int GetShapesControllerCount()
+        {
+            return controllers.Count;
         }
     }
 }

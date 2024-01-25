@@ -21,8 +21,8 @@ namespace Nanoleaf.Devices.Classes
             this.actionController = actionController;
             this.shapes = shapes;
 
-            var allLightControllerInfoResponse = actionController.GetAllLightControllerInfo(shapes);
-            panels = shapesPanelFactory.GetPanelSet(allLightControllerInfoResponse);
+            //var allLightControllerInfoResponse = actionController.GetAllLightControllerInfo(shapes);
+            //panels = shapesPanelFactory.GetPanelSet(allLightControllerInfoResponse);
         }
     }
 }

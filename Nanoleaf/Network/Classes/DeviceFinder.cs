@@ -33,14 +33,6 @@ namespace Nanoleaf.Network.Classes
             _mDNSClient.SendQuery(NANOLEAFQUERY);
         }
 
-        //Need to create this function since calling to discovery.meethue.com
-        //ended up in a 429 Too Many Requests ban XD.
-        //Need to sort out that by not calling this bloody URL.
-        public INanoleafShapes FindManual(Uri uri)
-        {
-            return new Shapes(uri);
-        }
-
         private void mDNSAnswerReceived(object sender, MessageEventArgs e)
         {
             string message = e.Message.ToString();

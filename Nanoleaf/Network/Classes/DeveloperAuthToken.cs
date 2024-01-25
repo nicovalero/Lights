@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Nanoleaf.Network.Classes
 {
-    internal class DeveloperAuthToken : IDeveloperAuthToken
+    public class DeveloperAuthToken : IDeveloperAuthToken
     {
         private string authToken;
 

@@ -14,7 +14,7 @@ using Nanoleaf.Network.Classes.Requests.ShapesRequests;
 
 namespace Nanoleaf.Action.Actions.ShapesActions
 {
-    internal struct UpdateBrightnessActionValues
+    public struct UpdateBrightnessActionValues
     {
         public int brightness;
         public int? duration;
@@ -24,7 +24,7 @@ namespace Nanoleaf.Action.Actions.ShapesActions
             this.duration = duration;
         }
     }
-    internal class ShapesUpdateBrightnessAction
+    internal class ShapesUpdateBrightnessAction: IAction
     {
         private INanoleafShapes shapes;
         private UpdateBrightnessActionValues values;
@@ -35,10 +35,12 @@ namespace Nanoleaf.Action.Actions.ShapesActions
             this.values = values;
         }
 
-        public void Perform()
+        public bool Perform()
         {
             var request = new UpdateBrightnessRequest(values.brightness, values.duration);
-            EndpointMessenger.UpdateStateRequest(shapes.GetURL(), shapes.GetDeveloperAuthToken(), request);
+            EndpointMessenger.UpdateStateRequest(shapes.URL, shapes.DeveloperAuthToken, request);
+
+            return true;
         }
     }
 }

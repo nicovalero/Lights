@@ -38,7 +38,7 @@ namespace Nanoleaf.Action.Actions.ShapesActions
         public void Perform()
         {
             var request = new UpdateHueRequest(values.value, values.max, values.min);
-            EndpointMessenger.UpdateStateRequest(shapes.GetURL(), shapes.GetDeveloperAuthToken(), request);
+            EndpointMessenger.UpdateStateRequest(shapes.URL, shapes.DeveloperAuthToken, request);
         }
     }
 }

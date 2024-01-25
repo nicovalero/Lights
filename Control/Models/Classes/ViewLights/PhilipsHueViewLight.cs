@@ -13,6 +13,10 @@ namespace Control.Models.Classes.ViewEffects
 {
     public class PhilipsHueViewLight : IViewLight
     {
+        public string ID { get { return ID; } }
+        public string Name { get { return NAME; } }
+        public string Description { get { return DESCRIPTION; } }
+
         [JsonProperty]
         private readonly string DESCRIPTION = "Philips Hue light";
 

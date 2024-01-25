@@ -22,7 +22,7 @@ namespace Nanoleaf.Action.Actions
         }
         public AllLightControllerInfoResponse Perform()
         {
-            var responseContent = EndpointMessenger.GetAllLightControllerInfoRequest(shapes.GetURL(), shapes.GetDeveloperAuthToken()).Result;
+            var responseContent = EndpointMessenger.GetAllLightControllerInfoRequest(shapes.URL, shapes.DeveloperAuthToken).Result;
             var response = JsonConvert.DeserializeObject<AllLightControllerInfoResponse>(responseContent);
             return response;
         }

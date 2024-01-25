@@ -14,7 +14,7 @@ using Nanoleaf.Network.Classes.Requests.ShapesRequests;
 
 namespace Nanoleaf.Action.Actions.ShapesActions
 {
-    internal struct ShapesUpdateEffectsActionValues
+    public struct ShapesUpdateEffectsActionValues
     {
         public string Command { get; set; }
         public string Version { get; set; }
@@ -33,7 +33,7 @@ namespace Nanoleaf.Action.Actions.ShapesActions
             Palette = palette;
         }
     }
-    internal class ShapesUpdateEffectsAction
+    internal class ShapesUpdateEffectsAction: IAction
     {
         private INanoleafShapes shapes;
         private ShapesUpdateEffectsActionValues values;
@@ -44,10 +44,12 @@ namespace Nanoleaf.Action.Actions.ShapesActions
             this.values = values;
         }
 
-        public void Perform()
+        public bool Perform()
         {
             var request = new UpdateEffectsRequest(values);
-            EndpointMessenger.UpdateEffectsRequest(shapes.GetURL(), shapes.GetDeveloperAuthToken(), request);
+            EndpointMessenger.UpdateEffectsRequest(shapes.URL, shapes.DeveloperAuthToken, request);
+
+            return true;
         }
     }
 }
