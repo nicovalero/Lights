@@ -73,6 +73,9 @@ namespace Control.Controllers
             CreateLinkPhilipsHueEventHandler += _hueLightsController.CreateLinkHandler;
             DeleteLinkEventHandler += _hueLightsController.DeleteLinkHandler;
 
+            CreateLinkNanoleafEventHandler += _nanoleafLightsController.CreateLinkHandler;
+            DeleteLinkEventHandler += _nanoleafLightsController.DeleteLinkHandler;
+
             PerformLinkEventHandler += _hueLightsController.PerformLinkedAction;
         }
 

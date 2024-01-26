@@ -110,7 +110,7 @@ namespace UI
             if (list != null)
             {
                 Resources["NumberOfAvailableHueLights"] = list.Count;
-                if (hueList.Count > 0)
+                if (list.Count > 0)
                 {
                     Resources["AvailableHueLights"] = list;
                     Resources["AvailableHueLightsConfigCard"] = _mainWindow_Controller.GetAvailableHueLights_CardConfigList();

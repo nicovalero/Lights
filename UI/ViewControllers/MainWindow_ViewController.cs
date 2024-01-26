@@ -239,7 +239,9 @@ namespace UI
 
         internal List<CardConfigList_ViewModel> GetAvailableHueLights_CardConfigList()
         {
-            return HueLight_ToCardConfigConverter.ConvertViewLight_ToCardConfig(_midiLightsController.GetAllAvailableHueLights());
+            var lights = _midiLightsController.GetAllAvailableHueLights();
+            lights.AddRange(_midiLightsController.GetAllAvailableNanoleafLights());
+            return HueLight_ToCardConfigConverter.ConvertViewLight_ToCardConfig(lights);
         }
 
         internal IViewEffectConfigSet GetConfigFromViewModel(IConfigVMSet set)

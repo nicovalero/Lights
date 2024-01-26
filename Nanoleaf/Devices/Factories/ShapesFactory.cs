@@ -25,14 +25,19 @@ namespace Nanoleaf.Devices.Factories
         internal INanoleafShapes CreateShapes(Uri shapesUri)
         {
             var authTokenResponse = EndpointMessenger.SendNewDeveloperRequest(shapesUri).Result;
-            var devAuthObject = new DeveloperAuthToken(authTokenResponse.AuthToken);
 
-            var panelLayoutResponse = EndpointMessenger.SendLayoutRequest(shapesUri, devAuthObject).Result;
-            var panelSet = shapesPanelFactory.GetPanelsFromLayoutResponse(panelLayoutResponse);
+            if (authTokenResponse != null)
+            {
+                var devAuthObject = new DeveloperAuthToken(authTokenResponse.AuthToken);
 
-            var shapes = new Shapes(shapesUri, devAuthObject, panelSet);
+                var panelLayoutResponse = EndpointMessenger.SendLayoutRequest(shapesUri, devAuthObject).Result;
+                var panelSet = shapesPanelFactory.GetPanelsFromLayoutResponse(panelLayoutResponse);
 
-            return shapes;
+                var shapes = new Shapes(shapesUri, devAuthObject, panelSet);
+
+                return shapes;
+            }
+            return null;
         }
     }
 }

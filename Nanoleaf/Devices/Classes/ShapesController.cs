@@ -68,9 +68,12 @@ namespace Nanoleaf.Devices.Classes
         {
             var shapes = shapesFactory.CreateShapes(controllerUri);
 
-            if(!controllers.Contains(shapes))
+            if (shapes != null)
             {
-                controllers.Add(shapes);
+                if (!controllers.Contains(shapes))
+                {
+                    controllers.Add(shapes);
+                }
             }
         }
 
