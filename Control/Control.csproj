@@ -87,7 +87,6 @@
     <Compile Include="Enums\AvailableViewLights.cs" />
     <Compile Include="Enums\EffectConfigPropertyIdentifier.cs" />
     <Compile Include="Enums\LinkType.cs" />
-    <Compile Include="Factories\NanoleafActionFactory.cs" />
     <Compile Include="Factories\NanoleafConfigSetFactory.cs" />
     <Compile Include="Factories\PhilipsHueActionFactory.cs" />
     <Compile Include="Factories\ViewLightFactory.cs" />

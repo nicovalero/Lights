@@ -1,4 +1,5 @@
-﻿using Nanoleaf.Devices.ShapesEffects;
+﻿using Nanoleaf.Devices.Interfaces;
+using Nanoleaf.Devices.ShapesEffects;
 using Nanoleaf.Devices.ShapesPanelLayoutClasses;
 using Nanoleaf.Devices.ShapesRhythm;
 using Nanoleaf.Devices.ShapesStateClasses;
@@ -6,30 +7,31 @@ using Nanoleaf.Network.Interfaces;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Nanoleaf.Network.Classes.Requests.ShapesRequests
 {
-    internal class UpdateHueRequestAttribute
+    internal class UpdateColorRequestAttribute
     {
         [JsonProperty("value")]
-        public double Value { get; set; }
-        public UpdateHueRequestAttribute(double value)
+        public double color { get; set; }
+        public UpdateColorRequestAttribute(double color)
         {
-            Value = value;
+            this.color = color;
         }
     }
 
-    internal class UpdateHueRequest: IUpdateStateRequest
+    internal class UpdatePanelsColorRequest: IUpdateStateRequest
     {
         [JsonProperty("hue")]
-        public UpdateHueRequestAttribute Hue { get; set; }
+        public UpdateColorRequestAttribute Hue { get; set; }
 
-        public UpdateHueRequest(double value)
+        public UpdatePanelsColorRequest(List<IShapesPanel> panels, double value)
         {
-            Hue = new UpdateHueRequestAttribute(value);
+            Hue = new UpdateColorRequestAttribute(value);
         }
 
         public string GetSerializedJson()

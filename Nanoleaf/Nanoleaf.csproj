@@ -66,6 +66,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Action\Actions\GetAllLightControllerInfoAction.cs" />
+    <Compile Include="Action\Actions\ShapesPanelsActions\ShapesPanelsUpdateBrightnessAction.cs" />
+    <Compile Include="Action\Actions\ShapesPanelsActions\ShapesPanelsUpdateHueAction.cs" />
+    <Compile Include="Action\Actions\ShapesPanelsActions\ShapesPanelsUpdateSaturationAction.cs" />
     <Compile Include="Action\Actions\ShapesActions\ShapesUpdateEffectsAction.cs" />
     <Compile Include="Action\Actions\ShapesActions\ShapesUpdateSaturationAction.cs" />
     <Compile Include="Action\Actions\ShapesActions\ShapesUpdateHueAction.cs" />
@@ -75,6 +78,7 @@
     <Compile Include="Action\Factories\ActionFactory.cs" />
     <Compile Include="Action\Interfaces\IAction.cs" />
     <Compile Include="Action\Interfaces\ISinglePanelAction.cs" />
+    <Compile Include="Converters\RGBToHueConverter.cs" />
     <Compile Include="Devices\Factories\ShapesPanelFactory.cs" />
     <Compile Include="Devices\Classes\PanelController.cs" />
     <Compile Include="Devices\Classes\ShapesController.cs" />
@@ -130,6 +134,7 @@
     <Compile Include="Network\Classes\NanoleafDeviceResponse.cs" />
     <Compile Include="Network\Classes\mDNSClient.cs" />
     <Compile Include="Devices\Classes\Shapes.cs" />
+    <Compile Include="Network\Classes\Requests\ShapesPanelsRequests\UpdatePanelsColorRequest.cs" />
     <Compile Include="Network\Classes\Requests\ShapesRequests\UpdateEffectsRequest.cs" />
     <Compile Include="Network\Classes\Requests\ShapesRequests\UpdateSaturationRequest.cs" />
     <Compile Include="Network\Classes\Requests\ShapesRequests\UpdateHueRequest.cs" />

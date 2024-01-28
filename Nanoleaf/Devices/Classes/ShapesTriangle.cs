@@ -46,5 +46,19 @@ namespace Nanoleaf.Devices.Classes
         {
             return shapeType;
         }
+
+        public override bool Equals(object obj)
+        {
+            var instance = obj as ShapesTriangle;
+            return instance.panelID == this.panelID && instance.GetShapeType() == this.GetShapeType();
+        }
+
+        public override int GetHashCode()
+        {
+            int hashCode = -1842355318;
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(panelID);
+            hashCode = hashCode * -1521134295 + EqualityComparer<ShapeType>.Default.GetHashCode(shapeType);
+            return hashCode;
+        }
     }
 }

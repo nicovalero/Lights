@@ -17,6 +17,7 @@ using Nanoleaf.Effects.Enums;
 using Control.Parsers.EffectParsers;
 using Control.Models.Interfaces;
 using Nanoleaf.EffectConfig.Creators.Interfaces;
+using System.Threading;
 
 namespace Control.Controllers
 {
@@ -25,7 +26,6 @@ namespace Control.Controllers
         private readonly ShapesController shapesController;
         public static Dictionary<MidiMessageKeys, IAction> _messageActionLinks;
         private readonly ShapesPanelFactory shapesPanelFactory;
-        private readonly NanoleafActionFactory nanoleafActionFactory;
 
         [JsonProperty("MessageActionLinks")]
         internal Dictionary<MidiMessageKeys, IAction> MessageActionLinks
@@ -38,7 +38,6 @@ namespace Control.Controllers
         {
             shapesController = new ShapesController();
             _messageActionLinks = new Dictionary<MidiMessageKeys, IAction>();
-            nanoleafActionFactory = new NanoleafActionFactory();
             shapesPanelFactory = new ShapesPanelFactory();
         }
 
@@ -60,16 +59,19 @@ namespace Control.Controllers
                 return false;
             else
             {
-                var panels = new List<IShapesPanel>();
+                var panels = new HashSet<IShapesPanel>();
                 foreach (var light in linkData.ViewLights)
                 {
-                    panels.Add(shapesPanelFactory.CreatePanelFromID(light.GetID()));
+                    var panel = shapesPanelFactory.CreatePanelFromID(light.GetID());
+
+                    if(!panels.Contains(panel))
+                        panels.Add(panel);
                 }
 
                 var availableEffect = NanoleafEffectViewEffectParser.GetAvailableEffectFromViewEffect(linkData.ViewEffect);
                 IEffectConfigSet config = NanoleafConfigSetFactory.CreateConfigSet(linkData.ViewEffectConfigSet);
 
-                var action = nanoleafActionFactory.CreateAction(panels, availableEffect, config);
+                var action = shapesController.CreateAction(panels, availableEffect, config);
                 _messageActionLinks.Add(keys, action);
             }
 
@@ -91,7 +93,8 @@ namespace Control.Controllers
             if (_messageActionLinks.ContainsKey(keys))
             {
                 IAction action = _messageActionLinks[keys];
-                shapesController.PerformSimpleAction(action);
+                var thread = new Thread(() => shapesController.PerformSimpleAction(action));
+                thread.Start();
             }
         }
 

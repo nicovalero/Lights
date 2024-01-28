@@ -18,6 +18,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Control.Controllers
@@ -80,7 +81,8 @@ namespace Control.Controllers
             if (_messageActionLinks.ContainsKey(keys))
             {
                 LightEffectAction action = _messageActionLinks[keys];
-                _hueLightController.PerformAction(action);
+                var thread = new Thread(() => _hueLightController.PerformAction(action));
+                thread.Start();
             }
         }
 

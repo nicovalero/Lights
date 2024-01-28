@@ -1,10 +1,12 @@
 ﻿using Nanoleaf.Action.Actions;
 using Nanoleaf.Action.Actions.ShapesActions;
 using Nanoleaf.Action.Classes;
+using Nanoleaf.Action.Factories;
 using Nanoleaf.Action.Interfaces;
 using Nanoleaf.Devices.Factories;
 using Nanoleaf.Devices.Interfaces;
 using Nanoleaf.Devices.ShapesFinderClasses;
+using Nanoleaf.EffectConfig.Creators.Interfaces;
 using Nanoleaf.Effects.Enums;
 using Nanoleaf.Network;
 using Nanoleaf.Network.Classes;
@@ -27,6 +29,7 @@ namespace Nanoleaf.Devices.Classes
         private ActionController actionController;
         private ShapesFinder shapesFinder;
         private ShapesFactory shapesFactory;
+        private readonly ActionFactory actionFactory;
         private readonly List<AvailableEffects> allAvailableEffectsList;
 
         public ShapesController()
@@ -36,6 +39,8 @@ namespace Nanoleaf.Devices.Classes
             shapesFinder = new ShapesFinder();
             controllers = new HashSet<INanoleafShapes>();
             shapesFinder.FoundControllerHandler += FoundController;
+            panelShapesDictionary = new Dictionary<IShapesPanel, INanoleafShapes>();
+            actionFactory = new ActionFactory();
 
             allAvailableEffectsList = new List<AvailableEffects>();
             allAvailableEffectsList.Add(AvailableEffects.TurnOff);
@@ -73,6 +78,14 @@ namespace Nanoleaf.Devices.Classes
                 if (!controllers.Contains(shapes))
                 {
                     controllers.Add(shapes);
+
+                    foreach(IShapesPanel panel in shapes.Panels)
+                    {
+                        if(!panelShapesDictionary.ContainsKey(panel))
+                            panelShapesDictionary.Add(panel, shapes);
+                        else
+                            panelShapesDictionary[panel] = shapes;
+                    }
                 }
             }
         }
@@ -115,6 +128,21 @@ namespace Nanoleaf.Devices.Classes
         public int GetShapesControllerCount()
         {
             return controllers.Count;
+        }
+
+        public IAction CreateAction(HashSet<IShapesPanel> shapesPanels, AvailableEffects chosenEffect, IEffectConfigSet effectConfigSet)
+        {
+            var dictionary = new Dictionary<IShapesPanel, INanoleafShapes>();
+
+            foreach(IShapesPanel panel in shapesPanels)
+            {
+                if (panelShapesDictionary.ContainsKey(panel))
+                    dictionary.Add(panel, panelShapesDictionary[panel]);
+            }
+
+            var action = actionFactory.CreatePanelsAction(dictionary, chosenEffect, effectConfigSet);
+
+            return action;
         }
     }
 }

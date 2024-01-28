@@ -18,14 +18,14 @@ namespace Nanoleaf.Network
             return _client.GetAsync(path).Result;
         }
 
-        internal static async Task<HttpResponseMessage> SendPostRequestAsync(string path, StringContent data = null)
+        internal static HttpResponseMessage SendPostRequestAsync(string path, StringContent data = null)
         {
-            return await _client.PostAsync(path, data);
+            return _client.PostAsync(path, data).Result;
         }
 
-        internal static Task SendPutRequestAsync(string path, StringContent data = null)
+        internal static HttpResponseMessage SendPutRequestAsync(string path, StringContent data = null)
         {
-            return _client.PutAsync(path, data);
+            return _client.PutAsync(path, data).Result;
         }
     }
 }

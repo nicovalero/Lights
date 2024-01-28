@@ -11,34 +11,42 @@ using System.Text;
 using System.Threading.Tasks;
 using Nanoleaf.Devices.Interfaces;
 using Nanoleaf.Network.Classes.Requests.ShapesRequests;
+using System.Threading;
+using System.Collections;
+using Nanoleaf.EffectConfig.Creators.Interfaces;
+using Nanoleaf.Network.Structs;
 
 namespace Nanoleaf.Action.Actions.ShapesActions
 {
     internal struct ShapesUpdateHueActionValues
     {
-        public int value, max, min;
-        public ShapesUpdateHueActionValues(int value, int max, int min)
+        public double value;
+        public ShapesUpdateHueActionValues(double value)
         {
             this.value = value;
-            this.max = max;
-            this.min = min;
         }
     }
-    internal class ShapesUpdateHueAction
+    internal class ShapesUpdateHueAction: IAction
     {
-        private INanoleafShapes shapes;
-        private ShapesUpdateHueActionValues values;
+        private List<INanoleafShapes> shapesList;
+        private readonly UpdateHueRequest request;
+        private IEffectConfigSet effectConfigSet;
 
-        internal ShapesUpdateHueAction(INanoleafShapes shapes, ShapesUpdateHueActionValues values)
+        internal ShapesUpdateHueAction(List<INanoleafShapes> shapes, ShapesUpdateHueActionValues values, IEffectConfigSet config)
         {
-            this.shapes = shapes;
-            this.values = values;
+            effectConfigSet = config;
+            shapesList = shapes;
+            request = new UpdateHueRequest(values.value);
         }
 
-        public void Perform()
+        public bool Perform()
         {
-            var request = new UpdateHueRequest(values.value, values.max, values.min);
-            EndpointMessenger.UpdateStateRequest(shapes.URL, shapes.DeveloperAuthToken, request);
+            foreach (var shapes in shapesList)
+            {
+                EndpointMessenger.UpdateStateRequest(shapes.URL, shapes.DeveloperAuthToken, request);
+            }
+
+            return true;
         }
     }
 }

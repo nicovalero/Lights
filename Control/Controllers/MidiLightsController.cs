@@ -77,6 +77,7 @@ namespace Control.Controllers
             DeleteLinkEventHandler += _nanoleafLightsController.DeleteLinkHandler;
 
             PerformLinkEventHandler += _hueLightsController.PerformLinkedAction;
+            PerformLinkEventHandler += _nanoleafLightsController.PerformLinkedAction;
         }
 
         public void MidiMessageReceived(MidiController sender, MidiMessageKeys args)

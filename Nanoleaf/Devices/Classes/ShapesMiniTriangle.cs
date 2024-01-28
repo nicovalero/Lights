@@ -1,8 +1,10 @@
 ﻿using Nanoleaf.Devices.Enums;
 using Nanoleaf.Devices.Interfaces;
+using Nanoleaf.Network.Classes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -45,6 +47,20 @@ namespace Nanoleaf.Devices.Classes
         public ShapeType GetShapeType()
         {
             return shapeType;
+        }
+
+        public override bool Equals(object obj)
+        {
+            var instance = obj as ShapesMiniTriangle;
+            return instance.panelID == this.panelID && instance.GetShapeType() == this.GetShapeType();
+        }
+
+        public override int GetHashCode()
+        {
+            int hashCode = -1842355318;
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(panelID);
+            hashCode = hashCode * -1521134295 + EqualityComparer<ShapeType>.Default.GetHashCode(shapeType);
+            return hashCode;
         }
     }
 }

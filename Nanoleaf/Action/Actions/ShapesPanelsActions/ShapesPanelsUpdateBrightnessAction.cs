@@ -11,19 +11,10 @@ using System.Text;
 using System.Threading.Tasks;
 using Nanoleaf.Devices.Interfaces;
 using Nanoleaf.Network.Classes.Requests.ShapesRequests;
+using Nanoleaf.Action.Actions.ShapesActions;
 
-namespace Nanoleaf.Action.Actions.ShapesActions
+namespace Nanoleaf.Action.Actions.ShapesPanelsActions
 {
-    public struct UpdateBrightnessActionValues
-    {
-        public int brightness;
-        public int? duration;
-        public UpdateBrightnessActionValues(int brightness, int? duration = null)
-        {
-            this.brightness = brightness;
-            this.duration = duration;
-        }
-    }
     internal class ShapesPanelsUpdateBrightnessAction: IAction
     {
         private INanoleafShapes shapes;

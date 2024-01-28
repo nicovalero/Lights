@@ -31,7 +31,7 @@ namespace Nanoleaf.Network.Classes
             builder.Port = PORT;
 
             var path = builder.Uri.ToString();
-            response = await HTTPMessenger.SendPostRequestAsync(path);
+            response = HTTPMessenger.SendPostRequestAsync(path);
             DeveloperAuthTokenResponse devAuthTokenResponse = null;
 
             if (response != null)
@@ -82,7 +82,7 @@ namespace Nanoleaf.Network.Classes
             return responseContent;
         }
 
-        internal static Task UpdateStateRequest(Uri URL, DeveloperAuthToken token, IUpdateStateRequest request)
+        internal static void UpdateStateRequest(Uri URL, DeveloperAuthToken token, IUpdateStateRequest request)
         {
             var builder = new UriBuilder(URL);
             builder.Path = string.Format("{0}/{1}/{2}/", APIPATH, token.GetToken(), STATEPATH);
@@ -92,10 +92,10 @@ namespace Nanoleaf.Network.Classes
             StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
 
             var path = builder.Uri.ToString();
-            return HTTPMessenger.SendPutRequestAsync(path, content);
+            HTTPMessenger.SendPutRequestAsync(path, content);
         }
 
-        internal static Task UpdateSaturationRequest(Uri URL, DeveloperAuthToken token, IUpdateSaturationRequest request)
+        internal static void UpdateSaturationRequest(Uri URL, DeveloperAuthToken token, IUpdateSaturationRequest request)
         {
             var builder = new UriBuilder(URL);
             builder.Path = string.Format("{0}/{1}/{2}", APIPATH, token.GetToken(), SATURATIONPATH);
@@ -105,10 +105,10 @@ namespace Nanoleaf.Network.Classes
             StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
 
             var path = builder.Uri.ToString();
-            return HTTPMessenger.SendPutRequestAsync(path, content);
+            HTTPMessenger.SendPutRequestAsync(path, content);
         }
 
-        internal static Task UpdateEffectsRequest(Uri URL, DeveloperAuthToken token, IUpdateEffectsRequest request)
+        internal static void UpdateEffectsRequest(Uri URL, DeveloperAuthToken token, IUpdateEffectsRequest request)
         {
             var builder = new UriBuilder(URL);
             builder.Path = string.Format("{0}/{1}/{2}/", APIPATH, token.GetToken(), EFFECTSPATH);
@@ -118,7 +118,7 @@ namespace Nanoleaf.Network.Classes
             StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
 
             var path = builder.Uri.ToString();
-            return HTTPMessenger.SendPutRequestAsync(path, content);
+            HTTPMessenger.SendPutRequestAsync(path, content);
         }
     }
 }

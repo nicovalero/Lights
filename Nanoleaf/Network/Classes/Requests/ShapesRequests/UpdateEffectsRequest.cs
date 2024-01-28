@@ -7,6 +7,7 @@ using Nanoleaf.Network.Interfaces;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -50,9 +51,9 @@ namespace Nanoleaf.Network.Classes.Requests.ShapesRequests
         [JsonProperty("write")]
         public UpdateEffectsRequestAttribute Write { get; set; }
 
-        public UpdateEffectsRequest(ShapesUpdateEffectsActionValues values)
+        public UpdateEffectsRequest(ShapesUpdateEffectsActionValues values, Color color)
         {
-            Write = new UpdateEffectsRequestAttribute(values.Command, values.Version, values.AnimType, values.AnimData, values.Loop, values.Palette);
+            Write = new UpdateEffectsRequestAttribute(values.Command, values.Version, values.AnimType, values.AnimDataString, values.Loop, values.Palette);
         }
 
         public string GetSerializedJson()

@@ -11,17 +11,10 @@ using System.Text;
 using System.Threading.Tasks;
 using Nanoleaf.Devices.Interfaces;
 using Nanoleaf.Network.Classes.Requests.ShapesRequests;
+using Nanoleaf.Action.Actions.ShapesActions;
 
-namespace Nanoleaf.Action.Actions.ShapesActions
+namespace Nanoleaf.Action.Actions.ShapesPanelsActions
 {
-    internal struct ShapesUpdateSaturationActionValues
-    {
-        public int value;
-        public ShapesUpdateSaturationActionValues(int value)
-        {
-            this.value = value;
-        }
-    }
     internal class ShapesPanelsUpdateSaturationAction
     {
         private INanoleafShapes shapes;
