@@ -17,8 +17,8 @@ namespace Nanoleaf.Network.Classes.Requests.ShapesRequests
     internal class UpdateColorRequestAttribute
     {
         [JsonProperty("value")]
-        public double color { get; set; }
-        public UpdateColorRequestAttribute(double color)
+        public int color { get; set; }
+        public UpdateColorRequestAttribute(int color)
         {
             this.color = color;
         }
@@ -29,7 +29,7 @@ namespace Nanoleaf.Network.Classes.Requests.ShapesRequests
         [JsonProperty("hue")]
         public UpdateColorRequestAttribute Hue { get; set; }
 
-        public UpdatePanelsColorRequest(List<IShapesPanel> panels, double value)
+        public UpdatePanelsColorRequest(List<IShapesPanel> panels, int value)
         {
             Hue = new UpdateColorRequestAttribute(value);
         }

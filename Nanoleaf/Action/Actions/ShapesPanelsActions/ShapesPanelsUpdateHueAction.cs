@@ -32,7 +32,7 @@ namespace Nanoleaf.Action.Actions.ShapesPanelsActions
         internal ShapesPanelsUpdateHueAction(Dictionary<IShapesPanel, INanoleafShapes> panelShapesDictionary, ShapesPanelsUpdateColorActionValues values)
         {
             var panelsByShapes = new Dictionary<INanoleafShapes, List<IShapesPanel>>();
-            var hueValue = RGBToHueConverter.GetHue(values.color);
+            var hueValue = Convert.ToInt32(RGBToHueConverter.GetHue(values.color));
 
             foreach (var kvp in panelShapesDictionary)
             {

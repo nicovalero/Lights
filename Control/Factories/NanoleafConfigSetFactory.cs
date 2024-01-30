@@ -59,10 +59,12 @@ namespace Control.Factories
                         listConfig, intervalConfig);
                     break;
                 case AvailableViewEffects.UniversalFadeIn:
-                    config = new FadeInConfigSet((byte)viewEffectConfigSet.GetEffectConfigProperty(EffectConfigPropertyIdentifier.BrightnessLevel), (uint)viewEffectConfigSet.GetEffectConfigProperty(EffectConfigPropertyIdentifier.TransitionTime));
+                    var fadeInBrightness = (byte) ((byte)viewEffectConfigSet.GetEffectConfigProperty(EffectConfigPropertyIdentifier.BrightnessLevel) * 100 / 255);
+                    config = new FadeInConfigSet(fadeInBrightness, (uint)viewEffectConfigSet.GetEffectConfigProperty(EffectConfigPropertyIdentifier.TransitionTime));
                     break;
                 case AvailableViewEffects.UniversalFadeOut:
-                    config = new FadeOutConfigSet((byte)viewEffectConfigSet.GetEffectConfigProperty(EffectConfigPropertyIdentifier.BrightnessLevel), (uint)viewEffectConfigSet.GetEffectConfigProperty(EffectConfigPropertyIdentifier.TransitionTime));
+                    var fadeOutBrightness = (byte)((byte)viewEffectConfigSet.GetEffectConfigProperty(EffectConfigPropertyIdentifier.BrightnessLevel) * 100 / 255);
+                    config = new FadeOutConfigSet(fadeOutBrightness, (uint)viewEffectConfigSet.GetEffectConfigProperty(EffectConfigPropertyIdentifier.TransitionTime));
                     break;
             }
 

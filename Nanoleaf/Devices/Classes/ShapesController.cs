@@ -144,5 +144,52 @@ namespace Nanoleaf.Devices.Classes
 
             return action;
         }
+
+        public IAction CreateShapesAction(HashSet<INanoleafShapes> shapesSet, AvailableEffects chosenEffect, IEffectConfigSet effectConfigSet)
+        {
+            var list = new List<INanoleafShapes>();
+
+            foreach (INanoleafShapes shapes in shapesSet)
+            {
+                if (controllers.Contains(shapes))
+                    list.Add(shapes);
+            }
+
+            var action = actionFactory.CreateShapesAction(list, chosenEffect, effectConfigSet);
+
+            return action;
+        }
+
+        public List<INanoleafShapes> GetAllShapes(List<string> ids)
+        {
+            List<INanoleafShapes> results = new List<INanoleafShapes>();
+            var controllersList = controllers.ToList();
+
+            foreach (string id in ids)
+            {
+                var controller = controllers.Select(x => x).Where(x => Convert.ToString(x.ID) == id).FirstOrDefault();
+
+                if (controller != null)
+                    results.Add(controller);
+            }
+
+            return results;
+        }
+
+        public List<IShapesPanel> GetAllPanels(List<string> ids)
+        {
+            List<IShapesPanel> results = new List<IShapesPanel>();
+            var panels = panelShapesDictionary.Keys.ToList();
+
+            foreach (string id in ids)
+            {
+                var controller = panels.Select(x => x).Where(x => Convert.ToString(x.GetPanelID()) == id).FirstOrDefault();
+
+                if (controller != null)
+                    results.Add(controller);
+            }
+
+            return results;
+        }
     }
 }

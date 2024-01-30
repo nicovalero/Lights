@@ -13,12 +13,14 @@ namespace Nanoleaf.Devices.Classes
 {
     internal class Shapes : INanoleafShapes
     {
+        public uint ID { get; private set; }
         public Uri URL { get; private set; }
         public DeveloperAuthToken DeveloperAuthToken { get; private set; }
         public HashSet<IShapesPanel> Panels { get; private set; }
 
-        public Shapes(Uri url, DeveloperAuthToken token, HashSet<IShapesPanel> panelCollection)
+        public Shapes(uint id, Uri url, DeveloperAuthToken token, HashSet<IShapesPanel> panelCollection)
         {
+            this.ID = ID;
             URL = url;
             DeveloperAuthToken = token;
             Panels = panelCollection;
@@ -32,7 +34,7 @@ namespace Nanoleaf.Devices.Classes
         public override bool Equals(object obj)
         {
             var instance = obj as Shapes;
-            return instance.URL == this.URL && instance.DeveloperAuthToken == this.DeveloperAuthToken;
+            return instance.URL == this.URL && instance.DeveloperAuthToken == this.DeveloperAuthToken && instance.ID == this.ID;
         }
 
         public override int GetHashCode()

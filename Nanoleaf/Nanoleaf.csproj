@@ -66,13 +66,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Action\Actions\GetAllLightControllerInfoAction.cs" />
-    <Compile Include="Action\Actions\ShapesPanelsActions\ShapesPanelsUpdateBrightnessAction.cs" />
+    <Compile Include="Action\Actions\ShapesActions\ShapesFadeInAction.cs" />
     <Compile Include="Action\Actions\ShapesPanelsActions\ShapesPanelsUpdateHueAction.cs" />
     <Compile Include="Action\Actions\ShapesPanelsActions\ShapesPanelsUpdateSaturationAction.cs" />
-    <Compile Include="Action\Actions\ShapesActions\ShapesUpdateEffectsAction.cs" />
+    <Compile Include="Action\Actions\ShapesPanelsActions\ShapesPanelsUpdateEffectsAction.cs" />
     <Compile Include="Action\Actions\ShapesActions\ShapesUpdateSaturationAction.cs" />
     <Compile Include="Action\Actions\ShapesActions\ShapesUpdateHueAction.cs" />
-    <Compile Include="Action\Actions\ShapesActions\ShapesUpdateBrightnessAction.cs" />
+    <Compile Include="Action\Actions\ShapesActions\ShapesFadeOutAction.cs" />
     <Compile Include="Action\Classes\ActionController.cs" />
     <Compile Include="Action\Classes\SinglePanelChangeColor.cs" />
     <Compile Include="Action\Factories\ActionFactory.cs" />

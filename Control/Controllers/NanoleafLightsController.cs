@@ -18,6 +18,7 @@ using Control.Parsers.EffectParsers;
 using Control.Models.Interfaces;
 using Nanoleaf.EffectConfig.Creators.Interfaces;
 using System.Threading;
+using System.Linq;
 
 namespace Control.Controllers
 {
@@ -59,20 +60,24 @@ namespace Control.Controllers
                 return false;
             else
             {
-                var panels = new HashSet<IShapesPanel>();
-                foreach (var light in linkData.ViewLights)
-                {
-                    var panel = shapesPanelFactory.CreatePanelFromID(light.GetID());
+                var deviceIDs = linkData.ViewLights.Select(x => x.ID).ToList();
 
-                    if(!panels.Contains(panel))
-                        panels.Add(panel);
-                }
+                var panels = new HashSet<IShapesPanel>(shapesController.GetAllPanels(deviceIDs));
+                var shapes = new HashSet<INanoleafShapes>(shapesController.GetAllShapes(deviceIDs));
 
                 var availableEffect = NanoleafEffectViewEffectParser.GetAvailableEffectFromViewEffect(linkData.ViewEffect);
                 IEffectConfigSet config = NanoleafConfigSetFactory.CreateConfigSet(linkData.ViewEffectConfigSet);
 
-                var action = shapesController.CreateAction(panels, availableEffect, config);
-                _messageActionLinks.Add(keys, action);
+                if (shapes.Count == 0)
+                {
+                    var panelsAction = shapesController.CreateAction(panels, availableEffect, config);
+                    _messageActionLinks.Add(keys, panelsAction);
+                }
+                else
+                {
+                    var shapesAction = shapesController.CreateShapesAction(shapes, availableEffect, config);
+                    _messageActionLinks.Add(keys, shapesAction);
+                }
             }
 
             return true;

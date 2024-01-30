@@ -1,4 +1,5 @@
 ﻿using Nanoleaf.Action.Actions.ShapesActions;
+using Nanoleaf.Action.Actions.ShapesPanelsActions;
 using Nanoleaf.Devices.ShapesEffects;
 using Nanoleaf.Devices.ShapesPanelLayoutClasses;
 using Nanoleaf.Devices.ShapesRhythm;

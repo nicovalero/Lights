@@ -20,5 +20,8 @@ namespace Nanoleaf.Devices.ShapesPanelLayoutClasses
 
         [JsonProperty("O")]
         public int O { get; set; }
+
+        [JsonProperty("shapeType")]
+        public int ShapeType { get; set; }
     }
 }

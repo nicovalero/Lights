@@ -19,21 +19,24 @@ namespace Nanoleaf.Converters
 
             double hue = 0;
 
-            switch(max)
+            if (min != max)
             {
-                case var value when value == calcR:
-                    hue = (calcG - calcB) / (max - min);
-                    break;
-                case var value when value == calcG:
-                    hue = 2.0 + (calcB - calcR) / (max - min);
-                    break;
-                case var value when value == calcB:
-                    hue = 4.0 + (calcR - calcG) / (max - min);
-                    break;
-            }
+                switch (max)
+                {
+                    case var value when value == calcR:
+                        hue = (calcG - calcB) / (max - min);
+                        break;
+                    case var value when value == calcG:
+                        hue = 2.0 + (calcB - calcR) / (max - min);
+                        break;
+                    case var value when value == calcB:
+                        hue = 4.0 + (calcR - calcG) / (max - min);
+                        break;
+                }
 
-            hue = hue * 60;
-            hue = (hue < 0 ? hue + 360 : hue);
+                hue = hue * 60;
+                hue = (hue < 0 ? hue + 360 : hue);
+            }
 
             return hue;
         }

@@ -9,6 +9,7 @@ namespace Nanoleaf.Devices.Interfaces
 {
     public interface INanoleafShapes
     {
+        uint ID { get; }
         Uri URL { get; }
         DeveloperAuthToken DeveloperAuthToken { get; }
         HashSet<IShapesPanel> Panels { get; }

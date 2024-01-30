@@ -7,6 +7,7 @@ using Nanoleaf.Network.Interfaces;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 
 namespace Nanoleaf.Devices.Factories
@@ -17,11 +18,11 @@ namespace Nanoleaf.Devices.Factories
         private ShapesPanelFactory shapesPanelFactory;
 
         public ShapesFactory()
-        {            
+        {
             currentShapes = new HashSet<INanoleafShapes>();
             shapesPanelFactory = new ShapesPanelFactory();
         }
-        
+
         internal INanoleafShapes CreateShapes(Uri shapesUri)
         {
             try
@@ -34,13 +35,19 @@ namespace Nanoleaf.Devices.Factories
 
                     var panelLayoutResponse = EndpointMessenger.SendLayoutRequest(shapesUri, devAuthObject).Result;
                     var panelSet = shapesPanelFactory.GetPanelsFromLayoutResponse(panelLayoutResponse);
+                    var controller = panelSet.Select(x => x)
+                        .Where(x => x.GetShapeType() == ShapeType.ShapesController)
+                        .FirstOrDefault();
 
-                    var shapes = new Shapes(shapesUri, devAuthObject, panelSet);
+                    if (controller != null)
+                    {
+                        var shapes = new Shapes(Convert.ToUInt32(controller.GetPanelID()), shapesUri, devAuthObject, panelSet);
 
-                    return shapes;
+                        return shapes;
+                    }
                 }
             }
-            catch(Exception ex) { }
+            catch (Exception ex) { }
 
             return null;
         }

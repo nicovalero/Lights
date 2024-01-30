@@ -45,12 +45,14 @@ namespace Nanoleaf.Devices.Classes
             this.panelID = panelID;
         }
 
-        public ShapesPanel(string panelID, string panelO, string panelX, string panelY)
+        public ShapesPanel(string panelID, string panelO, string panelX, string panelY, ShapeType shapeType)
         {
             this.panelID = panelID;
             this.panelO = panelO;
             this.panelX = panelX;
             this.panelY = panelY;
+            this.shapeTypeEnum = shapeType;
+            shapeTypeString = shapeType.ToString();
         }
 
         public string GetPanelID()

@@ -15,11 +15,11 @@ namespace Nanoleaf.Network.Classes.Requests.ShapesRequests
     internal class UpdateBrightnessRequestAttribute
     {
         [JsonProperty("value")]
-        public int Value { get; set; }
+        public byte Value { get; set; }
 
         [JsonProperty("duration", NullValueHandling = NullValueHandling.Ignore)]
         public int? Duration { get; set; }
-        public UpdateBrightnessRequestAttribute(int value, int? duration)
+        public UpdateBrightnessRequestAttribute(byte value, int? duration)
         {
             Value = value;
             Duration = duration;
@@ -31,9 +31,9 @@ namespace Nanoleaf.Network.Classes.Requests.ShapesRequests
         [JsonProperty("brightness")]
         public UpdateBrightnessRequestAttribute Brightness { get; set; }
 
-        public UpdateBrightnessRequest(int value, int? duration = null)
+        public UpdateBrightnessRequest(byte brightness, int? duration = null)
         {
-            Brightness = new UpdateBrightnessRequestAttribute(value, duration);
+            Brightness = new UpdateBrightnessRequestAttribute(brightness, duration);
         }
 
         public string GetSerializedJson()

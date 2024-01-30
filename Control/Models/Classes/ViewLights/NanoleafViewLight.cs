@@ -13,7 +13,7 @@ namespace Control.Models.Classes.ViewEffects
 {
     public class NanoleafViewLight : IViewLight
     {
-        public string ID { get { return ID; } }
+        public string ID { get { return id; } }
         public string Name { get { return NAME; } }
         public string Description { get { return DESCRIPTION; } }
         private const string DESCRIPTION = "Nanoleaf Panels";

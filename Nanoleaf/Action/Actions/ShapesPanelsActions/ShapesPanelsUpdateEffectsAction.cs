@@ -15,7 +15,7 @@ using static System.TimeZoneInfo;
 using Nanoleaf.Converters;
 using Nanoleaf.EffectConfig.Creators.Classes;
 
-namespace Nanoleaf.Action.Actions.ShapesActions
+namespace Nanoleaf.Action.Actions.ShapesPanelsActions
 {
     public struct AnimDataValues
     {
@@ -73,7 +73,6 @@ namespace Nanoleaf.Action.Actions.ShapesActions
     internal class ShapesPanelsUpdateEffectsAction : IAction
     {
         private Dictionary<INanoleafShapes, UpdateEffectsRequest> shapesRequestDictionary;
-        private ShapesUpdateEffectsActionValues values;
 
         private const string COMMAND = "display";
         private const string VERSION = "2.0";

@@ -5,6 +5,7 @@ using Nanoleaf.Converters;
 using Nanoleaf.Devices.Interfaces;
 using Nanoleaf.EffectConfig.Creators.Classes;
 using Nanoleaf.EffectConfig.Creators.Interfaces;
+using Nanoleaf.EffectConfig.Parts.Classes;
 using Nanoleaf.Effects.Enums;
 using System;
 using System.Collections.Generic;
@@ -42,10 +43,6 @@ namespace Nanoleaf.Action.Factories
                 //    break;
                 //case AvailableEffects.UniversalBrightnessWave:
                 //    break;
-                //case AvailableEffects.UniversalFadeIn:
-                //    break;
-                //case AvailableEffects.UniversalFadeOut:
-                //    break;
                 default:
                     action = null;
                     break;
@@ -77,10 +74,18 @@ namespace Nanoleaf.Action.Factories
                 //    break;
                 //case AvailableEffects.UniversalBrightnessWave:
                 //    break;
-                //case AvailableEffects.UniversalFadeIn:
-                //    break;
-                //case AvailableEffects.UniversalFadeOut:
-                //    break;
+                case AvailableEffects.FadeIn:
+                    if (config is FadeInConfigSet fadeInSet)
+                    {
+                        action = new ShapesFadeInAction(shapesList, fadeInSet);
+                    }
+                    break;
+                case AvailableEffects.FadeOut:
+                    if (config is FadeOutConfigSet fadeOutSet)
+                    {
+                        action = new ShapesFadeOutAction(shapesList, fadeOutSet);
+                    }
+                    break;
                 default:
                     action = null;
                     break;

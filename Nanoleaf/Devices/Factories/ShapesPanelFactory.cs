@@ -1,4 +1,5 @@
-﻿using Nanoleaf.Devices.Interfaces;
+﻿using Nanoleaf.Devices.Enums;
+using Nanoleaf.Devices.Interfaces;
 using Nanoleaf.Devices.ShapesPanelLayoutClasses;
 using Nanoleaf.Network.Classes;
 using Nanoleaf.Network.Classes.Responses;
@@ -45,7 +46,7 @@ namespace Nanoleaf.Devices.Classes
 
             foreach (var data in positionData)
             {
-                var newPanel = new ShapesPanel(data.PanelId.ToString(), data.O.ToString(), data.X.ToString(), data.Y.ToString());
+                var newPanel = new ShapesPanel(data.PanelId.ToString(), data.O.ToString(), data.X.ToString(), data.Y.ToString(), (ShapeType)data.ShapeType);
                 if (!panels.Contains(newPanel))
                 {
                     panels.Add(newPanel);
