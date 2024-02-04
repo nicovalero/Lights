@@ -67,6 +67,7 @@
   <ItemGroup>
     <Compile Include="Action\Actions\GetAllLightControllerInfoAction.cs" />
     <Compile Include="Action\Actions\ShapesActions\ShapesFadeInAction.cs" />
+    <Compile Include="Action\Actions\ShapesPanelsActions\ShapesPanelsColorWaveAction.cs" />
     <Compile Include="Action\Actions\ShapesPanelsActions\ShapesPanelsUpdateHueAction.cs" />
     <Compile Include="Action\Actions\ShapesPanelsActions\ShapesPanelsUpdateSaturationAction.cs" />
     <Compile Include="Action\Actions\ShapesPanelsActions\ShapesPanelsUpdateEffectsAction.cs" />
@@ -76,6 +77,7 @@
     <Compile Include="Action\Classes\ActionController.cs" />
     <Compile Include="Action\Classes\SinglePanelChangeColor.cs" />
     <Compile Include="Action\Factories\ActionFactory.cs" />
+    <Compile Include="Action\Factories\ActionValuesFactory.cs" />
     <Compile Include="Action\Interfaces\IAction.cs" />
     <Compile Include="Action\Interfaces\ISinglePanelAction.cs" />
     <Compile Include="Converters\RGBToHueConverter.cs" />

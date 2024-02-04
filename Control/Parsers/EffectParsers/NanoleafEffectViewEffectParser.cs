@@ -35,6 +35,9 @@ namespace Control.Parsers.EffectParsers
                 case AvailableViewEffects.UniversalColorChange:
                     availableEffect = AvailableEffects.ColorChange;
                     break;
+                case AvailableViewEffects.UniversalColorWave:
+                    availableEffect = AvailableEffects.ColorWave;
+                    break;
                 default:
                     availableEffect = AvailableEffects.Invalid;
                     break;

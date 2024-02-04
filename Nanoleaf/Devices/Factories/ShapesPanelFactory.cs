@@ -62,5 +62,12 @@ namespace Nanoleaf.Devices.Classes
 
             return newPanel;
         }
+
+        public IShapesPanel CreatePanel(string id, string O, string X, string Y, ShapeType type)
+        {
+            var newPanel = new ShapesPanel(id,O, X, Y, type);
+
+            return newPanel;
+        }
     }
 }

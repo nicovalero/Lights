@@ -52,7 +52,7 @@ namespace Nanoleaf.Network.Classes.Requests.ShapesRequests
         [JsonProperty("write")]
         public UpdateEffectsRequestAttribute Write { get; set; }
 
-        public UpdateEffectsRequest(ShapesUpdateEffectsActionValues values, Color color)
+        public UpdateEffectsRequest(ShapesUpdateEffectsActionValues values)
         {
             Write = new UpdateEffectsRequestAttribute(values.Command, values.Version, values.AnimType, values.AnimDataString, values.Loop, values.Palette);
         }

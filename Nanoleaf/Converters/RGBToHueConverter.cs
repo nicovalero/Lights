@@ -11,9 +11,9 @@ namespace Nanoleaf.Converters
     {
         internal static double GetHue(Color color)
         {
-            var calcR = color.R / 255;
-            var calcG = color.G / 255;
-            var calcB = color.B / 255;
+            double calcR = color.R / 255.0;
+            var calcG = color.G / 255.0;
+            var calcB = color.B / 255.0;
             var max = Math.Max(Math.Max(calcR, calcG), calcB);
             var min = Math.Min(Math.Min(calcR, calcG), calcB);
 

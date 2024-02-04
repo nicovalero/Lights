@@ -27,25 +27,26 @@ namespace Nanoleaf.Devices.Factories
         {
             try
             {
-                var authTokenResponse = EndpointMessenger.SendNewDeveloperRequest(shapesUri).Result;
+                //Uncomment when the save file saves the token.
+                //var authTokenResponse = EndpointMessenger.SendNewDeveloperRequest(shapesUri).Result;
 
-                if (authTokenResponse != null)
+                //if (authTokenResponse != null)
+                //{
+                var devAuthObject = new DeveloperAuthToken("CckRCKFIS6gE3J8dYOtFfFCvZt7xxqv2"/*authTokenResponse.AuthToken*/);
+
+                var panelLayoutResponse = EndpointMessenger.SendLayoutRequest(shapesUri, devAuthObject).Result;
+                var panelSet = shapesPanelFactory.GetPanelsFromLayoutResponse(panelLayoutResponse);
+                var controller = panelSet.Select(x => x)
+                    .Where(x => x.GetShapeType() == ShapeType.ShapesController)
+                    .FirstOrDefault();
+
+                if (controller != null)
                 {
-                    var devAuthObject = new DeveloperAuthToken(authTokenResponse.AuthToken);
+                    var shapes = new Shapes(Convert.ToUInt32(controller.GetPanelID()), shapesUri, devAuthObject, panelSet);
 
-                    var panelLayoutResponse = EndpointMessenger.SendLayoutRequest(shapesUri, devAuthObject).Result;
-                    var panelSet = shapesPanelFactory.GetPanelsFromLayoutResponse(panelLayoutResponse);
-                    var controller = panelSet.Select(x => x)
-                        .Where(x => x.GetShapeType() == ShapeType.ShapesController)
-                        .FirstOrDefault();
-
-                    if (controller != null)
-                    {
-                        var shapes = new Shapes(Convert.ToUInt32(controller.GetPanelID()), shapesUri, devAuthObject, panelSet);
-
-                        return shapes;
-                    }
+                    return shapes;
                 }
+                //}
             }
             catch (Exception ex) { }
 

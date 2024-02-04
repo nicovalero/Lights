@@ -2,6 +2,7 @@
 using Control.Models.Interfaces;
 using Nanoleaf.Action.Factories;
 using Nanoleaf.Action.Interfaces;
+using Nanoleaf.Devices.Classes;
 using Nanoleaf.Devices.Interfaces;
 using Nanoleaf.EffectConfig.Creators.Classes;
 using Nanoleaf.EffectConfig.Creators.Interfaces;
@@ -17,9 +18,27 @@ namespace Control.Factories
 {
     internal static class NanoleafConfigSetFactory
     {
+        public static readonly ShapesPanelFactory shapesPanelFactory;
+
+        static NanoleafConfigSetFactory()
+        {
+            shapesPanelFactory = new ShapesPanelFactory();
+        }
+
         public static IEffectConfigSet CreateConfigSet(IViewEffectConfigSet viewEffectConfigSet)
         {
             var lights = new List<IShapesPanel>();
+
+            var listObject = viewEffectConfigSet.GetEffectConfigProperty(EffectConfigPropertyIdentifier.LightList);
+
+            if (listObject != null)
+            {
+                var viewLights = (List<IViewLight>)listObject;
+                foreach(var light in viewLights)
+                {
+                    lights.Add(shapesPanelFactory.CreatePanelFromID(light.ID));
+                }
+            }
 
             IEffectConfigSet config = null;
 
@@ -59,7 +78,7 @@ namespace Control.Factories
                         listConfig, intervalConfig);
                     break;
                 case AvailableViewEffects.UniversalFadeIn:
-                    var fadeInBrightness = (byte) ((byte)viewEffectConfigSet.GetEffectConfigProperty(EffectConfigPropertyIdentifier.BrightnessLevel) * 100 / 255);
+                    var fadeInBrightness = (byte)((byte)viewEffectConfigSet.GetEffectConfigProperty(EffectConfigPropertyIdentifier.BrightnessLevel) * 100 / 255);
                     config = new FadeInConfigSet(fadeInBrightness, (uint)viewEffectConfigSet.GetEffectConfigProperty(EffectConfigPropertyIdentifier.TransitionTime));
                     break;
                 case AvailableViewEffects.UniversalFadeOut:

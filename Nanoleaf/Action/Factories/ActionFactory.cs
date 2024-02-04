@@ -7,6 +7,7 @@ using Nanoleaf.EffectConfig.Creators.Classes;
 using Nanoleaf.EffectConfig.Creators.Interfaces;
 using Nanoleaf.EffectConfig.Parts.Classes;
 using Nanoleaf.Effects.Enums;
+using Nanoleaf.Network.Classes.Requests.ShapesRequests;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,20 +29,26 @@ namespace Nanoleaf.Action.Factories
             switch (effect)
             {
                 case AvailableEffects.ColorChange:
-                    if (config is ColorChangeConfigSet set)
+                    if (config is ColorChangeConfigSet colorSet)
                     {
-                        action = new ShapesPanelsUpdateEffectsAction(panelShapesDictionary, set);
+                        action = new ShapesPanelsUpdateEffectsAction(panelShapesDictionary, colorSet);
                     }
                     break;
-                //case AvailableEffects.UniversalColorWave:
-                //    break;
+                case AvailableEffects.ColorWave:
+                    if (config is ColorWaveConfigSet waveSet)
+                    {
+                        var panelsQueue = new Queue<IShapesPanel>(waveSet.LightListConfig.LightList);
+
+                        var values = ActionValuesFactory.CreateShapesUpdateColorWaveActionValues(panelsQueue, waveSet.ColorConfig.RGBColor,
+                            waveSet.IntervalTimeConfig.GetTimeInMiliseconds());
+                        action = new ShapesPanelsColorWaveAction(panelShapesDictionary, values);
+                    }
+                    break;
                 //case AvailableEffects.TurnOn:
                 //    break;
                 //case AvailableEffects.TurnOff:
                 //    break;
                 //case AvailableEffects.UniversalFlash:
-                //    break;
-                //case AvailableEffects.UniversalBrightnessWave:
                 //    break;
                 default:
                     action = null;

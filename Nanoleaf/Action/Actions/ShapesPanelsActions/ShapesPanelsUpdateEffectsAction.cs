@@ -112,7 +112,7 @@ namespace Nanoleaf.Action.Actions.ShapesPanelsActions
 
                 var values = new ShapesUpdateEffectsActionValues(COMMAND, VERSION, ANIMTYPE, animDataList, LOOP, PALETTE);
 
-                var request = new UpdateEffectsRequest(values, colorValue);
+                var request = new UpdateEffectsRequest(values);
 
                 shapesRequestDictionary.Add(shapes, request);
             }

@@ -10,6 +10,7 @@ namespace Nanoleaf.Effects.Enums
     {
         Flash,
         ColorChange,
+        ColorWave,
         FadeIn,
         FadeOut,
         TurnOn,
