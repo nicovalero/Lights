@@ -29,12 +29,12 @@ namespace Control.Factories
         {
             var lights = new List<IShapesPanel>();
 
-            var listObject = viewEffectConfigSet.GetEffectConfigProperty(EffectConfigPropertyIdentifier.LightList);
-
-            if (listObject != null)
+            var viewLights = (List<IViewLight>)viewEffectConfigSet.GetEffectConfigProperty(EffectConfigPropertyIdentifier.LightList);
+            if (viewLights != null)
             {
-                var viewLights = (List<IViewLight>)listObject;
-                foreach(var light in viewLights)
+                var nanoleafLights = viewLights.Where(x => x.GetLightType() == LightType.Nanoleaf);
+
+                foreach (var light in nanoleafLights)
                 {
                     lights.Add(shapesPanelFactory.CreatePanelFromID(light.ID));
                 }
