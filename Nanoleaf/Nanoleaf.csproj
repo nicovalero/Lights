@@ -127,7 +127,6 @@
     <Compile Include="EffectConfig\Parts\Interfaces\IHueLightListConfig.cs" />
     <Compile Include="EffectConfig\Parts\Interfaces\ITimeConfig.cs" />
     <Compile Include="Effects\Enums\AvailableEffects.cs" />
-    <Compile Include="JsonConverters\ShapesConverter.cs" />
     <Compile Include="Network\Classes\DeveloperAuthToken.cs" />
     <Compile Include="Network\Classes\DeviceFinder.cs" />
     <Compile Include="Network\Classes\HTTPMessenger.cs" />
