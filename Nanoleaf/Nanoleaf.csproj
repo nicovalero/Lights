@@ -82,7 +82,6 @@
     <Compile Include="Action\Interfaces\ISinglePanelAction.cs" />
     <Compile Include="Converters\RGBToHueConverter.cs" />
     <Compile Include="Devices\Factories\ShapesPanelFactory.cs" />
-    <Compile Include="Devices\Classes\PanelController.cs" />
     <Compile Include="Devices\Classes\ShapesController.cs" />
     <Compile Include="Devices\Classes\ShapesPanel.cs" />
     <Compile Include="Devices\Classes\ShapesMiniTriangle.cs" />
@@ -128,6 +127,7 @@
     <Compile Include="EffectConfig\Parts\Interfaces\IHueLightListConfig.cs" />
     <Compile Include="EffectConfig\Parts\Interfaces\ITimeConfig.cs" />
     <Compile Include="Effects\Enums\AvailableEffects.cs" />
+    <Compile Include="JsonConverters\ShapesConverter.cs" />
     <Compile Include="Network\Classes\DeveloperAuthToken.cs" />
     <Compile Include="Network\Classes\DeviceFinder.cs" />
     <Compile Include="Network\Classes\HTTPMessenger.cs" />

@@ -1,6 +1,7 @@
 ﻿using Nanoleaf.Devices.Enums;
 using Nanoleaf.Devices.Interfaces;
 using Nanoleaf.Network.Classes;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +17,8 @@ namespace Nanoleaf.Devices.Classes
         private const ShapeType shapeType = ShapeType.ShapesMiniTriangle;
         private string panelO, panelX, panelY;
 
+        [JsonConstructor]
+        public ShapesMiniTriangle() { }
         public ShapesMiniTriangle(string panelID, string panelO, string panelX, string panelY)
         {
             this.panelID = panelID;

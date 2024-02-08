@@ -12,6 +12,8 @@ namespace Nanoleaf.Devices.Classes
     internal class ShapesPanel : IShapesPanel
     {
         private string shapeTypeString;
+
+        [JsonProperty("shapeTypeEnum")]
         private ShapeType shapeTypeEnum;
 
         [JsonProperty("panelId")]
@@ -27,7 +29,6 @@ namespace Nanoleaf.Devices.Classes
             set
             {
                 shapeTypeString = value;
-                shapeTypeEnum = (ShapeType)Convert.ToInt32(value);
             }
         }
 
@@ -39,6 +40,9 @@ namespace Nanoleaf.Devices.Classes
 
         [JsonProperty("y")]
         public string panelY;
+
+        [JsonConstructor]
+        public ShapesPanel() { }
 
         public ShapesPanel(string panelID)
         {

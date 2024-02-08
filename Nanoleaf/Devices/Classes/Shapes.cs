@@ -11,12 +11,19 @@ using System.Threading.Tasks;
 
 namespace Nanoleaf.Devices.Classes
 {
-    internal class Shapes : INanoleafShapes
+    public class Shapes : INanoleafShapes
     {
+        [JsonProperty]
         public uint ID { get; private set; }
+        [JsonProperty]
         public Uri URL { get; private set; }
+        [JsonProperty]
         public DeveloperAuthToken DeveloperAuthToken { get; private set; }
+        [JsonProperty]
         public HashSet<IShapesPanel> Panels { get; private set; }
+
+        [JsonConstructor]
+        public Shapes() { }
 
         public Shapes(uint id, Uri url, DeveloperAuthToken token, HashSet<IShapesPanel> panelCollection)
         {
@@ -34,6 +41,9 @@ namespace Nanoleaf.Devices.Classes
         public override bool Equals(object obj)
         {
             var instance = obj as Shapes;
+            if (instance == null)
+                return false;
+            
             return instance.URL == this.URL && instance.DeveloperAuthToken == this.DeveloperAuthToken && instance.ID == this.ID;
         }
 

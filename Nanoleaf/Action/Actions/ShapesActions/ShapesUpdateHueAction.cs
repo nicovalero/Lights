@@ -28,9 +28,15 @@ namespace Nanoleaf.Action.Actions.ShapesActions
     }
     internal class ShapesUpdateHueAction: IAction
     {
+        [JsonProperty]
         private List<INanoleafShapes> shapesList;
+        [JsonProperty]
         private readonly UpdateHueRequest request;
+        [JsonProperty]
         private IEffectConfigSet effectConfigSet;
+
+        [JsonConstructor]
+        internal ShapesUpdateHueAction() { }
 
         internal ShapesUpdateHueAction(List<INanoleafShapes> shapes, ShapesUpdateHueActionValues values, IEffectConfigSet config)
         {

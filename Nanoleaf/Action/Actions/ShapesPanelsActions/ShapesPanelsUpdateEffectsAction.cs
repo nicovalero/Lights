@@ -14,6 +14,7 @@ using Nanoleaf.Network.Classes.Requests.ShapesRequests;
 using static System.TimeZoneInfo;
 using Nanoleaf.Converters;
 using Nanoleaf.EffectConfig.Creators.Classes;
+using Nanoleaf.JsonConverters;
 
 namespace Nanoleaf.Action.Actions.ShapesPanelsActions
 {
@@ -46,10 +47,10 @@ namespace Nanoleaf.Action.Actions.ShapesPanelsActions
         public List<AnimDataValues> AnimDataList { get; set; }
         public string AnimDataString
         {
-            get 
+            get
             {
                 var data = AnimDataList.Count.ToString();
-                foreach(var item in AnimDataList)
+                foreach (var item in AnimDataList)
                 {
                     data = string.Join(" ", data, item.GetData());
                 }
@@ -74,12 +75,43 @@ namespace Nanoleaf.Action.Actions.ShapesPanelsActions
     {
         private Dictionary<INanoleafShapes, UpdateEffectsRequest> shapesRequestDictionary;
 
+        [JsonProperty]
+        private List<KeyValuePair<INanoleafShapes, UpdateEffectsRequest>> ShapesRequestDictionary
+        {
+            get
+            {
+                var list = new List<KeyValuePair<INanoleafShapes, UpdateEffectsRequest>>();
+                foreach (var item in shapesRequestDictionary)
+                {
+                    list.Add(item);
+                }
+
+                return list;
+            }
+            set
+            {
+                if (shapesRequestDictionary == null)
+                {
+                    shapesRequestDictionary = new Dictionary<INanoleafShapes, UpdateEffectsRequest>();
+                }
+                foreach (var item in value)
+                {
+                    shapesRequestDictionary.Add(item.Key, item.Value);
+                }
+            }
+        }
+
         private const string COMMAND = "display";
         private const string VERSION = "2.0";
         private const string ANIMTYPE = "static";
         private const bool LOOP = false;
-        private string[] PALETTE = new string[] {};
+        private string[] PALETTE = new string[] { };
 
+        [JsonConstructor]
+        internal ShapesPanelsUpdateEffectsAction()
+        {
+            shapesRequestDictionary = new Dictionary<INanoleafShapes, UpdateEffectsRequest>();
+        }
         internal ShapesPanelsUpdateEffectsAction(Dictionary<IShapesPanel, INanoleafShapes> panelShapesDictionary, ColorChangeConfigSet config)
         {
             var panelsByShapes = new Dictionary<INanoleafShapes, List<IShapesPanel>>();
@@ -103,7 +135,7 @@ namespace Nanoleaf.Action.Actions.ShapesPanelsActions
 
                 var animDataList = new List<AnimDataValues>();
 
-                for(int i = 0; i < list.Count; i++)
+                for (int i = 0; i < list.Count; i++)
                 {
                     var panel = list[i];
                     var animData = new AnimDataValues(Convert.ToInt32(panel.GetPanelID()), 1, colorValue.R, colorValue.G, colorValue.B, colorValue.A, 1);

@@ -45,7 +45,11 @@ namespace Nanoleaf.Action.Actions.ShapesPanelsActions
 
     internal class ShapesPanelsColorWaveAction : IAction
     {
+        [JsonProperty]
         private Queue<ShapesPanelsColorRequestCombo> panelShapesRequestQueue;
+
+        [JsonConstructor]
+        internal ShapesPanelsColorWaveAction() { }
 
         internal ShapesPanelsColorWaveAction(Dictionary<IShapesPanel, INanoleafShapes> panelShapesDictionary, ShapesPanelsColorWaveActionValues values)
         {

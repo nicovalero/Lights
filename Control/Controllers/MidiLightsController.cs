@@ -154,7 +154,7 @@ namespace Control.Controllers
 
             var linksJson = JsonConvert.SerializeObject(linkList, Formatting.Indented, new JsonSerializerSettings
             {
-                TypeNameHandling = TypeNameHandling.Auto,
+                TypeNameHandling = TypeNameHandling.Objects,
                 TypeNameAssemblyFormat = System.Runtime.Serialization.Formatters.FormatterAssemblyStyle.Simple
             });
 
