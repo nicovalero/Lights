@@ -7,6 +7,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
@@ -37,6 +38,11 @@ namespace UI
         public MainWindow()
         {
             _mainWindow_Controller = MainWindow_ViewController.Singleton();
+
+            var assembly = Assembly.GetExecutingAssembly();
+            var version = assembly.GetName().Version.ToString();
+            Resources["AppVersion"] = string.Join(" ", "Alpha", version);
+
             InitializeLists();
             InitializeComponent();
         }

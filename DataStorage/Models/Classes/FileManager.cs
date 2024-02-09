@@ -12,7 +12,6 @@ namespace DataStorage.Models
 {
     public static class FileManager
     {
-
         public static bool Save(ILinkSaveObject saveObject)
         {
             SaveFileDialog dialog = new SaveFileDialog();
