@@ -19,7 +19,7 @@ namespace Nanoleaf.Devices.Classes
         public Uri URL { get; private set; }
         [JsonProperty]
         public DeveloperAuthToken DeveloperAuthToken { get; private set; }
-        [JsonProperty]
+        [JsonIgnore]
         public HashSet<IShapesPanel> Panels { get; private set; }
 
         [JsonConstructor]
