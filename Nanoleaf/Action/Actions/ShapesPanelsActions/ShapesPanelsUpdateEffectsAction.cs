@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using Nanoleaf.Devices.Interfaces;
 using Nanoleaf.Network.Classes.Requests.ShapesRequests;
 using Nanoleaf.EffectConfig.Creators.Classes;
+using Nanoleaf.RequestAttributes;
 
 namespace Nanoleaf.Action.Actions.ShapesPanelsActions
 {
@@ -50,16 +51,16 @@ namespace Nanoleaf.Action.Actions.ShapesPanelsActions
             }
         }
         public bool Loop { get; set; }
-        public string[] Palette { get; set; }
+        public PaletteValues[] PaletteValues { get; set; }
         public ShapesUpdateEffectsActionValues(string command, string version, string animType, List<AnimDataValues> animDataList,
-            bool loop, string[] palette)
+            bool loop, Palette palette)
         {
             Command = command;
             Version = version;
             AnimType = animType;
             AnimDataList = animDataList;
             Loop = loop;
-            Palette = palette;
+            PaletteValues = palette.GetPaletteArray();
         }
     }
     internal class ShapesPanelsUpdateEffectsAction : IAction
@@ -96,7 +97,7 @@ namespace Nanoleaf.Action.Actions.ShapesPanelsActions
         private const string VERSION = "2.0";
         private const string ANIMTYPE = "static";
         private const bool LOOP = false;
-        private string[] PALETTE = new string[] { };
+        private Palette palette;
 
         [JsonConstructor]
         internal ShapesPanelsUpdateEffectsAction()
@@ -133,7 +134,7 @@ namespace Nanoleaf.Action.Actions.ShapesPanelsActions
                     animDataList.Add(animData);
                 }
 
-                var values = new ShapesUpdateEffectsActionValues(COMMAND, VERSION, ANIMTYPE, animDataList, LOOP, PALETTE);
+                var values = new ShapesUpdateEffectsActionValues(COMMAND, VERSION, ANIMTYPE, animDataList, LOOP, palette);
 
                 var request = new UpdateEffectsRequest(values);
 

@@ -5,6 +5,7 @@ using Nanoleaf.Devices.ShapesPanelLayoutClasses;
 using Nanoleaf.Devices.ShapesRhythm;
 using Nanoleaf.Devices.ShapesStateClasses;
 using Nanoleaf.Network.Interfaces;
+using Nanoleaf.RequestAttributes;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -33,17 +34,20 @@ namespace Nanoleaf.Network.Classes.Requests.ShapesRequests
         public bool Loop { get; set; }
 
         [JsonProperty("palette")]
-        public string[] Palette { get; set; }
+        private PaletteValues[] PaletteValues
+        {
+            get;
+        }
 
         public UpdateEffectsRequestAttribute(string command, string version, string animType, string animData,
-            bool loop, string[] palette)
+            bool loop, PaletteValues[] paletteValues)
         {
             Command = command;
             Version = version;
             AnimType = animType;
             AnimData = animData;
             Loop = loop;
-            Palette = palette;
+            PaletteValues = paletteValues;
         }
     }
 
@@ -56,7 +60,7 @@ namespace Nanoleaf.Network.Classes.Requests.ShapesRequests
         public UpdateEffectsRequest() { }
         public UpdateEffectsRequest(ShapesUpdateEffectsActionValues values)
         {
-            Write = new UpdateEffectsRequestAttribute(values.Command, values.Version, values.AnimType, values.AnimDataString, values.Loop, values.Palette);
+            Write = new UpdateEffectsRequestAttribute(values.Command, values.Version, values.AnimType, values.AnimDataString, values.Loop, values.PaletteValues);
         }
 
         public string GetSerializedJson()

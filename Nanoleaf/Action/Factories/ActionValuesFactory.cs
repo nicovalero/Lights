@@ -2,6 +2,7 @@
 using Nanoleaf.Devices.Interfaces;
 using Nanoleaf.EffectConfig.Creators.Classes;
 using Nanoleaf.Network.Classes.Requests.ShapesRequests;
+using Nanoleaf.RequestAttributes;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -19,7 +20,7 @@ namespace Nanoleaf.Action.Factories
             string VERSION = "2.0";
             string ANIMTYPE = "static";
             bool LOOP = false;
-            string[] PALETTE = new string[] { };
+            Palette palette = new Palette();
 
             var animDataList = new List<AnimDataValues>();
 
@@ -30,7 +31,29 @@ namespace Nanoleaf.Action.Factories
                 animDataList.Add(animData);
             }
 
-            var values = new ShapesUpdateEffectsActionValues(COMMAND, VERSION, ANIMTYPE, animDataList, LOOP, PALETTE);
+            var values = new ShapesUpdateEffectsActionValues(COMMAND, VERSION, ANIMTYPE, animDataList, LOOP, palette);
+
+            return values;
+        }
+
+        internal static ShapesUpdateEffectsActionValues CreateShapesFlashActionValues(List<IShapesPanel> panels, Color color, uint transitionTime)
+        {
+            string COMMAND = "display";
+            string VERSION = "2.0";
+            string ANIMTYPE = "static";
+            bool LOOP = false;
+            Palette palette = new Palette();
+
+            var animDataList = new List<AnimDataValues>();
+
+            for (int i = 0; i < panels.Count; i++)
+            {
+                var panel = panels[i];
+                var animData = new AnimDataValues(Convert.ToInt32(panel.GetPanelID()), 1, color.R, color.G, color.B, color.A, Convert.ToInt16(transitionTime));
+                animDataList.Add(animData);
+            }
+
+            var values = new ShapesUpdateEffectsActionValues(COMMAND, VERSION, ANIMTYPE, animDataList, LOOP, palette);
 
             return values;
         }
