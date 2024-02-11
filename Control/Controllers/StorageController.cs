@@ -35,7 +35,8 @@ namespace Control.Controllers
             {
                 ILinkSaveObject links = JsonConvert.DeserializeObject<ILinkSaveObject>(content, new JsonSerializerSettings
                 {
-                    TypeNameHandling = TypeNameHandling.Objects
+                    TypeNameHandling = TypeNameHandling.Objects,
+                    TypeNameAssemblyFormat = System.Runtime.Serialization.Formatters.FormatterAssemblyStyle.Simple
                 });
 
                 return links;

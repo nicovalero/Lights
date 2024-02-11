@@ -1,4 +1,5 @@
 ﻿using Nanoleaf.Network.Interfaces;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,7 @@ namespace Nanoleaf.Network.Classes
 {
     public class DeveloperAuthToken : IDeveloperAuthToken
     {
+        [JsonProperty("AuthTokenString")]
         private string authToken;
 
         public DeveloperAuthToken(string authToken)

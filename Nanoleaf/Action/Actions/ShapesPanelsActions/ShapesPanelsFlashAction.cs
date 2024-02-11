@@ -43,48 +43,38 @@ namespace Nanoleaf.Action.Actions.ShapesPanelsActions
             Palette = palette;
         }
     }
+    internal class ShapesRequestQueuePair
+    {
+        [JsonProperty("Shapes")]
+        internal INanoleafShapes Shapes;
+        [JsonProperty("RequestQueue")]
+        internal Queue<UpdateEffectsRequest> RequestQueue;
+
+        public ShapesRequestQueuePair(INanoleafShapes shapes, Queue<UpdateEffectsRequest> shapesRequestDictionary)
+        {
+            Shapes = shapes;
+            RequestQueue = shapesRequestDictionary;
+        }
+    }
     internal class ShapesPanelsFlashAction : IAction
     {
-        private Dictionary<INanoleafShapes, Queue<UpdateEffectsRequest>> shapesRequestDictionary;
+        [JsonProperty("TimePerRequest")]
         private int timePerRequest;
 
         [JsonProperty("ShapesRequestQueueList")]
-        private List<KeyValuePair<INanoleafShapes, Queue<UpdateEffectsRequest>>> ShapesRequestDictionary
-        {
-            get
-            {
-                var list = new List<KeyValuePair<INanoleafShapes, Queue<UpdateEffectsRequest>>>();
-                foreach (var item in shapesRequestDictionary)
-                {
-                    list.Add(item);
-                }
-
-                return list;
-            }
-            set
-            {
-                if (shapesRequestDictionary == null)
-                {
-                    shapesRequestDictionary = new Dictionary<INanoleafShapes, Queue<UpdateEffectsRequest>>();
-                }
-                foreach (var item in value)
-                {
-                    shapesRequestDictionary.Add(item.Key, item.Value);
-                }
-            }
-        }
+        private List<ShapesRequestQueuePair> ShapesRequestDictionary;
 
         [JsonConstructor]
         internal ShapesPanelsFlashAction()
         {
-            shapesRequestDictionary = new Dictionary<INanoleafShapes, Queue<UpdateEffectsRequest>>();
+            ShapesRequestDictionary = new List<ShapesRequestQueuePair>();
         }
         internal ShapesPanelsFlashAction(Dictionary<IShapesPanel, INanoleafShapes> panelShapesDictionary, ShapesUpdateEffectsActionValues firstValues,
             ShapesUpdateEffectsActionValues finalValues, uint transitionTimeInMiliseconds)
         {
             timePerRequest = Convert.ToInt16(transitionTimeInMiliseconds / 2);
             var panelsByShapes = new Dictionary<INanoleafShapes, List<IShapesPanel>>();
-            shapesRequestDictionary = new Dictionary<INanoleafShapes, Queue<UpdateEffectsRequest>>();
+            ShapesRequestDictionary = new List<ShapesRequestQueuePair>();
 
             foreach (var kvp in panelShapesDictionary)
             {
@@ -107,19 +97,20 @@ namespace Nanoleaf.Action.Actions.ShapesPanelsActions
                 queue.Enqueue(firstRequest);
                 queue.Enqueue(secondRequest);
 
-                shapesRequestDictionary.Add(shapes, queue);
+                var pair = new ShapesRequestQueuePair(shapes, queue);
+                ShapesRequestDictionary.Add(pair);
             }
         }
 
         public bool Perform()
         {
             bool start = false;
-            foreach (var kvp in shapesRequestDictionary)
+            foreach (var pair in ShapesRequestDictionary)
             {
                 var thread = new Thread(() =>
                 {
-                    var shapes = kvp.Key;
-                    var requestQueue = kvp.Value;
+                    var shapes = pair.Shapes;
+                    var requestQueue = pair.RequestQueue;
 
                     while (!start) { };
                     foreach (var request in requestQueue)
