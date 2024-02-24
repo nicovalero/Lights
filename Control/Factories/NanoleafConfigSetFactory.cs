@@ -64,7 +64,9 @@ namespace Control.Factories
                     config = new TurnOnConfigSet();
                     break;
                 case AvailableViewEffects.UniversalOff:
-                    config = new TurnOffConfigSet();
+                    var offColorString = viewEffectConfigSet.GetEffectConfigProperty(EffectConfigPropertyIdentifier.Color).ToString();
+                    var offColor = System.Drawing.Color.FromArgb(Convert.ToInt32(offColorString));
+                    config = new TurnOffConfigSet(offColor);
                     break;
                 case AvailableViewEffects.UniversalFlash:
                     config = new FlashConfigSet((byte)viewEffectConfigSet.GetEffectConfigProperty(EffectConfigPropertyIdentifier.BrightnessFinal), (byte)viewEffectConfigSet.GetEffectConfigProperty(EffectConfigPropertyIdentifier.BrightnessStart),

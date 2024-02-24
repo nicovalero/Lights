@@ -11,7 +11,7 @@ using Nanoleaf.Network.Factories;
 
 namespace Nanoleaf.EffectConfig.Creators.Classes
 {
-    public class ColorChangeConfigSet : IEffectConfigSet
+    public class ColorChangeConfigSet : IEffectConfigSet, IColorExchangeConfigSet
     {
         private ColorConfig _finalColor;
         private TransitionTimeConfig _transitionTimeConfig;
@@ -50,6 +50,11 @@ namespace Nanoleaf.EffectConfig.Creators.Classes
         {
             RefreshQueue();
             return _DeviceStateQueue;
+        }
+
+        public Color GetRGBColor()
+        {
+            return FinalColor.RGBColor;
         }
     }
 }

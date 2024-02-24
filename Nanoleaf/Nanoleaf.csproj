@@ -115,6 +115,7 @@
     <Compile Include="EffectConfig\Creators\Classes\FlashConfigSet.cs" />
     <Compile Include="EffectConfig\Creators\Classes\TurnOffConfigSet.cs" />
     <Compile Include="EffectConfig\Creators\Classes\TurnOnConfigSet.cs" />
+    <Compile Include="EffectConfig\Creators\Interfaces\IColorExchangeConfigSet.cs" />
     <Compile Include="EffectConfig\Creators\Interfaces\IEffectConfigSet.cs" />
     <Compile Include="EffectConfig\Enums\JSONBodyStateProperty.cs" />
     <Compile Include="EffectConfig\Parts\Classes\BrightnessConfig.cs" />

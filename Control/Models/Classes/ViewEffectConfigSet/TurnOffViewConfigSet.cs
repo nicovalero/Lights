@@ -3,6 +3,7 @@ using Control.Models.Interfaces;
 using Newtonsoft.Json;
 using PhilipsHue.EffectConfig.Parts.Classes;
 using System.Collections.Generic;
+using System.Drawing;
 
 namespace Control.Models.Classes.ViewEffectConfigSet
 {
@@ -10,10 +11,15 @@ namespace Control.Models.Classes.ViewEffectConfigSet
     {
         [JsonProperty]
         private Dictionary<EffectConfigPropertyIdentifier, object> effectDictionary;
+        [JsonProperty]
+        private System.Drawing.Color finalColor;
         public TurnOffViewConfigSet()
         {
             effectDictionary = new Dictionary<EffectConfigPropertyIdentifier, object>();
             effectDictionary.Add(EffectConfigPropertyIdentifier.TurnOff, true);
+
+            finalColor = Color.FromArgb(0, 0, 0, 0);
+            effectDictionary.Add(EffectConfigPropertyIdentifier.Color, finalColor.ToArgb());
         }
 
         public bool ExistsEffectConfig(EffectConfigPropertyIdentifier effectConfigPropertyIdentifier)

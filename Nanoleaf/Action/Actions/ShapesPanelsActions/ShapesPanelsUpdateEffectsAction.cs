@@ -7,6 +7,7 @@ using Nanoleaf.Devices.Interfaces;
 using Nanoleaf.Network.Classes.Requests.ShapesRequests;
 using Nanoleaf.EffectConfig.Creators.Classes;
 using Nanoleaf.RequestAttributes;
+using Nanoleaf.EffectConfig.Creators.Interfaces;
 
 namespace Nanoleaf.Action.Actions.ShapesPanelsActions
 {
@@ -107,10 +108,10 @@ namespace Nanoleaf.Action.Actions.ShapesPanelsActions
         {
             shapesRequestDictionary = new Dictionary<INanoleafShapes, UpdateEffectsRequest>();
         }
-        internal ShapesPanelsUpdateEffectsAction(Dictionary<IShapesPanel, INanoleafShapes> panelShapesDictionary, ColorChangeConfigSet config)
+        internal ShapesPanelsUpdateEffectsAction(Dictionary<IShapesPanel, INanoleafShapes> panelShapesDictionary, IColorExchangeConfigSet config)
         {
             var panelsByShapes = new Dictionary<INanoleafShapes, List<IShapesPanel>>();
-            var colorValue = config.FinalColor.RGBColor;
+            var colorValue = config.GetRGBColor();
             shapesRequestDictionary = new Dictionary<INanoleafShapes, UpdateEffectsRequest>();
 
             foreach (var kvp in panelShapesDictionary)

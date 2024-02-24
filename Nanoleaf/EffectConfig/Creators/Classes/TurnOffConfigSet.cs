@@ -12,16 +12,18 @@ using Nanoleaf.Network.Factories;
 
 namespace Nanoleaf.EffectConfig.Creators.Classes
 {
-    public class TurnOffConfigSet : IEffectConfigSet
+    public class TurnOffConfigSet : IEffectConfigSet, IColorExchangeConfigSet
     {
+        private readonly ColorConfig _finalColor;
         private TurnOnOffConfig _turnOffConfig;
         private Queue<StateJSONProperty> _DeviceStateQueue;
         public TurnOnOffConfig TurnOffConfig { get => _turnOffConfig; set => _turnOffConfig = value; }   
 
-        public TurnOffConfigSet()
+        public TurnOffConfigSet(Color color)
         {
             _turnOffConfig = new TurnOnOffConfig(false);
             _DeviceStateQueue = new Queue<StateJSONProperty>();
+            _finalColor = new ColorConfig(color);
         }
 
         private void RefreshQueue()
@@ -38,6 +40,11 @@ namespace Nanoleaf.EffectConfig.Creators.Classes
         {
             RefreshQueue();
             return _DeviceStateQueue;
+        }
+
+        public Color GetRGBColor()
+        {
+            return _finalColor.RGBColor;
         }
     }
 }

@@ -47,8 +47,12 @@ namespace Nanoleaf.Action.Factories
                     break;
                 //case AvailableEffects.TurnOn:
                 //    break;
-                //case AvailableEffects.TurnOff:
-                //    break;
+                case AvailableEffects.TurnOff:
+                    if (config is TurnOffConfigSet turnOffSet)
+                    {
+                        action = new ShapesPanelsUpdateEffectsAction(panelShapesDictionary, turnOffSet);
+                    }
+                    break;
                 case AvailableEffects.Flash:
                     if(config is FlashConfigSet flashSet)
                     {
