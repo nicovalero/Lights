@@ -253,6 +253,9 @@
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
                             <StackPanel Grid.Column="0">
+                                <uc:CustomButton Title="Identify lights" CardBackground="#152457" Width="230" Height="45" Icon="Cog" Click="IdentifyLights_Click"/>
+                            </StackPanel>
+                            <StackPanel Grid.Column="1">
                                 <uc:CustomButton Title="Configure effect" CardBackground="#152457" Width="230" Height="45" Icon="Cog" Click="EffectConfiguration_Click"/>
                             </StackPanel>
                             <StackPanel Grid.Column="2">

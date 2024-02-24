@@ -60,7 +60,10 @@ namespace Nanoleaf.Action.Actions.ShapesPanelsActions
             AnimType = animType;
             AnimDataList = animDataList;
             Loop = loop;
-            PaletteValues = palette.GetPaletteArray();
+            if(palette != null)
+                PaletteValues = palette.GetPaletteArray();
+            else
+                PaletteValues = new PaletteValues[0];
         }
     }
     internal class ShapesPanelsUpdateEffectsAction : IAction

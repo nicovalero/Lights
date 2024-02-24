@@ -19,6 +19,7 @@ using Control.Models.Interfaces;
 using Nanoleaf.EffectConfig.Creators.Interfaces;
 using System.Threading;
 using System.Linq;
+using Windows.UI.Xaml.Shapes;
 
 namespace Control.Controllers
 {
@@ -27,6 +28,8 @@ namespace Control.Controllers
         private readonly ShapesController shapesController;
         public static Dictionary<MidiMessageKeys, IAction> _messageActionLinks;
         private readonly ShapesPanelFactory shapesPanelFactory;
+
+        private readonly IAction identifyAction;
 
         [JsonProperty("MessageActionLinks")]
         internal Dictionary<MidiMessageKeys, IAction> MessageActionLinks
@@ -101,6 +104,53 @@ namespace Control.Controllers
                 var thread = new Thread(() => shapesController.PerformSimpleAction(action));
                 thread.Start();
             }
+        }
+
+        public void PerformIdentifyAction(MidiLightsController sender, List<IViewLight> lights)
+        {
+            var availableEffectOn = NanoleafEffectViewEffectParser.GetIdentifyAvailableEffectOn();
+            IEffectConfigSet configTurnOn = NanoleafConfigSetFactory.CreateIdentifyActionTurnOnConfigSet();
+
+            var availableEffectColorChange = NanoleafEffectViewEffectParser.GetIdentifyAvailableEffectColorChange();
+            IEffectConfigSet configColorChange = NanoleafConfigSetFactory.CreateIdentifyActionColorChangeConfigSet(lights);
+
+            var deviceIDs = lights.Select(x => x.ID).ToList();
+            var panels = new HashSet<IShapesPanel>(shapesController.GetAllPanels(deviceIDs));
+            var shapes = new HashSet<INanoleafShapes>(shapesController.GetAllShapes(deviceIDs));
+            bool activateThreads = false;
+
+            if (panels.Count > 0)
+            {
+                var panelsColorChangeAction = shapesController.CreateAction(panels, availableEffectColorChange, configColorChange);
+                var panelsTurnOnAction = shapesController.CreateAction(panels, availableEffectOn, configTurnOn);
+
+                var panelsThread = new Thread(() =>
+                {
+                    while (!activateThreads) { }
+                    //Need to implement the action from the Factory, because it's null atm
+                    //shapesController.PerformSimpleAction(panelsTurnOnAction);
+                    //Thread.Sleep(10);
+                    shapesController.PerformSimpleAction(panelsColorChangeAction);
+                });
+                panelsThread.Start();
+            }
+
+            if (shapes.Count > 0)
+            {
+                var shapesColorChangeAction = shapesController.CreateShapesAction(shapes, availableEffectColorChange, configColorChange);
+                var shapesTurnOnAction = shapesController.CreateShapesAction(shapes, availableEffectOn, configTurnOn);
+
+                var shapesThread = new Thread(() =>
+                {
+                    while (!activateThreads) { }
+                    shapesController.PerformSimpleAction(shapesTurnOnAction);
+                    Thread.Sleep(10);
+                    shapesController.PerformSimpleAction(shapesColorChangeAction);
+                });
+                shapesThread.Start();
+            }
+
+            activateThreads = true;
         }
 
         public bool ParseLinks(INanoleafLinkSaveObject saveObject)

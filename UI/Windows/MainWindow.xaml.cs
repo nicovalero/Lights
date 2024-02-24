@@ -380,5 +380,12 @@ namespace UI
             else
                 this.WindowState = WindowState.Normal;
         }
+
+        private void IdentifyLights_Click(object sender, RoutedEventArgs e)
+        {
+            IList selectedLights = GetSelectedLightsList();
+
+            _mainWindow_Controller.PerformIdentifyAction(selectedLights);
+        }
     }
 }

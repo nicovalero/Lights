@@ -57,6 +57,9 @@ namespace Control.Controllers
         internal event TypedEventHandler<MidiLightsController, MidiMessageKeys> DeleteLinkEventHandler;
         internal event TypedEventHandler<MidiLightsController, MidiMessageKeys> PerformLinkEventHandler;
 
+        internal event TypedEventHandler<MidiLightsController, List<IViewLight>> IdentifyPhilipsHueLightsHandler;
+        internal event TypedEventHandler<MidiLightsController, List<IViewLight>> IdentifyNanoleafLightsHandler;
+
         public MidiLightsController()
         {
             viewEffectFactory = new ViewEffectFactory();
@@ -78,6 +81,9 @@ namespace Control.Controllers
 
             PerformLinkEventHandler += _hueLightsController.PerformLinkedAction;
             PerformLinkEventHandler += _nanoleafLightsController.PerformLinkedAction;
+
+            IdentifyNanoleafLightsHandler += _nanoleafLightsController.PerformIdentifyAction;
+            IdentifyPhilipsHueLightsHandler += _hueLightsController.PerformIdentifyAction;
         }
 
         public void MidiMessageReceived(MidiController sender, MidiMessageKeys args)
@@ -86,6 +92,25 @@ namespace Control.Controllers
             ThreadPool.QueueUserWorkItem((state) => PerformLinkedAction(args));
             stopw.Stop();
             Console.WriteLine("Midi Message processed in " + stopw.ElapsedMilliseconds);
+        }
+
+        public void PerformIdentifyAction(List<IViewLight> viewLights)
+        {
+            if (viewLights.Count > 0)
+            {
+                var hueLights = viewLights.Where(x => x.GetLightType() == LightType.PhilipsHue).ToList();
+                var nanoleafLights = viewLights.Where(x => x.GetLightType() == LightType.Nanoleaf).ToList();
+
+                if (hueLights.Count > 0)
+                {
+                    ThreadPool.QueueUserWorkItem((state) => IdentifyPhilipsHueLightsHandler(this, hueLights));
+                }
+
+                if (nanoleafLights.Count > 0)
+                {
+                    ThreadPool.QueueUserWorkItem((state) => IdentifyNanoleafLightsHandler(this, nanoleafLights));
+                }
+            }
         }
 
         public bool CreateLink(MidiChannel channel, MidiNote note, MidiVelocity velocity,

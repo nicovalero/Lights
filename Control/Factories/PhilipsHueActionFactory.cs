@@ -69,7 +69,7 @@ namespace Control.Factories
                 case AvailableViewEffects.UniversalColorChange:
                     var colorString = viewEffectConfigSet.GetEffectConfigProperty(EffectConfigPropertyIdentifier.Color).ToString();
                     var drawingColor = System.Drawing.Color.FromArgb(Convert.ToInt32(colorString));
-                    config = new ColorChangeConfigSet(drawingColor, 
+                    config = new ColorChangeConfigSet(drawingColor,
                         Convert.ToUInt16(viewEffectConfigSet.GetEffectConfigProperty(EffectConfigPropertyIdentifier.TransitionTime)));
                     break;
                 case AvailableViewEffects.UniversalColorWave:
@@ -79,7 +79,7 @@ namespace Control.Factories
                     var colorString2 = viewEffectConfigSet.GetEffectConfigProperty(EffectConfigPropertyIdentifier.Color).ToString();
                     //var drawingColor2 = System.Drawing.Color.FromArgb(Convert.ToInt16(components2[0]), Convert.ToInt16(components2[1]), Convert.ToInt16(components2[2]));
                     var drawingColor2 = System.Drawing.Color.FromArgb(Convert.ToInt32(colorString2));
-                    config = new ColorWaveConfigSet(drawingColor2, transitionConfig, 
+                    config = new ColorWaveConfigSet(drawingColor2, transitionConfig,
                         lightListConfig, intervalTime);
                     break;
                 case AvailableViewEffects.UniversalOn:
@@ -106,6 +106,46 @@ namespace Control.Factories
                     config = new FadeOutConfigSet((byte)viewEffectConfigSet.GetEffectConfigProperty(EffectConfigPropertyIdentifier.BrightnessLevel), (uint)viewEffectConfigSet.GetEffectConfigProperty(EffectConfigPropertyIdentifier.TransitionTime));
                     break;
             }
+
+            SingleLightEffectAction action = new SingleLightEffectAction(lights, effect, config);
+
+            return action;
+        }
+
+        public static SingleLightEffectAction CreateColorChangeIdentifyAction(List<IViewLight> viewLights)
+        {
+            var lights = new List<HueLight>();
+
+            foreach (var light in viewLights)
+            {
+                var hueLight = new HueColorLight();
+                hueLight.uniqueId = light.GetID();
+                lights.Add(hueLight);
+            }
+
+            LightEffect effect = new ColorChange();
+
+            var drawingColor = System.Drawing.Color.FromArgb(255,255,255);
+            IEffectConfigSet config = new ColorChangeConfigSet(drawingColor, Convert.ToUInt16(10));
+
+            SingleLightEffectAction action = new SingleLightEffectAction(lights, effect, config);
+
+            return action;
+        }
+
+        public static SingleLightEffectAction CreateTurnOnIdentifyAction(List<IViewLight> viewLights)
+        {
+            var lights = new List<HueLight>();
+
+            foreach (var light in viewLights)
+            {
+                var hueLight = new HueColorLight();
+                hueLight.uniqueId = light.GetID();
+                lights.Add(hueLight);
+            }
+
+            LightEffect effect = new TurnOn();
+            IEffectConfigSet config = new TurnOnConfigSet();
 
             SingleLightEffectAction action = new SingleLightEffectAction(lights, effect, config);
 

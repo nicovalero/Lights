@@ -45,5 +45,15 @@ namespace Control.Parsers.EffectParsers
 
             return availableEffect;
         }
+
+        internal static AvailableEffects GetIdentifyAvailableEffectColorChange()
+        {
+            return AvailableEffects.ColorChange;
+        }
+
+        internal static AvailableEffects GetIdentifyAvailableEffectOn()
+        {
+            return AvailableEffects.TurnOn;
+        }
     }
 }

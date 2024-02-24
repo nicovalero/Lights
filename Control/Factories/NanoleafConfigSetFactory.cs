@@ -89,5 +89,31 @@ namespace Control.Factories
 
             return config;
         }
+
+        public static IEffectConfigSet CreateIdentifyActionColorChangeConfigSet(List<IViewLight> viewLights)
+        {
+            var lights = new List<IShapesPanel>();
+
+            if (viewLights != null)
+            {
+                var nanoleafLights = viewLights.Where(x => x.GetLightType() == LightType.Nanoleaf);
+
+                foreach (var light in nanoleafLights)
+                {
+                    lights.Add(shapesPanelFactory.CreatePanelFromID(light.ID));
+                }
+            }
+
+            IEffectConfigSet config = null;
+            var drawingColor = System.Drawing.Color.FromArgb(255,255,255);
+            config = new ColorChangeConfigSet(drawingColor, Convert.ToUInt16(10));
+
+            return config;
+        }
+
+        public static IEffectConfigSet CreateIdentifyActionTurnOnConfigSet()
+        {
+            return new TurnOnConfigSet();
+        }
     }
 }

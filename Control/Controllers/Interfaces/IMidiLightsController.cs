@@ -1,4 +1,5 @@
-﻿using Control.Models.Structs;
+﻿using Control.Models.Interfaces;
+using Control.Models.Structs;
 using DataStorage.Models.Interfaces;
 using MIDI.Models.Structs;
 using PhilipsHue.Actions.Interfaces;
@@ -19,6 +20,7 @@ namespace Control.Controllers.Interfaces
         bool CreateLink(MidiMessageViewLightsEffectConfig linkData);
         bool RemoveLink(MidiMessageKeys keys);
         void PerformLinkedAction(MidiLightsController sender, MidiMessageKeys keys);
+        void PerformIdentifyAction(MidiLightsController sender, List<IViewLight> lights);
         void ConnectSystem();
         int GetControllerDeviceCount();
         void CreateLinkHandler(object sender, MidiMessageViewLightsEffectConfig linkData);

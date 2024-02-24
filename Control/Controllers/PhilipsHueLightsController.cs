@@ -1,5 +1,6 @@
 ﻿using Control.Controllers.Interfaces;
 using Control.Factories;
+using Control.Models.Interfaces;
 using Control.Models.Structs;
 using DataStorage.Models;
 using DataStorage.Models.Interfaces;
@@ -82,6 +83,22 @@ namespace Control.Controllers
             {
                 LightEffectAction action = _messageActionLinks[keys];
                 var thread = new Thread(() => _hueLightController.PerformAction(action));
+                thread.Start();
+            }
+        }
+
+        public void PerformIdentifyAction(MidiLightsController sender, List<IViewLight> lights)
+        {
+            if (lights.Count > 0)
+            {
+                var colorChangeAction = PhilipsHueActionFactory.CreateColorChangeIdentifyAction(lights);
+                var turnOnAction = PhilipsHueActionFactory.CreateTurnOnIdentifyAction(lights);
+                var thread = new Thread(() =>
+                {
+                    _hueLightController.PerformAction(turnOnAction);
+                    Thread.Sleep(10);
+                    _hueLightController.PerformAction(colorChangeAction);
+                });
                 thread.Start();
             }
         }

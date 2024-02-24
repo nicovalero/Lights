@@ -58,6 +58,14 @@ namespace UI
             return true;
         }
 
+        internal bool PerformIdentifyAction(IList selectedLights)
+        {
+            List<IViewLight> lights = ConvertIList_ToHueLightList(selectedLights);
+            _midiLightsController.PerformIdentifyAction(lights);
+
+            return true;
+        }
+
         public List<MidiEffectLink_ViewModel> GetLinks()
         {
             Dictionary<MidiMessageKeys, IViewLink> result = _midiLightsController.GetMidiMessageLinkDictionary();
