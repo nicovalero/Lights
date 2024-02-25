@@ -41,7 +41,7 @@ namespace Nanoleaf.Action.Factories
                         var panelsQueue = new Queue<IShapesPanel>(waveSet.LightListConfig.LightList);
 
                         var values = ActionValuesFactory.CreateShapesUpdateColorWaveActionValues(panelsQueue, waveSet.ColorConfig.RGBColor,
-                            waveSet.IntervalTimeConfig.GetTimeInMiliseconds());
+                            waveSet.TransitionTimeConfig.GetTimeInMiliseconds(), waveSet.IntervalTimeConfig.GetTimeInMiliseconds());
                         action = new ShapesPanelsColorWaveAction(panelShapesDictionary, values);
                     }
                     break;

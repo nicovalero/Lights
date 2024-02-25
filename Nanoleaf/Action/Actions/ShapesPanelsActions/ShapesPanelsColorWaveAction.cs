@@ -22,10 +22,12 @@ namespace Nanoleaf.Action.Actions.ShapesPanelsActions
     {
         public Queue<Tuple<IShapesPanel, ShapesUpdateEffectsActionValues>> panelsValuesQueue;
         public uint transitionTimeInMilliseconds;
-        public ShapesPanelsColorWaveActionValues(Queue<Tuple<IShapesPanel, ShapesUpdateEffectsActionValues>> panelsValuesQueue, uint transitionTimeInMilliseconds)
+        public uint intervalTimeInMilliseconds;
+        public ShapesPanelsColorWaveActionValues(Queue<Tuple<IShapesPanel, ShapesUpdateEffectsActionValues>> panelsValuesQueue, uint transitionTimeInMilliseconds, uint intervalTimeInMilliseconds)
         {
             this.panelsValuesQueue = panelsValuesQueue;
             this.transitionTimeInMilliseconds = transitionTimeInMilliseconds;
+            this.intervalTimeInMilliseconds = intervalTimeInMilliseconds;
         }
     }
 
@@ -33,13 +35,13 @@ namespace Nanoleaf.Action.Actions.ShapesPanelsActions
     {
         public INanoleafShapes shapes;
         public UpdateEffectsRequest request;
-        public int transitionTimeInMilliseconds;
+        public int intervalTimeInMilliseconds;
 
-        internal ShapesPanelsColorRequestCombo(INanoleafShapes shapes, UpdateEffectsRequest request, uint transitionTimeInMilliseconds)
+        internal ShapesPanelsColorRequestCombo(INanoleafShapes shapes, UpdateEffectsRequest request, uint intervalTimeInMilliseconds)
         {
             this.shapes = shapes;
             this.request = request;
-            this.transitionTimeInMilliseconds = Convert.ToInt32(transitionTimeInMilliseconds);
+            this.intervalTimeInMilliseconds = Convert.ToInt32(intervalTimeInMilliseconds);
         }
     }
 
@@ -61,7 +63,7 @@ namespace Nanoleaf.Action.Actions.ShapesPanelsActions
                 {
                     var shapes = panelShapesDictionary[panel];
                     var request = new UpdateEffectsRequest(panelValues.Item2);
-                    var combo = new ShapesPanelsColorRequestCombo(shapes, request, values.transitionTimeInMilliseconds);
+                    var combo = new ShapesPanelsColorRequestCombo(shapes, request, values.intervalTimeInMilliseconds);
                     panelShapesRequestQueue.Enqueue(combo);
                 }
             }
@@ -75,7 +77,7 @@ namespace Nanoleaf.Action.Actions.ShapesPanelsActions
                 var request = combo.request;
 
                 EndpointMessenger.UpdateEffectsRequest(shapes.URL, shapes.DeveloperAuthToken, request);
-                Thread.Sleep(combo.transitionTimeInMilliseconds);
+                Thread.Sleep(combo.intervalTimeInMilliseconds);
             }
 
             return true;

@@ -112,6 +112,7 @@ namespace Nanoleaf.Action.Actions.ShapesPanelsActions
         {
             var panelsByShapes = new Dictionary<INanoleafShapes, List<IShapesPanel>>();
             var colorValue = config.GetRGBColor();
+            var transitionTimeInTenthsOfSeconds = Convert.ToInt32(config.GetTransitionTimeInMilliseconds() / 100);
             shapesRequestDictionary = new Dictionary<INanoleafShapes, UpdateEffectsRequest>();
 
             foreach (var kvp in panelShapesDictionary)
@@ -134,7 +135,7 @@ namespace Nanoleaf.Action.Actions.ShapesPanelsActions
                 for (int i = 0; i < list.Count; i++)
                 {
                     var panel = list[i];
-                    var animData = new AnimDataValues(Convert.ToInt32(panel.GetPanelID()), 1, colorValue.R, colorValue.G, colorValue.B, colorValue.A, 1);
+                    var animData = new AnimDataValues(Convert.ToInt32(panel.GetPanelID()), 1, colorValue.R, colorValue.G, colorValue.B, colorValue.A, transitionTimeInTenthsOfSeconds);
                     animDataList.Add(animData);
                 }
 

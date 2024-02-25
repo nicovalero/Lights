@@ -56,5 +56,10 @@ namespace Nanoleaf.EffectConfig.Creators.Classes
         {
             return FinalColor.RGBColor;
         }
+
+        public uint GetTransitionTimeInMilliseconds()
+        {
+            return TransitionTimeConfig.GetTimeInMiliseconds();
+        }
     }
 }

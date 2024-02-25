@@ -10,5 +10,6 @@ namespace Nanoleaf.EffectConfig.Creators.Interfaces
     internal interface IColorExchangeConfigSet
     {
         Color GetRGBColor();
+        uint GetTransitionTimeInMilliseconds();
     }
 }

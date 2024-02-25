@@ -14,7 +14,30 @@ namespace Nanoleaf.Action.Factories
 {
     internal static class ActionValuesFactory
     {
-        internal static ShapesUpdateEffectsActionValues CreateShapesUpdateEffectsActionValues(List<IShapesPanel> panels, Color colorValue)
+        internal static ShapesUpdateEffectsActionValues CreateShapesUpdateEffectsActionValues(List<IShapesPanel> panels, Color colorValue, uint transitionTimeInMilliseconds)
+        {
+            string COMMAND = "display";
+            string VERSION = "2.0";
+            string ANIMTYPE = "static";
+            bool LOOP = false;
+            Palette palette = new Palette();
+            int transitionTimeInTenthsOfSeconds = Convert.ToInt16(transitionTimeInMilliseconds) / 100;
+
+            var animDataList = new List<AnimDataValues>();
+
+            for (int i = 0; i < panels.Count; i++)
+            {
+                var panel = panels[i];
+                var animData = new AnimDataValues(Convert.ToInt32(panel.GetPanelID()), 1, colorValue.R, colorValue.G, colorValue.B, colorValue.A, transitionTimeInTenthsOfSeconds);
+                animDataList.Add(animData);
+            }
+
+            var values = new ShapesUpdateEffectsActionValues(COMMAND, VERSION, ANIMTYPE, animDataList, LOOP, palette);
+
+            return values;
+        }
+
+        internal static ShapesUpdateEffectsActionValues CreateShapesFlashActionValues(List<IShapesPanel> panels, Color color, uint transitionTimeInTenthsOfSeconds)
         {
             string COMMAND = "display";
             string VERSION = "2.0";
@@ -27,7 +50,7 @@ namespace Nanoleaf.Action.Factories
             for (int i = 0; i < panels.Count; i++)
             {
                 var panel = panels[i];
-                var animData = new AnimDataValues(Convert.ToInt32(panel.GetPanelID()), 1, colorValue.R, colorValue.G, colorValue.B, colorValue.A, 1);
+                var animData = new AnimDataValues(Convert.ToInt32(panel.GetPanelID()), 1, color.R, color.G, color.B, color.A, Convert.ToInt16(transitionTimeInTenthsOfSeconds));
                 animDataList.Add(animData);
             }
 
@@ -36,41 +59,19 @@ namespace Nanoleaf.Action.Factories
             return values;
         }
 
-        internal static ShapesUpdateEffectsActionValues CreateShapesFlashActionValues(List<IShapesPanel> panels, Color color, uint transitionTime)
-        {
-            string COMMAND = "display";
-            string VERSION = "2.0";
-            string ANIMTYPE = "static";
-            bool LOOP = false;
-            Palette palette = new Palette();
-
-            var animDataList = new List<AnimDataValues>();
-
-            for (int i = 0; i < panels.Count; i++)
-            {
-                var panel = panels[i];
-                var animData = new AnimDataValues(Convert.ToInt32(panel.GetPanelID()), 1, color.R, color.G, color.B, color.A, Convert.ToInt16(transitionTime));
-                animDataList.Add(animData);
-            }
-
-            var values = new ShapesUpdateEffectsActionValues(COMMAND, VERSION, ANIMTYPE, animDataList, LOOP, palette);
-
-            return values;
-        }
-
-        internal static ShapesPanelsColorWaveActionValues CreateShapesUpdateColorWaveActionValues(Queue<IShapesPanel> panels, Color colorValue, uint transitionTimeInMilliseconds)
+        internal static ShapesPanelsColorWaveActionValues CreateShapesUpdateColorWaveActionValues(Queue<IShapesPanel> panels, Color colorValue, uint transitionTimeInMilliseconds, uint intervalTimeInMilliseconds)
         {
             var panelEffectActionValuesTupleList = new Queue<Tuple<IShapesPanel, ShapesUpdateEffectsActionValues>>();
             foreach (var panel in panels)
             {
                 var panelList = new List<IShapesPanel> { panel };
-                var effectActionValues = CreateShapesUpdateEffectsActionValues(panelList, colorValue);
+                var effectActionValues = CreateShapesUpdateEffectsActionValues(panelList, colorValue, transitionTimeInMilliseconds);
                 var tuple = new Tuple<IShapesPanel, ShapesUpdateEffectsActionValues>(panel, effectActionValues);
 
                 panelEffectActionValuesTupleList.Enqueue(tuple);
             }
 
-            return new ShapesPanelsColorWaveActionValues(panelEffectActionValuesTupleList, transitionTimeInMilliseconds);
+            return new ShapesPanelsColorWaveActionValues(panelEffectActionValuesTupleList, transitionTimeInMilliseconds, intervalTimeInMilliseconds);
         }
     }
 }

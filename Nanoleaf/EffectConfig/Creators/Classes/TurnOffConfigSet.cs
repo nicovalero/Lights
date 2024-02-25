@@ -14,8 +14,10 @@ namespace Nanoleaf.EffectConfig.Creators.Classes
 {
     public class TurnOffConfigSet : IEffectConfigSet, IColorExchangeConfigSet
     {
+        private const uint TRANSITIONTIME = 0;
         private readonly ColorConfig _finalColor;
         private TurnOnOffConfig _turnOffConfig;
+        private TransitionTimeConfig _transitionTimeConfig;
         private Queue<StateJSONProperty> _DeviceStateQueue;
         public TurnOnOffConfig TurnOffConfig { get => _turnOffConfig; set => _turnOffConfig = value; }   
 
@@ -24,6 +26,7 @@ namespace Nanoleaf.EffectConfig.Creators.Classes
             _turnOffConfig = new TurnOnOffConfig(false);
             _DeviceStateQueue = new Queue<StateJSONProperty>();
             _finalColor = new ColorConfig(color);
+            _transitionTimeConfig = new TransitionTimeConfig(TRANSITIONTIME);
         }
 
         private void RefreshQueue()
@@ -45,6 +48,11 @@ namespace Nanoleaf.EffectConfig.Creators.Classes
         public Color GetRGBColor()
         {
             return _finalColor.RGBColor;
+        }
+
+        public uint GetTransitionTimeInMilliseconds()
+        {
+            return _transitionTimeConfig.GetTimeInMiliseconds();
         }
     }
 }
