@@ -98,10 +98,18 @@ namespace Nanoleaf.Action.Factories
                     break;
                 //case AvailableEffects.UniversalColorWave:
                 //    break;
-                //case AvailableEffects.TurnOn:
-                //    break;
-                //case AvailableEffects.TurnOff:
-                //    break;
+                case AvailableEffects.TurnOn:
+                    if (config is TurnOnConfigSet turnOnSet)
+                    {
+                        action = new ShapesTurnOnAction(shapesList, turnOnSet);
+                    }
+                    break;
+                case AvailableEffects.TurnOff:
+                    if (config is TurnOffConfigSet turnOffSet)
+                    {
+                        action = new ShapesTurnOffAction(shapesList, turnOffSet);
+                    }
+                    break;
                 //case AvailableEffects.UniversalFlash:
                 //    break;
                 //case AvailableEffects.UniversalBrightnessWave:

@@ -183,10 +183,10 @@ namespace Nanoleaf.Devices.Classes
 
             foreach (string id in ids)
             {
-                var controller = panels.Select(x => x).Where(x => Convert.ToString(x.GetPanelID()) == id).FirstOrDefault();
+                var panel = panels.Select(x => x).Where(x => Convert.ToString(x.GetPanelID()) == id && x.GetShapeType() != Enums.ShapeType.ShapesController).FirstOrDefault();
 
-                if (controller != null)
-                    results.Add(controller);
+                if (panel != null)
+                    results.Add(panel);
             }
 
             return results;

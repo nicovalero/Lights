@@ -20,10 +20,10 @@ namespace Nanoleaf.Action.Actions.ShapesActions
 {
     internal struct ShapesUpdateHueActionValues
     {
-        public double value;
+        public int value;
         public ShapesUpdateHueActionValues(double value)
         {
-            this.value = value;
+            this.value = Convert.ToInt32(value);
         }
     }
     internal class ShapesUpdateHueAction: IAction

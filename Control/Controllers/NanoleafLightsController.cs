@@ -29,8 +29,6 @@ namespace Control.Controllers
         public static Dictionary<MidiMessageKeys, IAction> _messageActionLinks;
         private readonly ShapesPanelFactory shapesPanelFactory;
 
-        private readonly IAction identifyAction;
-
         [JsonProperty("MessageActionLinks")]
         internal Dictionary<MidiMessageKeys, IAction> MessageActionLinks
         {

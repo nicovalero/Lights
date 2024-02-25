@@ -19,6 +19,7 @@ namespace Nanoleaf.Network.Classes
         private const string NEWDEVELOPERPATH = APIPATH + "/new";
         private const string PANELLAYOUTPATH = "/panelLayout/layout";
         private const string STATEPATH = "state";
+        private const string STATEONPATH = STATEPATH + "/on";
         private const string SATURATIONPATH = STATEPATH + "/sat";
         private const string EFFECTSPATH = "effects";
         private const int PORT = 16021;
@@ -86,6 +87,19 @@ namespace Nanoleaf.Network.Classes
         {
             var builder = new UriBuilder(URL);
             builder.Path = string.Format("{0}/{1}/{2}/", APIPATH, token.GetToken(), STATEPATH);
+            builder.Port = PORT;
+
+            var json = request.GetSerializedJson();
+            StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
+
+            var path = builder.Uri.ToString();
+            HTTPMessenger.SendPutRequestAsync(path, content);
+        }
+
+        internal static void UpdateStateOnRequest(Uri URL, DeveloperAuthToken token, IUpdateStateRequest request)
+        {
+            var builder = new UriBuilder(URL);
+            builder.Path = string.Format("{0}/{1}/{2}/", APIPATH, token.GetToken(), STATEONPATH);
             builder.Port = PORT;
 
             var json = request.GetSerializedJson();
