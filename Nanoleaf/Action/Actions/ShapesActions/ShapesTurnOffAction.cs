@@ -19,8 +19,13 @@ namespace Nanoleaf.Action.Actions.ShapesActions
 {
     internal class ShapesTurnOffAction : IAction
     {
+        [JsonProperty]
         private List<INanoleafShapes> shapesList;
+        [JsonProperty]
         private UpdateStateOnRequest request;
+
+        [JsonConstructor]
+        public ShapesTurnOffAction() { }
 
         internal ShapesTurnOffAction(List<INanoleafShapes> shapesList, TurnOffConfigSet set)
         {
