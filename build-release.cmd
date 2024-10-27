@@ -1,0 +1,1 @@
+msbuild Lights.sln -t:Rebuild -p:Configuration=Release
