@@ -25,7 +25,14 @@ namespace Nanoleaf.Network
 
         internal static HttpResponseMessage SendPutRequestAsync(string path, StringContent data = null)
         {
-            return _client.PutAsync(path, data).Result;
+            try
+            {
+                return _client.PutAsync(path, data).GetAwaiter().GetResult();
+            }
+            catch(TaskCanceledException ex)
+            {
+                return null;
+            }
         }
     }
 }
