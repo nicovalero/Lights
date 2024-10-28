@@ -9,6 +9,8 @@ namespace Nanoleaf.Devices.Interfaces
 {
     public interface IShapesPanel
     {
+        bool IsAmbience();
+        bool IsColorCompatible();
         string GetPanelID();
         string GetPanelX();
         string GetPanelY();

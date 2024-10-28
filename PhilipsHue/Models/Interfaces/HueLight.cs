@@ -26,6 +26,7 @@ namespace PhilipsHue.Models.Interfaces
         bool IsOn();
         void Switch(bool on);
         void ChangeStateProperties(HueState state, List<HueJSONBodyStateProperty> properties);
-
+        bool IsAmbience();
+        bool IsColorCompatible();
     }
 }

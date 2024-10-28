@@ -52,6 +52,8 @@ namespace Control.Controllers
         private ViewLightFactory viewLightFactory;
         private ViewLinkFactory viewLinkFactory;
 
+        private const int SUPPORTEDLIGHTTYPES = 2;
+
         internal event TypedEventHandler<MidiLightsController, MidiMessageViewLightsEffectConfig> CreateLinkPhilipsHueEventHandler;
         internal event TypedEventHandler<MidiLightsController, MidiMessageViewLightsEffectConfig> CreateLinkNanoleafEventHandler;
         internal event TypedEventHandler<MidiLightsController, MidiMessageKeys> DeleteLinkEventHandler;
@@ -302,6 +304,55 @@ namespace Control.Controllers
             return list;
         }
 
+        public List<IViewEffect> GetCompatibleViewEffects(List<ImplementedEffect> effects)
+        {
+            var list = new List<IViewEffect>();
+
+            foreach (var effect in effects)
+            {
+                IViewEffect viewEffect = null;
+                switch(effect)
+                {
+                    case ImplementedEffect.TurnOn:
+                        viewEffect = viewEffectFactory.Construct(AvailableViewEffects.UniversalOn);
+                        break;
+                    case ImplementedEffect.TurnOff:
+                        viewEffect = viewEffectFactory.Construct(AvailableViewEffects.UniversalOff);
+                        break;
+                    case ImplementedEffect.BrightnessWave:
+                        viewEffect = viewEffectFactory.Construct(AvailableViewEffects.UniversalBrightnessWave);
+                        break;
+                    case ImplementedEffect.ColorWave:
+                        viewEffect = viewEffectFactory.Construct(AvailableViewEffects.UniversalColorWave);
+                        break;
+                    case ImplementedEffect.ColorChange:
+                        viewEffect = viewEffectFactory.Construct(AvailableViewEffects.UniversalColorChange);
+                        break;
+                    case ImplementedEffect.FadeIn:
+                        viewEffect = viewEffectFactory.Construct(AvailableViewEffects.UniversalFadeIn);
+                        break;
+                    case ImplementedEffect.FadeOut:
+                        viewEffect = viewEffectFactory.Construct(AvailableViewEffects.UniversalFadeOut);
+                        break;
+                    case ImplementedEffect.Flash:
+                        viewEffect = viewEffectFactory.Construct(AvailableViewEffects.UniversalFlash);
+                        break;
+                    case ImplementedEffect.NanoleafEffect:
+                        viewEffect = viewEffectFactory.Construct(AvailableViewEffects.NanoleafEffect);
+                        break;
+                    default:
+                        break;
+                }
+
+                if(viewEffect != null)
+                {
+                    list.Add(viewEffect);
+                }
+            }
+
+            return list;
+        }
+
         public List<IViewLight> GetAllAvailableHueLights()
         {
             var hueLights = _concreteHueLightsController.GetAllAvailableDevices();
@@ -353,6 +404,11 @@ namespace Control.Controllers
             {
                 _links.Add(link.Key, link.Value);
             }
+        }
+
+        public int GetSupportedLightTypeAmount()
+        {
+            return SUPPORTEDLIGHTTYPES;
         }
     }
 }

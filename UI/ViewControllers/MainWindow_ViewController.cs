@@ -25,6 +25,7 @@ using PhilipsHue.EffectConfig.Creators.Classes;
 using UI.Models.ViewModel_Config_Sets.Classes;
 using PhilipsHue.Effects.Classes;
 using Control.Models.Interfaces;
+using Control.Enums;
 
 namespace UI
 {
@@ -212,6 +213,56 @@ namespace UI
         internal List<CardConfigList_ViewModel> GetHueEffectCardConfigList()
         {
             return HueEffect_ToCardConfigConverter.ConvertLightEffect_ToCardConfig(_midiLightsController.GetAllViewEffectsAvailable());
+        }
+
+        internal List<CardConfigList_ViewModel> GetCompatibleEffectList(List<IConfigListViewModel> list)
+        {
+            if(list.Count == 0)
+            {
+                return HueEffect_ToCardConfigConverter.ConvertLightEffect_ToCardConfig(_midiLightsController.GetAllViewEffectsAvailable());
+            }
+            else
+            {
+                var lightList = ConvertIList_ToHueLightList(list);                
+                var ocurrencesPerEffect = new Dictionary<ImplementedEffect, HashSet<LightType>>();
+                var detectedLightTypes = new HashSet<LightType>();
+
+                foreach(var light in lightList)
+                {
+                    var type = light.GetLightType();
+                    var effects = light.GetImplementedEffects();
+
+                    foreach(var effect in effects)
+                    {
+                        if(!ocurrencesPerEffect.ContainsKey(effect))
+                        {
+                            ocurrencesPerEffect.Add(effect, new HashSet<LightType>());
+                        }
+                        if (!ocurrencesPerEffect[effect].Contains(type))
+                        {
+                            ocurrencesPerEffect[effect].Add(type);
+                        }
+
+                        if (!detectedLightTypes.Contains(type))
+                        {
+                            detectedLightTypes.Add(type);
+                        }
+                    }
+                }
+
+                var compatibles = new List<ImplementedEffect>();
+                var detectedTypes = detectedLightTypes.Count;
+
+                foreach(var kvp in ocurrencesPerEffect)
+                {
+                    if(kvp.Value.Count == detectedTypes)
+                    {
+                        compatibles.Add(kvp.Key);
+                    }
+                }
+
+                return HueEffect_ToCardConfigConverter.ConvertLightEffect_ToCardConfig(_midiLightsController.GetCompatibleViewEffects(compatibles));
+            }
         }
 
         public List<SimpleConfigList_ViewModel> GetAvailableMidiNoteList()

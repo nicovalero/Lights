@@ -12,4 +12,17 @@ namespace Control.Enums
         Nanoleaf,
         Universal
     }
+
+    public enum ImplementedEffect
+    {
+        TurnOn,
+        TurnOff,
+        Flash,
+        ColorChange,
+        ColorWave,
+        BrightnessWave,
+        FadeIn,
+        FadeOut,
+        NanoleafEffect
+    }
 }

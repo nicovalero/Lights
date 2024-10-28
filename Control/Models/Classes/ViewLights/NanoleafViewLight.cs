@@ -20,6 +20,7 @@ namespace Control.Models.Classes.ViewEffects
         private const LightType TYPE = LightType.Nanoleaf;
         private const string TYPENAME = "Nanoleaf";
         private readonly string NAME = "Nanoleaf panels";
+        private readonly List<ImplementedEffect> effects;
 
         [JsonProperty]
         private readonly string id;
@@ -28,6 +29,12 @@ namespace Control.Models.Classes.ViewEffects
         {
             this.id = ID;
             this.NAME = ID;
+            effects = new List<ImplementedEffect>()
+            {
+                ImplementedEffect.ColorChange,
+                ImplementedEffect.ColorWave,
+                ImplementedEffect.Flash
+            };
         }
         public string GetDescription()
         {
@@ -52,6 +59,11 @@ namespace Control.Models.Classes.ViewEffects
         public string GetID()
         {
             return id;
+        }
+
+        public List<ImplementedEffect> GetImplementedEffects()
+        {
+            return effects;
         }
     }
 }

@@ -145,5 +145,15 @@ namespace PhilipsHue.Models.Classes
                 }
             }
         }
+
+        public bool IsAmbience()
+        {
+            return true;
+        }
+
+        public bool IsColorCompatible()
+        {
+            return true;
+        }
     }
 }

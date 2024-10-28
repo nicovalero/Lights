@@ -96,5 +96,15 @@ namespace Nanoleaf.Devices.Classes
             hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(panelID);
             return hashCode;
         }
+
+        public bool IsAmbience()
+        {
+            return true;
+        }
+
+        public bool IsColorCompatible()
+        {
+            return true;
+        }
     }
 }

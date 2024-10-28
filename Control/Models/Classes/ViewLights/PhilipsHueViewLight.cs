@@ -27,12 +27,24 @@ namespace Control.Models.Classes.ViewEffects
         private readonly string NAME = "Philips Hue Light";
         [JsonProperty]
         private readonly string id;
+        private readonly List<ImplementedEffect> effects;
 
         public PhilipsHueViewLight(string ID, string lightName, string description)
         {
             this.id = ID;
             NAME = lightName;
             DESCRIPTION = description;
+            effects = new List<ImplementedEffect>()
+            {
+                ImplementedEffect.ColorChange,
+                ImplementedEffect.ColorWave,
+                ImplementedEffect.Flash,
+                ImplementedEffect.TurnOn,
+                ImplementedEffect.TurnOff,
+                ImplementedEffect.BrightnessWave,
+                ImplementedEffect.FadeIn,
+                ImplementedEffect.FadeOut
+            };
         }
         public string GetDescription()
         {
@@ -57,6 +69,11 @@ namespace Control.Models.Classes.ViewEffects
         public string GetID()
         {
             return id;
+        }
+
+        public List<ImplementedEffect> GetImplementedEffects()
+        {
+            return effects;
         }
     }
 }

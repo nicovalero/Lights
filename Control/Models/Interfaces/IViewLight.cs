@@ -17,5 +17,6 @@ namespace Control.Models.Interfaces
         string GetID();
         string GetName();
         string GetDescription();
+        List<ImplementedEffect> GetImplementedEffects();
     }
 }

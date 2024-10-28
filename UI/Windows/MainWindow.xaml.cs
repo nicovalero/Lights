@@ -361,6 +361,7 @@ namespace UI
         private void LinkLightList_OnItemSelectionChanged(object sender, RoutedEventArgs e)
         {
             PopulateCurrentEffectConfigWithLightList();
+            RefreshEffectsListAfterLightSelection();
         }
 
         private void PopulateCurrentEffectConfigWithLightList()
@@ -371,6 +372,12 @@ namespace UI
                 LightListConfig_ViewModel lightListConfigViewModel = new LightListConfig_ViewModel(new ObservableCollection<IConfigListViewModel>(list));
                 lightListConfig.SetLightListConfig(lightListConfigViewModel);
             }
+        }
+
+        private void RefreshEffectsListAfterLightSelection()
+        {
+            List<IConfigListViewModel> list = GetSelectedLightsList();
+            Resources["HueEffectList"] = _mainWindow_Controller.GetCompatibleEffectList(list);
         }
 
         private void MaximizeAppButton_Click(object sender, RoutedEventArgs e)
